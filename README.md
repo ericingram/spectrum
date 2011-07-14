@@ -1,4 +1,5 @@
 ###Spectrum
+Spectrum is a PHP framework for BDD specification test.
 
 **Current version is alpha and maybe not stable.**
 
