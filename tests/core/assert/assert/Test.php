@@ -1,0 +1,94 @@
+<?php
+/*
+ * Spectrum
+ *
+ * Copyright (c) 2011 Mikhail Kharitonov <mvkharitonov@gmail.com>
+ * All rights reserved.
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.txt.
+ */
+
+namespace net\mkharitonov\spectrum\core\assert\assert;
+require_once dirname(__FILE__) . '/../../../init.php';
+
+/**
+ * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
+ * @link   http://www.mkharitonov.net/spectrum/
+ */
+abstract class Test extends \net\mkharitonov\spectrum\core\Test
+{
+
+/*** Test ware ***/
+
+	protected function runInTestCallback($callback)
+	{
+		$it = $this->createItWithMatchers();
+
+		$test = $this;
+		$it->setTestCallback(function() use($callback, $test, $it, &$isCallbackCalled)
+		{
+			$isCallbackCalled = true;
+			call_user_func($callback, $test, $it, func_get_args());
+
+		});
+
+		$it->run();
+		$this->assertTrue($isCallbackCalled);
+	}
+
+	protected function createItWithMatchers()
+	{
+		$it = new \net\mkharitonov\spectrum\core\SpecItemIt();
+		$it->errorHandling->setCatchExceptions(false);
+		$it->errorHandling->setCatchPhpErrors(false);
+		$it->errorHandling->setBreakOnFirstPhpError(false);
+		$it->errorHandling->setBreakOnFirstMatcherFail(false);
+		
+		$it->matchers->add('beTrue', function($actual){
+			return ($actual === true);
+		});
+
+		$it->matchers->add('beFalse', function($actual){
+			return ($actual === false);
+		});
+
+		$it->matchers->add('beNull', function($actual){
+			return ($actual === null);
+		});
+
+		$it->matchers->add('beEq', function($actual, $expected){
+			return ($actual == $expected);
+		});
+
+		$it->matchers->add('beReturnSecondArg', function($actual, $expected)
+		{
+			$args = func_get_args();
+			return $args[2];
+		});
+
+		$it->matchers->add('beBad', function($actual){
+			throw new \Exception('I am bad matcher');
+		});
+
+		$it->matchers->add('beBadToo', function($actual){
+			throw new \Exception('I am bad matcher too');
+		});
+
+		return $it;
+	}
+
+	protected function assertAllResultsDetailsDifferent(array $results)
+	{
+		foreach ($results as $key => $val)
+		{
+			foreach ($results as $key2 => $val2)
+			{
+				if ($key != $key2)
+				{
+					$this->assertNotSame($val['details'], $val2['details']);
+				}
+			}
+		}
+	}
+}
