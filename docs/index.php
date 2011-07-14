@@ -115,12 +115,15 @@ function generateCacheFilename()
 
 <ol>
 	<li><a href="#base">Базовая структура</a></li>
+	<li><a href="#data-providers">Дата провайдеры</a></li>
 	<li><a href="#asserts">Утверждения и матчеры</a></li>
 	<li><a href="#worlds">Миры (фикстуры)</a></li>
 	<li><a href="#contexts">Контексты</a></li>
 	<li><a href="#anonymous-containers">Анонимные контейнеры</a></li>
 	<li><a href="#run">Запуск</a></li>
+	<li><a href="#run-result">Результат выполнения</a></li>
 	<li><a href="#disable">Включение/отключение узлов</a></li>
+	<li><a href="#error-handling">Обработка ошибок</a></li>
 	<li><a href="#reports">Отчеты</a></li>
 	<li><a href="#construction-commands">Команды конструирования</a></li>
 	<li><a href="#plugins">Плагины</a></li>
@@ -129,8 +132,8 @@ function generateCacheFilename()
 	<li><a href="#contacts">Обратная связь</a></li>
 </ol>
 
-<p>Spectrum — это PHP фреймворк, предназначенный для так называемых specification тестов (RSpec и т.п.), и предоставляющий довольно
-богатые возможности по настроке и расширению.</p>
+<p>Spectrum — это PHP фреймворк, предназначенный для так называемых specification тестов (аналог RSpec и т.п.) и предоставляющий довольно
+богатые возможности по настройке и расширению.</p>
 
 <p>Скачать исходные коды можно с <a href="https://github.com/mkharitonov/spectrum/">github.com/mkharitonov/spectrum/</a></p>
 
@@ -189,7 +192,7 @@ CODE
 , array('height' => 220));
 ?>
 
-<h1>Поставщики данных</h1>
+<h1 id="data-providers">Поставщики данных</h1>
 
 <p>Бывает, что сами данные сами по себе являются лучшим описанием требуемого поведения. Для таких случает существуют поставщики
 данных (data providers).</p>
@@ -967,7 +970,7 @@ CODE
 ?>
 
 
-<h1>Результат выполнения</h1>
+<h1 id="run-result">Результат выполнения</h1>
 
 <p>Помимо отображения результата в отчете, метод run() возвращает результат запуска.</p>
 <ol>
@@ -1102,7 +1105,7 @@ CODE
 , array('noRun', 'height' => 70));
 ?>
 
-<h1>Обработка ошибок</h1>
+<h1 id="error-handling">Обработка ошибок</h1>
 
 <p>Spectrum позволяет управлять обработкой ошибок на уровне каждого из узлов с помощью следующих методов плагина errorHandling:</p>
 <ol>
