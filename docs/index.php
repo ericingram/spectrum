@@ -1466,7 +1466,8 @@ CODE
 </ol>
 
 <h1 id="contacts">Обратная связь</h1>
-Предложения и пожелания можно оставлять на форуме PHPClub, в топике на хабре или отправлять мне на <a href="mailto:m.v.kharitonov@gmail.com">e-mail</a>.
+Предложения и пожелания можно оставлять <a href="http://phpclub.ru/talk/threads/spectrum-%E2%80%94-php-%D1%84%D1%80%D0%B5%D0%B9%D0%BC%D0%B2%D0%BE%D1%80%D0%BA-%D0%B4%D0%BB%D1%8F-bdd-%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-alpha-%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%8F.68706/">в теме на форуме PHPClub</a>
+или отправлять мне на <a href="mailto:m.v.kharitonov@gmail.com">e-mail</a>.
 
 </body>
 </html>
