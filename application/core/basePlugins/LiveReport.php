@@ -179,16 +179,15 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugin\Plugin implements
 
 	protected function getScripts()
 	{
-		$output = '';
-		print '
-			<script type="text/javascript">
-				function updateResult(uid, resultLabel, resultName){
-					var spec = document.getElementById(uid);
-					var result = spec.childNodes[1];
-					result.className += " " + resultLabel;
-					result.innerHTML = resultName;
-				}
-			</script>
+		$output = '
+<script type="text/javascript">
+	function updateResult(uid, resultLabel, resultName){
+		var spec = document.getElementById(uid);
+		var result = spec.childNodes[1];
+		result.className += " " + resultLabel;
+		result.innerHTML = resultName;
+	}
+</script>
 		';
 
 		return rtrim($output);

@@ -1108,8 +1108,8 @@ CODE
 <ol>
 	<li>$spec->errorHandling->setCatchExceptions(true|false) — перехватывать исключения, выбрасываемые тестами и добавлять их в результирующий буффер</li>
 	<li>$spec->errorHandling->setCatchPhpErrors(true|false|errorLevel) — перехватывать ошибки (те, которые может отловить set_error_handler()), генерируемые тестами и добавлять их в результирующий буффер</li>
-	<li>$spec->errorHandling->setBreakOnFirstPhpError(false) — прерывать выполнение тестов при первой php ошибке</li>
-	<li>$spec->errorHandling->setBreakOnFirstMatcherFail(false) — прерывать выполнение тестов при первом провальном матчере</li>
+	<li>$spec->errorHandling->setBreakOnFirstPhpError(false) — прерывать выполнение теста при первой php ошибке или нет</li>
+	<li>$spec->errorHandling->setBreakOnFirstMatcherFail(false) — прерывать выполнение теста при первом провальном утверждении (матчере) или нет</li>
 </ol>
 
 <p class="notice">Результирующий буффер — это экземпляр класса core\ResultBuffer, который создается при каждом выполнении it и в который
@@ -1145,13 +1145,15 @@ CODE
 
 <?php
 printExample('', <<<'CODE'
+	use \net\mkharitonov\spectrum\RootDescribe;
+
 	describe('Космический корабль', function(){
 		it('Должен изучать живые организмы', function(){
 			actual(true)->beTrue();
 		});
 	});
 
-	\net\mkharitonov\spectrum\RootDescribe::run();
+	RootDescribe::run();
 CODE
 , array('noRun', 'height' => 70));
 ?>
@@ -1160,17 +1162,22 @@ CODE
 
 <?php
 printExample('', <<<'CODE'
-	$it = new \net\mkharitonov\spectrum\core\SpecItemIt('Должен изучать живые организмы');
+	use \net\mkharitonov\spectrum\RootDescribe;
+	use \net\mkharitonov\spectrum\core\SpecItemIt;
+	use \net\mkharitonov\spectrum\core\assert\Assert;
+	use \net\mkharitonov\spectrum\core\SpecContainerDescribe;
+
+	$it = new SpecItemIt('Должен изучать живые организмы');
 	$it->setTestCallback(function(){
-		$assert = new \net\mkharitonov\spectrum\core\assert\Assert(true);
+		$assert = new Assert(true);
 		$assert->beTrue();
 	});
 
-	$describe = new \net\mkharitonov\spectrum\core\SpecContainerDescribe('Космический корабль');
+	$describe = new SpecContainerDescribe('Космический корабль');
 	$describe->addSpec($it);
 
-	\net\mkharitonov\spectrum\RootDescribe::getInstance()->addSpec($describe);
-	\net\mkharitonov\spectrum\RootDescribe::run();
+	RootDescribe::getInstance()->addSpec($describe);
+	RootDescribe::run();
 CODE
 , array('noRun', 'height' => 70));
 ?>
@@ -1226,7 +1233,7 @@ CODE
 , array('height' => 100));
 ?>
 
-<p>И можно подключать файлы, содержащие команды конструирования:</p>
+<p>А можно и подключать файлы, содержащие команды конструирования:</p>
 <?php
 printExample('', <<<'CODE'
 

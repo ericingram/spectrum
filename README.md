@@ -1,8 +1,9 @@
-Spectrum — PHP framework for BDD specification test.
-Current version is alpha (not stable).
-Manual (on Russian): http://mkharitonov.net/spectrum/
+#Spectrum
 
-Example:
+**Current version is alpha and maybe not stable.**
+Documentation (on Russian): http://mkharitonov.net/spectrum/
+
+##Example:
 <?php
 require_once 'spectrum/application/init.php';
 
@@ -19,3 +20,6 @@ describe('Spaceship', function(){
 });
 
 \net\mkharitonov\spectrum\RootDescribe::run();
+
+##Copyright
+Copyright (c) 2011 Mikhail Kharitonov <mvkharitonov@gmail.com>. See LICENSE.txt for details.
