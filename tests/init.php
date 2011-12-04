@@ -15,5 +15,5 @@
  */
 require_once dirname(__FILE__) . '/autoload.php';
 require_once dirname(__FILE__) . '/../application/autoload.php';
-require_once 'PHPUnit/Framework.php';
+
 set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/../application/matchers');
