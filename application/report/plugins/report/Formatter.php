@@ -9,7 +9,7 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\basePlugins\report;
+namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report;
 use \net\mkharitonov\spectrum\core\Exception;
 
 /**

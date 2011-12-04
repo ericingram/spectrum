@@ -15,7 +15,7 @@ namespace net\mkharitonov\spectrum\core\testEnv;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class PluginEventOnRunStub extends \net\mkharitonov\spectrum\core\plugin\Plugin implements \net\mkharitonov\spectrum\core\plugin\events\OnRunInterface
+class PluginEventOnRunStub extends \net\mkharitonov\spectrum\core\plugins\Plugin implements \net\mkharitonov\spectrum\core\plugins\events\OnRunInterface
 {
 	static private $onBeforeCallback;
 

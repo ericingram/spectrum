@@ -89,7 +89,7 @@ class ContextsExecutor
 	{
 		$pluginName = str_replace('\\', '_', __CLASS__);
 
-		\net\mkharitonov\spectrum\core\PluginsManager::registerPlugin($pluginName, '\net\mkharitonov\spectrum\core\testEnv\PluginEventOnRunStub');
+		\net\mkharitonov\spectrum\core\plugins\Manager::registerPlugin($pluginName, '\net\mkharitonov\spectrum\core\testEnv\PluginEventOnRunStub');
 
 		\net\mkharitonov\spectrum\core\testEnv\PluginEventOnRunStub::setOnBeforeCallback(function($plugin) use($callback, $spec)
 		{
@@ -101,6 +101,6 @@ class ContextsExecutor
 
 		\net\mkharitonov\spectrum\core\testEnv\PluginEventOnRunStub::setOnBeforeCallback(null);
 
-		\net\mkharitonov\spectrum\core\PluginsManager::unregisterPlugin($pluginName);
+		\net\mkharitonov\spectrum\core\plugins\Manager::unregisterPlugin($pluginName);
 	}
 }

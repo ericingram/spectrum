@@ -1272,7 +1272,7 @@ CODE
 SpecItemIt) существует свой экземпляр плагина foo.</p>
 <?php
 printExample('', <<<'CODE'
-	\net\mkharitonov\spectrum\core\PluginsManager::registerPlugin('foo');
+	\net\mkharitonov\spectrum\core\plugins\Manager::registerPlugin('foo');
 	$describe = describe('Космический корабль', function() use(&$it1, &$it2){
 		$it1 = it('Должен летать', function(){});
 		$it2 = it('Не должен плавать', function(){});
@@ -1290,10 +1290,10 @@ CODE
 , array('noRun', 'height' => 220));
 ?>
 
-<p>Методу PluginsManager::registerPlugin() принимает 3 параметра:</p>
+<p>Методу Manager::registerPlugin() принимает 3 параметра:</p>
 <ol>
 	<li>Имя для доступа к плагину (foo в примере выше);</li>
-	<li>Класс плагина, который должен реализовывать интерфейс core\plugin\PluginInterface (по умолчанию — это базовый плагин core\basePlugins\stack\Indexed);</li>
+	<li>Класс плагина, который должен реализовывать интерфейс core\plugin\PluginInterface (по умолчанию — это базовый плагин core\plugins\basePlugins\stack\Indexed);</li>
 	<li>Момент создание экземпляра (активации) плагина:
 		<ol>
 			<li>whenConstructOnce — экземпляр плагина будет создан во время создания соответствующего экземпляра узла;</li>
@@ -1309,10 +1309,10 @@ CODE
 <?php
 printExample('', <<<'CODE'
 
-	use \net\mkharitonov\spectrum\core\PluginsManager;
+	use \net\mkharitonov\spectrum\core\plugins\Manager;
 	use \net\mkharitonov\spectrum\constructionCommands\Manager;
 
-	class MyPlugin extends \net\mkharitonov\spectrum\core\plugin\Plugin
+	class MyPlugin extends \net\mkharitonov\spectrum\core\plugins\Plugin
 	{
 		private $foo = null; // Значение по умолчанию должно задаваться не здесь, а при вызове callCascadeThroughRunningContexts()
 
@@ -1337,7 +1337,7 @@ printExample('', <<<'CODE'
 		}
 	}
 
-	PluginsManager::registerPlugin('foo', 'MyPlugin');
+	Manager::registerPlugin('foo', 'MyPlugin');
 
 	$spec = describe('Космический корабль', function() use (&$context1, &$context2, &$context3){
 		$context1 = context('В галактике Альфа Центавра', function(){});

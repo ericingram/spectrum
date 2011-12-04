@@ -34,8 +34,8 @@ abstract class SpecTest extends Test
 /**/
 	public function testCallPlugin_WhenConstructOnce_ShouldBeCreatePluginInSpecConstructorAndReturnCreatedInstanceLater()
 	{
-		\net\mkharitonov\spectrum\core\PluginsManager::unregisterAllPlugins();
-		\net\mkharitonov\spectrum\core\PluginsManager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\testEnv\PluginStub', 'whenConstructOnce');
+		\net\mkharitonov\spectrum\core\plugins\Manager::unregisterAllPlugins();
+		\net\mkharitonov\spectrum\core\plugins\Manager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\testEnv\PluginStub', 'whenConstructOnce');
 
 		$spec = $this->createCurrentSpec();
 		$this->assertEquals(1, \net\mkharitonov\spectrum\core\testEnv\PluginStub::getActivationsCount());
@@ -49,8 +49,8 @@ abstract class SpecTest extends Test
 
 	public function testCallPlugin_WhenCallOnce_ShouldBeCreatePluginOnlyWhenFirstCallAndReturnCreatedInstanceLater()
 	{
-		\net\mkharitonov\spectrum\core\PluginsManager::unregisterAllPlugins();
-		\net\mkharitonov\spectrum\core\PluginsManager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\testEnv\PluginStub', 'whenCallOnce');
+		\net\mkharitonov\spectrum\core\plugins\Manager::unregisterAllPlugins();
+		\net\mkharitonov\spectrum\core\plugins\Manager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\testEnv\PluginStub', 'whenCallOnce');
 
 		$spec = $this->createCurrentSpec();
 		$this->assertEquals(0, \net\mkharitonov\spectrum\core\testEnv\PluginStub::getActivationsCount());
@@ -66,8 +66,8 @@ abstract class SpecTest extends Test
 
 	public function testCallPlugin_WhenCallAlways_ShouldBeCreatePluginWhenCallAlwaysAndReturnNewInstanceLater()
 	{
-		\net\mkharitonov\spectrum\core\PluginsManager::unregisterAllPlugins();
-		\net\mkharitonov\spectrum\core\PluginsManager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\testEnv\PluginStub', 'whenCallAlways');
+		\net\mkharitonov\spectrum\core\plugins\Manager::unregisterAllPlugins();
+		\net\mkharitonov\spectrum\core\plugins\Manager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\testEnv\PluginStub', 'whenCallAlways');
 
 		$spec = $this->createCurrentSpec();
 		$this->assertEquals(0, \net\mkharitonov\spectrum\core\testEnv\PluginStub::getActivationsCount());
@@ -85,8 +85,8 @@ abstract class SpecTest extends Test
 
 	public function testCallPlugin_ShouldBeSupportAccessThroughMagicGetProperty()
 	{
-		\net\mkharitonov\spectrum\core\PluginsManager::unregisterAllPlugins();
-		\net\mkharitonov\spectrum\core\PluginsManager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\testEnv\PluginStub', 'whenCallAlways');
+		\net\mkharitonov\spectrum\core\plugins\Manager::unregisterAllPlugins();
+		\net\mkharitonov\spectrum\core\plugins\Manager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\testEnv\PluginStub', 'whenCallAlways');
 
 		$spec = $this->createCurrentSpec();
 		$activatedPlugin = $spec->foo;
@@ -95,15 +95,15 @@ abstract class SpecTest extends Test
 
 	public function testCallPlugin_ShouldBeThrowExceptionIfPluginWithAccessNameNotExists()
 	{
-		\net\mkharitonov\spectrum\core\PluginsManager::unregisterAllPlugins();
-		\net\mkharitonov\spectrum\core\PluginsManager::registerPlugin('foo');
+		\net\mkharitonov\spectrum\core\plugins\Manager::unregisterAllPlugins();
+		\net\mkharitonov\spectrum\core\plugins\Manager::registerPlugin('foo');
 
 		$spec = $this->createCurrentSpec();
-		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', function() use($spec) {
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', function() use($spec) {
 			$spec->callPlugin('bar');
 		});
 
-		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', function() use($spec) {
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', function() use($spec) {
 			$spec->bar;
 		});
 	}

@@ -10,7 +10,7 @@
  */
 
 namespace net\mkharitonov\spectrum\core\specItemIt\errorHandling\catchPhpErrors\enabled\breakOnFirstPhpError;
-use net\mkharitonov\spectrum\core\PluginsManager;
+use net\mkharitonov\spectrum\core\plugins\Manager;
 use net\mkharitonov\spectrum\core\SpecItem;
 
 require_once dirname(__FILE__) . '/../../../../../../init.php';
@@ -152,7 +152,7 @@ abstract class Test extends \net\mkharitonov\spectrum\core\specItemIt\errorHandl
 
 	public function testShouldBeTriggerEventOnRunAfter()
 	{
-		PluginsManager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\testEnv\PluginEventOnRunStub');
+		Manager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\testEnv\PluginEventOnRunStub');
 
 		$it = $this->it;
 		$it->setTestCallback(function(){ trigger_error(''); });
@@ -160,6 +160,6 @@ abstract class Test extends \net\mkharitonov\spectrum\core\specItemIt\errorHandl
 		
 		$this->assertEventTriggeredCount(1, 'onRunAfter');
 
-		PluginsManager::unregisterPlugin('foo');
+		Manager::unregisterPlugin('foo');
 	}
 }

@@ -9,7 +9,7 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\basePlugins\report;
+namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report;
 use \net\mkharitonov\spectrum\core\Exception;
 use \net\mkharitonov\spectrum\core\SpecInterface;
 use \net\mkharitonov\spectrum\core\SpecContainerInterface;
@@ -18,13 +18,13 @@ use \net\mkharitonov\spectrum\core\SpecContainerDescribeInterface;
 use \net\mkharitonov\spectrum\core\SpecItemInterface;
 use \net\mkharitonov\spectrum\core\SpecItemItInterface;
 
-use \net\mkharitonov\spectrum\core\plugin\events;
+use \net\mkharitonov\spectrum\core\plugins\events;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class Report extends \net\mkharitonov\spectrum\core\plugin\Plugin implements ReportInterface, events\OnRunInterface, events\OnRunItemInterface, events\OnRunContainerInterface
+class Report extends \net\mkharitonov\spectrum\core\plugins\Plugin implements ReportInterface, events\OnRunInterface, events\OnRunItemInterface, events\OnRunContainerInterface
 {
 	protected $inputEncoding;
 	protected $outputEncoding;
@@ -256,7 +256,7 @@ class Report extends \net\mkharitonov\spectrum\core\plugin\Plugin implements Rep
 	}
 
 	/**
-	 * @return \net\mkharitonov\spectrum\core\basePlugins\report\Format
+	 * @return \net\mkharitonov\spectrum\core\plugins\basePlugins\report\Format
 	 */
 	protected function createLiveOutputFormat()
 	{
@@ -269,19 +269,19 @@ class Report extends \net\mkharitonov\spectrum\core\plugin\Plugin implements Rep
 	}
 
 	/**
-	 * @return \net\mkharitonov\spectrum\core\basePlugins\report\formats\Xhtml
+	 * @return \net\mkharitonov\spectrum\core\plugins\basePlugins\report\formats\Xhtml
 	 */
 	protected function createFormat($format)
 	{
 		if ($format == 'xhtml')
-			$format = '\net\mkharitonov\spectrum\core\basePlugins\report\formats\Xhtml';
+			$format = '\net\mkharitonov\spectrum\core\plugins\basePlugins\report\formats\Xhtml';
 		else if ($format == 'xml')
-			$format = '\net\mkharitonov\spectrum\core\basePlugins\report\formats\Xml';
+			$format = '\net\mkharitonov\spectrum\core\plugins\basePlugins\report\formats\Xml';
 		else if ($format == 'plain')
-			$format = '\net\mkharitonov\spectrum\core\basePlugins\report\formats\Plain';
+			$format = '\net\mkharitonov\spectrum\core\plugins\basePlugins\report\formats\Plain';
 
 		$reflection = new \ReflectionClass($format);
-		if (!$reflection->implementsInterface('\net\mkharitonov\spectrum\core\basePlugins\report\FormatInterface'))
+		if (!$reflection->implementsInterface('\net\mkharitonov\spectrum\core\plugins\basePlugins\report\FormatInterface'))
 			throw new Exception('Class "' . $format . '" should be implements report\FormatInterface');
 
 		return new $format($this, $this->createFormatter());

@@ -15,7 +15,7 @@ namespace net\mkharitonov\spectrum\core\testEnv;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class PluginEventOnTestCallbackCallStub extends \net\mkharitonov\spectrum\core\plugin\Plugin implements \net\mkharitonov\spectrum\core\plugin\events\OnTestCallbackCallInterface
+class PluginEventOnTestCallbackCallStub extends \net\mkharitonov\spectrum\core\plugins\Plugin implements \net\mkharitonov\spectrum\core\plugins\events\OnTestCallbackCallInterface
 {
 	public function onTestCallbackCallBefore(\net\mkharitonov\spectrum\core\World $world)
 	{

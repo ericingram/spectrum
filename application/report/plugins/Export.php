@@ -9,7 +9,7 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\basePlugins;
+namespace net\mkharitonov\spectrum\core\plugins\basePlugins;
 use \net\mkharitonov\spectrum\core\Exception;
 use \net\mkharitonov\spectrum\core\SpecInterface;
 use \net\mkharitonov\spectrum\core\SpecContainerInterface;
@@ -18,14 +18,14 @@ use \net\mkharitonov\spectrum\core\SpecContainerDescribeInterface;
 use \net\mkharitonov\spectrum\core\SpecItemInterface;
 use \net\mkharitonov\spectrum\core\SpecItemItInterface;
 
-use \net\mkharitonov\spectrum\core\plugin\events;
+use \net\mkharitonov\spectrum\core\plugins\events;
 use \net\mkharitonov\spectrum\core\report\Buffer;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class Export extends \net\mkharitonov\spectrum\core\basePlugins\Report
+class Export extends \net\mkharitonov\spectrum\core\plugins\basePlugins\Report
 {
 	protected $isEnabled = true;
 	protected $putDisabledSpecs = false;

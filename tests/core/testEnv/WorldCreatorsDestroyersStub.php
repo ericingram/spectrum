@@ -15,7 +15,7 @@ namespace net\mkharitonov\spectrum\core\testEnv;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class WorldCreatorsDestroyersStub extends \net\mkharitonov\spectrum\core\basePlugins\worldCreators\Destroyers
+class WorldCreatorsDestroyersStub extends \net\mkharitonov\spectrum\core\plugins\basePlugins\worldCreators\Destroyers
 {
 	public function getFromSelfOrAncestor($key)
 	{

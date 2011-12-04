@@ -9,7 +9,7 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\basePlugins\report\formats;
+namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report\formats;
 use \net\mkharitonov\spectrum\core\Exception;
 use \net\mkharitonov\spectrum\core\SpecInterface;
 
@@ -17,7 +17,7 @@ use \net\mkharitonov\spectrum\core\SpecInterface;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class Xhtml extends \net\mkharitonov\spectrum\core\basePlugins\report\Format
+class Xhtml extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report\Format
 {
 	public function getHeader()
 	{

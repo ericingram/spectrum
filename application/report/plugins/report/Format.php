@@ -9,7 +9,7 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\basePlugins\report;
+namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report;
 use \net\mkharitonov\spectrum\core\Exception;
 use \net\mkharitonov\spectrum\core\SpecInterface;
 use \net\mkharitonov\spectrum\core\SpecContainerInterface;
@@ -18,9 +18,9 @@ use \net\mkharitonov\spectrum\core\SpecContainerDescribeInterface;
 use \net\mkharitonov\spectrum\core\SpecItemInterface;
 use \net\mkharitonov\spectrum\core\SpecItemItInterface;
 
-use \net\mkharitonov\spectrum\core\basePlugins\report\Formatter;
-use \net\mkharitonov\spectrum\core\basePlugins\report\FormatterInterface;
-use \net\mkharitonov\spectrum\core\plugin\PluginInterface;
+use \net\mkharitonov\spectrum\core\plugins\basePlugins\report\Formatter;
+use \net\mkharitonov\spectrum\core\plugins\basePlugins\report\FormatterInterface;
+use \net\mkharitonov\spectrum\core\plugins\PluginInterface;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
@@ -31,7 +31,7 @@ abstract class Format implements FormatInterface
 	protected $owner;
 
 	/**
-	 * @var \net\mkharitonov\spectrum\core\basePlugins\report\Formatter
+	 * @var \net\mkharitonov\spectrum\core\plugins\basePlugins\report\Formatter
 	 */
 	protected $formatter;
 	protected $putId = true;

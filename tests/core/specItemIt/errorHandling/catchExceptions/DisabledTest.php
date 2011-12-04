@@ -102,7 +102,7 @@ class DisabledTest extends Test
 
 	public function testShouldBeTriggerEventOnRunAfter()
 	{
-		PluginsManager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\testEnv\PluginEventOnRunStub');
+		Manager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\testEnv\PluginEventOnRunStub');
 
 		$it = new SpecItemIt();
 		$it->errorHandling->setCatchExceptions(false);
@@ -113,6 +113,6 @@ class DisabledTest extends Test
 		$this->assertThrowException('\Exception', 'foo', function() use($it){ $it->run(); });
 		$this->assertEventTriggeredCount(1, 'onRunAfter');
 
-		PluginsManager::unregisterPlugin('foo');
+		Manager::unregisterPlugin('foo');
 	}*/
 }

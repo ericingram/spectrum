@@ -14,12 +14,12 @@ namespace net\mkharitonov\spectrum\core;
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
- * @property \net\mkharitonov\spectrum\core\basePlugins\Matchers matchers
- * @property \net\mkharitonov\spectrum\core\basePlugins\worldCreators\Builders builders
- * @property \net\mkharitonov\spectrum\core\basePlugins\worldCreators\Destroyers destroyers
- * @property \net\mkharitonov\spectrum\core\basePlugins\Selector selector
- * @property \net\mkharitonov\spectrum\core\basePlugins\ErrorHandling errorHandling
- * @property \net\mkharitonov\spectrum\core\basePlugins\LiveReport liveReport
+ * @property \net\mkharitonov\spectrum\core\plugins\basePlugins\Matchers matchers
+ * @property \net\mkharitonov\spectrum\core\plugins\basePlugins\worldCreators\Builders builders
+ * @property \net\mkharitonov\spectrum\core\plugins\basePlugins\worldCreators\Destroyers destroyers
+ * @property \net\mkharitonov\spectrum\core\plugins\basePlugins\Selector selector
+ * @property \net\mkharitonov\spectrum\core\plugins\basePlugins\ErrorHandling errorHandling
+ * @property \net\mkharitonov\spectrum\core\plugins\basePlugins\LiveReport liveReport
  * @todo implements \ArrayAccess for plugin access
  */
 abstract class Spec implements SpecInterface
@@ -33,7 +33,7 @@ abstract class Spec implements SpecInterface
 	private $isEnabledTemporarily = null;
 	protected $activatedPlugins = array();
 	protected $isRunning = false;
-	protected $pluginManagerClass = '\net\mkharitonov\spectrum\core\PluginsManager';
+	protected $pluginManagerClass = '\net\mkharitonov\spectrum\core\plugins\Manager';
 
 	public function __construct($name = null)
 	{

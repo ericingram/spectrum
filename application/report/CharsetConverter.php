@@ -18,7 +18,7 @@ use \net\mkharitonov\spectrum\core\SpecContainerDescribeInterface;
 use \net\mkharitonov\spectrum\core\SpecItemInterface;
 use \net\mkharitonov\spectrum\core\SpecItemItInterface;
 
-use \net\mkharitonov\spectrum\core\plugin\events;
+use \net\mkharitonov\spectrum\core\plugins\events;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>

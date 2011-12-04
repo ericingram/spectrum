@@ -15,7 +15,7 @@ namespace net\mkharitonov\spectrum\core\testEnv;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class PluginPublicMock extends \net\mkharitonov\spectrum\core\plugin\Plugin
+class PluginPublicMock extends \net\mkharitonov\spectrum\core\plugins\Plugin
 {
 	private $foo;
 

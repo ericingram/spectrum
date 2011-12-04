@@ -30,17 +30,17 @@ abstract class Test extends \net\mkharitonov\spectrum\Test
 
 		$this->oldInstance = \net\mkharitonov\spectrum\core\SpecItem::getRunningInstance();
 
-		$this->oldPlugins = \net\mkharitonov\spectrum\core\PluginsManager::getRegisteredPlugins();
+		$this->oldPlugins = \net\mkharitonov\spectrum\core\plugins\Manager::getRegisteredPlugins();
 		\net\mkharitonov\spectrum\core\testEnv\PluginStub::reset();
-//		\net\mkharitonov\spectrum\core\PluginsManager::registerPlugin('matchers', '\net\mkharitonov\spectrum\core\testEnv\MatchersStub');
-//		\net\mkharitonov\spectrum\core\PluginsManager::registerPlugin('builders', '\net\mkharitonov\spectrum\core\testEnv\WorldCreatorsBuildersStub');
-//		\net\mkharitonov\spectrum\core\PluginsManager::registerPlugin('destroyers', '\net\mkharitonov\spectrum\core\testEnv\WorldCreatorsDestroyersStub');
+//		\net\mkharitonov\spectrum\core\plugins\Manager::registerPlugin('matchers', '\net\mkharitonov\spectrum\core\testEnv\MatchersStub');
+//		\net\mkharitonov\spectrum\core\plugins\Manager::registerPlugin('builders', '\net\mkharitonov\spectrum\core\testEnv\WorldCreatorsBuildersStub');
+//		\net\mkharitonov\spectrum\core\plugins\Manager::registerPlugin('destroyers', '\net\mkharitonov\spectrum\core\testEnv\WorldCreatorsDestroyersStub');
 	}
 
 	protected function tearDown()
 	{
-		\net\mkharitonov\spectrum\core\PluginsManager::unregisterAllPlugins();
-		\net\mkharitonov\spectrum\core\PluginsManager::registerPlugins($this->oldPlugins);
+		\net\mkharitonov\spectrum\core\plugins\Manager::unregisterAllPlugins();
+		\net\mkharitonov\spectrum\core\plugins\Manager::registerPlugins($this->oldPlugins);
 		
 		\net\mkharitonov\spectrum\core\testEnv\SpecItemMock::setRunningInstancePublic($this->oldInstance);
 

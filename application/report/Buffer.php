@@ -18,7 +18,7 @@ use \net\mkharitonov\spectrum\core\SpecContainerDescribeInterface;
 use \net\mkharitonov\spectrum\core\SpecItemInterface;
 use \net\mkharitonov\spectrum\core\SpecItemItInterface;
 
-use \net\mkharitonov\spectrum\core\plugin\events;
+use \net\mkharitonov\spectrum\core\plugins\events;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
@@ -245,14 +245,14 @@ class Buffer
 			$format = '\net\mkharitonov\spectrum\core\report\formats\Plain';
 
 		$reflection = new \ReflectionClass($format);
-		if (!$reflection->implementsInterface('\net\mkharitonov\spectrum\core\basePlugins\report\FormatInterface'))
+		if (!$reflection->implementsInterface('\net\mkharitonov\spectrum\core\plugins\basePlugins\report\FormatInterface'))
 			throw new Exception('Class "' . $format . '" should be implements report\FormatInterface');
 
 		return $format;
 	}
 
 	/**
-	 * @return \net\mkharitonov\spectrum\core\basePlugins\report\formats\Xhtml
+	 * @return \net\mkharitonov\spectrum\core\plugins\basePlugins\report\formats\Xhtml
 	 */
 	protected function createTransformation($format)
 	{
@@ -264,7 +264,7 @@ class Buffer
 			$format = '\net\mkharitonov\spectrum\core\report\formats\Plain';
 
 		$reflection = new \ReflectionClass($format);
-		if (!$reflection->implementsInterface('\net\mkharitonov\spectrum\core\basePlugins\report\FormatInterface'))
+		if (!$reflection->implementsInterface('\net\mkharitonov\spectrum\core\plugins\basePlugins\report\FormatInterface'))
 			throw new Exception('Class "' . $format . '" should be implements report\FormatInterface');
 
 		return new $format($this, $this->createFormatter());

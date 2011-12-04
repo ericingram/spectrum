@@ -9,14 +9,14 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\basePlugins\report;
+namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report;
 use \net\mkharitonov\spectrum\core\SpecInterface;
-use \net\mkharitonov\spectrum\core\basePlugins\output\FormatterInterface;
+use \net\mkharitonov\spectrum\core\plugins\basePlugins\output\FormatterInterface;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-interface ReportInterface extends \net\mkharitonov\spectrum\core\plugin\PluginInterface
+interface ReportInterface extends \net\mkharitonov\spectrum\core\plugins\PluginInterface
 {
 }

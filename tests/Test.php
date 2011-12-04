@@ -27,7 +27,7 @@ abstract class Test extends \PHPUnit_Framework_TestCase
 		parent::setUp();
 		\net\mkharitonov\spectrum\Test::$tmp = null;
 		$this->oldRunningInstance = \net\mkharitonov\spectrum\core\SpecItem::getRunningInstance();
-		\net\mkharitonov\spectrum\core\PluginsManager::unregisterPlugin('liveReport'); // TODO remove
+		\net\mkharitonov\spectrum\core\plugins\Manager::unregisterPlugin('liveReport'); // TODO remove
 	}
 
 	protected function tearDown()

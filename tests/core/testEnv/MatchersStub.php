@@ -15,7 +15,7 @@ namespace net\mkharitonov\spectrum\core\testEnv;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class MatchersStub extends \net\mkharitonov\spectrum\core\basePlugins\Matchers
+class MatchersStub extends \net\mkharitonov\spectrum\core\plugins\basePlugins\Matchers
 {
 	public function getFromSelfOrAncestor($key)
 	{
