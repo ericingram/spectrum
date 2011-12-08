@@ -15,7 +15,7 @@ namespace net\mkharitonov\spectrum\core;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class World implements \Countable, \ArrayAccess
+class World implements WorldInterface, \Countable, \ArrayAccess
 {
 	public function count()
 	{

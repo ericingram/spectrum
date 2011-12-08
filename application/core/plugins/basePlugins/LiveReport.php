@@ -256,7 +256,7 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 				print '</div>';
 
 				$details = $result['details'];
-				if (is_object($details) && $details instanceof \net\mkharitonov\spectrum\core\assert\ResultDetails)
+				if (is_object($details) && $details instanceof \net\mkharitonov\spectrum\core\assert\ResultDetailsInterface)
 				{
 					print '<div class="details assert">';
 					// TODO print matcher view, like Details: bool false be(string "foo")->not->eq(string "bar", int 1)
@@ -295,7 +295,7 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 		$parent = $this->getOwner()->getParent();
 		$name = $this->getOwner()->getName();
 
-		if ($name == '' && $parent && $parent instanceof \net\mkharitonov\spectrum\core\SpecContainerDataProvider)
+		if ($name == '' && $parent && $parent instanceof \net\mkharitonov\spectrum\core\SpecContainerDataProviderInterface)
 			return $this->getAdditionalArgumentsDumpOut();
 		else
 			return $name;

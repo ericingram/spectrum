@@ -17,11 +17,10 @@ use net\mkharitonov\spectrum\core\Exception;
  * @link   http://www.mkharitonov.net/spectrum/
  * @property not
  */
-class Assert
+class Assert implements AssertInterface
 {
 	protected $actualValue;
 	protected $isNotEnabled = false;
-	protected $specItemClass = '\net\mkharitonov\spectrum\core\SpecItem';
 
 	public function __construct($actualValue)
 	{
@@ -70,13 +69,14 @@ class Assert
 	 */
 	protected function getItemRunningInstance()
 	{
-		$class = $this->specItemClass;
+		$class = \net\mkharitonov\spectrum\core\Config::getSpecItemClass();
 		return $class::getRunningInstance();
 	}
 
 	protected function createResultDetails($matcherName, array $expectedArgs)
 	{
-		$resultDetails = new ResultDetails();
+		$class = \net\mkharitonov\spectrum\core\Config::getAssertResultDetailsClass();
+		$resultDetails = new $class();
 		$resultDetails->setActualValue($this->getActualValue());
 		$resultDetails->setIsNot($this->isNot());
 		$resultDetails->setMatcherName($matcherName);

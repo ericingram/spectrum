@@ -95,7 +95,8 @@ abstract class SpecItem extends Spec implements SpecItemInterface
 		if ($this->getParent() && !$this->getParent()->isRunning())
 			return $this->runSelfThroughAncestors();
 
-		$this->resultBuffer = new ResultBuffer($this);
+		$resultBufferClass = Config::getResultBufferClass();
+		$this->resultBuffer = new $resultBufferClass($this);
 		$this->startRun();
 		$this->triggerEvent('onRunBefore');
 		$this->triggerEvent('onRunItemBefore');
@@ -114,13 +115,13 @@ abstract class SpecItem extends Spec implements SpecItemInterface
 	protected function startRun()
 	{
 		parent::startRun();
-		$this->oldRunningInstance = SpecItem::getRunningInstance();
-		SpecItem::setRunningInstance($this);
+		$this->oldRunningInstance = self::getRunningInstance();
+		self::setRunningInstance($this);
 	}
 
 	protected function stopRun()
 	{
-		SpecItem::setRunningInstance($this->oldRunningInstance);
+		self::setRunningInstance($this->oldRunningInstance);
 		parent::stopRun();
 	}
 
@@ -133,7 +134,8 @@ abstract class SpecItem extends Spec implements SpecItemInterface
 
 		try
 		{
-			$world = new World();
+			$worldClass = Config::getWorldClass();
+			$world = new $worldClass();
 			$this->builders->applyToWorld($world);
 			$this->callTestCallback($world);
 			$this->destroyers->applyToWorld($world);

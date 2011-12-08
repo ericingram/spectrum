@@ -1,3 +1,9 @@
+\assert\ => \asserts\
+ResultDetails => RunResultDetails
+ResultBuffer => RunResultsStorage
+$Interface => ^I
+
+
 результат выполнения
 	написать про результат выполнения запуска контекстов и откдюченных спеков
 

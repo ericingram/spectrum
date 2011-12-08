@@ -15,7 +15,7 @@ namespace net\mkharitonov\spectrum\core\assert;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class ResultDetails
+class ResultDetails implements ResultDetailsInterface
 {
 	protected $actualValue;
 	protected $isNot;

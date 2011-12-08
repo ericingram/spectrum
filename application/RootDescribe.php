@@ -36,7 +36,8 @@ class RootDescribe
 	{
 		if (!static::$onceInstance)
 		{
-			static::$onceInstance = new \net\mkharitonov\spectrum\core\SpecContainerDescribe();
+			$describeClass = \net\mkharitonov\spectrum\core\Config::getSpecContainerDescribeClass();
+			static::$onceInstance = new $describeClass();
 
 			static::$onceInstance->errorHandling->setCatchExceptions(true);
 			static::$onceInstance->errorHandling->setCatchPhpErrors(true);

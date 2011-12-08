@@ -9,14 +9,21 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\plugins\events;
+namespace net\mkharitonov\spectrum\core\assert;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
+ * @property not
  */
-interface OnTestCallbackCallInterface extends EventInterface
+interface AssertInterface
 {
-	public function onTestCallbackCallBefore(\net\mkharitonov\spectrum\core\WorldInterface $world);
-	public function onTestCallbackCallAfter(\net\mkharitonov\spectrum\core\WorldInterface $world);
+	public function __construct($actualValue);
+	public function __call($name, array $expectedArgs = array());
+	public function __get($name);
+
+	public function getActualValue();
+	public function isNot();
+	public function invertNot();
+	public function resetNot();
 }

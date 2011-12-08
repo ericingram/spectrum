@@ -17,7 +17,7 @@ namespace net\mkharitonov\spectrum\core\testEnv;
  */
 class PluginEventOnTestCallbackCallStub extends \net\mkharitonov\spectrum\core\plugins\Plugin implements \net\mkharitonov\spectrum\core\plugins\events\OnTestCallbackCallInterface
 {
-	public function onTestCallbackCallBefore(\net\mkharitonov\spectrum\core\World $world)
+	public function onTestCallbackCallBefore(\net\mkharitonov\spectrum\core\WorldInterface $world)
 	{
 		\net\mkharitonov\spectrum\Test::$tmp['triggeredEvents']['onTestCallbackCall'][] = array(
 			'name' => __FUNCTION__,
@@ -29,7 +29,7 @@ class PluginEventOnTestCallbackCallStub extends \net\mkharitonov\spectrum\core\p
 		);
 	}
 
-	public function onTestCallbackCallAfter(\net\mkharitonov\spectrum\core\World $world)
+	public function onTestCallbackCallAfter(\net\mkharitonov\spectrum\core\WorldInterface $world)
 	{
 		\net\mkharitonov\spectrum\Test::$tmp['triggeredEvents']['onTestCallbackCall'][] = array(
 			'name' => __FUNCTION__,

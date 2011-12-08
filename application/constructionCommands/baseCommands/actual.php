@@ -10,8 +10,7 @@
  */
 
 namespace net\mkharitonov\spectrum\constructionCommands\baseCommands;
-use net\mkharitonov\spectrum\constructionCommands\Manager;
-
+use \net\mkharitonov\spectrum\constructionCommands\Manager;
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
@@ -23,6 +22,7 @@ function actual($value)
 {
 	if (!Manager::isRunningState())
 		throw new \net\mkharitonov\spectrum\constructionCommands\Exception('Construction command "actual" should be call only at running state');
-	
-	return new \net\mkharitonov\spectrum\core\assert\Assert($value);
+
+	$class = \net\mkharitonov\spectrum\core\Config::getAssertClass();
+	return new $class($value);
 }

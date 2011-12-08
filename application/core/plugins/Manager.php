@@ -15,7 +15,7 @@ namespace net\mkharitonov\spectrum\core\plugins;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class Manager
+class Manager implements ManagerInterface
 {
 	static protected $registeredPlugins = array(
 		'matchers' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\Matchers', 'activateMoment' => 'whenCallOnce'),

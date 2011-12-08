@@ -9,14 +9,13 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\plugins\events;
+namespace net\mkharitonov\spectrum\core;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-interface OnTestCallbackCallInterface extends EventInterface
+interface WorldInterface
 {
-	public function onTestCallbackCallBefore(\net\mkharitonov\spectrum\core\WorldInterface $world);
-	public function onTestCallbackCallAfter(\net\mkharitonov\spectrum\core\WorldInterface $world);
+
 }

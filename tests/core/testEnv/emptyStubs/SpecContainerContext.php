@@ -9,14 +9,13 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\plugins\events;
+namespace net\mkharitonov\spectrum\core\testEnv\emptyStubs;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-interface OnTestCallbackCallInterface extends EventInterface
+class SpecContainerContext extends SpecContainer implements \net\mkharitonov\spectrum\core\SpecContainerContextInterface
 {
-	public function onTestCallbackCallBefore(\net\mkharitonov\spectrum\core\WorldInterface $world);
-	public function onTestCallbackCallAfter(\net\mkharitonov\spectrum\core\WorldInterface $world);
+
 }

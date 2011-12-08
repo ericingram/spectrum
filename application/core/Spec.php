@@ -33,13 +33,12 @@ abstract class Spec implements SpecInterface
 	private $isEnabledTemporarily = null;
 	protected $activatedPlugins = array();
 	protected $isRunning = false;
-	protected $pluginManagerClass = '\net\mkharitonov\spectrum\core\plugins\Manager';
 
 	public function __construct($name = null)
 	{
 		$this->setName($name);
 
-		$class = $this->pluginManagerClass;
+		$class = Config::getPluginsManagerClass();
 		foreach ($class::getRegisteredPlugins() as $accessName => $plugin)
 		{
 			if ($plugin['activateMoment'] == 'whenConstructOnce')
@@ -54,7 +53,7 @@ abstract class Spec implements SpecInterface
 	
 	public function callPlugin($accessName)
 	{
-		$manager = $this->pluginManagerClass;
+		$manager = Config::getPluginsManagerClass();
 		$plugin = $manager::getRegisteredPlugin($accessName);
 
 		if ($plugin['activateMoment'] == 'whenCallAlways' || !$this->isPluginActivated($accessName))
@@ -70,7 +69,7 @@ abstract class Spec implements SpecInterface
 	
 	protected function activatePlugin($accessName)
 	{
-		$manager = $this->pluginManagerClass;
+		$manager = Config::getPluginsManagerClass();
 		$this->activatedPlugins[$accessName] = $manager::createPluginInstance($this, $accessName);
 		return $this->activatedPlugins[$accessName];
 	}
@@ -81,7 +80,7 @@ abstract class Spec implements SpecInterface
 		unset($args[0]);
 		$args = array_values($args);
 
-		$manager = $this->pluginManagerClass;
+		$manager = Config::getPluginsManagerClass();
 		foreach ($manager::getAccessNamesForEventPlugins($eventName) as $accessName)
 		{
 			$pluginInstance = $this->callPlugin($accessName);

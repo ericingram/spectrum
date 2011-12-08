@@ -11,8 +11,6 @@
 
 namespace net\mkharitonov\spectrum\constructionCommands\baseCommands;
 use net\mkharitonov\spectrum\constructionCommands\Manager;
-use \net\mkharitonov\spectrum\core\SpecContainerDataProvider;
-use \net\mkharitonov\spectrum\core\SpecItemIt;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
@@ -43,7 +41,8 @@ class It
 		}
 		else
 		{
-			$spec = new SpecItemIt($name);
+			$itClass = \net\mkharitonov\spectrum\core\Config::getSpecItemItClass();
+			$spec = new $itClass($name);
 			$spec->setTestCallback($testCallback);
 		}
 
@@ -58,11 +57,13 @@ class It
 
 		$dataProvider = static::convertArrayItemsToArray($dataProvider);
 
-		$spec = new SpecContainerDataProvider($name);
+		$dataProviderClass = \net\mkharitonov\spectrum\core\Config::getSpecContainerDataProviderClass();
+		$spec = new $dataProviderClass($name);
 
 		foreach ($dataProvider as $args)
 		{
-			$it = new SpecItemIt();
+			$itClass = \net\mkharitonov\spectrum\core\Config::getSpecItemItClass();
+			$it = new $itClass();
 			$it->setTestCallback($testCallback);
 			$it->setAdditionalArguments($args);
 

@@ -54,7 +54,7 @@ abstract class Test extends \PHPUnit_Framework_TestCase
 		$this->assertNotSame($specs['2'], $specs['bar']);
 	}
 
-	public function testCreateSpecsTree_ShouldBeReturnPreparedInstanceIfExists()
+	final public function testCreateSpecsTree_ShouldBeReturnPreparedInstanceIfExists()
 	{
 		$describe = new \net\mkharitonov\spectrum\core\SpecContainerDescribe();
 		$it = new \net\mkharitonov\spectrum\core\SpecItemIt();
@@ -81,7 +81,7 @@ abstract class Test extends \PHPUnit_Framework_TestCase
 		$this->assertNotSame($specs['bar'], $it);
 	}
 
-	public function testCreateSpecsTree_ShouldBeThrowExceptionIfHasNotUsefulPreparedInstances()
+	final public function testCreateSpecsTree_ShouldBeThrowExceptionIfHasNotUsefulPreparedInstances()
 	{
 		try
 		{
@@ -102,7 +102,7 @@ abstract class Test extends \PHPUnit_Framework_TestCase
 		$this->fail('Should be thrown exception');
 	}
 
-	public function testCreateSpecsTree_ShouldBeThrowExceptionIfPreparedInstanceNotInstanceOfDeclaredClass()
+	final public function testCreateSpecsTree_ShouldBeThrowExceptionIfPreparedInstanceNotInstanceOfDeclaredClass()
 	{
 		try
 		{
@@ -120,7 +120,7 @@ abstract class Test extends \PHPUnit_Framework_TestCase
 		$this->fail('Should be thrown exception');
 	}
 
-	public function testCreateSpecsTree_ShouldBeThrowExceptionWhenDuplicateNames()
+	final public function testCreateSpecsTree_ShouldBeThrowExceptionWhenDuplicateNames()
 	{
 		try
 		{
@@ -137,7 +137,7 @@ abstract class Test extends \PHPUnit_Framework_TestCase
 		$this->fail('Should be thrown exception');
 	}
 
-	public function testCreateSpecsTree_ShouldBeAddChildSpecsToParent()
+	final public function testCreateSpecsTree_ShouldBeAddChildSpecsToParent()
 	{
 		$specs = $this->createSpecsTree('
 			Describe
@@ -156,7 +156,7 @@ abstract class Test extends \PHPUnit_Framework_TestCase
 		$this->assertNull($specs['5']->getParent());
 	}
 
-	public function testCreateSpecsTree_ShouldBeThrowExceptionIfLevelBreakMoreThenOne()
+	final public function testCreateSpecsTree_ShouldBeThrowExceptionIfLevelBreakMoreThenOne()
 	{
 		try
 		{

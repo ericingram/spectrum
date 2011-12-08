@@ -25,6 +25,6 @@ function describe($nameOrCallback, $callback = null)
 	if (!Manager::isDeclaringState())
 		throw new \net\mkharitonov\spectrum\constructionCommands\Exception('Construction command "describe" should be call only at declaring state');
 
-	return Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', $nameOrCallback, $callback);
+	return Manager::container(\net\mkharitonov\spectrum\core\Config::getSpecContainerDescribeClass(), $nameOrCallback, $callback);
 }
 
