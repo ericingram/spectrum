@@ -28,7 +28,7 @@ class ManagerTest extends \net\mkharitonov\spectrum\core\Test
 
 	public function testShouldBeHaveRegisteredBasePluginsByDefault()
 	{
-		Manager::registerPlugins($this->oldPlugins);
+		Manager::registerPlugins($this->registeredPluginsBackup);
 
 		$this->assertSame(array(
 			'matchers' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\Matchers', 'activateMoment' => 'whenCallOnce'),

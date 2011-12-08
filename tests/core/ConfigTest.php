@@ -18,30 +18,6 @@ require_once dirname(__FILE__) . '/../init.php';
  */
 class ConfigTest extends Test
 {
-	private $configPropertiesBackup = array();
-
-	protected function setUp()
-	{
-		parent::setUp();
-
-		$reflection = new \ReflectionClass('\net\mkharitonov\spectrum\core\Config');
-		$this->configPropertiesBackup = $reflection->getStaticProperties();
-	}
-
-	protected function tearDown()
-	{
-		foreach ($this->configPropertiesBackup as $propertyName => $propertyValue)
-		{
-			$propertyReflection = new \ReflectionProperty('\net\mkharitonov\spectrum\core\Config', $propertyName);
-			$propertyReflection->setAccessible(true);
-			$propertyReflection->setValue(null, $propertyValue);
-		}
-
-		parent::tearDown();
-	}
-
-/**/
-
 	public function testGetAssertClass_ShouldBeReturnSpectrumClassByDefault()
 	{
 		$this->assertEquals('\net\mkharitonov\spectrum\core\assert\Assert', Config::getAssertClass());
