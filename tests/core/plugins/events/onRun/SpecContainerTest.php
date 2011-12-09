@@ -12,7 +12,7 @@
 namespace net\mkharitonov\spectrum\core\plugins\events\onRun;
 use net\mkharitonov\spectrum\core\plugins\Manager;
 use net\mkharitonov\spectrum\core\SpecItemIt;
-use net\mkharitonov\spectrum\core\ResultBuffer;
+use net\mkharitonov\spectrum\core\RunResultsBuffer;
 use net\mkharitonov\spectrum\core\World;
 
 require_once dirname(__FILE__) . '/../../../../init.php';
@@ -82,7 +82,7 @@ abstract class SpecContainerTest extends Test
 		');
 
 		$specs[1]->setTestCallback(function() use($specs){
-			$specs[1]->getResultBuffer()->addResult(true);
+			$specs[1]->getRunResultsBuffer()->addResult(true);
 		});
 
 		$specs[0]->run();
@@ -103,7 +103,7 @@ abstract class SpecContainerTest extends Test
 		');
 
 		$specs[1]->setTestCallback(function() use($specs){
-			$specs[1]->getResultBuffer()->addResult(false);
+			$specs[1]->getRunResultsBuffer()->addResult(false);
 		});
 
 		$specs[0]->run();

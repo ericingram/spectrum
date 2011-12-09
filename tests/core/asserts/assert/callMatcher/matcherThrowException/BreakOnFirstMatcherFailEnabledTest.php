@@ -52,11 +52,11 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 		$this->assertTrue($isCalled);
 	}
 
-	public function testShouldBeAddFalseWithDetailsToResultBufferOnce()
+	public function testShouldBeAddFalseWithDetailsToRunResultsBufferOnce()
 	{
-		$this->runInTestCallback(function($test, $it) use(&$resultBuffer)
+		$this->runInTestCallback(function($test, $it) use(&$runResultsBuffer)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert(true);
 			$assert->beBad();
@@ -65,7 +65,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 			$test->fail('Should be break');
 		});
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 
 		$this->assertEquals(1, count($results));
 		$this->assertFalse($results[0]['result']);
@@ -74,9 +74,9 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 
 	public function testShouldBeProvidePropertiesToDetailsOnce()
 	{
-		$this->runInTestCallback(function($test, $it) use(&$resultBuffer)
+		$this->runInTestCallback(function($test, $it) use(&$runResultsBuffer)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert('foo');
 			$assert->beBad(0, 'bar');
@@ -84,7 +84,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 			$test->fail('Should be break');
 		});
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 
 		$details = $results[0]['details'];
 		$this->assertTrue($details instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
@@ -131,11 +131,11 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 		$this->assertTrue($isCalled);
 	}
 
-	public function testWithNot_ShouldBeAddFalseWithDetailsToResultBufferOnce()
+	public function testWithNot_ShouldBeAddFalseWithDetailsToRunResultsBufferOnce()
 	{
-		$this->runInTestCallback(function($test, $it) use(&$resultBuffer)
+		$this->runInTestCallback(function($test, $it) use(&$runResultsBuffer)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert(true);
 			$assert->not->beBad();
@@ -144,7 +144,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 			$test->fail('Should be break');
 		});
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 
 		$this->assertEquals(1, count($results));
 		$this->assertFalse($results[0]['result']);
@@ -153,9 +153,9 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 
 	public function testWithNot_ShouldBeProvidePropertiesToDetailsOnce()
 	{
-		$this->runInTestCallback(function($test, $it) use(&$resultBuffer)
+		$this->runInTestCallback(function($test, $it) use(&$runResultsBuffer)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert('foo');
 			$assert->not->beBad(0, 'bar');
@@ -163,7 +163,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 			$test->fail('Should be break');
 		});
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 
 		$details = $results[0]['details'];
 		$this->assertTrue($details instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);

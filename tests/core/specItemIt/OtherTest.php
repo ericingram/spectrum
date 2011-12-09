@@ -74,7 +74,7 @@ class OtherTest extends Test
 	{
 		$it = new SpecItemIt();
 
-		$it->setTestCallback(function() use($it) { $it->getResultBuffer()->addResult(true); });
+		$it->setTestCallback(function() use($it) { $it->getRunResultsBuffer()->addResult(true); });
 
 		$this->assertTrue($it->run());
 	}
@@ -84,7 +84,7 @@ class OtherTest extends Test
 		$it = new SpecItemIt();
 
 		\net\mkharitonov\spectrum\Test::$tmp['testSpec'] = $it;
-		$it->setTestCallback(create_function('', '\net\mkharitonov\spectrum\Test::$tmp[\'testSpec\']->getResultBuffer()->addResult(true);'));
+		$it->setTestCallback(create_function('', '\net\mkharitonov\spectrum\Test::$tmp[\'testSpec\']->getRunResultsBuffer()->addResult(true);'));
 
 		$this->assertTrue($it->run());
 	}
@@ -180,6 +180,6 @@ class OtherTest extends Test
 
 	static public function myTestCallback()
 	{
-		\net\mkharitonov\spectrum\Test::$tmp['testSpec']->getResultBuffer()->addResult(true);
+		\net\mkharitonov\spectrum\Test::$tmp['testSpec']->getRunResultsBuffer()->addResult(true);
 	}
 }

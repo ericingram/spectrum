@@ -11,7 +11,7 @@
 
 namespace net\mkharitonov\spectrum\core\plugins\events\onRun;
 use net\mkharitonov\spectrum\core\SpecItemIt;
-use net\mkharitonov\spectrum\core\ResultBuffer;
+use net\mkharitonov\spectrum\core\RunResultsBuffer;
 use net\mkharitonov\spectrum\core\World;
 
 require_once dirname(__FILE__) . '/../../../../init.php';

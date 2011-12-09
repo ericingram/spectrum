@@ -26,7 +26,7 @@ abstract class Test extends \net\mkharitonov\spectrum\core\specItemIt\errorHandl
 		$it = $this->it;
 		$it->setTestCallback(function() use($it)
 		{
-			$it->getResultBuffer()->addResult(true);
+			$it->getRunResultsBuffer()->addResult(true);
 			trigger_error('');
 		});
 
@@ -67,7 +67,7 @@ abstract class Test extends \net\mkharitonov\spectrum\core\specItemIt\errorHandl
 		$it->setTestCallback(function() use(&$isExecuted, $it)
 		{
 			@trigger_error('');
-			$it->getResultBuffer()->addResult(true);
+			$it->getRunResultsBuffer()->addResult(true);
 			$isExecuted = true;
 		});
 
@@ -121,13 +121,13 @@ abstract class Test extends \net\mkharitonov\spectrum\core\specItemIt\errorHandl
 		restore_error_handler();
 	}
 
-	public function testShouldBeUnsetResultBuffer()
+	public function testShouldBeUnsetRunResultsBuffer()
 	{
 		$it = $this->it;
 		$it->setTestCallback(function(){ trigger_error(''); });
 		$it->run();
 
-		$this->assertNull($it->getResultBuffer());
+		$this->assertNull($it->getRunResultsBuffer());
 	}
 
 	public function testShouldBeRestoreRunningInstance()

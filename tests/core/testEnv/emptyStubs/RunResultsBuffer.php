@@ -15,7 +15,7 @@ namespace net\mkharitonov\spectrum\core\testEnv\emptyStubs;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class ResultBuffer implements \net\mkharitonov\spectrum\core\ResultBufferInterface
+class RunResultsBuffer implements \net\mkharitonov\spectrum\core\RunResultsBufferInterface
 {
 	public function __construct(\net\mkharitonov\spectrum\core\SpecInterface $owner){}
 	public function getOwner(){}

@@ -57,7 +57,7 @@ class Assert implements AssertInterface
 				throw $e;
 		}
 
-		$it->getResultBuffer()->addResult($result, $runResultDetails);
+		$it->getRunResultsBuffer()->addResult($result, $runResultDetails);
 		$this->resetNot();
 
 		if (!$result && $it->errorHandling->getBreakOnFirstMatcherFailCascade())
@@ -92,7 +92,7 @@ class Assert implements AssertInterface
 		{
 			// TODO write tests
 			// TODO подумать как реализовать обработку подобных ошибок: учитывать ли BreakOnFirstMatcherFail или нет
-			$this->getItemRunningInstance()->getResultBuffer()->addResult(false, 'Undefined property "' . $name . '", only "not" property available in assert');
+			$this->getItemRunningInstance()->getRunResultsBuffer()->addResult(false, 'Undefined property "' . $name . '", only "not" property available in assert');
 		}
 
 		return $this;

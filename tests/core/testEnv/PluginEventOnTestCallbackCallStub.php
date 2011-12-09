@@ -24,7 +24,7 @@ class PluginEventOnTestCallbackCallStub extends \net\mkharitonov\spectrum\core\p
 			'arguments' => func_get_args(),
 			'owner' => $this->getOwner(),
 			'isRunning' => $this->getOwner()->isRunning(),
-			'resultBuffer' => $this->getOwner()->getResultBuffer(),
+			'runResultsBuffer' => $this->getOwner()->getRunResultsBuffer(),
 			'worldFooValue' => @$world->foo,
 		);
 	}
@@ -36,7 +36,7 @@ class PluginEventOnTestCallbackCallStub extends \net\mkharitonov\spectrum\core\p
 			'arguments' => func_get_args(),
 			'owner' => $this->getOwner(),
 			'isRunning' => $this->getOwner()->isRunning(),
-			'resultBuffer' => $this->getOwner()->getResultBuffer(),
+			'runResultsBuffer' => $this->getOwner()->getRunResultsBuffer(),
 			'worldFooValue' => @$world->foo,
 		);
 	}

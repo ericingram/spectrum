@@ -12,7 +12,7 @@
 namespace net\mkharitonov\spectrum\core\plugins\events\onTestCallbackCall;
 use net\mkharitonov\spectrum\core\plugins\Manager;
 use net\mkharitonov\spectrum\core\SpecItemIt;
-use net\mkharitonov\spectrum\core\ResultBuffer;
+use net\mkharitonov\spectrum\core\RunResultsBuffer;
 use net\mkharitonov\spectrum\core\World;
 
 require_once dirname(__FILE__) . '/../../../../init.php';
@@ -67,23 +67,23 @@ class AfterTest extends Test
 		$this->assertNull($event['worldFooValue']);
 	}
 
-	public function testShouldBeTriggeredBeforeResultBufferUnset()
+	public function testShouldBeTriggeredBeforeRunResultsBufferUnset()
 	{
 		Manager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\testEnv\PluginEventOnTestCallbackCallStub');
 
 		$spec = new SpecItemIt();
 		$spec->setTestCallback(function() use($spec){
-			$spec->getResultBuffer()->addResult(false);
+			$spec->getRunResultsBuffer()->addResult(false);
 		});
 		$spec->run();
 
 		Manager::unregisterPlugin('foo');
 
 		$event = $this->getSecondEvent($this->eventName);
-		$this->assertTrue($event['resultBuffer'] instanceof ResultBuffer);
+		$this->assertTrue($event['runResultsBuffer'] instanceof RunResultsBuffer);
 		$this->assertSame(array(
 			array('result' => false, 'details' => null),
-		), $event['resultBuffer']->getResults());
+		), $event['runResultsBuffer']->getResults());
 	}
 
 	public function testShouldBeTriggeredBeforeRunStop()

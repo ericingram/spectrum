@@ -33,7 +33,7 @@ class DisabledTest extends Test
 		$it->setTestCallback(function() use($it)
 		{
 			trigger_error('');
-			$it->getResultBuffer()->addResult(true);
+			$it->getRunResultsBuffer()->addResult(true);
 		});
 
 		$this->assertTrue($it->run());
@@ -46,15 +46,15 @@ class DisabledTest extends Test
 		set_error_handler(function(){});
 
 		$it = $this->it;
-		$it->setTestCallback(function() use(&$resultBuffer, $it)
+		$it->setTestCallback(function() use(&$runResultsBuffer, $it)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 			trigger_error('');
 		});
 
 		$it->run();
 
-		$this->assertSame(array(), $resultBuffer->getResults());
+		$this->assertSame(array(), $runResultsBuffer->getResults());
 
 		restore_error_handler();
 	}

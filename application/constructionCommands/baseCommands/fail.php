@@ -13,7 +13,7 @@ namespace net\mkharitonov\spectrum\constructionCommands\baseCommands;
 use net\mkharitonov\spectrum\constructionCommands\Manager;
 
 /**
- * Add to ResultBuffer of running SpecItem false result wits exception as details.
+ * Add to RunResultsBuffer of running SpecItem false result wits exception as details.
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  * @throws \net\mkharitonov\spectrum\constructionCommands\Exception If called not at running state
@@ -25,5 +25,5 @@ function fail($message = null, $code = 0)
 	if (!Manager::isRunningState())
 		throw new \net\mkharitonov\spectrum\constructionCommands\Exception('Construction command "fail" should be call only at running state');
 	
-	Manager::getCurrentItem()->getResultBuffer()->addResult(false, new \net\mkharitonov\spectrum\constructionCommands\Exception($message, $code));
+	Manager::getCurrentItem()->getRunResultsBuffer()->addResult(false, new \net\mkharitonov\spectrum\constructionCommands\Exception($message, $code));
 }

@@ -49,11 +49,11 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 		$this->assertTrue($isExecuted);
 	}
 
-	public function testShouldBeAddFalseWithDetailsToResultBufferForEachMatcher()
+	public function testShouldBeAddFalseWithDetailsToRunResultsBufferForEachMatcher()
 	{
-		$this->runInTestCallback(function($test, $it) use(&$resultBuffer)
+		$this->runInTestCallback(function($test, $it) use(&$runResultsBuffer)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert(true);
 			$assert->beBad();
@@ -63,7 +63,7 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 			$assert->beBad();
 		});
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 
 		$this->assertEquals(3, count($results));
 
@@ -80,9 +80,9 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 
 	public function testShouldBeProvidePropertiesToDetailsForEachMatcher()
 	{
-		$this->runInTestCallback(function($test, $it) use(&$resultBuffer)
+		$this->runInTestCallback(function($test, $it) use(&$runResultsBuffer)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert(true);
 			$assert->beBad();
@@ -92,7 +92,7 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 			$assert->beBadToo('bar');
 		});
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 
 		$details = $results[0]['details'];
 		$this->assertSame(true, $details->getActualValue());
@@ -168,26 +168,26 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 		$this->assertTrue($isExecuted);
 	}
 
-	public function testWithNot_ShouldBeIgnoreNotAndAddToResultBufferFalseAnyway()
+	public function testWithNot_ShouldBeIgnoreNotAndAddToRunResultsBufferFalseAnyway()
 	{
-		$this->runInTestCallback(function($test, $it) use(&$resultBuffer)
+		$this->runInTestCallback(function($test, $it) use(&$runResultsBuffer)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 			$assert = new Assert(true);
 			$assert->not->beBad();
 		});
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 		$this->assertEquals(1, count($results));
 		$this->assertSame(false, $results[0]['result']);
 		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
 	}
 
-	public function testWithNot_ShouldBeAddFalseWithDetailsToResultBufferForEachMatcher()
+	public function testWithNot_ShouldBeAddFalseWithDetailsToRunResultsBufferForEachMatcher()
 	{
-		$this->runInTestCallback(function($test, $it) use(&$resultBuffer)
+		$this->runInTestCallback(function($test, $it) use(&$runResultsBuffer)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert(true);
 			$assert->not->beBad();
@@ -197,7 +197,7 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 			$assert->not->beBad();
 		});
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 
 		$this->assertEquals(3, count($results));
 
@@ -214,9 +214,9 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 
 	public function testWithNot_ShouldBeProvidePropertiesToDetailsForEachMatcher()
 	{
-		$this->runInTestCallback(function($test, $it) use(&$resultBuffer)
+		$this->runInTestCallback(function($test, $it) use(&$runResultsBuffer)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert(true);
 			$assert->not->beBad();
@@ -226,7 +226,7 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 			$assert->not->beBadToo('bar');
 		});
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 
 		$details = $results[0]['details'];
 		$this->assertSame(true, $details->getActualValue());

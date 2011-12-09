@@ -10,7 +10,7 @@
  */
 
 namespace net\mkharitonov\spectrum\core\specItemIt;
-use net\mkharitonov\spectrum\core\ResultBuffer;
+use net\mkharitonov\spectrum\core\RunResultsBuffer;
 use net\mkharitonov\spectrum\core\SpecItem;
 use net\mkharitonov\spectrum\core\SpecItemIt;
 
@@ -73,45 +73,45 @@ class RunTest extends Test
 		});
 	}
 
-	public function testShouldBeCreateNewEmptyResultBufferBeforeEveryRun()
+	public function testShouldBeCreateNewEmptyRunResultsBufferBeforeEveryRun()
 	{
 		$it = new SpecItemIt();
-		$it->setTestCallback(function() use($it, &$resultBuffers){
-			$resultBuffers[] = $it->getResultBuffer();
+		$it->setTestCallback(function() use($it, &$runResultsBuffers){
+			$runResultsBuffers[] = $it->getRunResultsBuffer();
 		});
 
 		$it->run();
-		$this->assertEquals(1, count($resultBuffers));
-		$this->assertTrue($resultBuffers[0] instanceof ResultBuffer);
-		$this->assertSame(array(), $resultBuffers[0]->getResults());
+		$this->assertEquals(1, count($runResultsBuffers));
+		$this->assertTrue($runResultsBuffers[0] instanceof RunResultsBuffer);
+		$this->assertSame(array(), $runResultsBuffers[0]->getResults());
 
 		$it->run();
-		$this->assertEquals(2, count($resultBuffers));
-		$this->assertTrue($resultBuffers[1] instanceof ResultBuffer);
-		$this->assertSame(array(), $resultBuffers[1]->getResults());
+		$this->assertEquals(2, count($runResultsBuffers));
+		$this->assertTrue($runResultsBuffers[1] instanceof RunResultsBuffer);
+		$this->assertSame(array(), $runResultsBuffers[1]->getResults());
 
-		$this->assertNotSame($resultBuffers[0], $resultBuffers[1]);
+		$this->assertNotSame($runResultsBuffers[0], $runResultsBuffers[1]);
 	}
 
-	public function testShouldBeUnsetReferenceToResultBufferAfterRun()
+	public function testShouldBeUnsetReferenceToRunResultsBufferAfterRun()
 	{
 		$it = new SpecItemIt();
 		$it->setTestCallback(function() use($it){
-			$it->getResultBuffer()->addResult(false);
+			$it->getRunResultsBuffer()->addResult(false);
 		});
 
 		$it->run();
 
-		$this->assertNull($it->getResultBuffer());
+		$this->assertNull($it->getRunResultsBuffer());
 	}
 
-	public function testShouldBeUnsetResultsInResultBufferAfterRun()
+	public function testShouldBeUnsetResultsInRunResultsBufferAfterRun()
 	{
 		$it = new SpecItemIt();
-		$it->setTestCallback(function() use($it, &$resultBuffer){
-			$it->getResultBuffer()->addResult(false);
-			$it->getResultBuffer()->addResult(true, 'details foo bar');
-			$resultBuffer = $it->getResultBuffer();
+		$it->setTestCallback(function() use($it, &$runResultsBuffer){
+			$it->getRunResultsBuffer()->addResult(false);
+			$it->getRunResultsBuffer()->addResult(true, 'details foo bar');
+			$runResultsBuffer = $it->getRunResultsBuffer();
 		});
 
 		$it->run();
@@ -119,17 +119,17 @@ class RunTest extends Test
 		$this->assertSame(array(
 			array('result' => false, 'details' => null),
 			array('result' => true, 'details' => 'details foo bar'),
-		), $resultBuffer->getResults());
+		), $runResultsBuffer->getResults());
 	}
 
 	public function testShouldBeIgnorePreviousRunResult()
 	{
 		$it = new SpecItemIt();
 
-		$it->setTestCallback(function() use($it) { $it->getResultBuffer()->addResult(false); });
+		$it->setTestCallback(function() use($it) { $it->getRunResultsBuffer()->addResult(false); });
 		$this->assertFalse($it->run());
 
-		$it->setTestCallback(function() use($it) { $it->getResultBuffer()->addResult(true); });
+		$it->setTestCallback(function() use($it) { $it->getRunResultsBuffer()->addResult(true); });
 		$this->assertTrue($it->run());
 	}
 
@@ -181,9 +181,9 @@ class RunTest extends Test
 		$it = new SpecItemIt();
 		$it->setTestCallback(function() use($it)
 		{
-			$it->getResultBuffer()->addResult(true);
-			$it->getResultBuffer()->addResult(null);
-			$it->getResultBuffer()->addResult(true);
+			$it->getRunResultsBuffer()->addResult(true);
+			$it->getRunResultsBuffer()->addResult(null);
+			$it->getRunResultsBuffer()->addResult(true);
 		});
 
 		$this->assertFalse($it->run());
@@ -194,8 +194,8 @@ class RunTest extends Test
 		$it = new SpecItemIt();
 		$it->setTestCallback(function() use($it)
 		{
-			$it->getResultBuffer()->addResult(true);
-			$it->getResultBuffer()->addResult(1);
+			$it->getRunResultsBuffer()->addResult(true);
+			$it->getRunResultsBuffer()->addResult(1);
 		});
 
 		$this->assertTrue($it->run());

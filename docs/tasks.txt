@@ -1,4 +1,3 @@
-ResultBuffer => RunResultsStorage || RunResultsBuffer
 application => spectrum
 getInstance => getOnceInstance
 Move SpecItem methods to SpecItemIt
@@ -20,7 +19,7 @@ Execution - отлов исключений, выброшенных в любо�
 Assert->CallMatcher (в любом из мест Execution)
 Притом, отлов исключений, выброшенных матчерами происходит непосредственно в функции вызова матчера класса Assert (что позволяет продолжатб выполнение теста после исключения матчера)
 
-resultBuffer - result vs value vs resultValue
+runResultsBuffer - result vs value vs resultValue
 
 запретить getCurrentContainer/Spec на running state?
 
@@ -32,7 +31,7 @@ runner.php?file=
 Command::addMessageToReport(); - возможность занесения в отчет всех print'ов
 
 ---commands
-isRunningState - проверять наличие ResultBuffer (может быть вызван откуда то еще?), протестировать возможность вызова из событий
+isRunningState - проверять наличие RunResultsBuffer (может быть вызван откуда то еще?), протестировать возможность вызова из событий
 
 ---examples
 addExample('Автомобиль', $doorsCount);

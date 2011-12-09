@@ -15,7 +15,7 @@ namespace net\mkharitonov\spectrum\core;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class ResultBuffer implements ResultBufferInterface
+class RunResultsBuffer implements RunResultsBufferInterface
 {
 	/** @var \net\mkharitonov\spectrum\core\SpecInterface */
 	protected $owner;

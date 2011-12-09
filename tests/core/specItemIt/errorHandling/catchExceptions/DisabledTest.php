@@ -62,7 +62,7 @@ class DisabledTest extends Test
 		restore_error_handler();
 	}
 
-/*	public function testShouldBeUnsetResultBuffer()
+/*	public function testShouldBeUnsetRunResultsBuffer()
 	{
 		$it = new SpecItemIt();
 		$it->errorHandling->setCatchExceptions(false);
@@ -71,7 +71,7 @@ class DisabledTest extends Test
 		});
 
 		$this->assertThrowException('\Exception', 'foo', function() use($it){ $it->run(); });
-		$this->assertNull($it->getResultBuffer());
+		$this->assertNull($it->getRunResultsBuffer());
 	}
 
 	public function testShouldBeRestoreRunningInstance()

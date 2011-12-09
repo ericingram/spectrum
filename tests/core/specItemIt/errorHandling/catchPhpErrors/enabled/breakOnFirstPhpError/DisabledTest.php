@@ -38,12 +38,12 @@ class DisabledTest extends Test
 		$this->assertTrue($isExecuted);
 	}
 
-	public function testShouldBeAddFalseAndPhpErrorExceptionToResultBufferForEachError()
+	public function testShouldBeAddFalseAndPhpErrorExceptionToRunResultsBufferForEachError()
 	{
 		$it = $this->it;
-		$it->setTestCallback(function() use(&$resultBuffer, $it)
+		$it->setTestCallback(function() use(&$runResultsBuffer, $it)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 			trigger_error('');
 			trigger_error('');
 			trigger_error('');
@@ -51,7 +51,7 @@ class DisabledTest extends Test
 
 		$it->run();
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 
 		$this->assertEquals(3, count($results));
 
@@ -77,16 +77,16 @@ class DisabledTest extends Test
 	public function testShouldBeProvideErrorMessageAndSeverityToErrorExceptionForEachError()
 	{
 		$it = $this->it;
-		$it->setTestCallback(function() use(&$resultBuffer, $it)
+		$it->setTestCallback(function() use(&$runResultsBuffer, $it)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 			trigger_error('Foo is not bar', \E_USER_NOTICE);
 			trigger_error('bar', \E_USER_WARNING);
 			trigger_error('baz', \E_USER_ERROR);
 		});
 
 		$it->run();
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 
 		$this->assertEquals('Foo is not bar', $results[0]['details']->getMessage());
 		$this->assertEquals(0, $results[0]['details']->getCode());

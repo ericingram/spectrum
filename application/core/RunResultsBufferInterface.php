@@ -15,7 +15,7 @@ namespace net\mkharitonov\spectrum\core;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-interface ResultBufferInterface
+interface RunResultsBufferInterface
 {
 	public function __construct(\net\mkharitonov\spectrum\core\SpecInterface $owner);
 	public function getOwner();

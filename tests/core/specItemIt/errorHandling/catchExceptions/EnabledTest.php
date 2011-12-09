@@ -43,25 +43,25 @@ class EnabledTest extends Test
 		$it = $this->it;
 		$it->setTestCallback(function() use($it)
 		{
-			$it->getResultBuffer()->addResult(true);
+			$it->getRunResultsBuffer()->addResult(true);
 			throw new \Exception();
 		});
 
 		$this->assertFalse($it->run());
 	}
 
-	public function testShouldBeAddFalseAndThrownExceptionToResultBufferOnce()
+	public function testShouldBeAddFalseAndThrownExceptionToRunResultsBufferOnce()
 	{
 		$it = $this->it;
-		$it->setTestCallback(function() use(&$resultBuffer, $it)
+		$it->setTestCallback(function() use(&$runResultsBuffer, $it)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 			throw new \Exception('Foo is not bar', 123);
 		});
 
 		$it->run();
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 
 		$this->assertEquals(1, count($results));
 
@@ -85,45 +85,45 @@ class EnabledTest extends Test
 	public function testShouldBeCatchBaseClassExceptions()
 	{
 		$it = $this->it;
-		$it->setTestCallback(function() use(&$resultBuffer, $it)
+		$it->setTestCallback(function() use(&$runResultsBuffer, $it)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 			throw new \Exception('foo');
 		});
 
 		$it->run();
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 		$this->assertEquals('foo', $results[0]['details']->getMessage());
 	}
 
 	public function testShouldBeCatchSubclassExceptions()
 	{
 		$it = $this->it;
-		$it->setTestCallback(function() use(&$resultBuffer, $it)
+		$it->setTestCallback(function() use(&$runResultsBuffer, $it)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 			throw new \net\mkharitonov\spectrum\core\Exception('foo');
 		});
 
 		$it->run();
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 		$this->assertEquals('foo', $results[0]['details']->getMessage());
 	}
 
 	public function testShouldBeCatchPhpErrorException()
 	{
 		$it = $this->it;
-		$it->setTestCallback(function() use(&$resultBuffer, $it)
+		$it->setTestCallback(function() use(&$runResultsBuffer, $it)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 			throw new \net\mkharitonov\spectrum\core\ExceptionPhpError('foo');
 		});
 
 		$it->run();
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 		$this->assertEquals('foo', $results[0]['details']->getMessage());
 	}
 }

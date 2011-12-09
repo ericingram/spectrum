@@ -1115,7 +1115,7 @@ CODE
 	<li>$spec->errorHandling->setBreakOnFirstMatcherFail(false) — прерывать выполнение теста при первом провальном утверждении (матчере) или нет</li>
 </ol>
 
-<p class="notice">Результирующий буффер — это экземпляр класса core\ResultBuffer, который создается при каждом выполнении it и в который
+<p class="notice">Результирующий буффер — это экземпляр класса core\RunResultsBuffer, который создается при каждом выполнении it и в который
 заносятся результаты всех утверждения и ошибок. В этот буфер можно добавить свои результаты, например, из <a href="#plugins">плагинов</a> и просмотреть его содержимое в любой момент.</p>
 
 <p>По умолчанию, перехватываются все исключения и ошибки php и отключено прерывание выполнения при php ошибке и провальном матчере.</p>
@@ -1205,7 +1205,7 @@ printExample('', <<<'CODE'
 	use \net\mkharitonov\spectrum\constructionCommands\Manager;
 
 	Manager::registerCommand('crash', function(){
-		Manager::getCurrentItem()->getResultBuffer()->addResult(false, 'Космический корабль разбился');
+		Manager::getCurrentItem()->getRunResultsBuffer()->addResult(false, 'Космический корабль разбился');
 	});
 
 	it('Полет космического корабля', function(){

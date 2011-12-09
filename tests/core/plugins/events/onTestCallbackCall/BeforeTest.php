@@ -12,7 +12,7 @@
 namespace net\mkharitonov\spectrum\core\plugins\events\onTestCallbackCall;
 use net\mkharitonov\spectrum\core\plugins\Manager;
 use net\mkharitonov\spectrum\core\SpecItemIt;
-use net\mkharitonov\spectrum\core\ResultBuffer;
+use net\mkharitonov\spectrum\core\RunResultsBuffer;
 use net\mkharitonov\spectrum\core\World;
 
 require_once dirname(__FILE__) . '/../../../../init.php';
@@ -32,11 +32,11 @@ class BeforeTest extends Test
 		$this->assertTrue($event['isRunning']);
 	}
 
-	public function testShouldBeTriggeredAfterResultBufferCreation()
+	public function testShouldBeTriggeredAfterRunResultsBufferCreation()
 	{
 		$this->createItWithPluginEventAndRun('\net\mkharitonov\spectrum\core\testEnv\PluginEventOnTestCallbackCallStub');
 		$event = $this->getFirstEvent($this->eventName);
-		$this->assertTrue($event['resultBuffer'] instanceof ResultBuffer);
+		$this->assertTrue($event['runResultsBuffer'] instanceof RunResultsBuffer);
 	}
 
 	public function testShouldBeTriggeredAfterWorldBuildersApply()

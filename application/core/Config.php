@@ -20,7 +20,7 @@ class Config
 	private static $assertClass = '\net\mkharitonov\spectrum\core\asserts\Assert';
 	private static $assertRunResultDetailsClass = '\net\mkharitonov\spectrum\core\asserts\RunResultDetails';
 	private static $pluginsManagerClass = '\net\mkharitonov\spectrum\core\plugins\Manager';
-	private static $resultBufferClass = '\net\mkharitonov\spectrum\core\ResultBuffer';
+	private static $runResultsBufferClass = '\net\mkharitonov\spectrum\core\RunResultsBuffer';
 	private static $specContainerContextClass = '\net\mkharitonov\spectrum\core\SpecContainerContext';
 	private static $specContainerDataProviderClass = '\net\mkharitonov\spectrum\core\SpecContainerDataProvider';
 	private static $specContainerDescribeClass = '\net\mkharitonov\spectrum\core\SpecContainerDescribe';
@@ -40,8 +40,8 @@ class Config
 	public static function setPluginsManagerClass($className){ return static::setConfigClassValue(static::$pluginsManagerClass, $className, '\net\mkharitonov\spectrum\core\plugins\ManagerInterface'); }
 	public static function getPluginsManagerClass(){ return static::$pluginsManagerClass; }
 
-	public static function setResultBufferClass($className){ return static::setConfigClassValue(static::$resultBufferClass, $className, '\net\mkharitonov\spectrum\core\ResultBufferInterface'); }
-	public static function getResultBufferClass(){ return static::$resultBufferClass; }
+	public static function setRunResultsBufferClass($className){ return static::setConfigClassValue(static::$runResultsBufferClass, $className, '\net\mkharitonov\spectrum\core\RunResultsBufferInterface'); }
+	public static function getRunResultsBufferClass(){ return static::$runResultsBufferClass; }
 
 	public static function setSpecContainerContextClass($className){ return static::setConfigClassValue(static::$specContainerContextClass, $className, '\net\mkharitonov\spectrum\core\SpecContainerContextInterface'); }
 	public static function getSpecContainerContextClass(){ return static::$specContainerContextClass; }

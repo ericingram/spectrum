@@ -32,11 +32,11 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$this->assertTrue($isExecuted);
 	}
 
-	public function testShouldBeAddTrueWithDetailsToResultBufferForEachMatcher()
+	public function testShouldBeAddTrueWithDetailsToRunResultsBufferForEachMatcher()
 	{
-		$this->runInTestCallback(function($test, $it) use(&$resultBuffer)
+		$this->runInTestCallback(function($test, $it) use(&$runResultsBuffer)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert(true);
 			$assert->beTrue();
@@ -46,7 +46,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 			$assert->beTrue();
 		});
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 
 		$this->assertEquals(3, count($results));
 
@@ -63,9 +63,9 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 
 	public function testShouldBeProvidePropertiesToDetailsForEachMatcher()
 	{
-		$this->runInTestCallback(function($test, $it) use(&$resultBuffer)
+		$this->runInTestCallback(function($test, $it) use(&$runResultsBuffer)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert(true);
 			$assert->beTrue();
@@ -75,7 +75,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 			$assert->beEq('foo');
 		});
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 
 		$details = $results[0]['details'];
 		$this->assertSame(true, $details->getActualValue());
@@ -156,26 +156,26 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$this->assertTrue($isExecuted);
 	}
 
-	public function testWithNot_ShouldBeAddToResultBufferInvertedResult()
+	public function testWithNot_ShouldBeAddToRunResultsBufferInvertedResult()
 	{
-		$this->runInTestCallback(function($test, $it) use(&$resultBuffer)
+		$this->runInTestCallback(function($test, $it) use(&$runResultsBuffer)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 			$assert = new Assert(true);
 			$assert->not->beFalse();
 		});
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 		$this->assertEquals(1, count($results));
 		$this->assertSame(true, $results[0]['result']);
 		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
 	}
 
-	public function testWithNot_ShouldBeAddTrueWithDetailsToResultBufferForEachMatcher()
+	public function testWithNot_ShouldBeAddTrueWithDetailsToRunResultsBufferForEachMatcher()
 	{
-		$this->runInTestCallback(function($test, $it) use(&$resultBuffer)
+		$this->runInTestCallback(function($test, $it) use(&$runResultsBuffer)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert(true);
 			$assert->not->beFalse();
@@ -185,7 +185,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 			$assert->not->beFalse();
 		});
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 
 		$this->assertEquals(3, count($results));
 
@@ -202,9 +202,9 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 
 	public function testWithNot_ShouldBeProvidePropertiesToDetailsForEachMatcher()
 	{
-		$this->runInTestCallback(function($test, $it) use(&$resultBuffer)
+		$this->runInTestCallback(function($test, $it) use(&$runResultsBuffer)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert(true);
 			$assert->not->beFalse();
@@ -214,7 +214,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 			$assert->not->beEq('bar');
 		});
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 
 		$details = $results[0]['details'];
 		$this->assertSame(true, $details->getActualValue());
@@ -243,15 +243,15 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 
 	public function testWithNot_ShouldBeProvideNotInvertedMatcherReturnValue()
 	{
-		$this->runInTestCallback(function($test, $it) use(&$resultBuffer)
+		$this->runInTestCallback(function($test, $it) use(&$runResultsBuffer)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert(true);
 			$assert->not->beFalse();
 		});
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 		$this->assertSame(false, $results[0]['details']->getMatcherReturnValue());
 	}
 

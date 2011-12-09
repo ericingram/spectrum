@@ -155,24 +155,24 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 		$output .= '.finalResult.success { color: #009900; }' . $this->getNewline();
 		$output .= '.finalResult.empty { color: #cc9900; }' . $this->getNewline();
 
-		$output .= '.resultBuffer:before { content: "Содержимое результирующего буфера: "; display: block; position: absolute; top: -1.8em; left: 0; padding: 0.3em 0.5em; background: #f5f1f1; color: #888; font-style: italic; }' . $this->getNewline();
-		$output .= '.resultBuffer { position: relative; margin: 2em 0 1em 0; }' . $this->getNewline();
+		$output .= '.runResultsBuffer:before { content: "Содержимое результирующего буфера: "; display: block; position: absolute; top: -1.8em; left: 0; padding: 0.3em 0.5em; background: #f5f1f1; color: #888; font-style: italic; }' . $this->getNewline();
+		$output .= '.runResultsBuffer { position: relative; margin: 2em 0 1em 0; }' . $this->getNewline();
 
-		$output .= '.resultBuffer .row .result:before { content: "Result: "; font-weight: bold; }' . $this->getNewline();
-		$output .= '.resultBuffer .row { float: left; padding: 0.5em; }' . $this->getNewline();
+		$output .= '.runResultsBuffer .row .result:before { content: "Result: "; font-weight: bold; }' . $this->getNewline();
+		$output .= '.runResultsBuffer .row { float: left; padding: 0.5em; }' . $this->getNewline();
 
-		$output .= '.resultBuffer .row .details:before { display: block; content: "Details: "; font-weight: bold; }' . $this->getNewline();
-		$output .= '.resultBuffer .row .details { white-space: pre; }' . $this->getNewline();
-		$output .= '.resultBuffer .row .details.assert .title { font-size: 0.9em; }' . $this->getNewline();
-		$output .= '.resultBuffer .row .details.assert .title:after { content: ": ";}' . $this->getNewline();
+		$output .= '.runResultsBuffer .row .details:before { display: block; content: "Details: "; font-weight: bold; }' . $this->getNewline();
+		$output .= '.runResultsBuffer .row .details { white-space: pre; }' . $this->getNewline();
+		$output .= '.runResultsBuffer .row .details.assert .title { font-size: 0.9em; }' . $this->getNewline();
+		$output .= '.runResultsBuffer .row .details.assert .title:after { content: ": ";}' . $this->getNewline();
 
-		$output .= '.resultBuffer .row.true { border-right: 1px solid #b5dfb5; background: #ccffcc; }' . $this->getNewline();
-		$output .= '.resultBuffer .row.true .details.assert .title { color: #789578; }' . $this->getNewline();
-		$output .= '.resultBuffer .row.true:last-child { border-right: 0; }' . $this->getNewline();
+		$output .= '.runResultsBuffer .row.true { border-right: 1px solid #b5dfb5; background: #ccffcc; }' . $this->getNewline();
+		$output .= '.runResultsBuffer .row.true .details.assert .title { color: #789578; }' . $this->getNewline();
+		$output .= '.runResultsBuffer .row.true:last-child { border-right: 0; }' . $this->getNewline();
 
-		$output .= '.resultBuffer .row.false { border-right: 1px solid #e2b5b5; background: #ffcccc; }' . $this->getNewline();
-		$output .= '.resultBuffer .row.false .details.assert .title { color: #957979; }' . $this->getNewline();
-		$output .= '.resultBuffer .row.false:last-child { border-right: 0; }' . $this->getNewline();
+		$output .= '.runResultsBuffer .row.false { border-right: 1px solid #e2b5b5; background: #ffcccc; }' . $this->getNewline();
+		$output .= '.runResultsBuffer .row.false .details.assert .title { color: #957979; }' . $this->getNewline();
+		$output .= '.runResultsBuffer .row.false:last-child { border-right: 0; }' . $this->getNewline();
 
 		return rtrim($output);
 	}
@@ -231,7 +231,7 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 
 			$this->updateResult($this->getOwner()->getUid(), $this->getSpecResultLabel($finalResult));
 			if ($this->getPrintDebugCascade())
-				$this->printResultBuffer($finalResult);
+				$this->printRunResultsBuffer($finalResult);
 			
 			print '</li>';
 
@@ -242,12 +242,12 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 			print $this->getFooter();
 	}
 
-	protected function printResultBuffer($finalResult)
+	protected function printRunResultsBuffer($finalResult)
 	{
 		if ($finalResult === false && $this->getOwner() instanceof SpecItemInterface)
 		{
-			print '<div class="resultBuffer clearfix">';
-			foreach ($this->getOwner()->getResultBuffer()->getResults() as $result)
+			print '<div class="runResultsBuffer clearfix">';
+			foreach ($this->getOwner()->getRunResultsBuffer()->getResults() as $result)
 			{
 				print '<div class="row ' . ($result['result'] === true ? 'true' : 'false') . '">';
 

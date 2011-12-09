@@ -393,7 +393,7 @@ abstract class SpecTest extends Test
 		$it->setTestCallback(function() use($it, $result)
 		{
 			if ($result !== null)
-				$it->getResultBuffer()->addResult($result);
+				$it->getRunResultsBuffer()->addResult($result);
 		});
 
 		$spec = new SpecContainerContext();
@@ -408,7 +408,7 @@ abstract class SpecTest extends Test
 		$it->setTestCallback(function() use($it, $result)
 		{
 			if ($result !== null)
-				$it->getResultBuffer()->addResult($result);
+				$it->getRunResultsBuffer()->addResult($result);
 		});
 
 		return $it;

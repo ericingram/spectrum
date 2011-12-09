@@ -37,14 +37,14 @@ abstract class Test extends \net\mkharitonov\spectrum\core\specItemIt\Test
 	public function testShouldBeIgnoreAndSuppressBreakException()
 	{
 		$it = $this->it;
-		$it->setTestCallback(function() use(&$resultBuffer, $it)
+		$it->setTestCallback(function() use(&$runResultsBuffer, $it)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 			throw new \net\mkharitonov\spectrum\core\ExceptionBreak();
 		});
 
 		$it->run();
 
-		$this->assertEquals(array(), $resultBuffer->getResults());
+		$this->assertEquals(array(), $runResultsBuffer->getResults());
 	}
 }

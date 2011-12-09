@@ -38,18 +38,18 @@ class EnabledTest extends Test
 		$this->assertNull($isExecuted);
 	}
 
-	public function testShouldBeAddFalseAndPhpErrorExceptionToResultBufferOnce()
+	public function testShouldBeAddFalseAndPhpErrorExceptionToRunResultsBufferOnce()
 	{
 		$it = $this->it;
-		$it->setTestCallback(function() use(&$resultBuffer, $it)
+		$it->setTestCallback(function() use(&$runResultsBuffer, $it)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 			trigger_error('');
 		});
 
 		$it->run();
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 
 		$this->assertEquals(1, count($results));
 
@@ -60,15 +60,15 @@ class EnabledTest extends Test
 	public function testShouldBeProvideErrorMessageAndSeverityToErrorException()
 	{
 		$it = $this->it;
-		$it->setTestCallback(function() use(&$resultBuffer, $it)
+		$it->setTestCallback(function() use(&$runResultsBuffer, $it)
 		{
-			$resultBuffer = $it->getResultBuffer();
+			$runResultsBuffer = $it->getRunResultsBuffer();
 			trigger_error('Foo is not bar', \E_USER_NOTICE);
 		});
 
 		$it->run();
 
-		$results = $resultBuffer->getResults();
+		$results = $runResultsBuffer->getResults();
 		$this->assertEquals('Foo is not bar', $results[0]['details']->getMessage());
 		$this->assertEquals(0, $results[0]['details']->getCode());
 		$this->assertEquals(\E_USER_NOTICE, $results[0]['details']->getSeverity());

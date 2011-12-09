@@ -12,7 +12,7 @@
 namespace net\mkharitonov\spectrum\core;
 
 /**
- * Be carefully, this exception not adds to ResultBuffer and should be throw only for softly break execution.
+ * Be carefully, this exception not adds to RunResultsBuffer and should be throw only for softly break execution.
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */

@@ -27,9 +27,9 @@ abstract class SpecItem extends Spec implements SpecItemInterface
 	protected $oldRunningInstance;
 	
 	/**
-	 * @var \net\mkharitonov\spectrum\core\ResultBuffer|null
+	 * @var \RunResultsBuffer\mkharitonov\spectrum\core\RunResultsBuffer|null
 	 */
-	protected $resultBuffer;
+	protected $runResultsBuffer;
 
 	protected $testCallback;
 	protected $additionalArguments = array();
@@ -85,9 +85,9 @@ abstract class SpecItem extends Spec implements SpecItemInterface
 		return false;
 	}
 
-	public function getResultBuffer()
+	public function getRunResultsBuffer()
 	{
-		return $this->resultBuffer;
+		return $this->runResultsBuffer;
 	}
 
 	public function run()
@@ -95,19 +95,19 @@ abstract class SpecItem extends Spec implements SpecItemInterface
 		if ($this->getParent() && !$this->getParent()->isRunning())
 			return $this->runSelfThroughAncestors();
 
-		$resultBufferClass = Config::getResultBufferClass();
-		$this->resultBuffer = new $resultBufferClass($this);
+		$runResultsBufferClass = Config::getRunResultsBufferClass();
+		$this->runResultsBuffer = new $runResultsBufferClass($this);
 		$this->startRun();
 		$this->triggerEvent('onRunBefore');
 		$this->triggerEvent('onRunItemBefore');
 
 		$this->execute();
-		$result = $this->getResultBuffer()->calculateFinalResult();
+		$result = $this->getRunResultsBuffer()->calculateFinalResult();
 
 		$this->triggerEvent('onRunItemAfter', $result);
 		$this->triggerEvent('onRunAfter', $result);
 		$this->stopRun();
-		$this->resultBuffer = null;
+		$this->runResultsBuffer = null;
 
 		return $result;
 	}
@@ -147,7 +147,7 @@ abstract class SpecItem extends Spec implements SpecItemInterface
 		catch (\Exception $e)
 		{
 			if ($this->errorHandling->getCatchExceptionsCascade())
-				$this->getResultBuffer()->addResult(false, $e);
+				$this->getRunResultsBuffer()->addResult(false, $e);
 			else
 			{
 				$this->restoreErrorHandlerIsSets();
@@ -173,7 +173,7 @@ abstract class SpecItem extends Spec implements SpecItemInterface
 			if (error_reporting() == 0)
 				return;
 
-			$it->getResultBuffer()->addResult(false, new ExceptionPhpError($message, 0, $severity, $file, $line));
+			$it->getRunResultsBuffer()->addResult(false, new ExceptionPhpError($message, 0, $severity, $file, $line));
 
 			if ($it->errorHandling->getBreakOnFirstPhpErrorCascade())
 				throw new ExceptionBreak();
