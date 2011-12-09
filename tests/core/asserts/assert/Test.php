@@ -9,7 +9,7 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\assert\assert;
+namespace net\mkharitonov\spectrum\core\asserts\assert;
 require_once dirname(__FILE__) . '/../../../init.php';
 
 /**

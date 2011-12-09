@@ -1167,7 +1167,7 @@ CODE
 printExample('', <<<'CODE'
 	use \net\mkharitonov\spectrum\RootDescribe;
 	use \net\mkharitonov\spectrum\core\SpecItemIt;
-	use \net\mkharitonov\spectrum\core\assert\Assert;
+	use \net\mkharitonov\spectrum\core\asserts\Assert;
 	use \net\mkharitonov\spectrum\core\SpecContainerDescribe;
 
 	$it = new SpecItemIt('Должен изучать живые организмы');

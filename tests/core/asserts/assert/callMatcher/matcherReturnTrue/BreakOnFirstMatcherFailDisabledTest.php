@@ -9,16 +9,16 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\assert\assert\callMatcher;
-use net\mkharitonov\spectrum\core\assert\Assert;
+namespace net\mkharitonov\spectrum\core\asserts\assert\callMatcher\matcherReturnTrue;
+use net\mkharitonov\spectrum\core\asserts\Assert;
 
-require_once dirname(__FILE__) . '/../../../../init.php';
+require_once dirname(__FILE__) . '/../../../../../init.php';
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class Test extends \net\mkharitonov\spectrum\core\assert\assert\Test
+class BreakOnFirstMatcherFailDisabledTest extends Test
 {
 
 /*** Test ware ***/
@@ -26,7 +26,7 @@ class Test extends \net\mkharitonov\spectrum\core\assert\assert\Test
 	protected function createItWithMatchers()
 	{
 		$it = parent::createItWithMatchers();
-		$it->errorHandling->setCatchExceptions(true);
+		$it->errorHandling->setBreakOnFirstMatcherFail(false);
 		return $it;
 	}
 }

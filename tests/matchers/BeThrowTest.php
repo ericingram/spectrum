@@ -36,7 +36,7 @@ class BeThrowTest extends \net\mkharitonov\spectrum\matchers\Test
 	public function testExpectedClass_ShouldBeThrowExceptionIfClassIsNotSubclassOfException()
 	{
 		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'should be subclass', function(){
-			beThrow(function(){}, '\net\mkharitonov\spectrum\core\assert\Assert');
+			beThrow(function(){}, '\net\mkharitonov\spectrum\core\asserts\Assert');
 		});
 	}
 

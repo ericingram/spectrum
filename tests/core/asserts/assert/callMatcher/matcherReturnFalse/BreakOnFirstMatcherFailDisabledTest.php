@@ -9,8 +9,8 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\assert\assert\callMatcher\matcherReturnFalse;
-use net\mkharitonov\spectrum\core\assert\Assert;
+namespace net\mkharitonov\spectrum\core\asserts\assert\callMatcher\matcherReturnFalse;
+use net\mkharitonov\spectrum\core\asserts\Assert;
 
 require_once dirname(__FILE__) . '/../../../../../init.php';
 
@@ -18,7 +18,7 @@ require_once dirname(__FILE__) . '/../../../../../init.php';
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core\assert\assert\callMatcher\Test
+class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Test
 {
 	public function testShouldNotBeBreakExecution()
 	{
@@ -54,9 +54,9 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 		$this->assertFalse($results[1]['result']);
 		$this->assertFalse($results[2]['result']);
 
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\assert\ResultDetails);
-		$this->assertTrue($results[1]['details'] instanceof \net\mkharitonov\spectrum\core\assert\ResultDetails);
-		$this->assertTrue($results[2]['details'] instanceof \net\mkharitonov\spectrum\core\assert\ResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
+		$this->assertTrue($results[1]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
+		$this->assertTrue($results[2]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
 
 		$this->assertAllResultsDetailsDifferent($results);
 	}
@@ -143,7 +143,7 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 		$results = $resultBuffer->getResults();
 		$this->assertEquals(1, count($results));
 		$this->assertSame(false, $results[0]['result']);
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\assert\ResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
 	}
 
 	public function testWithNot_ShouldBeAddFalseWithDetailsToResultBufferForEachMatcher()
@@ -168,9 +168,9 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 		$this->assertFalse($results[1]['result']);
 		$this->assertFalse($results[2]['result']);
 
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\assert\ResultDetails);
-		$this->assertTrue($results[1]['details'] instanceof \net\mkharitonov\spectrum\core\assert\ResultDetails);
-		$this->assertTrue($results[2]['details'] instanceof \net\mkharitonov\spectrum\core\assert\ResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
+		$this->assertTrue($results[1]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
+		$this->assertTrue($results[2]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
 
 		$this->assertAllResultsDetailsDifferent($results);
 	}

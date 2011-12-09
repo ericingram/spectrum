@@ -9,21 +9,14 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\assert;
+namespace net\mkharitonov\spectrum\core\asserts;
+require_once dirname(__FILE__) . '/../../init.php';
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
- * @property not
  */
-interface AssertInterface
+class ResultDetailsTest extends \net\mkharitonov\spectrum\core\Test
 {
-	public function __construct($actualValue);
-	public function __call($name, array $expectedArgs = array());
-	public function __get($name);
-
-	public function getActualValue();
-	public function isNot();
-	public function invertNot();
-	public function resetNot();
+	
 }

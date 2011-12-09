@@ -9,14 +9,14 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\testEnv\emptyStubs\assert;
+namespace net\mkharitonov\spectrum\core\testEnv\emptyStubs\asserts;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  * @property not
  */
-class ResultDetails implements \net\mkharitonov\spectrum\core\assert\ResultDetailsInterface
+class ResultDetails implements \net\mkharitonov\spectrum\core\asserts\ResultDetailsInterface
 {
 	public function setActualValue($actualValue){}
 	public function getActualValue(){}

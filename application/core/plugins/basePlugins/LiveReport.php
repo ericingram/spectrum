@@ -256,7 +256,7 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 				print '</div>';
 
 				$details = $result['details'];
-				if (is_object($details) && $details instanceof \net\mkharitonov\spectrum\core\assert\ResultDetailsInterface)
+				if (is_object($details) && $details instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetailsInterface)
 				{
 					print '<div class="details assert">';
 					// TODO print matcher view, like Details: bool false be(string "foo")->not->eq(string "bar", int 1)

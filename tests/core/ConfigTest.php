@@ -20,15 +20,15 @@ class ConfigTest extends Test
 {
 	public function testGetAssertClass_ShouldBeReturnSpectrumClassByDefault()
 	{
-		$this->assertEquals('\net\mkharitonov\spectrum\core\assert\Assert', Config::getAssertClass());
+		$this->assertEquals('\net\mkharitonov\spectrum\core\asserts\Assert', Config::getAssertClass());
 	}
 
 /**/
 
 	public function testSetAssertClass_ShouldBeSetNewClass()
 	{
-		Config::setAssertClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\assert\Assert');
-		$this->assertEquals('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\assert\Assert', Config::getAssertClass());
+		Config::setAssertClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\asserts\Assert');
+		$this->assertEquals('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\asserts\Assert', Config::getAssertClass());
 	}
 
 	public function testSetAssertClass_ClassNotExists_ShouldBeThrowExceptionAndNotChangeValue()
@@ -59,7 +59,7 @@ class ConfigTest extends Test
 		Config::lock();
 
 		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Config is locked', function(){
-			Config::setAssertClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\assert\Assert');
+			Config::setAssertClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\asserts\Assert');
 		});
 
 		$this->assertEquals($oldClass, Config::getAssertClass());
@@ -69,15 +69,15 @@ class ConfigTest extends Test
 
 	public function testGetAssertResultDetailsClass_ShouldBeReturnSpectrumClassByDefault()
 	{
-		$this->assertEquals('\net\mkharitonov\spectrum\core\assert\ResultDetails', Config::getAssertResultDetailsClass());
+		$this->assertEquals('\net\mkharitonov\spectrum\core\asserts\ResultDetails', Config::getAssertResultDetailsClass());
 	}
 
 /**/
 
 	public function testSetAssertResultDetailsClass_ShouldBeSetNewClass()
 	{
-		Config::setAssertResultDetailsClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\assert\ResultDetails');
-		$this->assertEquals('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\assert\ResultDetails', Config::getAssertResultDetailsClass());
+		Config::setAssertResultDetailsClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\asserts\ResultDetails');
+		$this->assertEquals('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\asserts\ResultDetails', Config::getAssertResultDetailsClass());
 	}
 
 	public function testSetAssertResultDetailsClass_ClassNotExists_ShouldBeThrowExceptionAndNotChangeValue()
@@ -108,7 +108,7 @@ class ConfigTest extends Test
 		Config::lock();
 
 		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Config is locked', function(){
-			Config::setAssertResultDetailsClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\assert\ResultDetails');
+			Config::setAssertResultDetailsClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\asserts\ResultDetails');
 		});
 
 		$this->assertEquals($oldClass, Config::getAssertResultDetailsClass());

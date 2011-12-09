@@ -9,7 +9,7 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\assert;
+namespace net\mkharitonov\spectrum\core\asserts;
 use net\mkharitonov\spectrum\core\Exception;
 
 /**

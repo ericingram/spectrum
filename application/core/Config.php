@@ -17,8 +17,8 @@ namespace net\mkharitonov\spectrum\core;
  */
 class Config
 {
-	private static $assertClass = '\net\mkharitonov\spectrum\core\assert\Assert';
-	private static $assertResultDetailsClass = '\net\mkharitonov\spectrum\core\assert\ResultDetails';
+	private static $assertClass = '\net\mkharitonov\spectrum\core\asserts\Assert';
+	private static $assertResultDetailsClass = '\net\mkharitonov\spectrum\core\asserts\ResultDetails';
 	private static $pluginsManagerClass = '\net\mkharitonov\spectrum\core\plugins\Manager';
 	private static $resultBufferClass = '\net\mkharitonov\spectrum\core\ResultBuffer';
 	private static $specContainerContextClass = '\net\mkharitonov\spectrum\core\SpecContainerContext';
@@ -31,10 +31,10 @@ class Config
 
 	private static $locked = false;
 
-	public static function setAssertClass($className){ return static::setConfigClassValue(static::$assertClass, $className, '\net\mkharitonov\spectrum\core\assert\AssertInterface'); }
+	public static function setAssertClass($className){ return static::setConfigClassValue(static::$assertClass, $className, '\net\mkharitonov\spectrum\core\asserts\AssertInterface'); }
 	public static function getAssertClass(){ return static::$assertClass; }
 
-	public static function setAssertResultDetailsClass($className){ return static::setConfigClassValue(static::$assertResultDetailsClass, $className, '\net\mkharitonov\spectrum\core\assert\ResultDetailsInterface'); }
+	public static function setAssertResultDetailsClass($className){ return static::setConfigClassValue(static::$assertResultDetailsClass, $className, '\net\mkharitonov\spectrum\core\asserts\ResultDetailsInterface'); }
 	public static function getAssertResultDetailsClass(){ return static::$assertResultDetailsClass; }
 
 	public static function setPluginsManagerClass($className){ return static::setConfigClassValue(static::$pluginsManagerClass, $className, '\net\mkharitonov\spectrum\core\plugins\ManagerInterface'); }

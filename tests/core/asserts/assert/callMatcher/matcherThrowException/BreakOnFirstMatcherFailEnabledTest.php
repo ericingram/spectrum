@@ -9,8 +9,8 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\assert\assert\callMatcher\matcherReturnFalse;
-use net\mkharitonov\spectrum\core\assert\Assert;
+namespace net\mkharitonov\spectrum\core\asserts\assert\callMatcher\matcherThrowException;
+use net\mkharitonov\spectrum\core\asserts\Assert;
 
 require_once dirname(__FILE__) . '/../../../../../init.php';
 
@@ -18,8 +18,25 @@ require_once dirname(__FILE__) . '/../../../../../init.php';
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\assert\assert\callMatcher\Test
+class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Test
 {
+	public function testCatchExceptionsDisabled_ShouldNotBeCatchExceptions()
+	{
+		$this->runInTestCallback(function($test, $it) use(&$isCalled)
+		{
+			$it->errorHandling->setCatchExceptions(false);
+			$test->assertThrowException('\Exception', 'I am bad matcher', function()
+			{
+				$assert = new Assert(true);
+				$assert->beBad();
+			});
+
+			$isCalled = true;
+		});
+
+		$this->assertTrue($isCalled);
+	}
+
 	public function testShouldBeBreakExecution()
 	{
 		$this->runInTestCallback(function($test, $it) use(&$isCalled)
@@ -27,7 +44,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 			$isCalled = true;
 
 			$assert = new Assert(true);
-			$assert->beFalse();
+			$assert->beBad();
 
 			$test->fail('Should be break');
 		});
@@ -42,8 +59,8 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 			$resultBuffer = $it->getResultBuffer();
 
 			$assert = new Assert(true);
-			$assert->beFalse();
-			$assert->beFalse();
+			$assert->beBad();
+			$assert->beBad();
 
 			$test->fail('Should be break');
 		});
@@ -52,7 +69,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 
 		$this->assertEquals(1, count($results));
 		$this->assertFalse($results[0]['result']);
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\assert\ResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
 	}
 
 	public function testShouldBeProvidePropertiesToDetailsOnce()
@@ -62,7 +79,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 			$resultBuffer = $it->getResultBuffer();
 
 			$assert = new Assert('foo');
-			$assert->beEq('bar');
+			$assert->beBad(0, 'bar');
 
 			$test->fail('Should be break');
 		});
@@ -70,16 +87,34 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 		$results = $resultBuffer->getResults();
 
 		$details = $results[0]['details'];
-		$this->assertTrue($details instanceof \net\mkharitonov\spectrum\core\assert\ResultDetails);
+		$this->assertTrue($details instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
 		$this->assertSame('foo', $details->getActualValue());
 		$this->assertSame(false, $details->getIsNot());
-		$this->assertSame('beEq', $details->getMatcherName());
-		$this->assertSame(array('bar'), $details->getMatcherArgs());
-		$this->assertSame(false, $details->getMatcherReturnValue());
-		$this->assertSame(null, $details->getMatcherException());
+		$this->assertSame('beBad', $details->getMatcherName());
+		$this->assertSame(array(0, 'bar'), $details->getMatcherArgs());
+		$this->assertSame(null, $details->getMatcherReturnValue());
+		$this->assertTrue($details->getMatcherException() instanceof \Exception);
+		$this->assertSame('I am bad matcher', $details->getMatcherException()->getMessage());
 	}
 
 /**/
+
+	public function testWithNot_CatchExceptionsDisabled_ShouldNotBeCatchExceptions()
+	{
+		$this->runInTestCallback(function($test, $it) use(&$isCalled)
+		{
+			$it->errorHandling->setCatchExceptions(false);
+			$test->assertThrowException('\Exception', 'I am bad matcher', function()
+			{
+				$assert = new Assert(true);
+				$assert->not->beBad();
+			});
+
+			$isCalled = true;
+		});
+
+		$this->assertTrue($isCalled);
+	}
 
 	public function testWithNot_ShouldBeBreakExecution()
 	{
@@ -88,7 +123,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 			$isCalled = true;
 
 			$assert = new Assert(true);
-			$assert->not->beTrue();
+			$assert->not->beBad();
 
 			$test->fail('Should be break');
 		});
@@ -103,8 +138,8 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 			$resultBuffer = $it->getResultBuffer();
 
 			$assert = new Assert(true);
-			$assert->not->beTrue();
-			$assert->not->beTrue();
+			$assert->not->beBad();
+			$assert->not->beBad();
 
 			$test->fail('Should be break');
 		});
@@ -113,7 +148,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 
 		$this->assertEquals(1, count($results));
 		$this->assertFalse($results[0]['result']);
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\assert\ResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
 	}
 
 	public function testWithNot_ShouldBeProvidePropertiesToDetailsOnce()
@@ -123,7 +158,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 			$resultBuffer = $it->getResultBuffer();
 
 			$assert = new Assert('foo');
-			$assert->not->beEq('foo');
+			$assert->not->beBad(0, 'bar');
 
 			$test->fail('Should be break');
 		});
@@ -131,27 +166,14 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 		$results = $resultBuffer->getResults();
 
 		$details = $results[0]['details'];
-		$this->assertTrue($details instanceof \net\mkharitonov\spectrum\core\assert\ResultDetails);
+		$this->assertTrue($details instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
 		$this->assertSame('foo', $details->getActualValue());
 		$this->assertSame(true, $details->getIsNot());
-		$this->assertSame('beEq', $details->getMatcherName());
-		$this->assertSame(array('foo'), $details->getMatcherArgs());
-		$this->assertSame(true, $details->getMatcherReturnValue());
-		$this->assertSame(null, $details->getMatcherException());
-	}
-
-	public function testWithNot_ShouldBeProvideNotInvertedMatcherReturnValue()
-	{
-		$this->runInTestCallback(function($test, $it) use(&$resultBuffer)
-		{
-			$resultBuffer = $it->getResultBuffer();
-
-			$assert = new Assert(true);
-			$assert->not->beTrue();
-		});
-
-		$results = $resultBuffer->getResults();
-		$this->assertSame(true, $results[0]['details']->getMatcherReturnValue());
+		$this->assertSame('beBad', $details->getMatcherName());
+		$this->assertSame(array(0, 'bar'), $details->getMatcherArgs());
+		$this->assertSame(null, $details->getMatcherReturnValue());
+		$this->assertTrue($details->getMatcherException() instanceof \Exception);
+		$this->assertSame('I am bad matcher', $details->getMatcherException()->getMessage());
 	}
 
 /*** Test ware ***/

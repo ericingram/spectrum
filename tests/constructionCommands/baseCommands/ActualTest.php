@@ -27,7 +27,7 @@ class ActualTest extends \net\mkharitonov\spectrum\constructionCommands\baseComm
 		});
 
 		$it->run();
-		$this->assertTrue($assert instanceof \net\mkharitonov\spectrum\core\assert\Assert);
+		$this->assertTrue($assert instanceof \net\mkharitonov\spectrum\core\asserts\Assert);
 	}
 
 	public function testShouldBeThrowExceptionIfCalledAtDeclaringState()
@@ -46,7 +46,7 @@ class ActualTest extends \net\mkharitonov\spectrum\constructionCommands\baseComm
 		});
 
 		$it->run();
-		$this->assertTrue($assert instanceof \net\mkharitonov\spectrum\core\assert\Assert);
+		$this->assertTrue($assert instanceof \net\mkharitonov\spectrum\core\asserts\Assert);
 	}
 
 	public function testShouldBeSetActualValueToAssertInstance()

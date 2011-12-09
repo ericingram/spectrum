@@ -9,8 +9,8 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\assert\assert\callMatcher\matcherReturnTrue;
-use net\mkharitonov\spectrum\core\assert\Assert;
+namespace net\mkharitonov\spectrum\core\asserts\assert\callMatcher\matcherReturnTrue;
+use net\mkharitonov\spectrum\core\asserts\Assert;
 
 require_once dirname(__FILE__) . '/../../../../../init.php';
 
@@ -18,7 +18,7 @@ require_once dirname(__FILE__) . '/../../../../../init.php';
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class Test extends \net\mkharitonov\spectrum\core\assert\assert\callMatcher\Test
+class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Test
 {
 	public function testShouldNotBeBreakExecution()
 	{
@@ -54,9 +54,9 @@ class Test extends \net\mkharitonov\spectrum\core\assert\assert\callMatcher\Test
 		$this->assertTrue($results[1]['result']);
 		$this->assertTrue($results[2]['result']);
 
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\assert\ResultDetails);
-		$this->assertTrue($results[1]['details'] instanceof \net\mkharitonov\spectrum\core\assert\ResultDetails);
-		$this->assertTrue($results[2]['details'] instanceof \net\mkharitonov\spectrum\core\assert\ResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
+		$this->assertTrue($results[1]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
+		$this->assertTrue($results[2]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
 
 		$this->assertAllResultsDetailsDifferent($results);
 	}
@@ -168,7 +168,7 @@ class Test extends \net\mkharitonov\spectrum\core\assert\assert\callMatcher\Test
 		$results = $resultBuffer->getResults();
 		$this->assertEquals(1, count($results));
 		$this->assertSame(true, $results[0]['result']);
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\assert\ResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
 	}
 
 	public function testWithNot_ShouldBeAddTrueWithDetailsToResultBufferForEachMatcher()
@@ -193,9 +193,9 @@ class Test extends \net\mkharitonov\spectrum\core\assert\assert\callMatcher\Test
 		$this->assertTrue($results[1]['result']);
 		$this->assertTrue($results[2]['result']);
 
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\assert\ResultDetails);
-		$this->assertTrue($results[1]['details'] instanceof \net\mkharitonov\spectrum\core\assert\ResultDetails);
-		$this->assertTrue($results[2]['details'] instanceof \net\mkharitonov\spectrum\core\assert\ResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
+		$this->assertTrue($results[1]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
+		$this->assertTrue($results[2]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
 
 		$this->assertAllResultsDetailsDifferent($results);
 	}

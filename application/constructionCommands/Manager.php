@@ -32,7 +32,7 @@ require_once dirname(__FILE__) . '/baseCommands/isRunningState.php';
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
- * @method \net\mkharitonov\spectrum\core\assert\Assert actual()
+ * @method \net\mkharitonov\spectrum\core\asserts\Assert actual()
  * @method addMatcher()
  * @method afterEach()
  * @method beforeEach()

@@ -1,8 +1,7 @@
-\assert\ => \asserts\
 ResultDetails => RunResultDetails
-ResultBuffer => RunResultsStorage
-$Interface => ^I
-
+ResultBuffer => RunResultsStorage || RunResultsBuffer
+application => spectrum
+getInstance => getOnceInstance
 
 результат выполнения
 	написать про результат выполнения запуска контекстов и откдюченных спеков

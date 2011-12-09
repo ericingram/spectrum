@@ -16,7 +16,7 @@ use \net\mkharitonov\spectrum\constructionCommands\Manager;
  * @link   http://www.mkharitonov.net/spectrum/
  * @throws \net\mkharitonov\spectrum\constructionCommands\Exception If called not at running state
  * @param  mixed $value
- * @return \net\mkharitonov\spectrum\core\assert\Assert
+ * @return \net\mkharitonov\spectrum\core\asserts\Assert
  */
 function actual($value)
 {
