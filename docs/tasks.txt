@@ -1,7 +1,7 @@
-ResultDetails => RunResultDetails
 ResultBuffer => RunResultsStorage || RunResultsBuffer
 application => spectrum
 getInstance => getOnceInstance
+Move SpecItem methods to SpecItemIt
 
 результат выполнения
 	написать про результат выполнения запуска контекстов и откдюченных спеков

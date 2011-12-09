@@ -71,9 +71,9 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 		$this->assertFalse($results[1]['result']);
 		$this->assertFalse($results[2]['result']);
 
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
-		$this->assertTrue($results[1]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
-		$this->assertTrue($results[2]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
+		$this->assertTrue($results[1]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
+		$this->assertTrue($results[2]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
 
 		$this->assertAllResultsDetailsDifferent($results);
 	}
@@ -180,7 +180,7 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 		$results = $resultBuffer->getResults();
 		$this->assertEquals(1, count($results));
 		$this->assertSame(false, $results[0]['result']);
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
 	}
 
 	public function testWithNot_ShouldBeAddFalseWithDetailsToResultBufferForEachMatcher()
@@ -205,9 +205,9 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 		$this->assertFalse($results[1]['result']);
 		$this->assertFalse($results[2]['result']);
 
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
-		$this->assertTrue($results[1]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
-		$this->assertTrue($results[2]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
+		$this->assertTrue($results[1]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
+		$this->assertTrue($results[2]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
 
 		$this->assertAllResultsDetailsDifferent($results);
 	}

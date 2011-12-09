@@ -16,7 +16,7 @@ namespace net\mkharitonov\spectrum\core\testEnv\emptyStubs\asserts;
  * @link   http://www.mkharitonov.net/spectrum/
  * @property not
  */
-class ResultDetails implements \net\mkharitonov\spectrum\core\asserts\ResultDetailsInterface
+class RunResultDetails implements \net\mkharitonov\spectrum\core\asserts\RunResultDetailsInterface
 {
 	public function setActualValue($actualValue){}
 	public function getActualValue(){}

@@ -15,9 +15,8 @@ namespace net\mkharitonov\spectrum\core\asserts;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-interface ResultDetailsInterface
+interface RunResultDetailsInterface
 {
-
 	public function setActualValue($actualValue);
 	public function getActualValue();
 	public function setIsNot($isNot);

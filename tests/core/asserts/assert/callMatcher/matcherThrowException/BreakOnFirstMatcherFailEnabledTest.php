@@ -69,7 +69,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 
 		$this->assertEquals(1, count($results));
 		$this->assertFalse($results[0]['result']);
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
 	}
 
 	public function testShouldBeProvidePropertiesToDetailsOnce()
@@ -87,7 +87,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 		$results = $resultBuffer->getResults();
 
 		$details = $results[0]['details'];
-		$this->assertTrue($details instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
+		$this->assertTrue($details instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
 		$this->assertSame('foo', $details->getActualValue());
 		$this->assertSame(false, $details->getIsNot());
 		$this->assertSame('beBad', $details->getMatcherName());
@@ -148,7 +148,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 
 		$this->assertEquals(1, count($results));
 		$this->assertFalse($results[0]['result']);
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
 	}
 
 	public function testWithNot_ShouldBeProvidePropertiesToDetailsOnce()
@@ -166,7 +166,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 		$results = $resultBuffer->getResults();
 
 		$details = $results[0]['details'];
-		$this->assertTrue($details instanceof \net\mkharitonov\spectrum\core\asserts\ResultDetails);
+		$this->assertTrue($details instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
 		$this->assertSame('foo', $details->getActualValue());
 		$this->assertSame(true, $details->getIsNot());
 		$this->assertSame('beBad', $details->getMatcherName());

@@ -36,12 +36,12 @@ class Assert implements AssertInterface
 	protected function callMatcher($matcherName, array $expectedArgs)
 	{
 		$it = $this->getItemRunningInstance();
-		$resultDetails = $this->createResultDetails($matcherName, $expectedArgs);
+		$runResultDetails = $this->createRunResultDetails($matcherName, $expectedArgs);
 
 		try
 		{
 			$result = $it->matchers->callMatcher($matcherName, array_merge(array($this->getActualValue()), $expectedArgs));
-			$resultDetails->setMatcherReturnValue($result);
+			$runResultDetails->setMatcherReturnValue($result);
 
 			if ($this->isNot())
 				$result = !$result;
@@ -51,13 +51,13 @@ class Assert implements AssertInterface
 			if ($it->errorHandling->getCatchExceptionsCascade())
 			{
 				$result = false;
-				$resultDetails->setMatcherException($e);
+				$runResultDetails->setMatcherException($e);
 			}
 			else
 				throw $e;
 		}
 
-		$it->getResultBuffer()->addResult($result, $resultDetails);
+		$it->getResultBuffer()->addResult($result, $runResultDetails);
 		$this->resetNot();
 
 		if (!$result && $it->errorHandling->getBreakOnFirstMatcherFailCascade())
@@ -73,15 +73,15 @@ class Assert implements AssertInterface
 		return $class::getRunningInstance();
 	}
 
-	protected function createResultDetails($matcherName, array $expectedArgs)
+	protected function createRunResultDetails($matcherName, array $expectedArgs)
 	{
-		$class = \net\mkharitonov\spectrum\core\Config::getAssertResultDetailsClass();
-		$resultDetails = new $class();
-		$resultDetails->setActualValue($this->getActualValue());
-		$resultDetails->setIsNot($this->isNot());
-		$resultDetails->setMatcherName($matcherName);
-		$resultDetails->setMatcherArgs($expectedArgs);
-		return $resultDetails;
+		$class = \net\mkharitonov\spectrum\core\Config::getAssertRunResultDetailsClass();
+		$runResultDetails = new $class();
+		$runResultDetails->setActualValue($this->getActualValue());
+		$runResultDetails->setIsNot($this->isNot());
+		$runResultDetails->setMatcherName($matcherName);
+		$runResultDetails->setMatcherArgs($expectedArgs);
+		return $runResultDetails;
 	}
 
 	public function __get($name)
