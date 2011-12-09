@@ -132,13 +132,13 @@ abstract class Test extends \net\mkharitonov\spectrum\core\specItemIt\errorHandl
 
 	public function testShouldBeRestoreRunningInstance()
 	{
-		$oldRunningInstance = SpecItem::getRunningInstance();
+		$runningInstanceBackup = SpecItem::getRunningInstance();
 
 		$it = $this->it;
 		$it->setTestCallback(function(){ trigger_error(''); });
 		$it->run();
 
-		$this->assertSame($oldRunningInstance, SpecItem::getRunningInstance());
+		$this->assertSame($runningInstanceBackup, SpecItem::getRunningInstance());
 	}
 
 	public function testShouldBeStopRun()

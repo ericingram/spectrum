@@ -148,13 +148,13 @@ class RunTest extends Test
 
 	public function testShouldBeRestoreRunningInstanceAfterRun()
 	{
-		$oldRunningInstance = SpecItem::getRunningInstance();
+		$runningInstanceBackup = SpecItem::getRunningInstance();
 		$it = new SpecItemIt();
 		$it->setTestCallback(function(){});
 
 		$it->run();
 
-		$this->assertSame($oldRunningInstance, SpecItem::getRunningInstance());
+		$this->assertSame($runningInstanceBackup, SpecItem::getRunningInstance());
 	}
 
 	public function testShouldBeRestoreRunningInstanceAfterNestedRun()

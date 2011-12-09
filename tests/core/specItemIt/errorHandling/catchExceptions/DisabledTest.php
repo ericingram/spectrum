@@ -76,7 +76,7 @@ class DisabledTest extends Test
 
 	public function testShouldBeRestoreRunningInstance()
 	{
-		$oldRunningInstance = SpecItem::getRunningInstance();
+		$runningInstanceBackup = SpecItem::getRunningInstance();
 
 		$it = new SpecItemIt();
 		$it->errorHandling->setCatchExceptions(false);
@@ -85,7 +85,7 @@ class DisabledTest extends Test
 		});
 
 		$this->assertThrowException('\Exception', 'foo', function() use($it){ $it->run(); });
-		$this->assertSame($oldRunningInstance, SpecItem::getRunningInstance());
+		$this->assertSame($runningInstanceBackup, SpecItem::getRunningInstance());
 	}
 
 	public function testShouldBeStopRun()

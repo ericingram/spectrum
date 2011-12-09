@@ -20,20 +20,20 @@ require_once dirname(__FILE__) . '/init.php';
 abstract class Test extends \PHPUnit_Framework_TestCase
 {
 	public static $tmp;
-	private $oldRunningInstance;
+	private $runningInstanceBackup;
 
 	protected function setUp()
 	{
 		parent::setUp();
 		\net\mkharitonov\spectrum\Test::$tmp = null;
-		$this->oldRunningInstance = \net\mkharitonov\spectrum\core\SpecItem::getRunningInstance();
+		$this->runningInstanceBackup = \net\mkharitonov\spectrum\core\SpecItem::getRunningInstance();
 		\net\mkharitonov\spectrum\core\plugins\Manager::unregisterPlugin('liveReport'); // TODO remove
 	}
 
 	protected function tearDown()
 	{
 		// After ConstructionCommands tests (where tests throw exceptions), running instance are not restore
-		\net\mkharitonov\spectrum\core\testEnv\SpecItemMock::setRunningInstancePublic($this->oldRunningInstance);
+		\net\mkharitonov\spectrum\core\testEnv\SpecItemMock::setRunningInstancePublic($this->runningInstanceBackup);
 		parent::tearDown();
 	}
 

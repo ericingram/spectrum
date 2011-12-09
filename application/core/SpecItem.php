@@ -24,7 +24,7 @@ abstract class SpecItem extends Spec implements SpecItemInterface
 	 */
 	static private $runningInstance;
 	
-	protected $oldRunningInstance;
+	protected $runningInstanceBackup;
 	
 	/**
 	 * @var \RunResultsBuffer\mkharitonov\spectrum\core\RunResultsBuffer|null
@@ -115,13 +115,13 @@ abstract class SpecItem extends Spec implements SpecItemInterface
 	protected function startRun()
 	{
 		parent::startRun();
-		$this->oldRunningInstance = self::getRunningInstance();
+		$this->runningInstanceBackup = self::getRunningInstance();
 		self::setRunningInstance($this);
 	}
 
 	protected function stopRun()
 	{
-		self::setRunningInstance($this->oldRunningInstance);
+		self::setRunningInstance($this->runningInstanceBackup);
 		parent::stopRun();
 	}
 
