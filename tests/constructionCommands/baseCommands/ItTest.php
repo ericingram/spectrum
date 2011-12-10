@@ -200,7 +200,7 @@ class ItTest extends \net\mkharitonov\spectrum\constructionCommands\baseCommands
 	public function testNoParentCommand_ShouldBeAddInstanceToRootDescribe()
 	{
 		$it = Manager::it('foo');
-		$this->assertSame(array($it), \net\mkharitonov\spectrum\RootDescribe::getInstance()->getSpecs());
+		$this->assertSame(array($it), \net\mkharitonov\spectrum\RootDescribe::getOnceInstance()->getSpecs());
 	}
 
 	public function testInsideDescribeCommand_ShouldBeAddInstanceToParentDescribe()

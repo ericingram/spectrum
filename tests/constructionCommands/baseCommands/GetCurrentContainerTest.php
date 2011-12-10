@@ -30,7 +30,7 @@ class GetCurrentContainerTest extends \net\mkharitonov\spectrum\constructionComm
 
 	public function testDeclaringState_ShouldBeReturnRootDescribeIfCurrentContainerNotSet()
 	{
-		$this->assertSame(\net\mkharitonov\spectrum\RootDescribe::getInstance(), Manager::getCurrentContainer());
+		$this->assertSame(\net\mkharitonov\spectrum\RootDescribe::getOnceInstance(), Manager::getCurrentContainer());
 	}
 
 	public function testDeclaringState_ShouldBeReturnOnceRootDescribeInstance()

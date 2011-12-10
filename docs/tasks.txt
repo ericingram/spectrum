@@ -1,6 +1,3 @@
-spectrum => spectrum
-getInstance => getOnceInstance
-Move SpecItem methods to SpecItemIt
 убрать дата провайдеры?!
 
 результат выполнения

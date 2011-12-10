@@ -72,7 +72,7 @@ class AfterEachTest extends \net\mkharitonov\spectrum\constructionCommands\baseC
 		$function = function(){};
 		Manager::afterEach($function);
 
-		$destroyer = \net\mkharitonov\spectrum\RootDescribe::getInstance()->destroyers->get(0);
+		$destroyer = \net\mkharitonov\spectrum\RootDescribe::getOnceInstance()->destroyers->get(0);
 		$this->assertSame($function, $destroyer['callback']);
 		$this->assertSame('each', $destroyer['type']);
 	}

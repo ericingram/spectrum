@@ -72,7 +72,7 @@ class BeforeEachTest extends \net\mkharitonov\spectrum\constructionCommands\base
 		$function = function(){};
 		Manager::beforeEach($function);
 
-		$builder = \net\mkharitonov\spectrum\RootDescribe::getInstance()->builders->get(0);
+		$builder = \net\mkharitonov\spectrum\RootDescribe::getOnceInstance()->builders->get(0);
 		$this->assertSame($function, $builder['callback']);
 		$this->assertSame('each', $builder['type']);
 	}

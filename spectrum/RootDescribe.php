@@ -32,7 +32,7 @@ class RootDescribe
 	 */
 	protected static $onceInstance;
 
-	static public function getInstance()
+	static public function getOnceInstance()
 	{
 		if (!static::$onceInstance)
 		{
@@ -66,6 +66,6 @@ class RootDescribe
 
 	static public function run()
 	{
-		return static::getInstance()->run();
+		return static::getOnceInstance()->run();
 	}
 }

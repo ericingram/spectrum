@@ -18,31 +18,31 @@ require_once dirname(__FILE__) . '/init.php';
 /*
 class \net\mkharitonov\spectrum\RootDescribeTest extends spectrum_BaseAbstract
 {
-	public function testGetInstance_ShouldBeReturnLastInstance()
+	public function testGetOnceInstance_ShouldBeReturnLastInstance()
 	{
-		$instance = \net\mkharitonov\spectrum\RootDescribe::getInstance();
-		$this->assertSame($instance, \net\mkharitonov\spectrum\RootDescribe::getInstance());
-		$this->assertSame($instance, \net\mkharitonov\spectrum\RootDescribe::getInstance());
+		$instance = \net\mkharitonov\spectrum\RootDescribe::getOnceInstance();
+		$this->assertSame($instance, \net\mkharitonov\spectrum\RootDescribe::getOnceInstance());
+		$this->assertSame($instance, \net\mkharitonov\spectrum\RootDescribe::getOnceInstance());
 	}
 
 	public function testCreateOnce_ShouldNotBeCreateNewInstanceIsInstanceAlreadyExists()
 	{
-		$instance = \net\mkharitonov\spectrum\RootDescribe::getInstance();
-		\net\mkharitonov\spectrum\RootDescribe::getInstance();
-		$this->assertSame($instance, \net\mkharitonov\spectrum\RootDescribe::getInstance());
+		$instance = \net\mkharitonov\spectrum\RootDescribe::getOnceInstance();
+		\net\mkharitonov\spectrum\RootDescribe::getOnceInstance();
+		$this->assertSame($instance, \net\mkharitonov\spectrum\RootDescribe::getOnceInstance());
 	}
 
 	public function testClear_ShouldBeRemoveCurrentInstance()
 	{
-		$instance = \net\mkharitonov\spectrum\RootDescribe::getInstance();
+		$instance = \net\mkharitonov\spectrum\RootDescribe::getOnceInstance();
 		\net\mkharitonov\spectrum\RootDescribe::clear();
-		$this->assertNotSame($instance, \net\mkharitonov\spectrum\RootDescribe::getInstance());
+		$this->assertNotSame($instance, \net\mkharitonov\spectrum\RootDescribe::getOnceInstance());
 	}
 
 	public function testShouldBeHaveAllDefaultMatchers()
 	{
 		$defaultMatchers = $this->getDefaultMatchers();
-		$describeMatchers = \net\mkharitonov\spectrum\RootDescribe::getInstance()->getMatchers();
+		$describeMatchers = \net\mkharitonov\spectrum\RootDescribe::getOnceInstance()->getMatchers();
 		asort($defaultMatchers);
 		asort($describeMatchers);
 

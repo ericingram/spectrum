@@ -28,7 +28,7 @@ function getCurrentContainer()
 		if ($vars['currentContainer'] !== null)
 			return $vars['currentContainer'];
 		else
-			return \net\mkharitonov\spectrum\RootDescribe::getInstance();
+			return \net\mkharitonov\spectrum\RootDescribe::getOnceInstance();
 	}
 	else
 	{

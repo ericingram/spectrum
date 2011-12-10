@@ -72,7 +72,7 @@ class AddMatcherTest extends \net\mkharitonov\spectrum\constructionCommands\base
 		$function = function(){};
 		Manager::addMatcher('foo', $function);
 
-		$this->assertSame($function, \net\mkharitonov\spectrum\RootDescribe::getInstance()->matchers->get('foo'));
+		$this->assertSame($function, \net\mkharitonov\spectrum\RootDescribe::getOnceInstance()->matchers->get('foo'));
 	}
 
 	public function testInsideDescribeCommand_ShouldBeAddMatcherToParentDescribe()

@@ -73,7 +73,7 @@ class ContainerTest extends \net\mkharitonov\spectrum\constructionCommands\baseC
 		Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', 'bar', function(){});
 		Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', 'baz', function(){});
 
-		$rootSpecs = \net\mkharitonov\spectrum\RootDescribe::getInstance()->getSpecs();
+		$rootSpecs = \net\mkharitonov\spectrum\RootDescribe::getOnceInstance()->getSpecs();
 
 		$this->assertEquals(3, count($rootSpecs));
 		$this->assertEquals('foo', $rootSpecs[0]->getName());
@@ -114,7 +114,7 @@ class ContainerTest extends \net\mkharitonov\spectrum\constructionCommands\baseC
 			Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', 'bar', function(){});
 		});
 
-		$rootSpecs = \net\mkharitonov\spectrum\RootDescribe::getInstance()->getSpecs();
+		$rootSpecs = \net\mkharitonov\spectrum\RootDescribe::getOnceInstance()->getSpecs();
 
 		$this->assertEquals(1, count($rootSpecs));
 		$this->assertEquals('foo', $rootSpecs[0]->getName());
@@ -161,7 +161,7 @@ class ContainerTest extends \net\mkharitonov\spectrum\constructionCommands\baseC
 			});
 		});
 
-		$rootSpecs = \net\mkharitonov\spectrum\RootDescribe::getInstance()->getSpecs();
+		$rootSpecs = \net\mkharitonov\spectrum\RootDescribe::getOnceInstance()->getSpecs();
 
 		$this->assertEquals(1, count($rootSpecs));
 		$this->assertEquals('foo', $rootSpecs[0]->getName());

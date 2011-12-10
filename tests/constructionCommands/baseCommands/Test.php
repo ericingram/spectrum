@@ -23,10 +23,10 @@ abstract class Test extends \net\mkharitonov\spectrum\Test
 	protected function setUp()
 	{
 		parent::setUp();
-		\net\mkharitonov\spectrum\RootDescribe::getInstance()->removeAllSpecs();
-		\net\mkharitonov\spectrum\RootDescribe::getInstance()->matchers->removeAll();
-		\net\mkharitonov\spectrum\RootDescribe::getInstance()->builders->removeAll();
-		\net\mkharitonov\spectrum\RootDescribe::getInstance()->destroyers->removeAll();
+		\net\mkharitonov\spectrum\RootDescribe::getOnceInstance()->removeAllSpecs();
+		\net\mkharitonov\spectrum\RootDescribe::getOnceInstance()->matchers->removeAll();
+		\net\mkharitonov\spectrum\RootDescribe::getOnceInstance()->builders->removeAll();
+		\net\mkharitonov\spectrum\RootDescribe::getOnceInstance()->destroyers->removeAll();
 		Manager::setCurrentContainer(null);
 	}
 }

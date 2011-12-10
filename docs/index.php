@@ -811,8 +811,8 @@ CODE
 переменной.</p>
 
 <p class="notice">Все корневые узлы добавляются в класс RootDescribe, который сам по себе является анонимным describe (точнее,
-это статический класс, у которого есть метод getInstance(), возвращающий экземпляр класса core\SpecContainerDescribe),
-поэтому вызов метода RootDescribe->getInstance()->run() (RootDescribe::run() просто удобный алиас) ведет себя аналогично
+это статический класс, у которого есть метод getOnceInstance(), возвращающий экземпляр класса core\SpecContainerDescribe),
+поэтому вызов метода RootDescribe->getOnceInstance()->run() (RootDescribe::run() просто удобный алиас) ведет себя аналогично
 другим узлам.</p>
 
 <?php
@@ -1179,7 +1179,7 @@ printExample('', <<<'CODE'
 	$describe = new SpecContainerDescribe('Космический корабль');
 	$describe->addSpec($it);
 
-	RootDescribe::getInstance()->addSpec($describe);
+	RootDescribe::getOnceInstance()->addSpec($describe);
 	RootDescribe::run();
 CODE
 , array('noRun', 'height' => 70));

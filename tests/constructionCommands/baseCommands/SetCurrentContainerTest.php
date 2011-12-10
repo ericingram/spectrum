@@ -32,7 +32,7 @@ class SetCurrentContainerTest extends \net\mkharitonov\spectrum\constructionComm
 	{
 		Manager::setCurrentContainer(new \net\mkharitonov\spectrum\core\SpecContainerDescribe());
 		Manager::setCurrentContainer(null);
-		$this->assertSame(\net\mkharitonov\spectrum\RootDescribe::getInstance(), Manager::getCurrentContainer());
+		$this->assertSame(\net\mkharitonov\spectrum\RootDescribe::getOnceInstance(), Manager::getCurrentContainer());
 	}
 
 	public function testShouldBeAcceptOnlySpecContainerInstances()
