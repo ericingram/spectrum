@@ -7,7 +7,7 @@ Documentation (on Russian): http://mkharitonov.net/spectrum/
 
 ###Example:
     <?php
-    require_once 'spectrum/application/init.php';
+    require_once 'spectrum/init.php';
 
     describe('Spaceship', function(){
         it('Should be in space', function(){

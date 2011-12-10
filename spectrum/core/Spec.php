@@ -39,39 +39,39 @@ abstract class Spec implements SpecInterface
 		$this->setName($name);
 
 		$class = Config::getPluginsManagerClass();
-		foreach ($class::getRegisteredPlugins() as $accessName => $plugin)
+		foreach ($class::getRegisteredPlugins() as $pluginAccessName => $plugin)
 		{
 			if ($plugin['activateMoment'] == 'whenConstructOnce')
-				$this->activatePlugin($accessName);
+				$this->activatePlugin($pluginAccessName);
 		}
 	}
 
-	public function __get($accessName)
+	public function __get($pluginAccessName)
 	{
-		return $this->callPlugin($accessName);
+		return $this->callPlugin($pluginAccessName);
 	}
 	
-	public function callPlugin($accessName)
+	public function callPlugin($pluginAccessName)
 	{
 		$manager = Config::getPluginsManagerClass();
-		$plugin = $manager::getRegisteredPlugin($accessName);
+		$plugin = $manager::getRegisteredPlugin($pluginAccessName);
 
-		if ($plugin['activateMoment'] == 'whenCallAlways' || !$this->isPluginActivated($accessName))
-			return $this->activatePlugin($accessName);
+		if ($plugin['activateMoment'] == 'whenCallAlways' || !$this->isPluginActivated($pluginAccessName))
+			return $this->activatePlugin($pluginAccessName);
 		else
-			return $this->activatedPlugins[$accessName];
+			return $this->activatedPlugins[$pluginAccessName];
 	}
 
-	protected function isPluginActivated($accessName)
+	protected function isPluginActivated($pluginAccessName)
 	{
-		return array_key_exists($accessName, $this->activatedPlugins);
+		return array_key_exists($pluginAccessName, $this->activatedPlugins);
 	}
 	
-	protected function activatePlugin($accessName)
+	protected function activatePlugin($pluginAccessName)
 	{
 		$manager = Config::getPluginsManagerClass();
-		$this->activatedPlugins[$accessName] = $manager::createPluginInstance($this, $accessName);
-		return $this->activatedPlugins[$accessName];
+		$this->activatedPlugins[$pluginAccessName] = $manager::createPluginInstance($this, $pluginAccessName);
+		return $this->activatedPlugins[$pluginAccessName];
 	}
 
 	protected function triggerEvent($eventName)
@@ -81,9 +81,9 @@ abstract class Spec implements SpecInterface
 		$args = array_values($args);
 
 		$manager = Config::getPluginsManagerClass();
-		foreach ($manager::getAccessNamesForEventPlugins($eventName) as $accessName)
+		foreach ($manager::getAccessNamesForEventPlugins($eventName) as $pluginAccessName)
 		{
-			$pluginInstance = $this->callPlugin($accessName);
+			$pluginInstance = $this->callPlugin($pluginAccessName);
 			call_user_func_array(array($pluginInstance, $eventName), $args);
 		}
 	}

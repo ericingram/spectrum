@@ -18,14 +18,14 @@ namespace net\mkharitonov\spectrum\core\testEnv\emptyStubs;
 class Spec implements \net\mkharitonov\spectrum\core\SpecInterface
 {
 	public function __construct($name = null){}
-	public function __get($accessName){}
+	public function __get($pluginAccessName){}
 	public function setName($name){}
 	public function getName(){}
 	public function isAnonymous(){}
 	public function getUid(){}
 	public function setParent(\net\mkharitonov\spectrum\core\SpecContainerInterface $spec = null){}
 	public function getParent(){}
-	public function callPlugin($accessName){}
+	public function callPlugin($pluginAccessName){}
 	public function enable(){}
 	public function disable(){}
 	public function isEnabled(){}

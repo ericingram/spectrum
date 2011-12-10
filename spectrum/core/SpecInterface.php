@@ -18,7 +18,7 @@ namespace net\mkharitonov\spectrum\core;
 interface SpecInterface
 {
 	public function __construct($name = null);
-	public function __get($accessName);
+	public function __get($pluginAccessName);
 
 	public function setName($name);
 	public function getName();
@@ -28,7 +28,7 @@ interface SpecInterface
 	public function setParent(SpecContainerInterface $spec = null);
 	public function getParent();
 
-	public function callPlugin($accessName);
+	public function callPlugin($pluginAccessName);
 
 	public function enable();
 	public function disable();

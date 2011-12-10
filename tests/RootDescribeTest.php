@@ -52,7 +52,7 @@ class \net\mkharitonov\spectrum\RootDescribeTest extends spectrum_BaseAbstract
 	protected function getDefaultMatchers()
 	{
 		$matchers = array();
-		$defaultMatchersDir = dirname(__FILE__) . '/../../application/DefaultMatchers/';
+		$defaultMatchersDir = dirname(__FILE__) . '/../../spectrum/DefaultMatchers/';
 		foreach ($this->scanDirRecursive($defaultMatchersDir) as $file)
 		{
 			if (preg_match('/(abstract\s+)?class\s+([^\s]+)\s/is', file_get_contents($file), $sp))

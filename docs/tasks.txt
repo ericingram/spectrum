@@ -1,6 +1,4 @@
-accessName
-
-application => spectrum
+spectrum => spectrum
 getInstance => getOnceInstance
 Move SpecItem methods to SpecItemIt
 убрать дата провайдеры?!

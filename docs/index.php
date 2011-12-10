@@ -143,7 +143,7 @@ function generateCacheFilename()
 	<?php
 	printExample('', <<<'CODE'
 		<?php
-		require_once 'spectrum/application/init.php';
+		require_once 'spectrum/spectrum/init.php';
 
 		describe('Космический корабль', function(){
 			it('Должен бороздить просторы вселенной', function(){

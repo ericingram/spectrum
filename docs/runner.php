@@ -86,7 +86,7 @@ class Star
 }
 
 //
-$init = dirname(__FILE__) . '/../application/init.php';
+$init = dirname(__FILE__) . '/../spectrum/init.php';
 require_once $init;
 
 if (!isset($_REQUEST['enableDebug']))
@@ -94,7 +94,7 @@ if (!isset($_REQUEST['enableDebug']))
 
 $code = $_REQUEST['code'];
 $code = preg_replace('/^\s*\<\?php/is', '', $code);
-$code = str_replace('spectrum/application/init.php', $init, $code);
+$code = str_replace('spectrum/spectrum/init.php', $init, $code);
 eval($code);
 
 if (!isset($_REQUEST['noRun']))

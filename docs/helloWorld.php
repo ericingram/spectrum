@@ -14,7 +14,7 @@
  * @link   http://www.mkharitonov.net/spectrum/
  */
 
-require_once dirname(__FILE__) . '/../application/init.php';
+require_once dirname(__FILE__) . '/../spectrum/init.php';
 
 class Spaceship
 {
