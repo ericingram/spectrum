@@ -98,12 +98,12 @@ class ManagerTest extends \net\mkharitonov\spectrum\Test
 	public function testCreateGlobalAliasOnce_ShouldNotBeThrowErrorIfAliasAlreadyCreatedThroughCreateGlobalAliasOnceMethod()
 	{
 		Manager::unregisterAllCommands();
-		Manager::registerCommand('globalTestFunc4', function(){});
+		Manager::registerCommand('globalTestFunc6', function(){});
 
-		Manager::createGlobalAliasOnce('globalTestFunc4');
-		Manager::createGlobalAliasOnce('globalTestFunc4');
+		Manager::createGlobalAliasOnce('globalTestFunc6');
+		Manager::createGlobalAliasOnce('globalTestFunc6');
 
-		$this->assertTrue(function_exists('globalTestFunc4'));
+		$this->assertTrue(function_exists('globalTestFunc6'));
 	}
 
 	public function testCreateGlobalAliasOnce_ShouldBeThrowExceptionIfFunctionAlreadyExists()
