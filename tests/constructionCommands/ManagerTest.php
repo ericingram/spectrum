@@ -41,6 +41,48 @@ class ManagerTest extends \net\mkharitonov\spectrum\Test
 		), Manager::getRegisteredCommands());
 	}
 
+	public function testCallStatic_ShouldBeCallRegisteredCommandAndPassArgumentsToCallback()
+	{
+		Manager::unregisterAllCommands();
+		Manager::registerCommand('foo', function($a, $b) use(&$passedA, &$passedB){
+			$passedA = $a;
+			$passedB = $b;
+		});
+
+		Manager::foo('aaa', 'bbb');
+
+		$this->assertEquals('aaa', $passedA);
+		$this->assertEquals('bbb', $passedB);
+	}
+
+	public function testCallStatic_ShouldBeCallRegisteredCommandAndReturnCallbackResult()
+	{
+		Manager::unregisterAllCommands();
+		Manager::registerCommand('foo', function(){ return 'bar'; });
+		$this->assertEquals('bar', Manager::foo());
+	}
+
+	public function testCallCommand_ShouldBePassArgumentsToRegisteredCommandCallback()
+	{
+		Manager::unregisterAllCommands();
+		Manager::registerCommand('foo', function($a, $b) use(&$passedA, &$passedB){
+			$passedA = $a;
+			$passedB = $b;
+		});
+
+		Manager::callCommand('foo', array('aaa', 'bbb'));
+
+		$this->assertEquals('aaa', $passedA);
+		$this->assertEquals('bbb', $passedB);
+	}
+
+	public function testCallCommand_ShouldBeReturnRegisteredCommandResult()
+	{
+		Manager::unregisterAllCommands();
+		Manager::registerCommand('foo', function(){ return 'bar'; });
+		$this->assertEquals('bar', Manager::callCommand('foo'));
+	}
+
 	public function testCreateGlobalAliasOnce_ShouldBeCreateGlobalFunction()
 	{
 		Manager::unregisterAllCommands();

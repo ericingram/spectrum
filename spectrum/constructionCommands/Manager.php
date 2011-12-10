@@ -73,6 +73,11 @@ class Manager
 
 	static public function __callStatic($name, $args = array())
 	{
+		return static::callCommand($name, $args);
+	}
+
+	static public function callCommand($name, $args = array())
+	{
 		return call_user_func_array(static::getRegisteredCommandCallback($name), $args);
 	}
 	
