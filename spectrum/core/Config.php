@@ -81,7 +81,7 @@ class Config
 	private static function setConfigValue(&$var, $value)
 	{
 		if (static::$locked)
-			throw new Exception('spectrum\Config is locked');
+			throw new Exception('spectrum\core\Config is locked');
 
 		$var = $value;
 	}
