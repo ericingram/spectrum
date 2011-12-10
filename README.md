@@ -12,12 +12,12 @@ Documentation (on Russian): http://mkharitonov.net/spectrum/
     describe('Spaceship', function(){
         it('Should be in space', function(){
             $spaceship = new Spaceship();
-            be($spaceship->getLocation())->beEq('space');
+            be($spaceship->getLocation())->eq('space');
         });
 
         it('Should be busy', function(){
             $spaceship = new Spaceship();
-            be($spaceship->getTask())->not->beEq('foo');
+            be($spaceship->getTask())->not->eq('foo');
         });
     });
 

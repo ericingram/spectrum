@@ -18,7 +18,7 @@ namespace net\mkharitonov\spectrum\matchers;
  * @link   http://www.mkharitonov.net/spectrum/
  * @return bool
  */
-function beThrow($callbackWithActualCode, $expectedClass = '\Exception', $expectedStringInMessage = null, $expectedCode = null)
+function throwException($callbackWithActualCode, $expectedClass = '\Exception', $expectedStringInMessage = null, $expectedCode = null)
 {
 	if ($expectedClass == null)
 		$expectedClass = '\Exception';

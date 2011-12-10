@@ -47,12 +47,12 @@ class IsDeclaringStateTest extends \net\mkharitonov\spectrum\constructionCommand
 
 	public function testInsideAddMatcherCommand_ShouldBeReturnFalse()
 	{
-		Manager::addMatcher('beFoo', function() use(&$result){
+		Manager::addMatcher('foo', function() use(&$result){
 			$result = Manager::isDeclaringState();
 		});
 
 		$it = Manager::it('', function(){
-			be('')->beFoo();
+			be('')->foo();
 		});
 
 		$it->run();

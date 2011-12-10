@@ -12,12 +12,12 @@
 namespace net\mkharitonov\spectrum\matchers;
 
 /**
- * Matcher for greater than operator ($actual > $expected).
+ * Matcher for identical true comparison ($actual === true).
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  * @return bool
  */
-function beGt($actual, $expected)
+function true($actual)
 {
-	return ($actual > $expected);
+	return ($actual === true);
 }

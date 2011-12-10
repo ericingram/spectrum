@@ -27,7 +27,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 			$isCalled = true;
 
 			$assert = new Assert(true);
-			$assert->beFalse();
+			$assert->false();
 
 			$test->fail('Should be break');
 		});
@@ -42,8 +42,8 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert(true);
-			$assert->beFalse();
-			$assert->beFalse();
+			$assert->false();
+			$assert->false();
 
 			$test->fail('Should be break');
 		});
@@ -62,7 +62,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert('foo');
-			$assert->beEq('bar');
+			$assert->eq('bar');
 
 			$test->fail('Should be break');
 		});
@@ -73,7 +73,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 		$this->assertTrue($details instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
 		$this->assertSame('foo', $details->getActualValue());
 		$this->assertSame(false, $details->getIsNot());
-		$this->assertSame('beEq', $details->getMatcherName());
+		$this->assertSame('eq', $details->getMatcherName());
 		$this->assertSame(array('bar'), $details->getMatcherArgs());
 		$this->assertSame(false, $details->getMatcherReturnValue());
 		$this->assertSame(null, $details->getMatcherException());
@@ -88,7 +88,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 			$isCalled = true;
 
 			$assert = new Assert(true);
-			$assert->not->beTrue();
+			$assert->not->true();
 
 			$test->fail('Should be break');
 		});
@@ -103,8 +103,8 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert(true);
-			$assert->not->beTrue();
-			$assert->not->beTrue();
+			$assert->not->true();
+			$assert->not->true();
 
 			$test->fail('Should be break');
 		});
@@ -123,7 +123,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert('foo');
-			$assert->not->beEq('foo');
+			$assert->not->eq('foo');
 
 			$test->fail('Should be break');
 		});
@@ -134,7 +134,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 		$this->assertTrue($details instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
 		$this->assertSame('foo', $details->getActualValue());
 		$this->assertSame(true, $details->getIsNot());
-		$this->assertSame('beEq', $details->getMatcherName());
+		$this->assertSame('eq', $details->getMatcherName());
 		$this->assertSame(array('foo'), $details->getMatcherArgs());
 		$this->assertSame(true, $details->getMatcherReturnValue());
 		$this->assertSame(null, $details->getMatcherException());
@@ -147,7 +147,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert(true);
-			$assert->not->beTrue();
+			$assert->not->true();
 		});
 
 		$results = $runResultsBuffer->getResults();

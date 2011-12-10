@@ -1,8 +1,6 @@
 Config new methods
 ConstructionCommands\Config
 ConstructionCommands\ManagerInterface
-actual => be
-
 
 результат выполнения
 	написать про результат выполнения запуска контекстов и откдюченных спеков
@@ -61,12 +59,8 @@ SpecContainerDynamic->run()
 
 
 ---asserts
-Изменить синтаксис утверждений на более минималистический:
-be('actual')->true();
-be('actual')->not->null();
-be('actual')->fileExists();
-// может быть даже так (без скобок), нет лучше оставить подобное поведение для простанств имен
-be('actual')->true;
+// Добавить возможность опускать скобки у матчеров или оставить подобное поведение для простанств имен?
+be('actual')->true; вместо be('actual')->true();
 
 ---assert, matcher namespaces
 addMatcher('file->exists', function(){});

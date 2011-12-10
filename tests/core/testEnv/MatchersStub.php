@@ -34,7 +34,7 @@ class MatchersStub extends \net\mkharitonov\spectrum\core\plugins\basePlugins\Ma
 
 	public function callMatcher($name, array $args = array())
 	{
-		if ($name == 'beTrue')
+		if ($name == 'true')
 			return true;
 		else
 			return false;

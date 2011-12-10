@@ -10,16 +10,16 @@
  */
 
 namespace net\mkharitonov\spectrum;
-require_once dirname(__FILE__) . '/matchers/beNull.php';
-require_once dirname(__FILE__) . '/matchers/beTrue.php';
-require_once dirname(__FILE__) . '/matchers/beFalse.php';
-require_once dirname(__FILE__) . '/matchers/beEq.php';
-require_once dirname(__FILE__) . '/matchers/beIdent.php';
-require_once dirname(__FILE__) . '/matchers/beLt.php';
-require_once dirname(__FILE__) . '/matchers/beLtOrEq.php';
-require_once dirname(__FILE__) . '/matchers/beGt.php';
-require_once dirname(__FILE__) . '/matchers/beGtOrEq.php';
-require_once dirname(__FILE__) . '/matchers/beThrow.php';
+require_once dirname(__FILE__) . '/matchers/null.php';
+require_once dirname(__FILE__) . '/matchers/true.php';
+require_once dirname(__FILE__) . '/matchers/false.php';
+require_once dirname(__FILE__) . '/matchers/eq.php';
+require_once dirname(__FILE__) . '/matchers/ident.php';
+require_once dirname(__FILE__) . '/matchers/lt.php';
+require_once dirname(__FILE__) . '/matchers/ltOrEq.php';
+require_once dirname(__FILE__) . '/matchers/gt.php';
+require_once dirname(__FILE__) . '/matchers/gtOrEq.php';
+require_once dirname(__FILE__) . '/matchers/throwException.php';
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
@@ -52,16 +52,16 @@ class RootDescribe
 
 	static public function addAllMatchersTo(\net\mkharitonov\spectrum\core\SpecInterface $spec)
 	{
-		$spec->matchers->add('beNull', '\net\mkharitonov\spectrum\matchers\beNull');
-		$spec->matchers->add('beTrue', '\net\mkharitonov\spectrum\matchers\beTrue');
-		$spec->matchers->add('beFalse', '\net\mkharitonov\spectrum\matchers\beFalse');
-		$spec->matchers->add('beEq', '\net\mkharitonov\spectrum\matchers\beEq');
-		$spec->matchers->add('beIdent', '\net\mkharitonov\spectrum\matchers\beIdent');
-		$spec->matchers->add('beLt', '\net\mkharitonov\spectrum\matchers\beLt');
-		$spec->matchers->add('beLtOrEq', '\net\mkharitonov\spectrum\matchers\beLtOrEq');
-		$spec->matchers->add('beGt', '\net\mkharitonov\spectrum\matchers\beGt');
-		$spec->matchers->add('beGtOrEq', '\net\mkharitonov\spectrum\matchers\beGtOrEq');
-		$spec->matchers->add('beThrow', '\net\mkharitonov\spectrum\matchers\beThrow');
+		$spec->matchers->add('null', '\net\mkharitonov\spectrum\matchers\null');
+		$spec->matchers->add('true', '\net\mkharitonov\spectrum\matchers\true');
+		$spec->matchers->add('false', '\net\mkharitonov\spectrum\matchers\false');
+		$spec->matchers->add('eq', '\net\mkharitonov\spectrum\matchers\eq');
+		$spec->matchers->add('ident', '\net\mkharitonov\spectrum\matchers\ident');
+		$spec->matchers->add('lt', '\net\mkharitonov\spectrum\matchers\lt');
+		$spec->matchers->add('ltOrEq', '\net\mkharitonov\spectrum\matchers\ltOrEq');
+		$spec->matchers->add('gt', '\net\mkharitonov\spectrum\matchers\gt');
+		$spec->matchers->add('gtOrEq', '\net\mkharitonov\spectrum\matchers\gtOrEq');
+		$spec->matchers->add('throwException', '\net\mkharitonov\spectrum\matchers\throwException');
 	}
 
 	static public function run()

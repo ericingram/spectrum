@@ -45,33 +45,33 @@ abstract class Test extends \net\mkharitonov\spectrum\core\Test
 		$it->errorHandling->setBreakOnFirstPhpError(false);
 		$it->errorHandling->setBreakOnFirstMatcherFail(false);
 		
-		$it->matchers->add('beTrue', function($actual){
+		$it->matchers->add('true', function($actual){
 			return ($actual === true);
 		});
 
-		$it->matchers->add('beFalse', function($actual){
+		$it->matchers->add('false', function($actual){
 			return ($actual === false);
 		});
 
-		$it->matchers->add('beNull', function($actual){
+		$it->matchers->add('null', function($actual){
 			return ($actual === null);
 		});
 
-		$it->matchers->add('beEq', function($actual, $expected){
+		$it->matchers->add('eq', function($actual, $expected){
 			return ($actual == $expected);
 		});
 
-		$it->matchers->add('beReturnSecondArg', function($actual, $expected)
+		$it->matchers->add('returnSecondArg', function($actual, $expected)
 		{
 			$args = func_get_args();
 			return $args[2];
 		});
 
-		$it->matchers->add('beBad', function($actual){
+		$it->matchers->add('bad', function($actual){
 			throw new \Exception('I am bad matcher');
 		});
 
-		$it->matchers->add('beBadToo', function($actual){
+		$it->matchers->add('badToo', function($actual){
 			throw new \Exception('I am bad matcher too');
 		});
 

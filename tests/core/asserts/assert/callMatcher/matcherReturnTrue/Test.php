@@ -25,7 +25,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$this->runInTestCallback(function($test, $it) use(&$isExecuted)
 		{
 			$assert = new Assert(true);
-			$assert->beTrue();
+			$assert->true();
 			$isExecuted = true;
 		});
 
@@ -39,11 +39,11 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert(true);
-			$assert->beTrue();
-			$assert->beTrue();
+			$assert->true();
+			$assert->true();
 
 			$assert = new Assert(true);
-			$assert->beTrue();
+			$assert->true();
 		});
 
 		$results = $runResultsBuffer->getResults();
@@ -68,11 +68,11 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert(true);
-			$assert->beTrue();
-			$assert->beReturnSecondArg(1, 'bar');
+			$assert->true();
+			$assert->returnSecondArg(1, 'bar');
 
 			$assert = new Assert('foo');
-			$assert->beEq('foo');
+			$assert->eq('foo');
 		});
 
 		$results = $runResultsBuffer->getResults();
@@ -80,7 +80,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$details = $results[0]['details'];
 		$this->assertSame(true, $details->getActualValue());
 		$this->assertSame(false, $details->getIsNot());
-		$this->assertSame('beTrue', $details->getMatcherName());
+		$this->assertSame('true', $details->getMatcherName());
 		$this->assertSame(array(), $details->getMatcherArgs());
 		$this->assertSame(true, $details->getMatcherReturnValue());
 		$this->assertSame(null, $details->getMatcherException());
@@ -88,7 +88,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$details = $results[1]['details'];
 		$this->assertSame(true, $details->getActualValue());
 		$this->assertSame(false, $details->getIsNot());
-		$this->assertSame('beReturnSecondArg', $details->getMatcherName());
+		$this->assertSame('returnSecondArg', $details->getMatcherName());
 		$this->assertSame(array(1, 'bar'), $details->getMatcherArgs());
 		$this->assertSame('bar', $details->getMatcherReturnValue());
 		$this->assertSame(null, $details->getMatcherException());
@@ -96,7 +96,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$details = $results[2]['details'];
 		$this->assertSame('foo', $details->getActualValue());
 		$this->assertSame(false, $details->getIsNot());
-		$this->assertSame('beEq', $details->getMatcherName());
+		$this->assertSame('eq', $details->getMatcherName());
 		$this->assertSame(array('foo'), $details->getMatcherArgs());
 		$this->assertSame(true, $details->getMatcherReturnValue());
 		$this->assertSame(null, $details->getMatcherException());
@@ -107,9 +107,9 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$this->runInTestCallback(function($test, $it) use(&$isCalled)
 		{
 			$assert = new Assert(true);
-			$test->assertSame($assert, $assert->beTrue());
-			$test->assertSame($assert, $assert->beTrue()->beTrue());
-			$test->assertSame($assert, $assert->beTrue()->beTrue()->beTrue());
+			$test->assertSame($assert, $assert->true());
+			$test->assertSame($assert, $assert->true()->true());
+			$test->assertSame($assert, $assert->true()->true()->true());
 
 			$isCalled = true;
 		});
@@ -122,13 +122,13 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 	{
 		$this->runInTestCallback(function($test, $it) use(&$isCalled, &$callsArgs)
 		{
-			$it->matchers->add('beFoo', function($actual, $arg) use(&$callsArgs){
+			$it->matchers->add('foo', function($actual, $arg) use(&$callsArgs){
 				$callsArgs[] = $arg;
 				return true;
 			});
 
 			$assert = new Assert(true);
-			$assert->beFoo('foo')->beFoo('bar')->beFoo('baz');
+			$assert->foo('foo')->foo('bar')->foo('baz');
 
 			$isCalled = true;
 		});
@@ -149,7 +149,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$this->runInTestCallback(function($test, $it) use(&$isExecuted)
 		{
 			$assert = new Assert(true);
-			$assert->not->beFalse();
+			$assert->not->false();
 			$isExecuted = true;
 		});
 
@@ -162,7 +162,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		{
 			$runResultsBuffer = $it->getRunResultsBuffer();
 			$assert = new Assert(true);
-			$assert->not->beFalse();
+			$assert->not->false();
 		});
 
 		$results = $runResultsBuffer->getResults();
@@ -178,11 +178,11 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert(true);
-			$assert->not->beFalse();
-			$assert->not->beFalse();
+			$assert->not->false();
+			$assert->not->false();
 
 			$assert = new Assert(true);
-			$assert->not->beFalse();
+			$assert->not->false();
 		});
 
 		$results = $runResultsBuffer->getResults();
@@ -207,11 +207,11 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert(true);
-			$assert->not->beFalse();
-			$assert->not->beReturnSecondArg('bar', 0);
+			$assert->not->false();
+			$assert->not->returnSecondArg('bar', 0);
 
 			$assert = new Assert('foo');
-			$assert->not->beEq('bar');
+			$assert->not->eq('bar');
 		});
 
 		$results = $runResultsBuffer->getResults();
@@ -219,7 +219,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$details = $results[0]['details'];
 		$this->assertSame(true, $details->getActualValue());
 		$this->assertSame(true, $details->getIsNot());
-		$this->assertSame('beFalse', $details->getMatcherName());
+		$this->assertSame('false', $details->getMatcherName());
 		$this->assertSame(array(), $details->getMatcherArgs());
 		$this->assertSame(false, $details->getMatcherReturnValue());
 		$this->assertSame(null, $details->getMatcherException());
@@ -227,7 +227,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$details = $results[1]['details'];
 		$this->assertSame(true, $details->getActualValue());
 		$this->assertSame(true, $details->getIsNot());
-		$this->assertSame('beReturnSecondArg', $details->getMatcherName());
+		$this->assertSame('returnSecondArg', $details->getMatcherName());
 		$this->assertSame(array('bar', 0), $details->getMatcherArgs());
 		$this->assertSame(0, $details->getMatcherReturnValue());
 		$this->assertSame(null, $details->getMatcherException());
@@ -235,7 +235,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$details = $results[2]['details'];
 		$this->assertSame('foo', $details->getActualValue());
 		$this->assertSame(true, $details->getIsNot());
-		$this->assertSame('beEq', $details->getMatcherName());
+		$this->assertSame('eq', $details->getMatcherName());
 		$this->assertSame(array('bar'), $details->getMatcherArgs());
 		$this->assertSame(false, $details->getMatcherReturnValue());
 		$this->assertSame(null, $details->getMatcherException());
@@ -248,7 +248,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 			$runResultsBuffer = $it->getRunResultsBuffer();
 
 			$assert = new Assert(true);
-			$assert->not->beFalse();
+			$assert->not->false();
 		});
 
 		$results = $runResultsBuffer->getResults();
@@ -261,10 +261,10 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		{
 			$assert = new Assert(true);
 
-			$assert->not->beFalse();
+			$assert->not->false();
 			$test->assertFalse($assert->isNot());
 
-			$assert->beTrue();
+			$assert->true();
 			$test->assertFalse($assert->isNot());
 
 			$isCalled = true;
@@ -278,9 +278,9 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$this->runInTestCallback(function($test, $it) use(&$isCalled)
 		{
 			$assert = new Assert(true);
-			$test->assertSame($assert, $assert->not->beFalse());
-			$test->assertSame($assert, $assert->not->beFalse()->not->beFalse());
-			$test->assertSame($assert, $assert->not->beFalse()->not->beFalse()->not->beFalse());
+			$test->assertSame($assert, $assert->not->false());
+			$test->assertSame($assert, $assert->not->false()->not->false());
+			$test->assertSame($assert, $assert->not->false()->not->false()->not->false());
 
 			$isCalled = true;
 		});

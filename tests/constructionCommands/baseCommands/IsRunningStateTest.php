@@ -47,12 +47,12 @@ class IsRunningStateTest extends \net\mkharitonov\spectrum\constructionCommands\
 
 	public function testInsideAddMatcherCommand_ShouldBeReturnTrue()
 	{
-		Manager::addMatcher('beFoo', function() use(&$result){
+		Manager::addMatcher('foo', function() use(&$result){
 			$result = Manager::isRunningState();
 		});
 
 		$it = Manager::it('', function(){
-			be('')->beFoo();
+			be('')->foo();
 		});
 
 		$it->run();

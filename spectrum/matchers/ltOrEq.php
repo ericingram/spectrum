@@ -12,12 +12,12 @@
 namespace net\mkharitonov\spectrum\matchers;
 
 /**
- * Matcher for equal operator ($actual == $expected).
+ * Matcher for less than or equal operator ($actual <= $expected).
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  * @return bool
  */
-function beEq($actual, $expected)
+function ltOrEq($actual, $expected)
 {
-	return ($actual == $expected);
+	return ($actual <= $expected);
 }

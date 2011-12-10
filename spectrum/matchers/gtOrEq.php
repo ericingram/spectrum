@@ -17,7 +17,7 @@ namespace net\mkharitonov\spectrum\matchers;
  * @link   http://www.mkharitonov.net/spectrum/
  * @return bool
  */
-function beGtOrEq($actual, $expected)
+function gtOrEq($actual, $expected)
 {
 	return ($actual >= $expected);
 }

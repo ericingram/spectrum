@@ -12,12 +12,12 @@
 namespace net\mkharitonov\spectrum\matchers;
 
 /**
- * Matcher for identical false comparison ($actual === false).
+ * Matcher for identical operator ($actual === $expected).
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  * @return bool
  */
-function beFalse($actual)
+function ident($actual, $expected)
 {
-	return ($actual === false);
+	return ($actual === $expected);
 }

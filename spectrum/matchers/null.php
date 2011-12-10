@@ -17,7 +17,7 @@ namespace net\mkharitonov\spectrum\matchers;
  * @link   http://www.mkharitonov.net/spectrum/
  * @return bool
  */
-function beNull($actual)
+function null($actual)
 {
 	return ($actual === null);
 }
