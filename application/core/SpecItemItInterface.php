@@ -17,5 +17,8 @@ namespace net\mkharitonov\spectrum\core;
  */
 interface SpecItemItInterface extends SpecItemInterface
 {
-
+	public function setTestCallback($callback);
+	public function getTestCallback();
+	public function setAdditionalArguments(array $args);
+	public function getAdditionalArguments();
 }

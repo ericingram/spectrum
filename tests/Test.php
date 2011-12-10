@@ -20,22 +20,48 @@ require_once dirname(__FILE__) . '/init.php';
 abstract class Test extends \PHPUnit_Framework_TestCase
 {
 	public static $tmp;
-	private $runningInstanceBackup;
+	private $staticPropertiesBackups = array();
 
 	protected function setUp()
 	{
 		parent::setUp();
+
+		$this->backupStaticProperties('\net\mkharitonov\spectrum\core\Config');
+		$this->backupStaticProperties('\net\mkharitonov\spectrum\core\Registry');
+		$this->backupStaticProperties('\net\mkharitonov\spectrum\core\plugins\Manager');
+
 		\net\mkharitonov\spectrum\Test::$tmp = null;
-		$this->runningInstanceBackup = \net\mkharitonov\spectrum\core\SpecItem::getRunningInstance();
-		\net\mkharitonov\spectrum\core\plugins\Manager::unregisterPlugin('liveReport'); // TODO remove
+		\net\mkharitonov\spectrum\core\testEnv\PluginStub::reset();
+
+		\net\mkharitonov\spectrum\core\plugins\Manager::unregisterPlugin('liveReport');
 	}
 
 	protected function tearDown()
 	{
-		// After ConstructionCommands tests (where tests throw exceptions), running instance are not restore
-		\net\mkharitonov\spectrum\core\testEnv\SpecItemMock::setRunningInstancePublic($this->runningInstanceBackup);
+		$this->restoreStaticProperties('\net\mkharitonov\spectrum\core\plugins\Manager');
+		$this->restoreStaticProperties('\net\mkharitonov\spectrum\core\Registry');
+		$this->restoreStaticProperties('\net\mkharitonov\spectrum\core\Config');
+
 		parent::tearDown();
 	}
+
+	protected function backupStaticProperties($className)
+	{
+		$reflection = new \ReflectionClass($className);
+		$this->staticPropertiesBackups[$className] = $reflection->getStaticProperties();
+	}
+
+	protected function restoreStaticProperties($className)
+	{
+		foreach ($this->staticPropertiesBackups[$className] as $name => $value)
+		{
+			$propertyReflection = new \ReflectionProperty($className, $name);
+			$propertyReflection->setAccessible(true);
+			$propertyReflection->setValue(null, $value);
+		}
+	}
+
+/**/
 
 	public function testCreateSpecsTree_ShouldBeReturnCreatedSpecsWithNamesOrIndexes()
 	{

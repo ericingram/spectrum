@@ -1,6 +1,9 @@
+accessName
+
 application => spectrum
 getInstance => getOnceInstance
 Move SpecItem methods to SpecItemIt
+убрать дата провайдеры?!
 
 результат выполнения
 	написать про результат выполнения запуска контекстов и откдюченных спеков

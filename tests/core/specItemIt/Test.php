@@ -16,7 +16,7 @@ require_once dirname(__FILE__) . '/../../init.php';
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-abstract class Test extends \net\mkharitonov\spectrum\core\SpecItemTest
+abstract class Test extends \net\mkharitonov\spectrum\core\SpecTest
 {
 	protected $currentSpecClass = '\net\mkharitonov\spectrum\core\SpecItemIt';
 	protected $currentSpecMockClass = '\net\mkharitonov\spectrum\core\testEnv\SpecItemItMock';

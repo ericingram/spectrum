@@ -130,15 +130,15 @@ abstract class Test extends \net\mkharitonov\spectrum\core\specItemIt\errorHandl
 		$this->assertNull($it->getRunResultsBuffer());
 	}
 
-	public function testShouldBeRestoreRunningInstance()
+	public function testShouldBeRestoreRunningSpecItemInRegistry()
 	{
-		$runningInstanceBackup = SpecItem::getRunningInstance();
+		$runningSpecItemBackup = \net\mkharitonov\spectrum\core\Registry::getRunningSpecItem();
 
 		$it = $this->it;
 		$it->setTestCallback(function(){ trigger_error(''); });
 		$it->run();
 
-		$this->assertSame($runningInstanceBackup, SpecItem::getRunningInstance());
+		$this->assertSame($runningSpecItemBackup, \net\mkharitonov\spectrum\core\Registry::getRunningSpecItem());
 	}
 
 	public function testShouldBeStopRun()

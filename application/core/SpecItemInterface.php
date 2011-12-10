@@ -17,12 +17,5 @@ namespace net\mkharitonov\spectrum\core;
  */
 interface SpecItemInterface extends SpecInterface
 {
-	static function getRunningInstance();
 	public function getRunResultsBuffer();
-	
-	public function setTestCallback($callback);
-	public function getTestCallback();
-
-	public function setAdditionalArguments(array $args);
-	public function getAdditionalArguments();
 }

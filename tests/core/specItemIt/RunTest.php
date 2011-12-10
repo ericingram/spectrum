@@ -133,45 +133,45 @@ class RunTest extends Test
 		$this->assertTrue($it->run());
 	}
 
-	public function testShouldBeSetSelfAsRunningInstanceToSpecItemDuringRun()
+	public function testShouldBeSetSelfAsRunningSpecItemToRegistryDuringRun()
 	{
 		$it = new SpecItemIt();
-		$runningInstance = null;
-		$it->setTestCallback(function() use(&$runningInstance){
-			$runningInstance = SpecItem::getRunningInstance();
+		$runningSpecItem = null;
+		$it->setTestCallback(function() use(&$runningSpecItem){
+			$runningSpecItem = \net\mkharitonov\spectrum\core\Registry::getRunningSpecItem();
 		});
 
 		$it->run();
 
-		$this->assertSame($it, $runningInstance);
+		$this->assertSame($it, $runningSpecItem);
 	}
 
-	public function testShouldBeRestoreRunningInstanceAfterRun()
+	public function testShouldBeRestoreRunningSpecItemInRegistryAfterRun()
 	{
-		$runningInstanceBackup = SpecItem::getRunningInstance();
+		$runningSpecItemBackup = \net\mkharitonov\spectrum\core\Registry::getRunningSpecItem();
 		$it = new SpecItemIt();
 		$it->setTestCallback(function(){});
 
 		$it->run();
 
-		$this->assertSame($runningInstanceBackup, SpecItem::getRunningInstance());
+		$this->assertSame($runningSpecItemBackup, \net\mkharitonov\spectrum\core\Registry::getRunningSpecItem());
 	}
 
-	public function testShouldBeRestoreRunningInstanceAfterNestedRun()
+	public function testShouldBeRestoreRunningSpecItemInRegistryAfterNestedRun()
 	{
 		$it = new SpecItemIt();
-		$it->setTestCallback(function() use(&$runningInstanceAfterNestedRun)
+		$it->setTestCallback(function() use(&$runningSpecItemAfterNestedRun)
 		{
 			$it2 = new SpecItemIt();
 			$it2->setTestCallback(function() use($it2) {});
 			$it2->run();
 
-			$runningInstanceAfterNestedRun = SpecItem::getRunningInstance();
+			$runningSpecItemAfterNestedRun = \net\mkharitonov\spectrum\core\Registry::getRunningSpecItem();
 		});
 
 		$it->run();
 
-		$this->assertSame($it, $runningInstanceAfterNestedRun);
+		$this->assertSame($it, $runningSpecItemAfterNestedRun);
 	}
 
 /**/

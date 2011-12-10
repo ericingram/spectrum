@@ -17,4 +17,9 @@ namespace net\mkharitonov\spectrum\core\testEnv\emptyStubs;
  */
 class SpecItemIt extends SpecItem implements \net\mkharitonov\spectrum\core\SpecItemItInterface
 {
+	public function getRunResultsBuffer(){}
+	public function setTestCallback($callback){}
+	public function getTestCallback(){}
+	public function setAdditionalArguments(array $args){}
+	public function getAdditionalArguments(){}
 }

@@ -162,7 +162,55 @@ class ConfigTest extends Test
 
 		$this->assertEquals($oldClass, Config::getPluginsManagerClass());
 	}
+/**/
 
+	public function testGetRegistryClass_ShouldBeReturnSpectrumClassByDefault()
+	{
+		$this->assertEquals('\net\mkharitonov\spectrum\core\Registry', Config::getRegistryClass());
+	}
+
+/**/
+
+	public function testSetRegistryClass_ShouldBeSetNewClass()
+	{
+		Config::setRegistryClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\Registry');
+		$this->assertEquals('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\Registry', Config::getRegistryClass());
+	}
+
+	public function testSetRegistryClass_ClassNotExists_ShouldBeThrowExceptionAndNotChangeValue()
+	{
+		$oldClass = Config::getRegistryClass();
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'not exists', function(){
+			Config::setRegistryClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\NotExistsClassFooBarBaz');
+		});
+
+		$this->assertEquals($oldClass, Config::getRegistryClass());
+	}
+
+	public function testSetRegistryClass_ClassNotImplementSpectrumInterface_ShouldBeThrowExceptionAndNotChangeValue()
+	{
+		$oldClass = Config::getRegistryClass();
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'should be implement interface', function(){
+			Config::setRegistryClass('\stdClass');
+		});
+
+		$this->assertEquals($oldClass, Config::getRegistryClass());
+	}
+
+	public function testSetRegistryClass_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
+	{
+		$oldClass = Config::getRegistryClass();
+		Config::lock();
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Config is locked', function(){
+			Config::setRegistryClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\Registry');
+		});
+
+		$this->assertEquals($oldClass, Config::getRegistryClass());
+	}
+	
 /**/
 
 	public function testGetRunResultsBufferClass_ShouldBeReturnSpectrumClassByDefault()
@@ -358,56 +406,7 @@ class ConfigTest extends Test
 
 		$this->assertEquals($oldClass, Config::getSpecContainerDescribeClass());
 	}
-	
-/**/
 
-	public function testGetSpecItemClass_ShouldBeReturnSpectrumClassByDefault()
-	{
-		$this->assertEquals('\net\mkharitonov\spectrum\core\SpecItem', Config::getSpecItemClass());
-	}
-
-/**/
-
-	public function testSetSpecItemClass_ShouldBeSetNewClass()
-	{
-		Config::setSpecItemClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\SpecItem');
-		$this->assertEquals('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\SpecItem', Config::getSpecItemClass());
-	}
-
-	public function testSetSpecItemClass_ClassNotExists_ShouldBeThrowExceptionAndNotChangeValue()
-	{
-		$oldClass = Config::getSpecItemClass();
-
-		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'not exists', function(){
-			Config::setSpecItemClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\NotExistsClassFooBarBaz');
-		});
-
-		$this->assertEquals($oldClass, Config::getSpecItemClass());
-	}
-
-	public function testSetSpecItemClass_ClassNotImplementSpectrumInterface_ShouldBeThrowExceptionAndNotChangeValue()
-	{
-		$oldClass = Config::getSpecItemClass();
-
-		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'should be implement interface', function(){
-			Config::setSpecItemClass('\stdClass');
-		});
-
-		$this->assertEquals($oldClass, Config::getSpecItemClass());
-	}
-
-	public function testSetSpecItemClass_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
-	{
-		$oldClass = Config::getSpecItemClass();
-		Config::lock();
-
-		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Config is locked', function(){
-			Config::setSpecItemClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\SpecItem');
-		});
-
-		$this->assertEquals($oldClass, Config::getSpecItemClass());
-	}
-	
 /**/
 
 	public function testGetSpecItemItClass_ShouldBeReturnSpectrumClassByDefault()

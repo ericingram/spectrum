@@ -15,7 +15,8 @@ namespace net\mkharitonov\spectrum\core;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-abstract class SpecItem extends Spec implements SpecItemInterface
+interface RegistryInterface
 {
-
+	static public function getRunningSpecItem();
+	static public function setRunningSpecItem(SpecItemInterface $instance = null);
 }

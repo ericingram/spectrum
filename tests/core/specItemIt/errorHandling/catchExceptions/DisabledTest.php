@@ -74,9 +74,9 @@ class DisabledTest extends Test
 		$this->assertNull($it->getRunResultsBuffer());
 	}
 
-	public function testShouldBeRestoreRunningInstance()
+	public function testShouldBeRestoreRunningSpecItemInRegistry()
 	{
-		$runningInstanceBackup = SpecItem::getRunningInstance();
+		$runningSpecItemBackup = \net\mkharitonov\spectrum\core\Registry::getRunningSpecItem();
 
 		$it = new SpecItemIt();
 		$it->errorHandling->setCatchExceptions(false);
@@ -85,7 +85,7 @@ class DisabledTest extends Test
 		});
 
 		$this->assertThrowException('\Exception', 'foo', function() use($it){ $it->run(); });
-		$this->assertSame($runningInstanceBackup, SpecItem::getRunningInstance());
+		$this->assertSame($runningSpecItemBackup, \net\mkharitonov\spectrum\core\Registry::getRunningSpecItem());
 	}
 
 	public function testShouldBeStopRun()

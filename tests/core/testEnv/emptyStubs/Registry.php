@@ -9,17 +9,14 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core;
-require_once dirname(__FILE__) . '/../init.php';
+namespace net\mkharitonov\spectrum\core\testEnv\emptyStubs;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-abstract class SpecItemTest extends SpecTest
+class Registry implements \net\mkharitonov\spectrum\core\RegistryInterface
 {
-	public function testGetRunningInstance_ShouldBeReturnNullIfHasNoRunningInstances()
-	{
-		$this->assertNull(SpecItem::getRunningInstance());
-	}
+	static public function getRunningSpecItem(){}
+	static public function setRunningSpecItem(\net\mkharitonov\spectrum\core\SpecItemInterface $instance = null){}
 }

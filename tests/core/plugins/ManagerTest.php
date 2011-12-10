@@ -28,15 +28,15 @@ class ManagerTest extends \net\mkharitonov\spectrum\core\Test
 
 	public function testShouldBeHaveRegisteredBasePluginsByDefault()
 	{
-		Manager::registerPlugins($this->registeredPluginsBackup);
+		$this->restoreStaticProperties('\net\mkharitonov\spectrum\core\plugins\Manager');
 
 		$this->assertSame(array(
 			'matchers' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\Matchers', 'activateMoment' => 'whenCallOnce'),
 			'builders' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\worldCreators\Builders', 'activateMoment' => 'whenCallOnce'),
 			'destroyers' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\worldCreators\Destroyers', 'activateMoment' => 'whenCallOnce'),
-//			'report' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\report\Report', 'activateMoment' => 'whenCallOnce'),
 			'selector' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\Selector', 'activateMoment' => 'whenCallOnce'),
 			'errorHandling' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\ErrorHandling', 'activateMoment' => 'whenCallOnce'),
+			'liveReport' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\LiveReport', 'activateMoment' => 'whenCallOnce'),
 		), Manager::getRegisteredPlugins());
 	}
 

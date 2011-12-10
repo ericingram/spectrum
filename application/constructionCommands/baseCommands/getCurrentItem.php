@@ -23,6 +23,6 @@ function getCurrentItem()
 	if (!Manager::isRunningState())
 		throw new \net\mkharitonov\spectrum\constructionCommands\Exception('Construction command "getCurrentItem" should be call only at running state');
 
-	$specItemClass = \net\mkharitonov\spectrum\core\Config::getSpecItemClass();
-	return $specItemClass::getRunningInstance();
+	$registryClass = \net\mkharitonov\spectrum\core\Config::getRegistryClass();
+	return $registryClass::getRunningSpecItem();
 }
