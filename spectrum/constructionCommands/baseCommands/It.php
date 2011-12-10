@@ -52,10 +52,7 @@ class It
 
 	static protected function createDataProviderSpec($name, $dataProvider, $testCallback)
 	{
-		if (!is_array($dataProvider))
-			$dataProvider = static::callDataProvider($dataProvider);
-
-		$dataProvider = static::convertArrayItemsToArray($dataProvider);
+		$dataProvider = static::convertArrayChildrenToArray($dataProvider);
 
 		$dataProviderClass = \net\mkharitonov\spectrum\core\Config::getSpecContainerDataProviderClass();
 		$spec = new $dataProviderClass($name);
@@ -73,20 +70,7 @@ class It
 		return $spec;
 	}
 
-	static protected function callDataProvider($callback)
-	{
-		if (!is_callable($callback))
-			throw new \net\mkharitonov\spectrum\constructionCommands\Exception('Data provider is not callable');
-
-		$return = call_user_func($callback);
-
-		if (!is_array($return))
-			throw new \net\mkharitonov\spectrum\constructionCommands\Exception('Data provider function should be return array (now data provider return ' . gettype($return) . ')');
-
-		return $return;
-	}
-
-	static protected function convertArrayItemsToArray(array $array)
+	static protected function convertArrayChildrenToArray(array $array)
 	{
 		foreach ($array as $key => $val)
 		{

@@ -217,13 +217,6 @@ printExample('Пример поставщиков данных', <<<'CODE'
 		), function($world, $arg1, $arg2 = null){
 			actual(true)->beTrue(); // do something
 		});
-
-		// Так же поставщик данных может быть функцией, которая должна будет вернуть массив
-		it('Должена принимать различные форматы тефонных номеров',
-		function(){ return array('foo', array('bar', 'bar2'), 'baz'); },
-		function($world, $arg1, $arg2 = null){
-			actual(true)->beTrue(); // do something
-		});
 	});
 CODE
 , array('height' => 240));

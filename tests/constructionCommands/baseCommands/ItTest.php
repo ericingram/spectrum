@@ -124,69 +124,6 @@ class ItTest extends \net\mkharitonov\spectrum\constructionCommands\baseCommands
 		$this->assertSpecIsItemIt(null, array('baz1', 'baz2'), $testCallback, $children[2]);
 	}
 
-	public function testThreeArgument_SecondArgumentIsClosureFunction_ReturnMixedArgumentsRows_ShouldBeReturnDataProviderContainer()
-	{
-		$testCallback = function(){};
-		$spec = Manager::it('some spec', function(){
-			return array(
-				array('foo'),
-				'bar',
-				array('baz1', 'baz2'),
-			);
-		}, $testCallback);
-
-		$this->assertSpecIsContainerDataProvider('some spec', 3, $spec);
-
-		$children = $spec->getSpecs();
-		$this->assertSpecIsItemIt(null, array('foo'), $testCallback, $children[0]);
-		$this->assertSpecIsItemIt(null, array('bar'), $testCallback, $children[1]);
-		$this->assertSpecIsItemIt(null, array('baz1', 'baz2'), $testCallback, $children[2]);
-	}
-
-	public function testThreeArgument_SecondArgumentIsCreatedAnonymousFunction_ReturnMixedArgumentsRows_ShouldBeReturnDataProviderContainer()
-	{
-		$testCallback = function(){};
-		$spec = Manager::it('some spec', create_function('', "return array(
-			array('foo'),
-			'bar',
-			array('baz1', 'baz2'),
-		);"), $testCallback);
-
-		$this->assertSpecIsContainerDataProvider('some spec', 3, $spec);
-
-		$children = $spec->getSpecs();
-		$this->assertSpecIsItemIt(null, array('foo'), $testCallback, $children[0]);
-		$this->assertSpecIsItemIt(null, array('bar'), $testCallback, $children[1]);
-		$this->assertSpecIsItemIt(null, array('baz1', 'baz2'), $testCallback, $children[2]);
-	}
-
-	public function testThreeArgument_SecondArgumentIsStringNameFunction_ReturnMixedArgumentsRows_ShouldBeReturnDataProviderContainer()
-	{
-		$testCallback = function(){};
-		$spec = Manager::it('some spec', __CLASS__ . '::myDataProvider', $testCallback);
-
-		$this->assertSpecIsContainerDataProvider('some spec', 3, $spec);
-
-		$children = $spec->getSpecs();
-		$this->assertSpecIsItemIt(null, array('foo'), $testCallback, $children[0]);
-		$this->assertSpecIsItemIt(null, array('bar'), $testCallback, $children[1]);
-		$this->assertSpecIsItemIt(null, array('baz1', 'baz2'), $testCallback, $children[2]);
-	}
-
-	public function testThreeArgument_SecondArgumentIsNotCallableFunction_ShouldBeThrowException()
-	{
-		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', 'is not callable', function(){
-			Manager::it('', 'iAmNotCallableFunctionOhOhOh', function(){});
-		});
-	}
-
-	public function testThreeArgument_SecondArgumentIsFunctionReturnedNotArray_ShouldBeThrowException()
-	{
-		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', 'should be return array', function(){
-			Manager::it('', function(){ return null; }, function(){});
-		});
-	}
-
 /**/
 
 	public function testShouldNotBeCallTestCallbackDuringDeclaringState()
