@@ -20,7 +20,7 @@ require_once dirname(__FILE__) . '/baseCommands/describe.php';
 require_once dirname(__FILE__) . '/baseCommands/context.php';
 require_once dirname(__FILE__) . '/baseCommands/It.php';
 
-require_once dirname(__FILE__) . '/baseCommands/actual.php';
+require_once dirname(__FILE__) . '/baseCommands/be.php';
 
 require_once dirname(__FILE__) . '/baseCommands/setCurrentContainer.php';
 require_once dirname(__FILE__) . '/baseCommands/getCurrentContainer.php';
@@ -32,7 +32,7 @@ require_once dirname(__FILE__) . '/baseCommands/isRunningState.php';
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
- * @method \net\mkharitonov\spectrum\core\asserts\Assert actual()
+ * @method \net\mkharitonov\spectrum\core\asserts\Assert be()
  * @method addMatcher()
  * @method afterEach()
  * @method beforeEach()
@@ -59,7 +59,7 @@ class Manager
 		'context' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\context',
 		'it' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\It::it',
 
-		'actual' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\actual',
+		'be' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\be',
 
 		'setCurrentContainer' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\setCurrentContainer',
 		'getCurrentContainer' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\getCurrentContainer',
@@ -89,7 +89,7 @@ class Manager
 		static::createGlobalAliasOnce('addMatcher');
 		static::createGlobalAliasOnce('beforeEach');
 		static::createGlobalAliasOnce('afterEach');
-		static::createGlobalAliasOnce('actual');
+		static::createGlobalAliasOnce('be');
 	}
 
 	static public function createGlobalAliasOnce($commandName)

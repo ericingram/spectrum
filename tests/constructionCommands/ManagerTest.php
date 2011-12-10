@@ -30,7 +30,7 @@ class ManagerTest extends \net\mkharitonov\spectrum\Test
 			'context' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\context',
 			'it' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\It::it',
 	
-			'actual' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\actual',
+			'be' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\be',
 
 			'setCurrentContainer' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\setCurrentContainer',
 			'getCurrentContainer' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\getCurrentContainer',

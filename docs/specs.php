@@ -1,2 +1,2 @@
 <?php
-it('Должен изучать живые организмы', function(){ actual(true)->beTrue(); });
+it('Должен изучать живые организмы', function(){ be(true)->beTrue(); });

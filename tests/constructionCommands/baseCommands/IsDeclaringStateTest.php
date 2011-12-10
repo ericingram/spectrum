@@ -52,7 +52,7 @@ class IsDeclaringStateTest extends \net\mkharitonov\spectrum\constructionCommand
 		});
 
 		$it = Manager::it('', function(){
-			actual('')->beFoo();
+			be('')->beFoo();
 		});
 
 		$it->run();

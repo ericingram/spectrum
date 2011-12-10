@@ -148,12 +148,12 @@ function generateCacheFilename()
 		describe('Космический корабль', function(){
 			it('Должен бороздить просторы вселенной', function(){
 				$spaceship = new Spaceship();
-				actual($spaceship->getLocation())->beEq('space');
+				be($spaceship->getLocation())->beEq('space');
 			});
 
 			it('Не должен прохлаждаться', function(){
 				$spaceship = new Spaceship();
-				actual($spaceship->getTask())->not->beEq('foo');
+				be($spaceship->getTask())->not->beEq('foo');
 			});
 		});
 
@@ -171,20 +171,20 @@ CODE
 <?php
 printExample('Пример вложенной структуры', <<<'CODE'
 	describe('Космический корабль', function(){
-		it('Должен бороздить просторы вселенной', function(){ actual(true)->beTrue(); });
+		it('Должен бороздить просторы вселенной', function(){ be(true)->beTrue(); });
 
 		describe('Боевое оснащение', function(){
-			it('Должены быть установлены огромные пушки', function(){ actual(true)->beTrue(); });
-			it('Должены быть установлены крутые лезеры', function(){ actual(true)->beTrue(); });
+			it('Должены быть установлены огромные пушки', function(){ be(true)->beTrue(); });
+			it('Должены быть установлены крутые лезеры', function(){ be(true)->beTrue(); });
 		});
 
 		describe('Каюта капитана', function(){
-			it('Должена быть оборудована ванной типа «Джакузи»', function(){ actual(true)->beTrue(); });
-			it('Должена убираться каждый день', function(){ actual(true)->beTrue(); });
+			it('Должена быть оборудована ванной типа «Джакузи»', function(){ be(true)->beTrue(); });
+			it('Должена убираться каждый день', function(){ be(true)->beTrue(); });
 
 			describe('Спальное место', function(){
-				it('Должено быть застелено шелковыми простынями', function(){ actual(true)->beTrue(); });
-				it('Должено вмещать не меньше двух человек', function(){ actual(true)->beTrue(); });
+				it('Должено быть застелено шелковыми простынями', function(){ be(true)->beTrue(); });
+				it('Должено вмещать не меньше двух человек', function(){ be(true)->beTrue(); });
 			});
 		});
 	});
@@ -204,9 +204,9 @@ printExample('Пример поставщиков данных', <<<'CODE'
 		array('123-456-7', '+7 (495) 123-456-7', '(495) 123-456-7'),
 		function($world, $tel){
 			if (preg_match('/\+/', $tel))
-				actual(false)->beTrue();
+				be(false)->beTrue();
 			else
-				actual(true)->beTrue();
+				be(true)->beTrue();
 		});
 
 		// Если требуется передать несколько аргументов, то элемент поставщика данных должен сам быть массивом
@@ -215,7 +215,7 @@ printExample('Пример поставщиков данных', <<<'CODE'
 			array('bar', 'bar2'),
 			'baz'
 		), function($world, $arg1, $arg2 = null){
-			actual(true)->beTrue(); // do something
+			be(true)->beTrue(); // do something
 		});
 	});
 CODE
@@ -223,7 +223,7 @@ CODE
 ?>
 
 <h1 id="asserts">Утверждения и матчеры</h1>
-<p>Утверждения создаются с помодью команды конструирования <code>actual()</code>, которая возвращает объект класса
+<p>Утверждения создаются с помодью команды конструирования <code>be()</code>, которая возвращает объект класса
 <code>core/Assert</code>, обращаясь к которому можно вызывать различные матчеры (вызовы методов перехватываются и перенаправляются
 к требуему матчеру).</p>
 
@@ -233,12 +233,12 @@ CODE
 <?php
 printExample('Пример различных вызовов матчеров', <<<'CODE'
 	it('Должен', function(){
-		actual(true)->beTrue();
-		actual(true)->not->beFalse();
+		be(true)->beTrue();
+		be(true)->not->beFalse();
 
 		// Так же можно записывать несколько матчеров в одной строке (обратите внимание
 		// что "not" действует только на первый из последующих матчеров)
-		actual(true)->not->beFalse()->beTrue();
+		be(true)->not->beFalse()->beTrue();
 	});
 CODE
 , array('height' => 50));
@@ -255,8 +255,8 @@ printExample('Пример callback функций матчеров', <<<'CODE'
 		});
 
 		it('Должен', function(){
-			actual('foo')->beFoo();
-			actual('bar')->not->beFoo();
+			be('foo')->beFoo();
+			be('bar')->not->beFoo();
 		});
 
 		// Матчер с дополнительными параметрами
@@ -269,7 +269,7 @@ printExample('Пример callback функций матчеров', <<<'CODE'
 		});
 
 		it('Должен еще', function(){
-			actual('foo')->beSomething('bar', 'baz');
+			be('foo')->beSomething('bar', 'baz');
 		});
 	});
 CODE
@@ -288,12 +288,12 @@ printExample('Пример матчеров во вложенных структ
 		});
 
 		it('Должен', function(){
-			actual(true)->beFoo(); // Из родителя
+			be(true)->beFoo(); // Из родителя
 		});
 
 		describe('Второй', function(){
 			it('Должен', function(){
-				actual(true)->beFoo(); // Из предка (т.е. оттуда же, что и предыдущий)
+				be(true)->beFoo(); // Из предка (т.е. оттуда же, что и предыдущий)
 			});
 		});
 	});
@@ -304,7 +304,7 @@ printExample('Пример матчеров во вложенных структ
 		});
 		
 		it('Должен', function(){
-			actual(true)->beFoo();
+			be(true)->beFoo();
 		});
 
 		describe('Со своей версией beFoo', function(){
@@ -313,7 +313,7 @@ printExample('Пример матчеров во вложенных структ
 			});
 
 			it('Должен', function(){
-				actual(true)->beFoo();
+				be(true)->beFoo();
 			});
 		});
 	});
@@ -327,52 +327,52 @@ CODE
 printExample('Пример переопределения стандартных матчеров', <<<'CODE'
 	describe('', function(){
 		it('Должен', function(){
-			actual(null)->beNull();
-			actual(true)->beTrue();
-			actual(1)->not->beTrue();
-			actual(false)->beFalse();
-			actual(0)->not->beFalse();
+			be(null)->beNull();
+			be(true)->beTrue();
+			be(1)->not->beTrue();
+			be(false)->beFalse();
+			be(0)->not->beFalse();
 
-			actual('foo')->beEq('foo');
-			actual(new Spaceship())->not->beIdent(new Spaceship());
+			be('foo')->beEq('foo');
+			be(new Spaceship())->not->beIdent(new Spaceship());
 
-			actual(5)->beLt(10); // Less than
-			actual(10)->beLtOrEq(10); // Less than or equal
-			actual(10)->beGt(5); // Greater than
-			actual(10)->beGtOrEq(10); // Greater than or equal
+			be(5)->beLt(10); // Less than
+			be(10)->beLtOrEq(10); // Less than or equal
+			be(10)->beGt(5); // Greater than
+			be(10)->beGtOrEq(10); // Greater than or equal
 
-			actual(function(){
+			be(function(){
 				throw new Exception();
 			})->beThrow();
 			
-			actual(function(){
+			be(function(){
 				throw new ErrorException();
 			})->beThrow('\ErrorException');
 
-			actual(function(){
+			be(function(){
 				throw new ErrorException('Foo is not bar', 123);
 			})->beThrow('\ErrorException', 'foo', 123);
 			
-			actual(function(){
+			be(function(){
 				throw new Exception('Foo is not bar');
 			})->beThrow(null, 'foo');
 		});
 
 		it('Должен', function(){
-			actual(function(){
+			be(function(){
 				throw new Exception();
 			})->beThrow('\ErrorException');
 		});
 
 		it('Должен', function(){
-			actual(function(){
+			be(function(){
 				throw new ErrorException();
 			})->beThrow('\ErrorException', 'foo');
 		});
 
 		// Использование мира в beThrow()
 		it('Должен', function($world){
-			actual(function() use($world){
+			be(function() use($world){
 				$world->foo = 'bar';
 			})->not->beThrow();
 		});
@@ -391,7 +391,7 @@ printExample('Пример переопределения стандартных
 
 	describe('', function(){
 		it('Должен', function(){
-			actual(true)->beTrue();
+			be(true)->beTrue();
 		});
 	});
 CODE
@@ -422,11 +422,11 @@ printExample('Пример создания мира', <<<'CODE'
 		});
 
 		it('Должен бороздить просторы вселенной', function($world){
-			actual($world->spaceship->getLocation())->beEq('space');
+			be($world->spaceship->getLocation())->beEq('space');
 		});
 
 		it('Не должен прохлаждаться', function($world){
-			actual($world->spaceship->getTask())->not->beEq('foo');
+			be($world->spaceship->getTask())->not->beEq('foo');
 		});
 	});
 CODE
@@ -449,7 +449,7 @@ printExample('Пример создания мира', <<<'CODE'
 		});
 
 		it('Должен бороздить просторы вселенной', function($world){
-			actual($world->spaceship->getLocation())->beEq('space');
+			be($world->spaceship->getLocation())->beEq('space');
 		});
 
 		describe('Межпространственный полет', function(){
@@ -464,7 +464,7 @@ printExample('Пример создания мира', <<<'CODE'
 			it('Должен облетать звёзды', function($world){
 				new Star(25, 50, 100);
 				$world->spaceship->setDestination(30, 50, 100);
-				actual($world->spaceship->isHasCollision())->beFalse();
+				be($world->spaceship->isHasCollision())->beFalse();
 			});
 		});
 	});
@@ -491,9 +491,9 @@ printExample('Пример без использования контексто�
 				$world->spaceship->setTask('study');
 			});
 
-			it('Должен изучать живые организмы', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
-			it('Должен собирать неизвестные ископаемые', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
-			it('Должен защищать слабых и обездоленных', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
+			it('Должен изучать живые организмы', function($world){ be($world->spaceship->getTask())->beEq('study'); });
+			it('Должен собирать неизвестные ископаемые', function($world){ be($world->spaceship->getTask())->beEq('study'); });
+			it('Должен защищать слабых и обездоленных', function($world){ be($world->spaceship->getTask())->beEq('study'); });
 		});
 
 		describe('В галактике Хоага', function(){
@@ -503,9 +503,9 @@ printExample('Пример без использования контексто�
 			});
 
 			// Копипастим
-			it('Должен изучать живые организмы', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
-			it('Должен собирать неизвестные ископаемые', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
-			it('Должен защищать слабых и обездоленных', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
+			it('Должен изучать живые организмы', function($world){ be($world->spaceship->getTask())->beEq('study'); });
+			it('Должен собирать неизвестные ископаемые', function($world){ be($world->spaceship->getTask())->beEq('study'); });
+			it('Должен защищать слабых и обездоленных', function($world){ be($world->spaceship->getTask())->beEq('study'); });
 		});
 
 		describe('В галактике Мейола', function(){
@@ -515,9 +515,9 @@ printExample('Пример без использования контексто�
 			});
 
 			// Снова копипастим
-			it('Должен изучать живые организмы', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
-			it('Должен собирать неизвестные ископаемые', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
-			it('Должен защищать слабых и обездоленных', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
+			it('Должен изучать живые организмы', function($world){ be($world->spaceship->getTask())->beEq('study'); });
+			it('Должен собирать неизвестные ископаемые', function($world){ be($world->spaceship->getTask())->beEq('study'); });
+			it('Должен защищать слабых и обездоленных', function($world){ be($world->spaceship->getTask())->beEq('study'); });
 		});
 	});
 CODE
@@ -550,9 +550,9 @@ printExample('Пример с использованием контекстов'
 			});
 		});
 
-		it('Должен изучать живые организмы', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
-		it('Должен собирать неизвестные ископаемые', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
-		it('Должен защищать слабых и обездоленных', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
+		it('Должен изучать живые организмы', function($world){ be($world->spaceship->getTask())->beEq('study'); });
+		it('Должен собирать неизвестные ископаемые', function($world){ be($world->spaceship->getTask())->beEq('study'); });
+		it('Должен защищать слабых и обездоленных', function($world){ be($world->spaceship->getTask())->beEq('study'); });
 	});
 CODE
 , array('height' => 240));
@@ -597,9 +597,9 @@ printExample('', <<<'CODE'
 			});
 		});
 
-		it('Должен изучать живые организмы', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
-		it('Должен собирать неизвестные ископаемые', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
-		it('Должен защищать слабых и обездоленных', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
+		it('Должен изучать живые организмы', function($world){ be($world->spaceship->getTask())->beEq('study'); });
+		it('Должен собирать неизвестные ископаемые', function($world){ be($world->spaceship->getTask())->beEq('study'); });
+		it('Должен защищать слабых и обездоленных', function($world){ be($world->spaceship->getTask())->beEq('study'); });
 	});
 CODE
 , array('height' => 240));
@@ -650,7 +650,7 @@ printExample('', <<<'CODE'
 			});
 		});
 
-		it('Должен изучать живые организмы', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
+		it('Должен изучать живые организмы', function($world){ be($world->spaceship->getTask())->beEq('study'); });
 	});
 CODE
 , array('height' => 240));
@@ -672,8 +672,8 @@ printExample('', <<<'CODE'
 					$world->spaceship->setTask('study');
 				});
 				
-				it('Должен собирать неизвестные ископаемые', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
-				it('Должен защищать слабых и обездоленных', function($world){ actual($world->spaceship->getTask())->beEq('rest'); });
+				it('Должен собирать неизвестные ископаемые', function($world){ be($world->spaceship->getTask())->beEq('study'); });
+				it('Должен защищать слабых и обездоленных', function($world){ be($world->spaceship->getTask())->beEq('rest'); });
 			});
 
 			context('В галактике Хоага', function(){
@@ -689,7 +689,7 @@ printExample('', <<<'CODE'
 			});
 		});
 
-		it('Должен изучать живые организмы', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
+		it('Должен изучать живые организмы', function($world){ be($world->spaceship->getTask())->beEq('study'); });
 	});
 CODE
 );
@@ -737,7 +737,7 @@ printExample('', <<<'CODE'
 				});
 			});
 
-			it('Должен изучать живые организмы', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
+			it('Должен изучать живые организмы', function($world){ be($world->spaceship->getTask())->beEq('study'); });
 		});
 	});
 CODE
@@ -769,7 +769,7 @@ printExample('', <<<'CODE'
 			});
 		});
 
-		it('Должен быть как Foo', function(){ actual('foo')->beFoo(); });
+		it('Должен быть как Foo', function(){ be('foo')->beFoo(); });
 	});
 CODE
 , array('height' => 160));
@@ -784,13 +784,13 @@ CODE
 <?php
 printExample('Пример анонимного describe', <<<'CODE'
 	describe('Космический корабль', function(){
-		it('Должен (из именного контекнера)', function(){ actual(true)->beTrue(); });
+		it('Должен (из именного контекнера)', function(){ be(true)->beTrue(); });
 
 		describe(function(){
 			// Тут, например, можно добавить творцов миров (или матчеры), которые
 			// будут применяться только к детям и потомкам данного describe
-			it('Должен (из анониимного контейнера)', function(){ actual(true)->beTrue(); });
-			it('Должен (из анониимного контейнера)', function(){ actual(true)->beTrue(); });
+			it('Должен (из анониимного контейнера)', function(){ be(true)->beTrue(); });
+			it('Должен (из анониимного контейнера)', function(){ be(true)->beTrue(); });
 		});
 	});
 CODE
@@ -811,9 +811,9 @@ CODE
 <?php
 printExample('', <<<'CODE'
 	$spec = describe('Космический корабль', function(){
-		it('Должен изучать живые организмы', function(){ actual(true)->beTrue(); });
-		it('Должен собирать неизвестные ископаемые', function(){ actual(true)->beTrue(); });
-		it('Должен защищать слабых и обездоленных', function(){ actual(true)->beTrue(); });
+		it('Должен изучать живые организмы', function(){ be(true)->beTrue(); });
+		it('Должен собирать неизвестные ископаемые', function(){ be(true)->beTrue(); });
+		it('Должен защищать слабых и обездоленных', function(){ be(true)->beTrue(); });
 	});
 
 	$spec->run(); // В данном случае аналогично RootDescribe::run()
@@ -825,9 +825,9 @@ CODE
 <?php
 printExample('', <<<'CODE'
 	$spec = describe('Космический корабль', function(){
-		it('Должен изучать живые организмы', function(){ actual(true)->beTrue(); });
-		it('Должен собирать неизвестные ископаемые', function(){ actual(true)->beTrue(); });
-		it('Должен защищать слабых и обездоленных', function(){ actual(true)->beTrue(); });
+		it('Должен изучать живые организмы', function(){ be(true)->beTrue(); });
+		it('Должен собирать неизвестные ископаемые', function(){ be(true)->beTrue(); });
+		it('Должен защищать слабых и обездоленных', function(){ be(true)->beTrue(); });
 	});
 
 	$spec->selector->getChildByIndex(1)->run(); // Нумерация начинается с нуля
@@ -840,9 +840,9 @@ CODE
 printExample('', <<<'CODE'
 
 	describe('Космический корабль', function() use(&$spec){
-		it('Должен изучать живые организмы', function(){ actual(true)->beTrue(); });
-		$spec = it('Должен собирать неизвестные ископаемые', function(){ actual(true)->beTrue(); });
-		it('Должен защищать слабых и обездоленных', function(){ actual(true)->beTrue(); });
+		it('Должен изучать живые организмы', function(){ be(true)->beTrue(); });
+		$spec = it('Должен собирать неизвестные ископаемые', function(){ be(true)->beTrue(); });
+		it('Должен защищать слабых и обездоленных', function(){ be(true)->beTrue(); });
 	});
 
 	$spec->run();
@@ -855,12 +855,12 @@ CODE
 printExample('', <<<'CODE'
 
 	describe('Космический корабль', function() use(&$spec){
-		it('Должен', function(){ actual(true)->beTrue(); });
+		it('Должен', function(){ be(true)->beTrue(); });
 
 		$spec = describe('Миссия', function(){
-			it('Должен изучать живые организмы', function(){ actual(true)->beTrue(); });
-			it('Должен собирать неизвестные ископаемые', function(){ actual(true)->beTrue(); });
-			it('Должен защищать слабых и обездоленных', function(){ actual(true)->beTrue(); });
+			it('Должен изучать живые организмы', function(){ be(true)->beTrue(); });
+			it('Должен собирать неизвестные ископаемые', function(){ be(true)->beTrue(); });
+			it('Должен защищать слабых и обездоленных', function(){ be(true)->beTrue(); });
 		});
 	});
 
@@ -895,9 +895,9 @@ printExample('', <<<'CODE'
 			});
 		});
 
-		it('Должен изучать живые организмы', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
-		$spec = it('Должен собирать неизвестные ископаемые', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
-		it('Должен защищать слабых и обездоленных', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
+		it('Должен изучать живые организмы', function($world){ be($world->spaceship->getTask())->beEq('study'); });
+		$spec = it('Должен собирать неизвестные ископаемые', function($world){ be($world->spaceship->getTask())->beEq('study'); });
+		it('Должен защищать слабых и обездоленных', function($world){ be($world->spaceship->getTask())->beEq('study'); });
 	});
 
 	$spec->run();
@@ -917,9 +917,9 @@ printExample('', <<<'CODE'
 		context('В галактике Хоага', function(){});
 		context('В галактике Мейола', function(){});
 
-		it('Должен изучать живые организмы', function($world){ actual(true)->beTrue(); });
-		$spec = it('Должен собирать неизвестные ископаемые', function($world){ actual(true)->beTrue(); });
-		it('Должен защищать слабых и обездоленных', function($world){ actual(true)->beTrue(); });
+		it('Должен изучать живые организмы', function($world){ be(true)->beTrue(); });
+		$spec = it('Должен собирать неизвестные ископаемые', function($world){ be(true)->beTrue(); });
+		it('Должен защищать слабых и обездоленных', function($world){ be(true)->beTrue(); });
 	});
 
 	$spec->run();
@@ -952,9 +952,9 @@ printExample('', <<<'CODE'
 			});
 		});
 
-		it('Должен изучать живые организмы', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
-		it('Должен собирать неизвестные ископаемые', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
-		it('Должен защищать слабых и обездоленных', function($world){ actual($world->spaceship->getTask())->beEq('study'); });
+		it('Должен изучать живые организмы', function($world){ be($world->spaceship->getTask())->beEq('study'); });
+		it('Должен собирать неизвестные ископаемые', function($world){ be($world->spaceship->getTask())->beEq('study'); });
+		it('Должен защищать слабых и обездоленных', function($world){ be($world->spaceship->getTask())->beEq('study'); });
 	});
 
 	$spec->run();
@@ -975,12 +975,12 @@ CODE
 <?php
 printExample('', <<<'CODE'
 	$spec = describe('Космический корабль', function(){
-		it('Должен изучать живые организмы', function(){ actual(true)->beTrue(); });
-		it('Должен собирать неизвестные ископаемые', function(){ actual(false)->beTrue(); });
+		it('Должен изучать живые организмы', function(){ be(true)->beTrue(); });
+		it('Должен собирать неизвестные ископаемые', function(){ be(false)->beTrue(); });
 		it('Должен защищать слабых и обездоленных', function(){  });
 
 		describe('Миссия', function(){
-			it('Должен изучать живые организмы', function(){ actual(true)->beTrue(); });
+			it('Должен изучать живые организмы', function(){ be(true)->beTrue(); });
 			it('Должен служить людям', function(){});
 		});
 	});
@@ -998,10 +998,10 @@ CODE
 <?php
 printExample('', <<<'CODE'
 	$spec = describe('Космический корабль', function(){
-		it('Должен изучать живые организмы', function($world){ actual(true)->beTrue(); });
-		it('Должен собирать неизвестные ископаемые', function($world){ actual(true)->beTrue(); });
-		it('Должен защищать слабых и обездоленных', function($world){ actual(true)->beTrue(); });
-		it('Должен служить людям', function($world){ actual(true)->beTrue(); });
+		it('Должен изучать живые организмы', function($world){ be(true)->beTrue(); });
+		it('Должен собирать неизвестные ископаемые', function($world){ be(true)->beTrue(); });
+		it('Должен защищать слабых и обездоленных', function($world){ be(true)->beTrue(); });
+		it('Должен служить людям', function($world){ be(true)->beTrue(); });
 	});
 
 	$spec->selector->getChildByIndex(0)->disable();
@@ -1017,12 +1017,12 @@ CODE
 printExample('', <<<'CODE'
 	$spec = describe('Космический корабль', function(){
 		describe(function(){
-			it('Должен изучать живые организмы', function($world){ actual(true)->beTrue(); });
-			it('Должен собирать неизвестные ископаемые', function($world){ actual(true)->beTrue(); });
+			it('Должен изучать живые организмы', function($world){ be(true)->beTrue(); });
+			it('Должен собирать неизвестные ископаемые', function($world){ be(true)->beTrue(); });
 		});
 
-		it('Должен защищать слабых и обездоленных', function($world){ actual(true)->beTrue(); });
-		it('Должен служить людям', function($world){ actual(true)->beTrue(); });
+		it('Должен защищать слабых и обездоленных', function($world){ be(true)->beTrue(); });
+		it('Должен служить людям', function($world){ be(true)->beTrue(); });
 	});
 
 	$spec->selector->getChildByIndex(0)->disable();
@@ -1039,9 +1039,9 @@ printExample('', <<<'CODE'
 		context('В галактике Хоага', function(){});
 		$context = context('В галактике Мейола', function(){});
 
-		it('Должен изучать живые организмы', function($world){ actual(true)->beTrue(); });
-		$spec = it('Должен собирать неизвестные ископаемые', function($world){ actual(true)->beTrue(); });
-		it('Должен защищать слабых и обездоленных', function($world){ actual(true)->beTrue(); });
+		it('Должен изучать живые организмы', function($world){ be(true)->beTrue(); });
+		$spec = it('Должен собирать неизвестные ископаемые', function($world){ be(true)->beTrue(); });
+		it('Должен защищать слабых и обездоленных', function($world){ be(true)->beTrue(); });
 	});
 
 	$context->disable();
@@ -1064,7 +1064,7 @@ printExample('', <<<'CODE'
 			});
 		});
 
-		it('Должен изучать живые организмы', function($world){ actual($world->spaceship)->beEq(new Spaceship()); });
+		it('Должен изучать живые организмы', function($world){ be($world->spaceship)->beEq(new Spaceship()); });
 	});
 
 	$spec->selector->getChildByIndex(0)->disable();
@@ -1086,9 +1086,9 @@ printExample('', <<<'CODE'
 
 		it('Должен изучать живые организмы', function($world){
 			if (isset($world->spaceship))
-				actual($world->spaceship)->beEq(new Spaceship());
+				be($world->spaceship)->beEq(new Spaceship());
 			else
-				actual(true)->beFalse();
+				be(true)->beFalse();
 		});
 	});
 
@@ -1123,8 +1123,8 @@ CODE
 printExample('', <<<'CODE'
 	$spec = describe('Космический корабль', function(){
 		it('Должен изучать живые организмы', function(){
-			actual('foo')->beEq('foo');
-			actual('foo')->beEq('bar');
+			be('foo')->beEq('foo');
+			be('foo')->beEq('bar');
 		});
 	});
 
@@ -1145,7 +1145,7 @@ printExample('', <<<'CODE'
 
 	describe('Космический корабль', function(){
 		it('Должен изучать живые организмы', function(){
-			actual(true)->beTrue();
+			be(true)->beTrue();
 		});
 	});
 
@@ -1222,7 +1222,7 @@ printExample('', <<<'CODE'
 	for ($i = 0; $i < 5; $i++)
 	{
 		it("Должен $i", function() use($i){
-			actual($i)->beLt(2);
+			be($i)->beLt(2);
 		});
 	}
 CODE
@@ -1234,7 +1234,7 @@ CODE
 printExample('', <<<'CODE'
 
 	// specs.php
-	// it('Должен изучать живые организмы', function(){ actual(true)->beTrue(); });
+	// it('Должен изучать живые организмы', function(){ be(true)->beTrue(); });
 
 	describe('Космический корабль', function(){
 		include('specs.php');
@@ -1408,19 +1408,6 @@ onRunAfter
 
 <p>В ближайшем будущем пранируется реализовать следующие нововведения:</p>
 <ol>
-	<li>
-		<p>Изменить синтаксис утверждений на более минималистический:</p>
-<?php
-printExample('', <<<'CODE'
-	be('actual')->true();
-	be('actual')->not->null();
-	be('actual')->fileExists();
-CODE
-, array('noResult'));
-?>
-
-	</li>
-
 	<li><p>Добавить образцы. Что-то вроде:</p>
 
 <?php

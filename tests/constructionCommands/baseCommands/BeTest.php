@@ -18,12 +18,12 @@ require_once dirname(__FILE__) . '/../../init.php';
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class ActualTest extends \net\mkharitonov\spectrum\constructionCommands\baseCommands\Test
+class BeTest extends \net\mkharitonov\spectrum\constructionCommands\baseCommands\Test
 {
 	public function testShouldBeAllowToCallAtRunningState()
 	{
 		$it = Manager::it('', function() use(&$assert) {
-			$assert = Manager::actual('');
+			$assert = Manager::be('');
 		});
 
 		$it->run();
@@ -32,9 +32,9 @@ class ActualTest extends \net\mkharitonov\spectrum\constructionCommands\baseComm
 
 	public function testShouldBeThrowExceptionIfCalledAtDeclaringState()
 	{
-		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', '"actual"', function(){
+		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', '"be" should be call only at running state', function(){
 			Manager::describe('', function(){
-				Manager::actual('');
+				Manager::be('');
 			});
 		});
 	}
@@ -42,7 +42,7 @@ class ActualTest extends \net\mkharitonov\spectrum\constructionCommands\baseComm
 	public function testShouldBeReturnAssertInstance()
 	{
 		$it = Manager::it('', function() use(&$assert) {
-			$assert = Manager::actual('');
+			$assert = Manager::be('');
 		});
 
 		$it->run();
@@ -52,7 +52,7 @@ class ActualTest extends \net\mkharitonov\spectrum\constructionCommands\baseComm
 	public function testShouldBeSetActualValueToAssertInstance()
 	{
 		$it = Manager::it('', function() use(&$assert) {
-			$assert = Manager::actual('foo');
+			$assert = Manager::be('foo');
 		});
 
 		$it->run();
