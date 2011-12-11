@@ -9,15 +9,15 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\matchers;
+namespace net\mkharitonov\spectrum\matchers\base;
 
 /**
- * Matcher for greater than operator ($actual > $expected).
+ * Matcher for equal operator ($actual == $expected).
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  * @return bool
  */
-function gt($actual, $expected)
+function eq($actual, $expected)
 {
-	return ($actual > $expected);
+	return ($actual == $expected);
 }

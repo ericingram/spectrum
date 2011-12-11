@@ -12,12 +12,11 @@
 namespace net\mkharitonov\spectrum\matchers;
 
 /**
- * Matcher for equal operator ($actual == $expected).
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
- * @return bool
  */
-function eq($actual, $expected)
+interface ManagerInterface
 {
-	return ($actual == $expected);
+	static public function addAllMatchersToSpec(\net\mkharitonov\spectrum\core\SpecInterface $spec);
+	static public function addBaseMatchersToSpec(\net\mkharitonov\spectrum\core\SpecInterface $spec);
 }

@@ -9,15 +9,15 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\matchers;
+namespace net\mkharitonov\spectrum\matchers\base;
 
 /**
- * Matcher for identical false comparison ($actual === false).
+ * Matcher for identical true comparison ($actual === true).
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  * @return bool
  */
-function false($actual)
+function true($actual)
 {
-	return ($actual === false);
+	return ($actual === true);
 }

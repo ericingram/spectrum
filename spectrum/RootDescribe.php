@@ -10,16 +10,6 @@
  */
 
 namespace net\mkharitonov\spectrum;
-require_once dirname(__FILE__) . '/matchers/null.php';
-require_once dirname(__FILE__) . '/matchers/true.php';
-require_once dirname(__FILE__) . '/matchers/false.php';
-require_once dirname(__FILE__) . '/matchers/eq.php';
-require_once dirname(__FILE__) . '/matchers/ident.php';
-require_once dirname(__FILE__) . '/matchers/lt.php';
-require_once dirname(__FILE__) . '/matchers/ltOrEq.php';
-require_once dirname(__FILE__) . '/matchers/gt.php';
-require_once dirname(__FILE__) . '/matchers/gtOrEq.php';
-require_once dirname(__FILE__) . '/matchers/throwException.php';
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
@@ -60,16 +50,8 @@ class RootDescribe
 
 	static protected function addMatchersToSpec(\net\mkharitonov\spectrum\core\SpecContainerInterface $spec)
 	{
-		$spec->matchers->add('null', '\net\mkharitonov\spectrum\matchers\null');
-		$spec->matchers->add('true', '\net\mkharitonov\spectrum\matchers\true');
-		$spec->matchers->add('false', '\net\mkharitonov\spectrum\matchers\false');
-		$spec->matchers->add('eq', '\net\mkharitonov\spectrum\matchers\eq');
-		$spec->matchers->add('ident', '\net\mkharitonov\spectrum\matchers\ident');
-		$spec->matchers->add('lt', '\net\mkharitonov\spectrum\matchers\lt');
-		$spec->matchers->add('ltOrEq', '\net\mkharitonov\spectrum\matchers\ltOrEq');
-		$spec->matchers->add('gt', '\net\mkharitonov\spectrum\matchers\gt');
-		$spec->matchers->add('gtOrEq', '\net\mkharitonov\spectrum\matchers\gtOrEq');
-		$spec->matchers->add('throwException', '\net\mkharitonov\spectrum\matchers\throwException');
+		$managerClass = \net\mkharitonov\spectrum\matchers\Config::getManagerClass();
+		$managerClass::addAllMatchersToSpec($spec);
 	}
 
 	static public function run()

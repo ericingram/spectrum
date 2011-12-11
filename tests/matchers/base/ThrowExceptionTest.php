@@ -9,13 +9,9 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\matchers;
-require_once dirname(__FILE__) . '/../init.php';
-require_once 'throwException.php';
-
-class ExceptionFoo extends \Exception {}
-class ExceptionFooFoo extends ExceptionFoo {}
-class ExceptionBar extends \Exception {}
+namespace net\mkharitonov\spectrum\matchers\base;
+require_once dirname(__FILE__) . '/../../init.php';
+require_once 'base/throwException.php';
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
@@ -35,7 +31,7 @@ class ThrowExceptionTest extends \net\mkharitonov\spectrum\matchers\Test
 
 	public function testExpectedClass_ShouldBeThrowExceptionIfClassIsNotSubclassOfException()
 	{
-		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'should be subclass', function(){
+		$this->assertThrowException('\net\mkharitonov\spectrum\matchers\Exception', 'should be subclass', function(){
 			throwException(function(){}, '\net\mkharitonov\spectrum\core\asserts\Assert');
 		});
 	}
@@ -57,17 +53,17 @@ class ThrowExceptionTest extends \net\mkharitonov\spectrum\matchers\Test
 
 	public function testExpectedClass_ShouldBeReturnFalseIfCallbackThrownExceptionOfSuperClassOfExpectedClass()
 	{
-		$this->assertFalse(throwException(function(){ throw new \Exception(); }, '\net\mkharitonov\spectrum\matchers\ExceptionFoo'));
+		$this->assertFalse(throwException(function(){ throw new \Exception(); }, '\net\mkharitonov\spectrum\matchers\testEnv\ExceptionFoo'));
 	}
 
 	public function testExpectedClass_ShouldBeReturnFalseIfCallbackThrownExceptionOfAncestorSuperClassOfExpectedClass()
 	{
-		$this->assertFalse(throwException(function(){ throw new \Exception(); }, '\net\mkharitonov\spectrum\matchers\ExceptionFooFoo'));
+		$this->assertFalse(throwException(function(){ throw new \Exception(); }, '\net\mkharitonov\spectrum\matchers\testEnv\ExceptionFooFoo'));
 	}
 
 	public function testExpectedClass_ShouldBeReturnFalseIfCallbackThrownExceptionOfSiblingClass()
 	{
-		$this->assertFalse(throwException(function(){ throw new ExceptionBar(); }, '\net\mkharitonov\spectrum\matchers\ExceptionFoo'));
+		$this->assertFalse(throwException(function(){ throw new \net\mkharitonov\spectrum\matchers\testEnv\ExceptionBar(); }, '\net\mkharitonov\spectrum\matchers\testEnv\ExceptionFoo'));
 	}
 
 	public function testExpectedClass_ShouldBeUseRootExceptionIfExpectedClassIsNull()

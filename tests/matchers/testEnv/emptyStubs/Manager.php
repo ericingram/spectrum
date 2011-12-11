@@ -9,15 +9,14 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\matchers;
+namespace net\mkharitonov\spectrum\matchers\testEnv\emptyStubs;
 
 /**
- * Matcher for identical true comparison ($actual === true).
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
- * @return bool
  */
-function true($actual)
+class Manager implements \net\mkharitonov\spectrum\matchers\ManagerInterface
 {
-	return ($actual === true);
+	static public function addAllMatchersToSpec(\net\mkharitonov\spectrum\core\SpecInterface $spec){}
+	static public function addBaseMatchersToSpec(\net\mkharitonov\spectrum\core\SpecInterface $spec){}
 }
