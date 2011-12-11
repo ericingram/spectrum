@@ -10,7 +10,6 @@
  */
 
 namespace net\mkharitonov\spectrum\constructionCommands\baseCommands;
-use net\mkharitonov\spectrum\constructionCommands\Manager;
 
 /**
  * Function with base functional for construction commands describe() and context()
@@ -23,6 +22,7 @@ use net\mkharitonov\spectrum\constructionCommands\Manager;
  */
 function container($specClass, $nameOrCallback, $callback = null)
 {
+	$managerClass = \net\mkharitonov\spectrum\constructionCommands\Config::getManagerClass();
 	// Anonymous container
 	if ($callback === null)
 	{
@@ -34,12 +34,12 @@ function container($specClass, $nameOrCallback, $callback = null)
 
 	$spec = new $specClass($name);
 
-	$currentContainer = Manager::getCurrentContainer();
+	$currentContainer = $managerClass::getCurrentContainer();
 	$currentContainer->addSpec($spec);
 
-	Manager::setCurrentContainer($spec);
+	$managerClass::setCurrentContainer($spec);
 	call_user_func($callback);
-	Manager::setCurrentContainer($currentContainer);
+	$managerClass::setCurrentContainer($currentContainer);
 
 	return $spec;
 }

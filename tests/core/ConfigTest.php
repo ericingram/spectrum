@@ -498,15 +498,10 @@ class ConfigTest extends Test
 		$oldClass = Config::getWorldClass();
 		Config::lock();
 
-		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Config is locked', function(){
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'core\Config is locked', function(){
 			Config::setWorldClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\World');
 		});
 
 		$this->assertEquals($oldClass, Config::getWorldClass());
 	}
-
-/**/
-
-
-//заменить вхождения классов в проекте на вызов методов конфига
 }

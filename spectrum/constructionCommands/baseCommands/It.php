@@ -10,7 +10,6 @@
  */
 
 namespace net\mkharitonov\spectrum\constructionCommands\baseCommands;
-use net\mkharitonov\spectrum\constructionCommands\Manager;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
@@ -25,7 +24,8 @@ class It
 {
 	static public function it($name = null, $dataProvider = null, $testCallback = null)
 	{
-		if (!Manager::isDeclaringState())
+		$managerClass = \net\mkharitonov\spectrum\constructionCommands\Config::getManagerClass();
+		if (!$managerClass::isDeclaringState())
 			throw new \net\mkharitonov\spectrum\constructionCommands\Exception('Construction command "it" should be call only at declaring state');
 
 		if ($testCallback === null) // Constructor with two arguments
@@ -46,7 +46,7 @@ class It
 			$spec->setTestCallback($testCallback);
 		}
 
-		Manager::getCurrentContainer()->addSpec($spec);
+		$managerClass::getCurrentContainer()->addSpec($spec);
 		return $spec;
 	}
 

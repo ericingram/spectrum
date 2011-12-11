@@ -10,7 +10,6 @@
  */
 
 namespace net\mkharitonov\spectrum\constructionCommands\baseCommands;
-use net\mkharitonov\spectrum\constructionCommands\Manager;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
@@ -21,8 +20,9 @@ use net\mkharitonov\spectrum\constructionCommands\Manager;
  */
 function addMatcher($name, $callback)
 {
-	if (!Manager::isDeclaringState())
+	$managerClass = \net\mkharitonov\spectrum\constructionCommands\Config::getManagerClass();
+	if (!$managerClass::isDeclaringState())
 		throw new \net\mkharitonov\spectrum\constructionCommands\Exception('Construction command "addMatcher" should be call only at declaring state');
 
-	return Manager::getCurrentContainer()->matchers->add($name, $callback);
+	return $managerClass::getCurrentContainer()->matchers->add($name, $callback);
 }

@@ -47,7 +47,7 @@ require_once dirname(__FILE__) . '/baseCommands/isRunningState.php';
  * @method \net\mkharitonov\spectrum\core\SpecItemIt it()
  * @method setCurrentContainer()
  */
-class Manager
+class Manager implements ManagerInterface
 {
 	static protected $registeredCommands = array(
 		'addMatcher' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\addMatcher',

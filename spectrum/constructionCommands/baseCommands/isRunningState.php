@@ -10,7 +10,6 @@
  */
 
 namespace net\mkharitonov\spectrum\constructionCommands\baseCommands;
-use net\mkharitonov\spectrum\constructionCommands\Manager;
 
 /**
  * Available at declaring and running state.

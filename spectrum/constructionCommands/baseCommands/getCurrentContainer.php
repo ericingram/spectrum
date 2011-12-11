@@ -10,7 +10,6 @@
  */
 
 namespace net\mkharitonov\spectrum\constructionCommands\baseCommands;
-use net\mkharitonov\spectrum\constructionCommands\Manager;
 
 /**
  * Available at declaring and running state.
@@ -20,7 +19,8 @@ use net\mkharitonov\spectrum\constructionCommands\Manager;
  */
 function getCurrentContainer()
 {
-	if (Manager::isDeclaringState())
+	$managerClass = \net\mkharitonov\spectrum\constructionCommands\Config::getManagerClass();
+	if ($managerClass::isDeclaringState())
 	{
 		$reflection = new \ReflectionFunction('\net\mkharitonov\spectrum\constructionCommands\baseCommands\setCurrentContainer');
 		$vars = $reflection->getStaticVariables();

@@ -1,6 +1,7 @@
-Config new methods
-ConstructionCommands\Config
-ConstructionCommands\ManagerInterface
+core\Config new methods
+constructionCommands\Config new methods
+
+
 
 результат выполнения
 	написать про результат выполнения запуска контекстов и откдюченных спеков
@@ -143,21 +144,23 @@ find('descendants', 'ancestors')->filter('enabled')->get('contexts')->getFromRes
 selector->getSelf()->getDescendants()->filterEnabled()
 selector->getNearestParentDescribe()->filterIts()
 
+be('asdfs')->file->exists();
+be('asdfs')->fileExists();
+
 //spectrum_DefaultMatchers_Base_beInstanceOf
 beTriggerError(level)/bePhpError
 
-//spectrum_DefaultMatchers_Base_BeBool
-//spectrum_DefaultMatchers_Base_BeInt
-//spectrum_DefaultMatchers_Base_BeFloat
-//spectrum_DefaultMatchers_Base_BeNumber
-//spectrum_DefaultMatchers_Base_BeString
-//spectrum_DefaultMatchers_Base_BeScalar
-//spectrum_DefaultMatchers_Base_BeArray
-//spectrum_DefaultMatchers_Base_BeObject
-//spectrum_DefaultMatchers_Base_BeCallback
-//spectrum_DefaultMatchers_Base_BeClosure
-//spectrum_DefaultMatchers_Base_BeCallable
-//spectrum_DefaultMatchers_Base_BeResource
+//spectrum_DefaultMatchers_Base_BeTypeBool
+//spectrum_DefaultMatchers_Base_BeTypeInt
+//spectrum_DefaultMatchers_Base_BeTypeFloat
+//spectrum_DefaultMatchers_Base_BeTypeNumber
+//spectrum_DefaultMatchers_Base_BeTypeString
+//spectrum_DefaultMatchers_Base_BeTypeScalar
+//spectrum_DefaultMatchers_Base_BeTypeArray
+//spectrum_DefaultMatchers_Base_BeTypeObject
+//spectrum_DefaultMatchers_Base_BeTypeCallback
+//spectrum_DefaultMatchers_Base_BeTypeClosure
+//spectrum_DefaultMatchers_Base_BeTypeResource
 /*
 * spectrum_DefaultMatchers_File_BeFileExists
 * spectrum_DefaultMatchers_File_BeFileContentEqual

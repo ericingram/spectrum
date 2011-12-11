@@ -10,7 +10,6 @@
  */
 
 namespace net\mkharitonov\spectrum\constructionCommands\baseCommands;
-use net\mkharitonov\spectrum\constructionCommands\Manager;
 
 /**
  * Available at declaring and running state.
@@ -20,5 +19,6 @@ use net\mkharitonov\spectrum\constructionCommands\Manager;
  */
 function isDeclaringState()
 {
-	return !Manager::isRunningState();
+	$managerClass = \net\mkharitonov\spectrum\constructionCommands\Config::getManagerClass();
+	return !$managerClass::isRunningState();
 }

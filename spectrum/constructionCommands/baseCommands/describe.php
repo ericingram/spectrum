@@ -10,7 +10,6 @@
  */
 
 namespace net\mkharitonov\spectrum\constructionCommands\baseCommands;
-use net\mkharitonov\spectrum\constructionCommands\Manager;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
@@ -22,9 +21,10 @@ use net\mkharitonov\spectrum\constructionCommands\Manager;
  */
 function describe($nameOrCallback, $callback = null)
 {
-	if (!Manager::isDeclaringState())
+	$managerClass = \net\mkharitonov\spectrum\constructionCommands\Config::getManagerClass();
+	if (!$managerClass::isDeclaringState())
 		throw new \net\mkharitonov\spectrum\constructionCommands\Exception('Construction command "describe" should be call only at declaring state');
 
-	return Manager::container(\net\mkharitonov\spectrum\core\Config::getSpecContainerDescribeClass(), $nameOrCallback, $callback);
+	return $managerClass::container(\net\mkharitonov\spectrum\core\Config::getSpecContainerDescribeClass(), $nameOrCallback, $callback);
 }
 

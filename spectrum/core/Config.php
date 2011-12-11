@@ -27,7 +27,7 @@ class Config
 	private static $specContainerDescribeClass = '\net\mkharitonov\spectrum\core\SpecContainerDescribe';
 	private static $specItemItClass = '\net\mkharitonov\spectrum\core\SpecItemIt';
 	private static $worldClass = '\net\mkharitonov\spectrum\core\World';
-	// TODO: $constructionCommandsManagerClass, $allowPluginsRegistration, $allowErrorHandlingModify, $allowLiveReportModify, $allowConstructionCommandsRegistration, $allowMatchersOverwrite, $allowMatchersAdding
+	// TODO: $allowPluginsRegistration, $allowErrorHandlingModify, $allowLiveReportModify, $allowMatchersOverwrite, $allowMatchersAdding
 
 	private static $locked = false;
 

@@ -10,7 +10,6 @@
  */
 
 namespace net\mkharitonov\spectrum\constructionCommands\baseCommands;
-use net\mkharitonov\spectrum\constructionCommands\Manager;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
@@ -20,7 +19,8 @@ use net\mkharitonov\spectrum\constructionCommands\Manager;
  */
 function getCurrentItem()
 {
-	if (!Manager::isRunningState())
+	$managerClass = \net\mkharitonov\spectrum\constructionCommands\Config::getManagerClass();
+	if (!$managerClass::isRunningState())
 		throw new \net\mkharitonov\spectrum\constructionCommands\Exception('Construction command "getCurrentItem" should be call only at running state');
 
 	$registryClass = \net\mkharitonov\spectrum\core\Config::getRegistryClass();
