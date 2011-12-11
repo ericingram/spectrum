@@ -23,7 +23,7 @@ class Config
 	private static $registryClass = '\net\mkharitonov\spectrum\core\Registry';
 	private static $runResultsBufferClass = '\net\mkharitonov\spectrum\core\RunResultsBuffer';
 	private static $specContainerContextClass = '\net\mkharitonov\spectrum\core\SpecContainerContext';
-	private static $specContainerDataProviderClass = '\net\mkharitonov\spectrum\core\SpecContainerDataProvider';
+	private static $specContainerArgumentsProviderClass = '\net\mkharitonov\spectrum\core\SpecContainerArgumentsProvider';
 	private static $specContainerDescribeClass = '\net\mkharitonov\spectrum\core\SpecContainerDescribe';
 	private static $specItemItClass = '\net\mkharitonov\spectrum\core\SpecItemIt';
 	private static $worldClass = '\net\mkharitonov\spectrum\core\World';
@@ -49,8 +49,8 @@ class Config
 	public static function setSpecContainerContextClass($className){ return static::setConfigClassValue(static::$specContainerContextClass, $className, '\net\mkharitonov\spectrum\core\SpecContainerContextInterface'); }
 	public static function getSpecContainerContextClass(){ return static::$specContainerContextClass; }
 
-	public static function setSpecContainerDataProviderClass($className){ return static::setConfigClassValue(static::$specContainerDataProviderClass, $className, '\net\mkharitonov\spectrum\core\SpecContainerDataProviderInterface'); }
-	public static function getSpecContainerDataProviderClass(){ return static::$specContainerDataProviderClass; }
+	public static function setSpecContainerArgumentsProviderClass($className){ return static::setConfigClassValue(static::$specContainerArgumentsProviderClass, $className, '\net\mkharitonov\spectrum\core\SpecContainerArgumentsProviderInterface'); }
+	public static function getSpecContainerArgumentsProviderClass(){ return static::$specContainerArgumentsProviderClass; }
 
 	public static function setSpecContainerDescribeClass($className){ return static::setConfigClassValue(static::$specContainerDescribeClass, $className, '\net\mkharitonov\spectrum\core\SpecContainerDescribeInterface'); }
 	public static function getSpecContainerDescribeClass(){ return static::$specContainerDescribeClass; }

@@ -311,51 +311,51 @@ class ConfigTest extends Test
 
 /**/
 
-	public function testGetSpecContainerDataProviderClass_ShouldBeReturnSpectrumClassByDefault()
+	public function testGetSpecContainerArgumentsProviderClass_ShouldBeReturnSpectrumClassByDefault()
 	{
-		$this->assertEquals('\net\mkharitonov\spectrum\core\SpecContainerDataProvider', Config::getSpecContainerDataProviderClass());
+		$this->assertEquals('\net\mkharitonov\spectrum\core\SpecContainerArgumentsProvider', Config::getSpecContainerArgumentsProviderClass());
 	}
 
 /**/
 
-	public function testSetSpecContainerDataProviderClass_ShouldBeSetNewClass()
+	public function testSetSpecContainerArgumentsProviderClass_ShouldBeSetNewClass()
 	{
-		Config::setSpecContainerDataProviderClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\SpecContainerDataProvider');
-		$this->assertEquals('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\SpecContainerDataProvider', Config::getSpecContainerDataProviderClass());
+		Config::setSpecContainerArgumentsProviderClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\SpecContainerArgumentsProvider');
+		$this->assertEquals('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\SpecContainerArgumentsProvider', Config::getSpecContainerArgumentsProviderClass());
 	}
 
-	public function testSetSpecContainerDataProviderClass_ClassNotExists_ShouldBeThrowExceptionAndNotChangeValue()
+	public function testSetSpecContainerArgumentsProviderClass_ClassNotExists_ShouldBeThrowExceptionAndNotChangeValue()
 	{
-		$oldClass = Config::getSpecContainerDataProviderClass();
+		$oldClass = Config::getSpecContainerArgumentsProviderClass();
 
 		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'not exists', function(){
-			Config::setSpecContainerDataProviderClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\NotExistsClassFooBarBaz');
+			Config::setSpecContainerArgumentsProviderClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\NotExistsClassFooBarBaz');
 		});
 
-		$this->assertEquals($oldClass, Config::getSpecContainerDataProviderClass());
+		$this->assertEquals($oldClass, Config::getSpecContainerArgumentsProviderClass());
 	}
 
-	public function testSetSpecContainerDataProviderClass_ClassNotImplementSpectrumInterface_ShouldBeThrowExceptionAndNotChangeValue()
+	public function testSetSpecContainerArgumentsProviderClass_ClassNotImplementSpectrumInterface_ShouldBeThrowExceptionAndNotChangeValue()
 	{
-		$oldClass = Config::getSpecContainerDataProviderClass();
+		$oldClass = Config::getSpecContainerArgumentsProviderClass();
 
 		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'should be implement interface', function(){
-			Config::setSpecContainerDataProviderClass('\stdClass');
+			Config::setSpecContainerArgumentsProviderClass('\stdClass');
 		});
 
-		$this->assertEquals($oldClass, Config::getSpecContainerDataProviderClass());
+		$this->assertEquals($oldClass, Config::getSpecContainerArgumentsProviderClass());
 	}
 
-	public function testSetSpecContainerDataProviderClass_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
+	public function testSetSpecContainerArgumentsProviderClass_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
 	{
-		$oldClass = Config::getSpecContainerDataProviderClass();
+		$oldClass = Config::getSpecContainerArgumentsProviderClass();
 		Config::lock();
 
 		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Config is locked', function(){
-			Config::setSpecContainerDataProviderClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\SpecContainerDataProvider');
+			Config::setSpecContainerArgumentsProviderClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\SpecContainerArgumentsProvider');
 		});
 
-		$this->assertEquals($oldClass, Config::getSpecContainerDataProviderClass());
+		$this->assertEquals($oldClass, Config::getSpecContainerArgumentsProviderClass());
 	}
 
 /**/

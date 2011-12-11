@@ -9,13 +9,12 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\testEnv\emptyStubs;
+namespace net\mkharitonov\spectrum\core;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class SpecContainerDataProvider extends SpecContainer implements \net\mkharitonov\spectrum\core\SpecContainerDataProviderInterface
+interface SpecContainerArgumentsProviderInterface extends SpecContainerInterface
 {
-
 }

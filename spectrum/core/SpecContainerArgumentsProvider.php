@@ -15,12 +15,13 @@ namespace net\mkharitonov\spectrum\core;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class SpecContainerDataProvider extends SpecContainer implements SpecContainerDataProviderInterface
+class SpecContainerArgumentsProvider extends SpecContainer implements SpecContainerArgumentsProviderInterface
 {
 	public function addSpec(SpecInterface $spec)
 	{
+		// Arguments should be already sets to $spec
 		if (!($spec instanceof SpecItemItInterface))
-			throw new Exception('SpecContainerDataProvider::addSpec() can accept only SpecItemItInterface instances');
+			throw new Exception('SpecContainerArgumentsProvider::addSpec() can accept only SpecItemItInterface instances');
 
 		parent::addSpec($spec);
 	}

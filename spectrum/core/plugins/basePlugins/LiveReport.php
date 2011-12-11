@@ -295,7 +295,7 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 		$parent = $this->getOwner()->getParent();
 		$name = $this->getOwner()->getName();
 
-		if ($name == '' && $parent && $parent instanceof \net\mkharitonov\spectrum\core\SpecContainerDataProviderInterface)
+		if ($name == '' && $parent && $parent instanceof \net\mkharitonov\spectrum\core\SpecContainerArgumentsProviderInterface)
 			return $this->getAdditionalArgumentsDumpOut();
 		else
 			return $name;

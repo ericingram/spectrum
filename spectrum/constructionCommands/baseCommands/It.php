@@ -14,15 +14,17 @@ namespace net\mkharitonov\spectrum\constructionCommands\baseCommands;
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
- * @throws \net\mkharitonov\spectrum\constructionCommands\Exception If called not at declaring state or if data provider is bad
- * @param  string|null $name
- * @param  array|callback|null $dataProviderOrTestCallback
- * @param  callback|null $testCallback
- * @return \net\mkharitonov\spectrum\core\SpecItemIt
  */
 class It
 {
-	static public function it($name = null, $dataProvider = null, $testCallback = null)
+	/**
+	 * @throws \net\mkharitonov\spectrum\constructionCommands\Exception If called not at declaring state or if data provider is bad
+	 * @param  string|null $name
+	 * @param  array|null $argumentsProvider
+	 * @param  callback|null $testCallback
+	 * @return \net\mkharitonov\spectrum\core\SpecItemIt
+	 */
+	static public function it($name = null, $argumentsProvider = null, $testCallback = null)
 	{
 		$managerClass = \net\mkharitonov\spectrum\constructionCommands\Config::getManagerClass();
 		if (!$managerClass::isDeclaringState())
@@ -30,14 +32,14 @@ class It
 
 		if ($testCallback === null) // Constructor with two arguments
 		{
-			$testCallback = $dataProvider;
-			$dataProvider = null;
+			$testCallback = $argumentsProvider;
+			$argumentsProvider = null;
 		}
 
 
-		if ($dataProvider !== null)
+		if ($argumentsProvider !== null)
 		{
-			$spec = static::createDataProviderSpec($name, $dataProvider, $testCallback);
+			$spec = static::createArgumentsProviderSpec($name, $argumentsProvider, $testCallback);
 		}
 		else
 		{
@@ -50,14 +52,14 @@ class It
 		return $spec;
 	}
 
-	static protected function createDataProviderSpec($name, $dataProvider, $testCallback)
+	static protected function createArgumentsProviderSpec($name, $argumentsProvider, $testCallback)
 	{
-		$dataProvider = static::convertArrayChildrenToArray($dataProvider);
+		$argumentsProvider = static::convertArrayChildrenToArray($argumentsProvider);
 
-		$dataProviderClass = \net\mkharitonov\spectrum\core\Config::getSpecContainerDataProviderClass();
-		$spec = new $dataProviderClass($name);
+		$argumentsProviderClass = \net\mkharitonov\spectrum\core\Config::getSpecContainerArgumentsProviderClass();
+		$spec = new $argumentsProviderClass($name);
 
-		foreach ($dataProvider as $args)
+		foreach ($argumentsProvider as $args)
 		{
 			$itClass = \net\mkharitonov\spectrum\core\Config::getSpecItemItClass();
 			$it = new $itClass();

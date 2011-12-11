@@ -1253,7 +1253,7 @@ CODE
 	<li>SpecContainer</li>
 	<li>SpecContainerDescribe</li>
 	<li>SpecContainerContext</li>
-	<li>SpecContainerDataProvider</li>
+	<li>SpecContainerArgumentsProvider</li>
 	<li>SpecItem</li>
 	<li>SpecItemIt</li>
 </ol>

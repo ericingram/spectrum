@@ -11,7 +11,7 @@
 
 namespace net\mkharitonov\spectrum\constructionCommands\baseCommands;
 use net\mkharitonov\spectrum\constructionCommands\Manager;
-use \net\mkharitonov\spectrum\core\SpecContainerDataProvider;
+use \net\mkharitonov\spectrum\core\SpecContainerArgumentsProvider;
 use \net\mkharitonov\spectrum\core\SpecItemIt;
 
 require_once dirname(__FILE__) . '/../../init.php';
@@ -52,28 +52,28 @@ class ItTest extends \net\mkharitonov\spectrum\constructionCommands\baseCommands
 
 /**/
 
-	public function testThreeArgument_SecondArgumentIsEmptyArray_ShouldBeReturnEmptyDataProviderContainer()
+	public function testThreeArgument_SecondArgumentIsEmptyArray_ShouldBeReturnEmptyArgumentsProviderContainer()
 	{
 		$testCallback = function(){};
 		$spec = Manager::it('some spec', array(), $testCallback);
 
-		$this->assertTrue($spec instanceof SpecContainerDataProvider);
+		$this->assertTrue($spec instanceof SpecContainerArgumentsProvider);
 		$this->assertSame('some spec', $spec->getName());
 		$this->assertSame(array(), $spec->getSpecs());
 	}
 
-	public function testThreeArgument_SecondArgumentIsOneItemArray_ShouldBeReturnDataProviderContainer()
+	public function testThreeArgument_SecondArgumentIsOneItemArray_ShouldBeReturnArgumentsProviderContainer()
 	{
 		$testCallback = function(){};
 		$spec = Manager::it('some spec', array('foo'), $testCallback);
 
-		$this->assertSpecIsContainerDataProvider('some spec', 1, $spec);
+		$this->assertSpecIsContainerArgumentsProvider('some spec', 1, $spec);
 
 		$children = $spec->getSpecs();
 		$this->assertSpecIsItemIt(null, array('foo'), $testCallback, $children[0]);
 	}
 
-	public function testThreeArgument_SecondArgumentIsManyItemsArray_OneArgumentRows_ShouldBeReturnDataProviderContainer()
+	public function testThreeArgument_SecondArgumentIsManyItemsArray_OneArgumentRows_ShouldBeReturnArgumentsProviderContainer()
 	{
 		$testCallback = function(){};
 		$spec = Manager::it('some spec', array(
@@ -82,7 +82,7 @@ class ItTest extends \net\mkharitonov\spectrum\constructionCommands\baseCommands
 			'baz',
 		), $testCallback);
 
-		$this->assertSpecIsContainerDataProvider('some spec', 3, $spec);
+		$this->assertSpecIsContainerArgumentsProvider('some spec', 3, $spec);
 
 		$children = $spec->getSpecs();
 		$this->assertSpecIsItemIt(null, array('foo'), $testCallback, $children[0]);
@@ -90,7 +90,7 @@ class ItTest extends \net\mkharitonov\spectrum\constructionCommands\baseCommands
 		$this->assertSpecIsItemIt(null, array('baz'), $testCallback, $children[2]);
 	}
 
-	public function testThreeArgument_SecondArgumentIsManyItemsArray_ManyArgumentsRows_ShouldBeReturnDataProviderContainer()
+	public function testThreeArgument_SecondArgumentIsManyItemsArray_ManyArgumentsRows_ShouldBeReturnArgumentsProviderContainer()
 	{
 		$testCallback = function(){};
 		$spec = Manager::it('some spec', array(
@@ -99,7 +99,7 @@ class ItTest extends \net\mkharitonov\spectrum\constructionCommands\baseCommands
 			array('baz1', 'baz2', 'baz3'),
 		), $testCallback);
 
-		$this->assertSpecIsContainerDataProvider('some spec', 3, $spec);
+		$this->assertSpecIsContainerArgumentsProvider('some spec', 3, $spec);
 
 		$children = $spec->getSpecs();
 		$this->assertSpecIsItemIt(null, array('foo1', 'foo2'), $testCallback, $children[0]);
@@ -107,7 +107,7 @@ class ItTest extends \net\mkharitonov\spectrum\constructionCommands\baseCommands
 		$this->assertSpecIsItemIt(null, array('baz1', 'baz2', 'baz3'), $testCallback, $children[2]);
 	}
 
-	public function testThreeArgument_SecondArgumentIsManyItemsArray_MixedArgumentsRows_ShouldBeReturnDataProviderContainer()
+	public function testThreeArgument_SecondArgumentIsManyItemsArray_MixedArgumentsRows_ShouldBeReturnArgumentsProviderContainer()
 	{
 		$testCallback = function(){};
 		$spec = Manager::it('some spec', array(
@@ -116,7 +116,7 @@ class ItTest extends \net\mkharitonov\spectrum\constructionCommands\baseCommands
 			array('baz1', 'baz2'),
 		), $testCallback);
 
-		$this->assertSpecIsContainerDataProvider('some spec', 3, $spec);
+		$this->assertSpecIsContainerArgumentsProvider('some spec', 3, $spec);
 
 		$children = $spec->getSpecs();
 		$this->assertSpecIsItemIt(null, array('foo'), $testCallback, $children[0]);
@@ -169,19 +169,10 @@ class ItTest extends \net\mkharitonov\spectrum\constructionCommands\baseCommands
 		$this->assertSame($testCallback, $spec->getTestCallback());
 	}
 
-	protected function assertSpecIsContainerDataProvider($name, $childrenCount, $spec)
+	protected function assertSpecIsContainerArgumentsProvider($name, $childrenCount, $spec)
 	{
-		$this->assertTrue($spec instanceof SpecContainerDataProvider);
+		$this->assertTrue($spec instanceof SpecContainerArgumentsProvider);
 		$this->assertSame($name, $spec->getName());
 		$this->assertSame($childrenCount, count($spec->getSpecs()));
-	}
-
-	static public function myDataProvider()
-	{
-		return array(
-			array('foo'),
-			'bar',
-			array('baz1', 'baz2'),
-		);
 	}
 }
