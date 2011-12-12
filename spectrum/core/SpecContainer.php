@@ -26,7 +26,7 @@ abstract class SpecContainer extends Spec implements SpecContainerInterface
 	/** @var SpecContainerContext|null */
 	protected $parentOldRunningContext;
 
-    public function __clone()
+	public function __clone()
 	{
 		foreach ($this->specs as $key => $spec)
 		{
