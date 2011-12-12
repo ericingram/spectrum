@@ -115,7 +115,7 @@ function generateCacheFilename()
 
 <ol>
 	<li><a href="#base">Базовая структура</a></li>
-	<li><a href="#data-providers">Дата провайдеры</a></li>
+	<li><a href="#arguments-providers">Провайдеры аргументов</a></li>
 	<li><a href="#asserts">Утверждения и матчеры</a></li>
 	<li><a href="#worlds">Миры (фикстуры)</a></li>
 	<li><a href="#contexts">Контексты</a></li>
@@ -174,17 +174,17 @@ printExample('Пример вложенной структуры', <<<'CODE'
 		it('Должен бороздить просторы вселенной', function(){ be(true)->true(); });
 
 		describe('Боевое оснащение', function(){
-			it('Должены быть установлены огромные пушки', function(){ be(true)->true(); });
-			it('Должены быть установлены крутые лезеры', function(){ be(true)->true(); });
+			it('Должены быть установлены фотонные пушки', function(){ be(true)->true(); });
+			it('Должены быть установлены лезеры', function(){ be(true)->true(); });
 		});
 
-		describe('Каюта капитана', function(){
-			it('Должена быть оборудована ванной типа «Джакузи»', function(){ be(true)->true(); });
-			it('Должена убираться каждый день', function(){ be(true)->true(); });
+		describe('Медицинский отсек', function(){
+			it('Должен быть оборудован душевой кабиной', function(){ be(true)->true(); });
+			it('Должен содержать 5 койко-мест', function(){ be(true)->true(); });
 
-			describe('Спальное место', function(){
-				it('Должено быть застелено шелковыми простынями', function(){ be(true)->true(); });
-				it('Должено вмещать не меньше двух человек', function(){ be(true)->true(); });
+			describe('Операционная', function(){
+				it('Должна быть размером 9 кв. м.', function(){ be(true)->true(); });
+				it('Должна быть оборудована системой стерилизации', function(){ be(true)->true(); });
 			});
 		});
 	});
@@ -192,30 +192,32 @@ CODE
 , array('height' => 220));
 ?>
 
-<h1 id="data-providers">Поставщики данных</h1>
+<h1 id="arguments-providers">Провайдеры аргументов</h1>
 
 <p>Бывает, что сами данные сами по себе являются лучшим описанием требуемого поведения. Для таких случает существуют поставщики
 данных (data providers).</p>
 
 <?php
-printExample('Пример поставщиков данных', <<<'CODE'
+printExample('Пример провайдеров аргументов', <<<'CODE'
 	describe('Форма ввода телефона', function(){
 		it('Должена принимать различные форматы тефонных номеров',
-		array('123-456-7', '+7 (495) 123-456-7', '(495) 123-456-7'),
+		array(
+            '+7 (495) 123-456-7',
+            '(495) 123-456-7',
+            '123-456-7',
+		),
 		function($world, $tel){
-			if (preg_match('/\+/', $tel))
-				be(false)->true();
-			else
-				be(true)->true();
+			be($tel)->eq('+7 (495) 123-456-7');
 		});
 
-		// Если требуется передать несколько аргументов, то элемент поставщика данных должен сам быть массивом
+		// Если требуется передать несколько аргументов, то элемент провайдера аргументов должен сам быть массивом
 		it('Должена принимать различные форматы тефонных номеров', array(
 			'foo',
 			array('bar', 'bar2'),
 			'baz'
 		), function($world, $arg1, $arg2 = null){
-			be(true)->true(); // do something
+			be($arg1)->eq('bar');
+			be($arg2)->eq('bar2');
 		});
 	});
 CODE
@@ -1302,8 +1304,8 @@ CODE
 <?php
 printExample('', <<<'CODE'
 
-	use \net\mkharitonov\spectrum\core\plugins\Manager;
-	use \net\mkharitonov\spectrum\constructionCommands\Manager;
+	use \net\mkharitonov\spectrum\core\plugins\Manager as PluginsManager;
+	use \net\mkharitonov\spectrum\constructionCommands\Manager as ConstructionCommandsManager;
 
 	class MyPlugin extends \net\mkharitonov\spectrum\core\plugins\Plugin
 	{
@@ -1330,7 +1332,7 @@ printExample('', <<<'CODE'
 		}
 	}
 
-	Manager::registerPlugin('foo', 'MyPlugin');
+	PluginsManager::registerPlugin('foo', 'MyPlugin');
 
 	$spec = describe('Космический корабль', function() use (&$context1, &$context2, &$context3){
 		$context1 = context('В галактике Альфа Центавра', function(){});
@@ -1338,7 +1340,7 @@ printExample('', <<<'CODE'
 		$context3 = context('В галактике Мейола', function(){});
 
 		it('Должен', function(){
-			print '<strong>' . Manager::getCurrentItem()->foo->getFooCascade() . '</strong>';
+			print '<strong>' . ConstructionCommandsManager::getCurrentItem()->foo->getFooCascade() . '</strong>';
 		});
 	});
 
@@ -1446,8 +1448,7 @@ CODE
 </ol>
 
 <h1 id="contacts">Обратная связь</h1>
-Предложения и пожелания можно оставлять <a href="http://phpclub.ru/talk/threads/spectrum-%E2%80%94-php-%D1%84%D1%80%D0%B5%D0%B9%D0%BC%D0%B2%D0%BE%D1%80%D0%BA-%D0%B4%D0%BB%D1%8F-bdd-%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-alpha-%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%8F.68706/">в теме на форуме PHPClub</a>
-или отправлять мне на <a href="mailto:m.v.kharitonov@gmail.com">e-mail</a>.
+Связаться с автором можно по <a href="mailto:mvkharitonov@gmail.com">e-mail адресу</a>.
 
 </body>
 </html>

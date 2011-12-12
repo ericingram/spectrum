@@ -16,42 +16,55 @@
 
 require_once dirname(__FILE__) . '/../spectrum/init.php';
 
-class Spaceship
+class AddressBook
 {
-	private $location = 'space';
-	private $task = 'kill_people';
+	private $person = array(
+		'name' => 'Bob',
+		'phoneNumber' => '+74951234567',
+	);
+	public function setDataStorage($dataStorage) {}
 
-	public function getLocation()
+	public function findPersonByName($name)
 	{
-		return $this->location;
+		return $this->person;
 	}
 
-	public function setLocation($location)
+	public function findPersonByPhoneNumber($phoneNumber)
 	{
-		$this->location = $location;
-	}
-
-	public function setTask($foo)
-	{
-		$this->task = $foo;
-	}
-
-	public function getTask()
-	{
-		return $this->task;
+		return $this->person;
 	}
 }
 
-describe('Spaceship', function(){
-	it('Should be in space', function(){
-		$spaceship = new Spaceship();
-		be($spaceship->getLocation())->eq('space');
-	});
+describe('AddressBook', function(){
+    beforeEach(function($w){
+        $w->addressBook = new AddressBook();
+    });
 
-	it('Should be busy', function(){
-		$spaceship = new Spaceship();
-		be($spaceship->getTask())->not->eq('foo');
-	});
+    context('Data storage "MySQL"', function(){
+        beforeEach(function($w){ $w->addressBook->setDataStorage('mysql'); });
+    });
+
+    context('Data storage "Oracle"', function(){
+        beforeEach(function($w){ $w->addressBook->setDataStorage('oracle'); });
+    });
+
+    context('Data storage "files"', function(){
+        beforeEach(function($w){ $w->addressBook->setDataStorage('files'); });
+    });
+
+    it('Should find person by name', function($w){
+        $person = $w->addressBook->findPersonByName('Bob');
+        be($person['name'])->eq('Bob');
+    });
+
+    it('Should find person by phone number', array(
+    	'+7 (495) 123-456-7',
+    	'(495) 123-456-7',
+    	'123-456-7',
+    ), function($w, $phoneNumber){
+        $person = $w->addressBook->findPersonByPhoneNumber($phoneNumber);
+        be($person['phoneNumber'])->eq('+74951234567');
+    });
 });
 
 \net\mkharitonov\spectrum\RootDescribe::run();
