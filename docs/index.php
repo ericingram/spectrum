@@ -37,9 +37,18 @@ require_once dirname(__FILE__) . '/CodeFormatter.php';
 
 		.example .result { margin-top: 1em; }
 		.example .result iframe { width: 100%; height: 200px; background: #eee; }
+
+		.counters { margin-top: 1.3em; }
     </style>
 </head>
 <body>
+
+<!--LiveInternet counter--><script type="text/javascript"><!--
+new Image().src = "//counter.yadro.ru/hit?r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";"+Math.random();//--></script><!--/LiveInternet-->
 
 <?php
 function printExample($name, $code, $settings = array())
@@ -1450,5 +1459,12 @@ CODE
 <h1 id="contacts">Обратная связь</h1>
 Связаться с автором можно по <a href="mailto:mvkharitonov@gmail.com">e-mail адресу</a>.
 
+
+<div class="counters">
+	<!--LiveInternet logo--><a href="http://www.liveinternet.ru/click"
+	target="_blank"><img src="//counter.yadro.ru/logo?44.6"
+	title="LiveInternet"
+	alt="" border="0" width="31" height="31"/></a><!--/LiveInternet-->
+</div>
 </body>
 </html>
