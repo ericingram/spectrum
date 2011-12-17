@@ -28,7 +28,7 @@ class ManagerTest extends \net\mkharitonov\spectrum\Test
 			'container' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\container',
 			'describe' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\describe',
 			'context' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\context',
-			'it' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\It::it',
+			'it' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\it',
 	
 			'be' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\be',
 

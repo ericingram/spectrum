@@ -126,6 +126,29 @@ class ItTest extends \net\mkharitonov\spectrum\constructionCommands\baseCommands
 
 /**/
 
+	public function testShouldBeThrowExceptionIfCalledAtRunningState()
+	{
+		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', '"it" should be call only at declaring state', function()
+		{
+			$it = new \net\mkharitonov\spectrum\core\SpecItemIt();
+			$it->errorHandling->setCatchExceptions(false);
+			$it->setTestCallback(function(){
+				Manager::it('', function(){});
+			});
+			$it->run();
+		});
+	}
+
+	public function testShouldBeThrowExceptionIfArgumentsProviderNotArray()
+	{
+		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', '"it" should be accept array as $argumentsProvider', function()
+		{
+			Manager::it('foo', 'bar', function(){});
+		});
+	}
+
+/**/
+
 	public function testShouldNotBeCallTestCallbackDuringDeclaringState()
 	{
 		Manager::it('foo', function() use(&$isCalled){ $isCalled = true; });

@@ -18,7 +18,7 @@ require_once dirname(__FILE__) . '/baseCommands/afterEach.php';
 require_once dirname(__FILE__) . '/baseCommands/container.php';
 require_once dirname(__FILE__) . '/baseCommands/describe.php';
 require_once dirname(__FILE__) . '/baseCommands/context.php';
-require_once dirname(__FILE__) . '/baseCommands/It.php';
+require_once dirname(__FILE__) . '/baseCommands/it.php';
 
 require_once dirname(__FILE__) . '/baseCommands/be.php';
 
@@ -57,7 +57,7 @@ class Manager implements ManagerInterface
 		'container' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\container',
 		'describe' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\describe',
 		'context' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\context',
-		'it' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\It::it',
+		'it' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\it',
 
 		'be' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\be',
 

@@ -17,4 +17,5 @@ namespace net\mkharitonov\spectrum\core;
  */
 interface SpecContainerArgumentsProviderInterface extends SpecContainerInterface
 {
+	public function createSpecItemForEachArgumentsRow($testCallback, $argumentsProvider);
 }

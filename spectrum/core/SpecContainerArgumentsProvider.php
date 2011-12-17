@@ -26,6 +26,36 @@ class SpecContainerArgumentsProvider extends SpecContainer implements SpecContai
 		parent::addSpec($spec);
 	}
 
+	/**
+	 * @param callback $testCallback
+	 * @param array $argumentsProvider
+	 */
+	public function createSpecItemForEachArgumentsRow($testCallback, $argumentsProvider)
+	{
+		foreach ($this->correctArgumentsProvider($argumentsProvider) as $args)
+		{
+			$itClass = \net\mkharitonov\spectrum\core\Config::getSpecItemItClass();
+			$it = new $itClass();
+			$it->setTestCallback($testCallback);
+			$it->setAdditionalArguments($args);
+
+			$this->addSpec($it);
+		}
+	}
+
+	protected function correctArgumentsProvider(array $argumentsProvider)
+	{
+		foreach ($argumentsProvider as $key => $val)
+		{
+			if (!is_array($val))
+			{
+				$argumentsProvider[$key] = array($val);
+			}
+		}
+
+		return $argumentsProvider;
+	}
+
 	public function getSpecsToRun()
 	{
 		return $this->getSpecs();

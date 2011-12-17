@@ -17,5 +17,5 @@ namespace net\mkharitonov\spectrum\core\testEnv\emptyStubs;
  */
 class SpecContainerArgumentsProvider extends SpecContainer implements \net\mkharitonov\spectrum\core\SpecContainerArgumentsProviderInterface
 {
-
+	public function createSpecItemForEachArgumentsRow($testCallback, $argumentsProvider){}
 }
