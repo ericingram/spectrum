@@ -148,7 +148,7 @@ Result:
 			});
 
 			it('Should find person by last name', function($w){
-				be($w->addressBook->findPerson('Bob')->lastName)->eq('Smith');
+				be($w->addressBook->findPerson('Smith')->lastName)->eq('Smith');
 			});
 		});
 	});
@@ -186,7 +186,7 @@ Result:
 			});
 
 			it('Should find person by last name', function($w){
-				be($w->addressBook->findPerson('Bob')->lastName)->eq('Smith');
+				be($w->addressBook->findPerson('Smith')->lastName)->eq('Smith');
 			});
 		});
 	});
