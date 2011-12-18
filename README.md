@@ -101,7 +101,7 @@ Result:
 
 Result:
 
-1. AddressBooksuccess
+1. AddressBook — success
 	1. Data storage "MySQL" — success
 		1. Should find person by name — success
 		2. Should find person by phone number — success
