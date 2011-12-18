@@ -21,8 +21,8 @@ Documentation (for a while only on Russian): http://mkharitonov.net/spectrum/
 
 Result:
 
-    1. AddressBook — success
-        1. Should find person by name — success
+1. AddressBook — success
+	1. Should find person by name — success
 
 Use [world creators](http://mkharitonov.net/spectrum/#worlds) and [arguments providers](http://mkharitonov.net/spectrum/#arguments-providers) for remove duplications:
 
@@ -53,12 +53,12 @@ Use [world creators](http://mkharitonov.net/spectrum/#worlds) and [arguments pro
 
 Result:
 
-    1. AddressBook — success
-        1. Should find person by name — success
-        2. Should find person by phone number — success
-            1. +7 (495) 123-456-7 — success
-            2. (495) 123-456-7 — success
-            3. 123-456-7 — success
+1. AddressBook — success
+	1. Should find person by name — success
+	2. Should find person by phone number — success
+		1. +7 (495) 123-456-7 — success
+		2. (495) 123-456-7 — success
+		3. 123-456-7 — success
 
 Use [contexts](http://mkharitonov.net/spectrum/#contexts) to test existing specs in various configurations:
 
@@ -101,25 +101,25 @@ Use [contexts](http://mkharitonov.net/spectrum/#contexts) to test existing specs
 
 Result:
 
-    1. AddressBooksuccess
-        1. Data storage "MySQL" — success
-            1. Should find person by name — success
-            2. Should find person by phone number — success
-                1. +7 (495) 123-456-7 — success
-                2. (495) 123-456-7 — success
-                3. 123-456-7 — success
-        2. Data storage "Oracle" — success
-            1. Should find person by name — success
-            2. Should find person by phone number — success
-                1. +7 (495) 123-456-7 — success
-                2. (495) 123-456-7 — success
-                3. 123-456-7 — success
-        3. Data storage "files" — success
-            1. Should find person by name — success
-            2. Should find person by phone number — success
-                1. +7 (495) 123-456-7 — success
-                2. (495) 123-456-7 — success
-                3. 123-456-7 — success
+1. AddressBooksuccess
+	1. Data storage "MySQL" — success
+		1. Should find person by name — success
+		2. Should find person by phone number — success
+			1. +7 (495) 123-456-7 — success
+			2. (495) 123-456-7 — success
+			3. 123-456-7 — success
+	2. Data storage "Oracle" — success
+		1. Should find person by name — success
+		2. Should find person by phone number — success
+			1. +7 (495) 123-456-7 — success
+			2. (495) 123-456-7 — success
+			3. 123-456-7 — success
+	3. Data storage "files" — success
+		1. Should find person by name — success
+		2. Should find person by phone number — success
+			1. +7 (495) 123-456-7 — success
+			2. (495) 123-456-7 — success
+			3. 123-456-7 — success
 
 Group [contexts](http://mkharitonov.net/spectrum/#contexts) and other specs as you wish:
 
