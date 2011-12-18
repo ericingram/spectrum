@@ -24,7 +24,7 @@ Result:
 1. AddressBook — success
 	1. Should find person by name — success
 
-Use [world creators](http://mkharitonov.net/spectrum/#worlds) and [arguments providers](http://mkharitonov.net/spectrum/#arguments-providers) for remove duplications:
+**Use [world creators](http://mkharitonov.net/spectrum/#worlds) and [arguments providers](http://mkharitonov.net/spectrum/#arguments-providers) for remove duplications:**
 
     <?php
     require_once 'spectrum/init.php';
@@ -60,7 +60,7 @@ Result:
 		2. (495) 123-456-7 — success
 		3. 123-456-7 — success
 
-Use [contexts](http://mkharitonov.net/spectrum/#contexts) to test existing specs in various configurations:
+**Use [contexts](http://mkharitonov.net/spectrum/#contexts) to test existing specs in various configurations:**
 
     <?php
     require_once 'spectrum/init.php';
@@ -121,7 +121,7 @@ Result:
 			2. (495) 123-456-7 — success
 			3. 123-456-7 — success
 
-Group [contexts](http://mkharitonov.net/spectrum/#contexts) and other specs as you wish:
+**Group [contexts](http://mkharitonov.net/spectrum/#contexts) and other specs as you wish:**
 
     <?php
     require_once 'spectrum/init.php';
@@ -179,7 +179,7 @@ Result:
 			1. Should find person by first name — success
 			2. Should find person by last name — success
 
-Use "include" statement to place duplicated or big constructions in separate file:
+**Use "include" statement to place duplicated or big constructions in separate file:**
 
     <?php
     require_once 'spectrum/init.php';
