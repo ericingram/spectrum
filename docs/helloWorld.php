@@ -16,37 +16,35 @@
 
 require_once dirname(__FILE__) . '/../spectrum/init.php';
 
+class Person
+{
+	public $firstName = 'Bob';
+	public $lastName = 'Smith';
+	public $phoneNumber = '+74951234567';
+}
+
 class AddressBook
 {
-	private $person = array(
-		'name' => 'Bob',
-		'firstName' => 'Bob',
-		'lastName' => 'Smith',
-		'phoneNumber' => '+74951234567',
-	);
 	public function setDataStorage($dataStorage) {}
 	public function setCacheSql($enable) {}
 
-	public function findPersonByName($name) { return $this->person; }
-	public function findPersonByFirstName($name) { return $this->person; }
-	public function findPersonByLastName($name) { return $this->person; }
-	public function findPersonByPhoneNumber($phoneNumber) { return $this->person; }
+	public function findPerson($searchString) { return new Person(); }
 }
 
+
+
 describe('AddressBook', function(){
-	include __DIR__ . '/addressBookContexts.php';
+	require(__DIR__ . '/addressBookContexts.php');
 
-describe('Search person', function(){
-it('Should find person by first name', function($w){
-$person = $w->addressBook->findPersonByFirstName('Bob');
-be($person['firstName'])->eq('Bob');
-});
+	describe('Search person', function(){
+		it('Should find person by first name', function($w){
+			be($w->addressBook->findPerson('Bob')->firstName)->eq('Bob');
+		});
 
-it('Should find person by last name', function($w){
-$person = $w->addressBook->findPersonByLastName('Smith');
-be($person['lastName'])->eq('Smith');
-});
-    });
+		it('Should find person by last name', function($w){
+			be($w->addressBook->findPerson('Bob')->lastName)->eq('Smith');
+		});
+	});
 });
 
 \net\mkharitonov\spectrum\RootDescribe::run();
