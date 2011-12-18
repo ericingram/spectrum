@@ -60,7 +60,7 @@ Result:
             2. (495) 123-456-7 — success
             3. 123-456-7 — success
 
-Use [contexts](http://mkharitonov.net/spectrum/#contexts) for remove duplications in specs:
+Use [contexts](http://mkharitonov.net/spectrum/#contexts) to test existing specs in various configurations:
 
     <?php
     require_once 'spectrum/init.php';
@@ -120,6 +120,104 @@ Result:
                 1. +7 (495) 123-456-7 — success
                 2. (495) 123-456-7 — success
                 3. 123-456-7 — success
+
+Group [contexts](http://mkharitonov.net/spectrum/#contexts) and other specs as you wish:
+
+    <?php
+    require_once 'spectrum/init.php';
+
+    describe('AddressBook', function(){
+        beforeEach(function($w){
+            $w->addressBook = new AddressBook();
+        });
+
+		context('Database storage', function(){
+			beforeEach(function($w){ $w->addressBook->setCacheSql(false); });
+
+			context('MySQL', function(){
+				beforeEach(function($w){ $w->addressBook->setDataStorage('mysql'); });
+			});
+
+			context('Oracle', function(){
+				beforeEach(function($w){ $w->addressBook->setDataStorage('oracle'); });
+			});
+		});
+
+        context('Data storage "files"', function(){
+            beforeEach(function($w){ $w->addressBook->setDataStorage('files'); });
+        });
+
+		describe('Search person', function(){
+			it('Should find person by first name', function($w){
+				$person = $w->addressBook->findPersonByFirstName('Bob');
+				be($person['firstName'])->eq('Bob');
+			});
+
+			it('Should find person by last name', function($w){
+				$person = $w->addressBook->findPersonByLastName('Smith');
+				be($person['lastName'])->eq('Smith');
+			});
+        });
+    });
+
+    \net\mkharitonov\spectrum\RootDescribe::run();
+
+Result:
+
+1. AddressBook — success
+	1. Database storage — success
+		1. MySQL — success
+			1. Search person — success
+				1. Should find person by first name — success
+				2. Should find person by last name — success
+		2. Oracle — success
+			1. Search person — success
+				1. Should find person by first name — success
+				2. Should find person by last name — success
+	2. Data storage "files" — success
+		1. Search person — success
+			1. Should find person by first name — success
+			2. Should find person by last name — success
+
+Use "include" statement to place duplicated or big constructions in separate file:
+
+    <?php
+    require_once 'spectrum/init.php';
+
+    describe('AddressBook', function(){
+    	include __DIR__ . '/addressBookContexts.php';
+
+		describe('Search person', function(){
+			it('Should find person by first name', function($w){
+				$person = $w->addressBook->findPersonByFirstName('Bob');
+				be($person['firstName'])->eq('Bob');
+			});
+
+			it('Should find person by last name', function($w){
+				$person = $w->addressBook->findPersonByLastName('Smith');
+				be($person['lastName'])->eq('Smith');
+			});
+        });
+    });
+
+    \net\mkharitonov\spectrum\RootDescribe::run();
+
+Result:
+
+1. AddressBook — success
+	1. Database storage — success
+		1. MySQL — success
+			1. Search person — success
+				1. Should find person by first name — success
+				2. Should find person by last name — success
+		2. Oracle — success
+			1. Search person — success
+				1. Should find person by first name — success
+				2. Should find person by last name — success
+	2. Data storage "files" — success
+		1. Search person — success
+			1. Should find person by first name — success
+			2. Should find person by last name — success
 
 ###Copyright
 Copyright (c) 2011 Mikhail Kharitonov <mvkharitonov@gmail.com>.

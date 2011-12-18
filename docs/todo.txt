@@ -1,6 +1,25 @@
-core\Config new methods
-constructionCommands\Config new methods
+describe — статус has empty
 
+core\Config — new methods
+constructionCommands\Config — new methods
+
+
+
+Кодировка отчетов и тестов
+Плагин output в нем задавать кодировку  выходную и его использовать в liveReport
+SetOutputEncoding
+SetInputEncoding
+Параметры у спеков задают кодировку
+$this->getOwner()->output->put($this->getOwner()->getName());
+
+Параметры конфигурации
+
+
+
+
+
+Doc
+	Расширение и конфигурация
 
 
 результат выполнения
