@@ -26,25 +26,25 @@ use \net\mkharitonov\spectrum\core\plugins\events;
  */
 class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implements events\OnRunInterface
 {
-	protected $printDebug;
+	protected $outputDebug;
 	protected $indention = '    ';
 	protected $newline = "\r\n";
 
 /**/
 
-	public function setPrintDebug($isEnable)
+	public function setOutputDebug($isEnable)
 	{
-		$this->printDebug = $isEnable;
+		$this->outputDebug = $isEnable;
 	}
 
-	public function getPrintDebug()
+	public function getOutputDebug()
 	{
-		return $this->printDebug;
+		return $this->outputDebug;
 	}
 
-	public function getPrintDebugCascade()
+	public function getOutputDebugCascade()
 	{
-		return $this->callCascadeThroughRunningContexts('getPrintDebug', array(), true);
+		return $this->callCascadeThroughRunningContexts('getOutputDebug', array(), true);
 	}
 
 /**/
@@ -206,17 +206,17 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 	public function onRunBefore()
 	{
 		if (!$this->getOwner()->getParent()) // Root describe
-			print $this->getHeader();
+			$this->getOwner()->output->put($this->getHeader());
 
 		if (!$this->getOwner()->isAnonymous())
 		{
-			print '<li class="' . $this->getSpecLabel() . '" id="' . $this->getOwner()->getUid() . '">';
+			$this->getOwner()->output->put('<li class="' . $this->getSpecLabel() . '" id="' . $this->getOwner()->getUid() . '">');
 
-			print '<span class="name">' . htmlspecialchars($this->getSpecName()) . '</span>';
-			print '<span class="finalResult">wait...</span>';
+			$this->getOwner()->output->put('<span class="name">' . htmlspecialchars($this->getSpecName()) . '</span>');
+			$this->getOwner()->output->put('<span class="finalResult">wait...</span>');
 
 			if ($this->getOwner() instanceof SpecContainerInterface)
-				print '<ol>';
+				$this->getOwner()->output->put('<ol>');
 
 			$this->flush();
 		}
@@ -227,38 +227,38 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 		if (!$this->getOwner()->isAnonymous())
 		{
 			if ($this->getOwner() instanceof SpecContainerInterface)
-				print '</ol>';
+				$this->getOwner()->output->put('</ol>');
 
 			$this->updateResult($this->getOwner()->getUid(), $this->getSpecResultLabel($finalResult));
-			if ($this->getPrintDebugCascade())
+			if ($this->getOutputDebugCascade())
 				$this->printRunResultsBuffer($finalResult);
 			
-			print '</li>';
+			$this->getOwner()->output->put('</li>');
 
 			$this->flush();
 		}
 
 		if (!$this->getOwner()->getParent()) // Root describe
-			print $this->getFooter();
+			$this->getOwner()->output->put($this->getFooter());
 	}
 
 	protected function printRunResultsBuffer($finalResult)
 	{
 		if ($finalResult === false && $this->getOwner() instanceof SpecItemInterface)
 		{
-			print '<div class="runResultsBuffer clearfix">';
+			$this->getOwner()->output->put('<div class="runResultsBuffer clearfix">');
 			foreach ($this->getOwner()->getRunResultsBuffer()->getResults() as $result)
 			{
-				print '<div class="row ' . ($result['result'] === true ? 'true' : 'false') . '">';
+				$this->getOwner()->output->put('<div class="row ' . ($result['result'] === true ? 'true' : 'false') . '">');
 
-				print '<div class="result">';
-				print htmlspecialchars($this->getVarDump($result['result']));
-				print '</div>';
+				$this->getOwner()->output->put('<div class="result">');
+				$this->getOwner()->output->put(htmlspecialchars($this->getVarDump($result['result'])));
+				$this->getOwner()->output->put('</div>');
 
 				$details = $result['details'];
 				if (is_object($details) && $details instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetailsInterface)
 				{
-					print '<div class="details assert">';
+					$this->getOwner()->output->put('<div class="details assert">');
 					// TODO print matcher view, like Details: bool false be(string "foo")->not->eq(string "bar", int 1)
 					$this->printDetailsAssert('actualValue', $this->getVarDump($details->getActualValue()));
 					$this->printDetailsAssert('isNot', $this->getVarDump($details->getIsNot()));
@@ -266,28 +266,28 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 					$this->printDetailsAssert('matcherArgs', $this->getVarDump($details->getMatcherArgs()));
 					$this->printDetailsAssert('matcherReturnValue', $this->getVarDump($details->getMatcherReturnValue()));
 					$this->printDetailsAssert('matcherException', $this->getVarDump($details->getMatcherException()));
-					print '</div>';
+					$this->getOwner()->output->put('</div>');
 				}
 				else
 				{
-					print '<div class="details">';
-					print var_dump($details);
-					print '</div>';
+					$this->getOwner()->output->put('<div class="details">');
+					$this->getOwner()->output->put(var_dump($details));
+					$this->getOwner()->output->put('</div>');
 				}
 
-				print '</div>';
+				$this->getOwner()->output->put('</div>');
 			}
 
-			print '</div>';
+			$this->getOwner()->output->put('</div>');
 		}
 	}
 
 	protected function printDetailsAssert($name, $value)
 	{
-		print '<div class="' . htmlspecialchars($name) . '">';
-		print '<span class="title">' . htmlspecialchars($name) . '</span>';
-		print '<span class="value">' . htmlspecialchars($value) . '</span>';
-		print '</div>';
+		$this->getOwner()->output->put('<div class="' . htmlspecialchars($name) . '">');
+		$this->getOwner()->output->put('<span class="title">' . htmlspecialchars($name) . '</span>');
+		$this->getOwner()->output->put('<span class="value">' . htmlspecialchars($value) . '</span>');
+		$this->getOwner()->output->put('</div>');
 	}
 
 	protected function getSpecName()
@@ -344,16 +344,16 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 
 	protected function updateResult($specUid, $resultLabel)
 	{
-		print '
+		$this->getOwner()->output->put('
 			<script type="text/javascript">
 				updateResult("' . $specUid . '", "' . $resultLabel . '", "' . $resultLabel . '");
 			</script>
-		';
+		');
 	}
 
 	protected function flush()
 	{
-		print '<span style="display: none;">' . str_repeat(' ', 256) . '</span>' . $this->getNewline();
+		$this->getOwner()->output->put('<span style="display: none;">' . str_repeat(' ', 256) . '</span>' . $this->getNewline());
 		flush();
 	}
 

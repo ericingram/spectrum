@@ -20,7 +20,7 @@ namespace net\mkharitonov\spectrum\core;
  * @property \net\mkharitonov\spectrum\core\plugins\basePlugins\Selector selector
  * @property \net\mkharitonov\spectrum\core\plugins\basePlugins\ErrorHandling errorHandling
  * @property \net\mkharitonov\spectrum\core\plugins\basePlugins\LiveReport liveReport
- * @todo implements \ArrayAccess for plugin access
+ * @property \net\mkharitonov\spectrum\core\plugins\basePlugins\Output output
  */
 abstract class Spec implements SpecInterface
 {

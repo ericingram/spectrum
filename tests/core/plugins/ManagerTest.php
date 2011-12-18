@@ -37,6 +37,7 @@ class ManagerTest extends \net\mkharitonov\spectrum\core\Test
 			'selector' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\Selector', 'activateMoment' => 'whenCallOnce'),
 			'errorHandling' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\ErrorHandling', 'activateMoment' => 'whenCallOnce'),
 			'liveReport' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\LiveReport', 'activateMoment' => 'whenCallOnce'),
+			'output' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\Output', 'activateMoment' => 'whenCallOnce'),
 		), Manager::getRegisteredPlugins());
 	}
 

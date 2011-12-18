@@ -1,26 +1,24 @@
-describe — статус has empty
+Параметры конфигурации
+array('encoding' => '')
+it('', 'utf-8')
+it('', E_ALL)
+it('', false)
+удалить из документации todo
 
 core\Config — new methods
 constructionCommands\Config — new methods
+setAllowEncodingChange
+
+constrctionCommands\IncludeTest — может разместить в тестах соответствующих спеков?
 
 
-
-Кодировка отчетов и тестов
-Плагин output в нем задавать кодировку  выходную и его использовать в liveReport
-SetOutputEncoding
-SetInputEncoding
-Параметры у спеков задают кодировку
-$this->getOwner()->output->put($this->getOwner()->getName());
-
-Параметры конфигурации
-
-
-
-
+describe — статус has empty
 
 Doc
 	Расширение и конфигурация
 
+
+провайдеры аргументов — возможность использования combine?
 
 результат выполнения
 	написать про результат выполнения запуска контекстов и откдюченных спеков
