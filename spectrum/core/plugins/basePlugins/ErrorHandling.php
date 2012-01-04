@@ -17,11 +17,11 @@ namespace net\mkharitonov\spectrum\core\plugins\basePlugins;
  */
 class ErrorHandling extends \net\mkharitonov\spectrum\core\plugins\Plugin
 {
-	protected $catchExceptions = false;
-	protected $catchPhpErrors = false;
+	protected $catchExceptions;
+	protected $catchPhpErrors;
 
-	protected $breakOnFirstMatcherFail = false;
-	protected $breakOnFirstPhpError = false;
+	protected $breakOnFirstMatcherFail;
+	protected $breakOnFirstPhpError;
 
 	public function setCatchExceptions($isEnable)
 	{
@@ -61,7 +61,7 @@ class ErrorHandling extends \net\mkharitonov\spectrum\core\plugins\Plugin
 
 	public function getCatchPhpErrorsCascade()
 	{
-		return $this->callCascadeThroughRunningContexts('getCatchPhpErrors', array(), true);
+		return $this->callCascadeThroughRunningContexts('getCatchPhpErrors', array(), -1);
 	}
 
 	/**
