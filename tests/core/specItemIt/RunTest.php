@@ -67,6 +67,7 @@ class RunTest extends Test
 	{
 		$it = new SpecItemIt();
 		$it->setTestCallback('iAmNotCallableFunctionOhOhOh');
+		$it->errorHandling->setCatchExceptions(false);
 
 		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'callback is not callable', function() use($it) {
 			$it->run();
