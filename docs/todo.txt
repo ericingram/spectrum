@@ -1,8 +1,3 @@
-Дописать и перезалить документацию по setSpecSettings
-
-
-ErrorHandlingTest
-
 report:
 	Заменить list-style: outside на inside, что бы цифры комировались в буфер
 	Тире с окружающими пробелами вставить в HTML, что бы копировалось в буфер
@@ -10,12 +5,10 @@ report:
 output:
 	if ($spec->getName() == $name), перекодировать надо, convertToInternalEncoding?
 
-Реализовать новые методв с Config классах ядра и команд конструирования
-setAllowInputEncodingChange
-setAllowOutputEncodingChange
-
 constrctionCommands\IncludeTest — может разместить в тестах соответствующих спеков?
 
+Дописать и перезалить документацию по setSpecSettings
+ErrorHandlingTest
 
 describe — статус has empty
 

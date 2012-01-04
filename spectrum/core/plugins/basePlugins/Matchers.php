@@ -10,6 +10,8 @@
  */
 
 namespace net\mkharitonov\spectrum\core\plugins\basePlugins;
+use net\mkharitonov\spectrum\core\Config;
+use net\mkharitonov\spectrum\core\plugins\Exception;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
@@ -19,10 +21,32 @@ class Matchers extends Stack\Named
 {
 	public function add($name, $callback)
 	{
+		if (!Config::getAllowMatchersAdd())
+			throw new Exception('Matchers add deny in Config');
+
+		if (!Config::getAllowMatchersOverride() && $this->isExists($name))
+			throw new Exception('Matchers override deny in Config');
+
 		if (in_array($name, array('not', 'isNot', 'getActualValue', 'be')))
 			throw new \net\mkharitonov\spectrum\core\Exception('Name "' . $name . '" was reserved, you can\'t add matcher with same name');
 
 		return parent::add($name, $callback);
+	}
+
+	public function remove($name)
+	{
+		if (!Config::getAllowMatchersOverride())
+			throw new Exception('Matchers override deny in Config');
+
+		return parent::remove($name);
+	}
+
+	public function removeAll()
+	{
+		if (!Config::getAllowMatchersOverride())
+			throw new Exception('Matchers override deny in Config');
+
+		return parent::removeAll();
 	}
 
 	public function callMatcher($name, array $args = array())

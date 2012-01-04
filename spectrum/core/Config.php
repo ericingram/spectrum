@@ -27,7 +27,14 @@ class Config
 	private static $specContainerDescribeClass = '\net\mkharitonov\spectrum\core\SpecContainerDescribe';
 	private static $specItemItClass = '\net\mkharitonov\spectrum\core\SpecItemIt';
 	private static $worldClass = '\net\mkharitonov\spectrum\core\World';
-	// TODO: $allowPluginsRegistration, $allowErrorHandlingModify, $allowLiveReportModify, $allowMatchersOverwrite, $allowMatchersAdding
+	private static $allowPluginsRegistration = true;
+	private static $allowPluginsOverride = true;
+	private static $allowMatchersAdd = true;
+	private static $allowMatchersOverride = true;
+	private static $allowErrorHandlingModify = true;
+	private static $allowLiveReportModify = true;
+	private static $allowInputEncodingModify = true;
+	private static $allowOutputEncodingModify = true;
 
 	private static $locked = false;
 
@@ -60,6 +67,30 @@ class Config
 
 	public static function setWorldClass($className){ return static::setConfigClassValue(static::$worldClass, $className, '\net\mkharitonov\spectrum\core\WorldInterface'); }
 	public static function getWorldClass(){ return static::$worldClass; }
+
+	public static function setAllowPluginsRegistration($isEnable){ return static::setConfigValue(static::$allowPluginsRegistration, $isEnable); }
+	public static function getAllowPluginsRegistration(){ return static::$allowPluginsRegistration; }
+
+	public static function setAllowPluginsOverride($isEnable){ return static::setConfigValue(static::$allowPluginsOverride, $isEnable); }
+	public static function getAllowPluginsOverride(){ return static::$allowPluginsOverride; }
+
+	public static function setAllowMatchersAdd($isEnable){ return static::setConfigValue(static::$allowMatchersAdd, $isEnable); }
+	public static function getAllowMatchersAdd(){ return static::$allowMatchersAdd; }
+
+	public static function setAllowMatchersOverride($isEnable){ return static::setConfigValue(static::$allowMatchersOverride, $isEnable); }
+	public static function getAllowMatchersOverride(){ return static::$allowMatchersOverride; }
+
+	public static function setAllowErrorHandlingModify($isEnable){ return static::setConfigValue(static::$allowErrorHandlingModify, $isEnable); }
+	public static function getAllowErrorHandlingModify(){ return static::$allowErrorHandlingModify; }
+
+	public static function setAllowLiveReportModify($isEnable){ return static::setConfigValue(static::$allowLiveReportModify, $isEnable); }
+	public static function getAllowLiveReportModify(){ return static::$allowLiveReportModify; }
+
+	public static function setAllowInputEncodingModify($isEnable){ return static::setConfigValue(static::$allowInputEncodingModify, $isEnable); }
+	public static function getAllowInputEncodingModify(){ return static::$allowInputEncodingModify; }
+
+	public static function setAllowOutputEncodingModify($isEnable){ return static::setConfigValue(static::$allowOutputEncodingModify, $isEnable); }
+	public static function getAllowOutputEncodingModify(){ return static::$allowOutputEncodingModify; }
 
 	public static function lock(){ static::$locked = true; }
 	public static function isLocked(){ return static::$locked; }

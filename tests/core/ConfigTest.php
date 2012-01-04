@@ -504,4 +504,212 @@ class ConfigTest extends Test
 
 		$this->assertEquals($oldClass, Config::getWorldClass());
 	}
+
+/**/
+
+	public function testGetAllowPluginsRegistration_ShouldBeReturnTrueByDefault()
+	{
+		$this->assertTrue(Config::getAllowPluginsRegistration());
+	}
+
+/**/
+
+	public function testSetAllowPluginsRegistration_ShouldBeSetNewValue()
+	{
+		Config::setAllowPluginsRegistration(false);
+		$this->assertFalse(Config::getAllowPluginsRegistration());
+	}
+
+	public function testSetAllowPluginsRegistration_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
+	{
+		Config::lock();
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'core\Config is locked', function(){
+			Config::setAllowPluginsRegistration(false);
+		});
+
+		$this->assertEquals(true, Config::getAllowPluginsRegistration());
+	}
+
+/**/
+
+	public function testGetAllowPluginsOverride_ShouldBeReturnTrueByDefault()
+	{
+		$this->assertTrue(Config::getAllowPluginsOverride());
+	}
+
+/**/
+
+	public function testSetAllowPluginsOverride_ShouldBeSetNewValue()
+	{
+		Config::setAllowPluginsOverride(false);
+		$this->assertFalse(Config::getAllowPluginsOverride());
+	}
+
+	public function testSetAllowPluginsOverride_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
+	{
+		Config::lock();
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'core\Config is locked', function(){
+			Config::setAllowPluginsOverride(false);
+		});
+
+		$this->assertEquals(true, Config::getAllowPluginsOverride());
+	}
+
+/**/
+
+	public function testGetAllowMatchersAdd_ShouldBeReturnTrueByDefault()
+	{
+		$this->assertTrue(Config::getAllowMatchersAdd());
+	}
+
+/**/
+
+	public function testSetAllowMatchersAdd_ShouldBeSetNewValue()
+	{
+		Config::setAllowMatchersAdd(false);
+		$this->assertFalse(Config::getAllowMatchersAdd());
+	}
+
+	public function testSetAllowMatchersAdd_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
+	{
+		Config::lock();
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'core\Config is locked', function(){
+			Config::setAllowMatchersAdd(false);
+		});
+
+		$this->assertEquals(true, Config::getAllowMatchersAdd());
+	}
+
+/**/
+
+	public function testGetAllowMatchersOverride_ShouldBeReturnTrueByDefault()
+	{
+		$this->assertTrue(Config::getAllowMatchersOverride());
+	}
+
+/**/
+
+	public function testSetAllowMatchersOverride_ShouldBeSetNewValue()
+	{
+		Config::setAllowMatchersOverride(false);
+		$this->assertFalse(Config::getAllowMatchersOverride());
+	}
+
+	public function testSetAllowMatchersOverride_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
+	{
+		Config::lock();
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'core\Config is locked', function(){
+			Config::setAllowMatchersOverride(false);
+		});
+
+		$this->assertEquals(true, Config::getAllowMatchersOverride());
+	}
+
+/**/
+
+	public function testGetAllowErrorHandlingModify_ShouldBeReturnTrueByDefault()
+	{
+		$this->assertTrue(Config::getAllowErrorHandlingModify());
+	}
+
+/**/
+
+	public function testSetAllowErrorHandlingModify_ShouldBeSetNewValue()
+	{
+		Config::setAllowErrorHandlingModify(false);
+		$this->assertFalse(Config::getAllowErrorHandlingModify());
+	}
+
+	public function testSetAllowErrorHandlingModify_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
+	{
+		Config::lock();
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'core\Config is locked', function(){
+			Config::setAllowErrorHandlingModify(false);
+		});
+
+		$this->assertEquals(true, Config::getAllowErrorHandlingModify());
+	}
+
+/**/
+
+	public function testGetAllowLiveReportModify_ShouldBeReturnTrueByDefault()
+	{
+		$this->assertTrue(Config::getAllowLiveReportModify());
+	}
+
+/**/
+
+	public function testSetAllowLiveReportModify_ShouldBeSetNewValue()
+	{
+		Config::setAllowLiveReportModify(false);
+		$this->assertFalse(Config::getAllowLiveReportModify());
+	}
+
+	public function testSetAllowLiveReportModify_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
+	{
+		Config::lock();
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'core\Config is locked', function(){
+			Config::setAllowLiveReportModify(false);
+		});
+
+		$this->assertEquals(true, Config::getAllowLiveReportModify());
+	}
+
+/**/
+
+	public function testGetAllowInputEncodingModify_ShouldBeReturnTrueByDefault()
+	{
+		$this->assertTrue(Config::getAllowInputEncodingModify());
+	}
+
+/**/
+
+	public function testSetAllowInputEncodingModify_ShouldBeSetNewValue()
+	{
+		Config::setAllowInputEncodingModify(false);
+		$this->assertFalse(Config::getAllowInputEncodingModify());
+	}
+
+	public function testSetAllowInputEncodingModify_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
+	{
+		Config::lock();
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'core\Config is locked', function(){
+			Config::setAllowInputEncodingModify(false);
+		});
+
+		$this->assertEquals(true, Config::getAllowInputEncodingModify());
+	}
+
+/**/
+
+	public function testGetAllowOutputEncodingModify_ShouldBeReturnTrueByDefault()
+	{
+		$this->assertTrue(Config::getAllowOutputEncodingModify());
+	}
+
+/**/
+
+	public function testSetAllowOutputEncodingModify_ShouldBeSetNewValue()
+	{
+		Config::setAllowOutputEncodingModify(false);
+		$this->assertFalse(Config::getAllowOutputEncodingModify());
+	}
+
+	public function testSetAllowOutputEncodingModify_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
+	{
+		Config::lock();
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'core\Config is locked', function(){
+			Config::setAllowOutputEncodingModify(false);
+		});
+
+		$this->assertEquals(true, Config::getAllowOutputEncodingModify());
+	}
 }

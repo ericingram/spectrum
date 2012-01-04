@@ -99,6 +99,9 @@ class Manager implements ManagerInterface
 
 	static public function createGlobalAliasOnce($commandName)
 	{
+		if (!Config::getAllowCreateGlobalAlias())
+			throw new Exception('Create global alias for construction commands deny in Config');
+
 		if (!static::hasRegisteredCommand($commandName))
 			throw new Exception('Command "' . $commandName . '" not exists');
 
@@ -125,9 +128,15 @@ class Manager implements ManagerInterface
 
 	static public function registerCommand($name, $callback)
 	{
+		if (!Config::getAllowConstructionCommandsRegistration())
+			throw new Exception('Construction commands registration deny in Config');
+
 		// RegExp from http://www.php.net/manual/en/functions.user-defined.php
 		if (!preg_match('/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/is', $name))
 			throw new Exception('Bad name for command "' . $name . '"');
+
+		if (!Config::getAllowConstructionCommandsOverride() && static::hasRegisteredCommand($name))
+			throw new Exception('Construction commands override deny in Config');
 
 		static::$registeredCommands[$name] = $callback;
 	}
@@ -142,11 +151,17 @@ class Manager implements ManagerInterface
 
 	static public function unregisterCommand($name)
 	{
+		if (!Config::getAllowConstructionCommandsOverride())
+			throw new Exception('Construction commands override deny in Config');
+
 		unset(static::$registeredCommands[$name]);
 	}
 
 	static public function unregisterAllCommands()
 	{
+		if (!Config::getAllowConstructionCommandsOverride())
+			throw new Exception('Construction commands override deny in Config');
+
 		static::$registeredCommands = array();
 	}
 

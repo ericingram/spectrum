@@ -10,6 +10,8 @@
  */
 
 namespace net\mkharitonov\spectrum\core\plugins\basePlugins;
+use net\mkharitonov\spectrum\core\Config;
+use net\mkharitonov\spectrum\core\plugins\Exception;
 
 /**
  * Use this plugin to output current owner spec data (or get spec data in correct output encoding). Do not use plugin
@@ -36,6 +38,9 @@ class Output extends \net\mkharitonov\spectrum\core\plugins\Plugin
 
 	public function setInputEncoding($encoding)
 	{
+		if (!Config::getAllowInputEncodingModify())
+			throw new Exception('Input encoding modify deny in Config');
+
 		$this->inputEncoding = $encoding;
 		static::$isEncodingChanged = true;
 	}
@@ -57,6 +62,9 @@ class Output extends \net\mkharitonov\spectrum\core\plugins\Plugin
 
 	public function setOutputEncoding($encoding)
 	{
+		if (!Config::getAllowOutputEncodingModify())
+			throw new Exception('Output encoding modify deny in Config');
+
 		$this->outputEncoding = $encoding;
 		static::$isEncodingChanged = true;
 	}

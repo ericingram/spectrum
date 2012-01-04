@@ -64,4 +64,82 @@ class ConfigTest extends \net\mkharitonov\spectrum\Test
 
 		$this->assertEquals($oldClass, Config::getManagerClass());
 	}
+	
+/**/
+
+	public function testGetAllowConstructionCommandsRegistration_ShouldBeReturnTrueByDefault()
+	{
+		$this->assertTrue(Config::getAllowConstructionCommandsRegistration());
+	}
+
+/**/
+
+	public function testSetAllowConstructionCommandsRegistration_ShouldBeSetNewValue()
+	{
+		Config::setAllowConstructionCommandsRegistration(false);
+		$this->assertFalse(Config::getAllowConstructionCommandsRegistration());
+	}
+
+	public function testSetAllowConstructionCommandsRegistration_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
+	{
+		Config::lock();
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', 'constructionCommands\Config is locked', function(){
+			Config::setAllowConstructionCommandsRegistration(false);
+		});
+
+		$this->assertEquals(true, Config::getAllowConstructionCommandsRegistration());
+	}
+	
+/**/
+
+	public function testGetAllowConstructionCommandsOverride_ShouldBeReturnTrueByDefault()
+	{
+		$this->assertTrue(Config::getAllowConstructionCommandsOverride());
+	}
+
+/**/
+
+	public function testSetAllowConstructionCommandsOverride_ShouldBeSetNewValue()
+	{
+		Config::setAllowConstructionCommandsOverride(false);
+		$this->assertFalse(Config::getAllowConstructionCommandsOverride());
+	}
+
+	public function testSetAllowConstructionCommandsOverride_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
+	{
+		Config::lock();
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', 'constructionCommands\Config is locked', function(){
+			Config::setAllowConstructionCommandsOverride(false);
+		});
+
+		$this->assertEquals(true, Config::getAllowConstructionCommandsOverride());
+	}
+	
+/**/
+
+	public function testGetAllowCreateGlobalAlias_ShouldBeReturnTrueByDefault()
+	{
+		$this->assertTrue(Config::getAllowCreateGlobalAlias());
+	}
+
+/**/
+
+	public function testSetAllowCreateGlobalAlias_ShouldBeSetNewValue()
+	{
+		Config::setAllowCreateGlobalAlias(false);
+		$this->assertFalse(Config::getAllowCreateGlobalAlias());
+	}
+
+	public function testSetAllowCreateGlobalAlias_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
+	{
+		Config::lock();
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', 'constructionCommands\Config is locked', function(){
+			Config::setAllowCreateGlobalAlias(false);
+		});
+
+		$this->assertEquals(true, Config::getAllowCreateGlobalAlias());
+	}
 }

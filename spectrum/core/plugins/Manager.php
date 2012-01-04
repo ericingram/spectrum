@@ -10,6 +10,7 @@
  */
 
 namespace net\mkharitonov\spectrum\core\plugins;
+use net\mkharitonov\spectrum\core\Config;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
@@ -29,6 +30,12 @@ class Manager implements ManagerInterface
 
 	static public function registerPlugin($accessName, $class = '\net\mkharitonov\spectrum\core\plugins\basePlugins\stack\Indexed', $activateMoment = 'whenCallOnce')
 	{
+		if (!Config::getAllowPluginsRegistration())
+			throw new Exception('Plugins registration deny in Config');
+
+		if (!Config::getAllowPluginsOverride() && static::hasRegisteredPlugin($accessName))
+			throw new Exception('Plugins override deny in Config');
+
 		$reflection = new \ReflectionClass($class);
 		if (!$reflection->implementsInterface('\net\mkharitonov\spectrum\core\plugins\PluginInterface'))
 			throw new Exception('Class "' . $class . '" should be implements PluginInterface');
@@ -54,11 +61,17 @@ class Manager implements ManagerInterface
 
 	static public function unregisterPlugin($accessName)
 	{
+		if (!Config::getAllowPluginsOverride())
+			throw new Exception('Plugins override deny in Config');
+
 		unset(static::$registeredPlugins[$accessName]);
 	}
 
 	static public function unregisterAllPlugins()
 	{
+		if (!Config::getAllowPluginsOverride())
+			throw new Exception('Plugins override deny in Config');
+
 		static::$registeredPlugins = array();
 	}
 

@@ -154,7 +154,7 @@ class ManagerTest extends \net\mkharitonov\spectrum\Test
 	{
 		Manager::unregisterAllCommands();
 		Manager::registerCommand('trim', function(){});
-		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', function(){
+		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', 'Function "trim" already exists', function(){
 			Manager::createGlobalAliasOnce('trim');
 		});
 	}
@@ -162,10 +162,21 @@ class ManagerTest extends \net\mkharitonov\spectrum\Test
 	public function testCreateGlobalAliasOnce_ShouldBeThrowExceptionIfCommandNotRegistered()
 	{
 		Manager::unregisterAllCommands();
-		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', function(){
+		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', 'Command "foo" not exists', function(){
 			Manager::createGlobalAliasOnce('foo');
 		});
 	}
+
+	public function testCreateGlobalAliasOnce_ShouldBeThrowExceptionIfNotAllowCreateGlobalAlias()
+	{
+		Manager::unregisterAllCommands();
+		Config::setAllowCreateGlobalAlias(false);
+		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', 'Create global alias for construction commands deny', function(){
+			Manager::createGlobalAliasOnce('foo');
+		});
+	}
+
+/**/
 
 	public function testRegisterCommand_ShouldBeCollectCommands()
 	{
@@ -243,8 +254,27 @@ class ManagerTest extends \net\mkharitonov\spectrum\Test
 	public function testRegisterCommand_ShouldBeThrowExceptionIfCommandNameIsNotValidFunctionName()
 	{
 		Manager::unregisterAllCommands();
-		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', function(){
+		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', 'Bad name', function(){
 			Manager::registerCommand('-foo', function(){});
+		});
+	}
+
+	public function testRegisterCommand_ShouldBeThrowExceptionIfNotAllowConstructionCommandsRegistration()
+	{
+		Manager::unregisterAllCommands();
+		Config::setAllowConstructionCommandsRegistration(false);
+		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', 'Construction commands registration deny', function(){
+			Manager::registerCommand('foo', function(){});
+		});
+	}
+
+	public function testRegisterCommand_ShouldBeThrowExceptionIfCommandExistsAndNotAllowConstructionCommandsOverride()
+	{
+		Manager::unregisterAllCommands();
+		Config::setAllowConstructionCommandsOverride(false);
+		Manager::registerCommand('foo', function(){});
+		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', 'Construction commands override deny', function(){
+			Manager::registerCommand('foo', function(){});
 		});
 	}
 
@@ -269,6 +299,8 @@ class ManagerTest extends \net\mkharitonov\spectrum\Test
 		), Manager::getRegisteredCommands());
 	}
 
+/**/
+
 	public function testUnregisterCommand_ShouldBeRemoveCommandByName()
 	{
 		Manager::unregisterAllCommands();
@@ -280,12 +312,34 @@ class ManagerTest extends \net\mkharitonov\spectrum\Test
 		$this->assertSame(array(), Manager::getRegisteredCommands());
 	}
 
+	public function testUnregisterCommand_ShouldBeThrowExceptionIfNotAllowConstructionCommandsOverride()
+	{
+		Manager::unregisterAllCommands();
+		Config::setAllowConstructionCommandsOverride(false);
+		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', 'Construction commands override deny', function(){
+			Manager::unregisterCommand('foo');
+		});
+	}
+
+/**/
+
 	public function testUnregisterAllCommands_ShouldBeLeaveEmptyArray()
 	{
 		Manager::registerCommand('foo', function(){});
 		Manager::unregisterAllCommands();
 		$this->assertSame(array(), Manager::getRegisteredCommands());
 	}
+
+	public function testUnregisterAllCommands_ShouldBeThrowExceptionIfNotAllowConstructionCommandsOverride()
+	{
+		Manager::unregisterAllCommands();
+		Config::setAllowConstructionCommandsOverride(false);
+		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', 'Construction commands override deny', function(){
+			Manager::unregisterAllCommands('foo');
+		});
+	}
+
+/**/
 
 	public function testHasRegisteredCommand_ShouldBeReturnTrueIfCommandExists()
 	{

@@ -13,6 +13,7 @@ namespace net\mkharitonov\spectrum\core\plugins;
 require_once dirname(__FILE__) . '/../../init.php';
 
 use net\mkharitonov\spectrum\core\SpecContainerDescribe;
+use net\mkharitonov\spectrum\core\Config;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
@@ -108,6 +109,25 @@ class ManagerTest extends \net\mkharitonov\spectrum\core\Test
 		Manager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\plugins\Plugin', 'whenCallAlways');
 	}
 
+	public function testRegisterPlugin_ShouldBeThrowExceptionIfNotAllowPluginsRegistration()
+	{
+		Config::setAllowPluginsRegistration(false);
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', 'Plugins registration deny', function(){
+			Manager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\plugins\Plugin');
+		});
+	}
+
+	public function testRegisterPlugin_ShouldBeThrowExceptionIfPluginExistsAndNotAllowPluginsOverride()
+	{
+		Config::setAllowPluginsOverride(false);
+		Manager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\plugins\Plugin');
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', 'Plugins override deny', function(){
+			Manager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\plugins\Plugin');
+		});
+	}
+
+/**/
+
 	public function testRegisterPlugins_ShouldBeSubstituteDefaultClassAndActivateMoment()
 	{
 		Manager::registerPlugins(array(
@@ -136,11 +156,27 @@ class ManagerTest extends \net\mkharitonov\spectrum\core\Test
 		$this->assertSame(array(), Manager::getRegisteredPlugins());
 	}
 
+	public function testUnregisterPlugin_ShouldBeThrowExceptionIfNotAllowPluginsOverride()
+	{
+		Config::setAllowPluginsOverride(false);
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', 'Plugins override deny', function(){
+			Manager::unregisterPlugin('foo');
+		});
+	}
+
 /**/
 
 	public function testUnregisterAllPlugins_ShouldBeLeaveEmptyArray()
 	{
 		$this->assertSame(array(), Manager::getRegisteredPlugins());
+	}
+
+	public function testUnregisterAllPlugins_ShouldBeThrowExceptionIfNotAllowPluginsOverride()
+	{
+		Config::setAllowPluginsOverride(false);
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', 'Plugins override deny', function(){
+			Manager::unregisterAllPlugins();
+		});
 	}
 
 /**/

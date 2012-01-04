@@ -18,12 +18,23 @@ namespace net\mkharitonov\spectrum\constructionCommands;
 class Config
 {
 	private static $managerClass = '\net\mkharitonov\spectrum\constructionCommands\Manager';
-	// TODO: $allowConstructionCommandsRegistration
+	private static $allowConstructionCommandsRegistration = true;
+	private static $allowConstructionCommandsOverride = true;
+	private static $allowCreateGlobalAlias = true;
 
 	private static $locked = false;
 
 	public static function setManagerClass($className){ return static::setConfigClassValue(static::$managerClass, $className, '\net\mkharitonov\spectrum\constructionCommands\ManagerInterface'); }
 	public static function getManagerClass(){ return static::$managerClass; }
+
+	public static function setAllowConstructionCommandsRegistration($isEnable){ return static::setConfigValue(static::$allowConstructionCommandsRegistration, $isEnable); }
+	public static function getAllowConstructionCommandsRegistration(){ return static::$allowConstructionCommandsRegistration; }
+
+	public static function setAllowConstructionCommandsOverride($isEnable){ return static::setConfigValue(static::$allowConstructionCommandsOverride, $isEnable); }
+	public static function getAllowConstructionCommandsOverride(){ return static::$allowConstructionCommandsOverride; }
+
+	public static function setAllowCreateGlobalAlias($isEnable){ return static::setConfigValue(static::$allowCreateGlobalAlias, $isEnable); }
+	public static function getAllowCreateGlobalAlias(){ return static::$allowCreateGlobalAlias; }
 
 	public static function lock(){ static::$locked = true; }
 	public static function isLocked(){ return static::$locked; }

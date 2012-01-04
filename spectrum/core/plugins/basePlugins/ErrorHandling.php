@@ -10,6 +10,8 @@
  */
 
 namespace net\mkharitonov\spectrum\core\plugins\basePlugins;
+use net\mkharitonov\spectrum\core\Config;
+use net\mkharitonov\spectrum\core\plugins\Exception;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
@@ -25,6 +27,9 @@ class ErrorHandling extends \net\mkharitonov\spectrum\core\plugins\Plugin
 
 	public function setCatchExceptions($isEnable)
 	{
+		if (!Config::getAllowErrorHandlingModify())
+			throw new Exception('Error handling modify deny in Config');
+
 		$this->catchExceptions = $isEnable;
 	}
 
@@ -46,6 +51,9 @@ class ErrorHandling extends \net\mkharitonov\spectrum\core\plugins\Plugin
 	 */
 	public function setCatchPhpErrors($errorReportingLevel)
 	{
+		if (!Config::getAllowErrorHandlingModify())
+			throw new Exception('Error handling modify deny in Config');
+
 		if ($errorReportingLevel === true)
 			$errorReportingLevel = -1;
 		else if ($errorReportingLevel !== null)
@@ -69,6 +77,9 @@ class ErrorHandling extends \net\mkharitonov\spectrum\core\plugins\Plugin
 	 */
 	public function setBreakOnFirstPhpError($isEnable)
 	{
+		if (!Config::getAllowErrorHandlingModify())
+			throw new Exception('Error handling modify deny in Config');
+
 		$this->breakOnFirstPhpError = $isEnable;
 	}
 
@@ -86,6 +97,9 @@ class ErrorHandling extends \net\mkharitonov\spectrum\core\plugins\Plugin
 
 	public function setBreakOnFirstMatcherFail($isEnable)
 	{
+		if (!Config::getAllowErrorHandlingModify())
+			throw new Exception('Error handling modify deny in Config');
+
 		$this->breakOnFirstMatcherFail = $isEnable;
 	}
 

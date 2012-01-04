@@ -11,6 +11,7 @@
 
 namespace net\mkharitonov\spectrum\core\plugins\basePlugins;
 require_once dirname(__FILE__) . '/../../../init.php';
+use net\mkharitonov\spectrum\core\Config;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
@@ -18,6 +19,27 @@ require_once dirname(__FILE__) . '/../../../init.php';
  */
 class OutputTest extends Test
 {
+	public function testSetInputEncoding_ShouldBeThrowExceptionIfNotAllowInputEncodingModify()
+	{
+		Config::setAllowInputEncodingModify(false);
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', 'Input encoding modify deny', function(){
+			$spec = new \net\mkharitonov\spectrum\core\SpecContainerDescribe();
+			$spec->output->setInputEncoding('koi-8');
+		});
+	}
+
+/**/
+
+	public function testSetOutputEncoding_ShouldBeThrowExceptionIfNotAllowOutputEncodingModify()
+	{
+		Config::setAllowOutputEncodingModify(false);
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', 'Output encoding modify deny', function(){
+			$spec = new \net\mkharitonov\spectrum\core\SpecContainerDescribe();
+			$spec->output->setOutputEncoding('koi-8');
+		});
+	}
+
+/**/
 
 	public function dataProviderConvertToOutputEncoding()
 	{

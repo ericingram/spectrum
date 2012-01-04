@@ -10,7 +10,8 @@
  */
 
 namespace net\mkharitonov\spectrum\core\plugins\basePlugins;
-use \net\mkharitonov\spectrum\core\Exception;
+use net\mkharitonov\spectrum\core\Config;
+use \net\mkharitonov\spectrum\core\plugins\Exception;
 use \net\mkharitonov\spectrum\core\SpecInterface;
 use \net\mkharitonov\spectrum\core\SpecContainerInterface;
 use \net\mkharitonov\spectrum\core\SpecContainerContextInterface;
@@ -34,6 +35,9 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 
 	public function setOutputDebug($isEnable)
 	{
+		if (!Config::getAllowLiveReportModify())
+			throw new Exception('Live report modify deny in Config');
+
 		$this->outputDebug = $isEnable;
 	}
 
@@ -56,6 +60,9 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 
 	public function setIndention($string)
 	{
+		if (!Config::getAllowLiveReportModify())
+			throw new Exception('Live report modify deny in Config');
+
 		$this->indention = $string;
 	}
 
@@ -89,6 +96,9 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 
 	public function setNewline($newline)
 	{
+		if (!Config::getAllowLiveReportModify())
+			throw new Exception('Live report modify deny in Config');
+
 		$this->newline = $newline;
 	}
 
