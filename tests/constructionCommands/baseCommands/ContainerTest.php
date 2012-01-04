@@ -20,26 +20,6 @@ require_once dirname(__FILE__) . '/../../init.php';
  */
 class ContainerTest extends \net\mkharitonov\spectrum\constructionCommands\baseCommands\Test
 {
-	public function testShouldBeCanAcceptCallbackWithoutName()
-	{
-		$describe = Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', function() use(&$isCalled) {
-			$isCalled = true;
-		});
-
-		$this->assertNull($describe->getName());
-		$this->assertTrue($isCalled);
-	}
-
-	public function testShouldBeCanAcceptNameAndCallback()
-	{
-		$describe = Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', 'foo', function() use(&$isCalled) {
-			$isCalled = true;
-		});
-
-		$this->assertEquals('foo', $describe->getName());
-		$this->assertTrue($isCalled);
-	}
-	
 	public function testShouldBeReturnNewSpecContainerInstance()
 	{
 		$describe1 = Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', 'foo', function(){});
@@ -63,6 +43,124 @@ class ContainerTest extends \net\mkharitonov\spectrum\constructionCommands\baseC
 		});
 		
 		$this->assertTrue($isCalled);
+	}
+
+/**/
+
+	public function testParamsVariants_ShouldBeAcceptName()
+	{
+		$describe = Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', 'foo');
+		$this->assertEquals('foo', $describe->getName());
+	}
+
+	public function testParamsVariants_ShouldBeAcceptNameAndSettingsString()
+	{
+		$describe = Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', 'foo', 'koi-8');
+		$this->assertEquals('foo', $describe->getName());
+		$this->assertEquals('koi-8', $describe->output->getInputEncoding());
+	}
+
+	public function testParamsVariants_ShouldBeAcceptNameAndSettingsInteger()
+	{
+		$describe = Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', 'foo', 2);
+		$this->assertEquals('foo', $describe->getName());
+		$this->assertEquals(2, $describe->errorHandling->getCatchPhpErrors());
+	}
+
+	public function testParamsVariants_ShouldBeAcceptNameAndSettingsBoolean()
+	{
+		$describe = Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', 'foo', true);
+		$this->assertEquals('foo', $describe->getName());
+		$this->assertEquals(-1, $describe->errorHandling->getCatchPhpErrors());
+	}
+
+	public function testParamsVariants_ShouldBeAcceptNameAndSettingsArray()
+	{
+		$describe = Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', 'foo', array('inputEncoding' => 'koi-8'));
+		$this->assertEquals('foo', $describe->getName());
+		$this->assertEquals('koi-8', $describe->output->getInputEncoding());
+	}
+
+/**/
+
+	public function testParamsVariants_ShouldBeAcceptCallback()
+	{
+		$describe = Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', function() use(&$isCalled) { $isCalled = true; });
+		$this->assertNull($describe->getName());
+		$this->assertTrue($isCalled);
+	}
+	
+	public function testParamsVariants_ShouldBeAcceptCallbackAndSettingsString()
+	{
+		$describe = Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', function() use(&$isCalled) { $isCalled = true; }, 'koi-8');
+		$this->assertNull($describe->getName());
+		$this->assertTrue($isCalled);
+		$this->assertEquals('koi-8', $describe->output->getInputEncoding());
+	}
+	
+	public function testParamsVariants_ShouldBeAcceptCallbackAndSettingsInteger()
+	{
+		$describe = Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', function() use(&$isCalled) { $isCalled = true; }, 2);
+		$this->assertNull($describe->getName());
+		$this->assertTrue($isCalled);
+		$this->assertEquals(2, $describe->errorHandling->getCatchPhpErrors());
+	}
+	
+	public function testParamsVariants_ShouldBeAcceptCallbackAndSettingsBoolean()
+	{
+		$describe = Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', function() use(&$isCalled) { $isCalled = true; }, true);
+		$this->assertNull($describe->getName());
+		$this->assertTrue($isCalled);
+		$this->assertEquals(-1, $describe->errorHandling->getCatchPhpErrors());
+	}
+	
+	public function testParamsVariants_ShouldBeAcceptCallbackAndSettingsArray()
+	{
+		$describe = Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', function() use(&$isCalled) { $isCalled = true; }, array('inputEncoding' => 'koi-8'));
+		$this->assertNull($describe->getName());
+		$this->assertTrue($isCalled);
+		$this->assertEquals('koi-8', $describe->output->getInputEncoding());
+	}
+
+/**/
+		
+	public function testParamsVariants_ShouldBeAcceptNameAndCallback()
+	{
+		$describe = Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', 'foo', function() use(&$isCalled) { $isCalled = true; });
+		$this->assertEquals('foo', $describe->getName());
+		$this->assertTrue($isCalled);
+	}
+	
+	public function testParamsVariants_ShouldBeAcceptNameAndCallbackAndSettingsString()
+	{
+		$describe = Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', 'foo', function() use(&$isCalled) { $isCalled = true; }, 'koi-8');
+		$this->assertEquals('foo', $describe->getName());
+		$this->assertTrue($isCalled);
+		$this->assertEquals('koi-8', $describe->output->getInputEncoding());
+	}
+	
+	public function testParamsVariants_ShouldBeAcceptNameAndCallbackAndSettingsInteger()
+	{
+		$describe = Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', 'foo', function() use(&$isCalled) { $isCalled = true; }, 2);
+		$this->assertEquals('foo', $describe->getName());
+		$this->assertTrue($isCalled);
+		$this->assertEquals(2, $describe->errorHandling->getCatchPhpErrors());
+	}
+	
+	public function testParamsVariants_ShouldBeAcceptNameAndCallbackAndSettingsBoolean()
+	{
+		$describe = Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', 'foo', function() use(&$isCalled) { $isCalled = true; }, true);
+		$this->assertEquals('foo', $describe->getName());
+		$this->assertTrue($isCalled);
+		$this->assertEquals(-1, $describe->errorHandling->getCatchPhpErrors());
+	}
+	
+	public function testParamsVariants_ShouldBeAcceptNameAndCallbackAndSettingsArray()
+	{
+		$describe = Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', 'foo', function() use(&$isCalled) { $isCalled = true; }, array('inputEncoding' => 'koi-8'));
+		$this->assertEquals('foo', $describe->getName());
+		$this->assertTrue($isCalled);
+		$this->assertEquals('koi-8', $describe->output->getInputEncoding());
 	}
 
 /**/

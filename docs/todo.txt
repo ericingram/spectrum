@@ -1,13 +1,21 @@
-Параметры конфигурации
-array('encoding' => '')
-it('', 'utf-8')
-it('', E_ALL)
-it('', false)
-удалить из документации todo
+Дописать и перезалить документацию по setSpecSettings
 
-core\Config — new methods
-constructionCommands\Config — new methods
-setAllowEncodingChange
+readme.md:
+	"describe('Search person'" заменить на "describe('findPerson() method'"
+
+
+ErrorHandlingTest
+
+report:
+	Заменить list-style: outside на inside, что бы цифры комировались в буфер
+	Тире с окружающими пробелами вставить в HTML, что бы копировалось в буфер
+
+output:
+	if ($spec->getName() == $name), перекодировать надо, convertToInternalEncoding?
+
+Реализовать новые методв с Config классах ядра и команд конструирования
+setAllowInputEncodingChange
+setAllowOutputEncodingChange
 
 constrctionCommands\IncludeTest — может разместить в тестах соответствующих спеков?
 

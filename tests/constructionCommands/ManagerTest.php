@@ -36,6 +36,8 @@ class ManagerTest extends \net\mkharitonov\spectrum\Test
 			'getCurrentContainer' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\getCurrentContainer',
 			'getCurrentItem' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\getCurrentItem',
 
+			'setSpecSettings' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\setSpecSettings',
+
 			'isDeclaringState' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\isDeclaringState',
 			'isRunningState' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\isRunningState',
 		), Manager::getRegisteredCommands());

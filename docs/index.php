@@ -1434,23 +1434,6 @@ CODE
 ?>
 	</li>
 
-	<li><p>Добавить возможность задавать параметры обработки ошибок через команды конструирования it/describe/context:</p>
-
-<?php
-printExample('', <<<'CODE'
-	it('Должен', function(){}, E_ALL);
-	
-	it('Должен', function(){}, array(
-		'catchExceptions' => true,
-		'breakOnFirstMatcherFail' => true,
-		// и т.п.
-	));
-
-CODE
-, array('noResult'));
-?>
-	</li>
-
 	<li><p>Добавить дополнительных творцов: beforeAll(), afterAll() и т.п.</p></li>
 
 	<li><p>Доработать отчеты</p></li>

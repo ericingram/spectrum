@@ -12,6 +12,16 @@
 namespace net\mkharitonov\spectrum\constructionCommands\baseCommands;
 
 /**
+ * Support params variants:
+ * describe($name)
+ * describe($name, $settings)
+ *
+ * describe($callback)
+ * describe($callback, $settings)
+ *
+ * describe($name, $callback)
+ * describe($name, $callback, $settings)
+ *
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  * @throws \net\mkharitonov\spectrum\constructionCommands\Exception If called not at declaring state
@@ -19,12 +29,12 @@ namespace net\mkharitonov\spectrum\constructionCommands\baseCommands;
  * @param  callback|null $callback
  * @return \net\mkharitonov\spectrum\core\SpecContainerDescribe
  */
-function describe($nameOrCallback, $callback = null)
+function describe($name = null, $callback = null, $settings = array())
 {
 	$managerClass = \net\mkharitonov\spectrum\constructionCommands\Config::getManagerClass();
 	if (!$managerClass::isDeclaringState())
 		throw new \net\mkharitonov\spectrum\constructionCommands\Exception('Construction command "describe" should be call only at declaring state');
 
-	return $managerClass::container(\net\mkharitonov\spectrum\core\Config::getSpecContainerDescribeClass(), $nameOrCallback, $callback);
+	return $managerClass::container(\net\mkharitonov\spectrum\core\Config::getSpecContainerDescribeClass(), $name, $callback, $settings);
 }
 

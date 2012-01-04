@@ -22,106 +22,145 @@ require_once dirname(__FILE__) . '/../../init.php';
  */
 class ItTest extends \net\mkharitonov\spectrum\constructionCommands\baseCommands\Test
 {
-	public function testNoArguments_ShouldBeReturnEmptySpecItemItInstance()
+	public function testParamsVariants_ShouldBeAcceptName()
 	{
-		$this->assertSpecIsItemIt(null, array(), null, Manager::it());
+		$it = Manager::it('foo');
+		$this->assertTrue($it instanceof SpecItemIt);
+		$this->assertEquals('foo', $it->getName());
 	}
 
-	public function testOneArgument_ShouldBeReturnSpecItemItInstanceWithName()
+	public function testParamsVariants_ShouldBeAcceptNameAndSettingsString()
 	{
-		$this->assertSpecIsItemIt('foo name', array(), null, Manager::it('foo name'));
+		$it = Manager::it('foo', 'koi-8');
+		$this->assertTrue($it instanceof SpecItemIt);
+		$this->assertEquals('foo', $it->getName());
+		$this->assertEquals('koi-8', $it->output->getInputEncoding());
 	}
 
-	public function testTwoArgument_ShouldBeReturnSpecItemItInstanceWithNameAndTestCallback()
+	public function testParamsVariants_ShouldBeAcceptNameAndSettingsInteger()
+	{
+		$it = Manager::it('foo', 2);
+		$this->assertTrue($it instanceof SpecItemIt);
+		$this->assertEquals('foo', $it->getName());
+		$this->assertEquals(2, $it->errorHandling->getCatchPhpErrors());
+	}
+
+	public function testParamsVariants_ShouldBeAcceptNameAndSettingsBoolean()
+	{
+		$it = Manager::it('foo', true);
+		$this->assertTrue($it instanceof SpecItemIt);
+		$this->assertEquals('foo', $it->getName());
+		$this->assertEquals(-1, $it->errorHandling->getCatchPhpErrors());
+	}
+
+	public function testParamsVariants_ShouldBeAcceptNameAndSettingsArray()
+	{
+		$it = Manager::it('foo', array('inputEncoding' => 'koi-8'));
+		$this->assertTrue($it instanceof SpecItemIt);
+		$this->assertEquals('foo', $it->getName());
+		$this->assertEquals('koi-8', $it->output->getInputEncoding());
+	}
+	
+/**/
+
+	public function testParamsVariants_ShouldBeAcceptNameAndTestCallback()
 	{
 		$testCallback = function(){};
-		$this->assertSpecIsItemIt('foo name', array(), $testCallback, Manager::it('foo name', $testCallback));
+		$it = Manager::it('foo', $testCallback);
+		$this->assertTrue($it instanceof SpecItemIt);
+		$this->assertEquals('foo', $it->getName());
+		$this->assertSame($testCallback, $it->getTestCallback());
 	}
-
-	public function testThreeArgument_ThirdArgumentIsNull_ShouldBeReturnSpecItemItInstanceWithNameAndTestCallback()
+	
+	public function testParamsVariants_ShouldBeAcceptNameAndTestCallbackAndSettingsString()
 	{
 		$testCallback = function(){};
-		$this->assertSpecIsItemIt('foo name', array(), $testCallback, Manager::it('foo name', $testCallback));
+		$it = Manager::it('foo', $testCallback, 'koi-8');
+		$this->assertTrue($it instanceof SpecItemIt);
+		$this->assertEquals('foo', $it->getName());
+		$this->assertSame($testCallback, $it->getTestCallback());
+		$this->assertEquals('koi-8', $it->output->getInputEncoding());
 	}
-
-	public function testThreeArgument_SecondArgumentIsNull_ShouldBeReturnSpecItemItInstanceWithNameAndTestCallback()
+	
+	public function testParamsVariants_ShouldBeAcceptNameAndTestCallbackAndSettingsInteger()
 	{
 		$testCallback = function(){};
-		$this->assertSpecIsItemIt('foo name', array(), $testCallback, Manager::it('foo name', $testCallback));
+		$it = Manager::it('foo', $testCallback, 2);
+		$this->assertTrue($it instanceof SpecItemIt);
+		$this->assertEquals('foo', $it->getName());
+		$this->assertSame($testCallback, $it->getTestCallback());
+		$this->assertEquals(2, $it->errorHandling->getCatchPhpErrors());
+	}
+	
+	public function testParamsVariants_ShouldBeAcceptNameAndTestCallbackAndSettingsBoolean()
+	{
+		$testCallback = function(){};
+		$it = Manager::it('foo', $testCallback, true);
+		$this->assertTrue($it instanceof SpecItemIt);
+		$this->assertEquals('foo', $it->getName());
+		$this->assertSame($testCallback, $it->getTestCallback());
+		$this->assertEquals(-1, $it->errorHandling->getCatchPhpErrors());
+	}
+	
+	public function testParamsVariants_ShouldBeAcceptNameAndTestCallbackAndSettingsArray()
+	{
+		$testCallback = function(){};
+		$it = Manager::it('foo', $testCallback, array('inputEncoding' => 'koi-8'));
+		$this->assertTrue($it instanceof SpecItemIt);
+		$this->assertEquals('foo', $it->getName());
+		$this->assertSame($testCallback, $it->getTestCallback());
+		$this->assertEquals('koi-8', $it->output->getInputEncoding());
 	}
 
 /**/
 
-	public function testThreeArgument_SecondArgumentIsEmptyArray_ShouldBeReturnEmptyArgumentsProviderContainer()
+	public function testParamsVariants_ShouldBeAcceptNameAndArgumentsProviderAndTestCallback()
 	{
 		$testCallback = function(){};
-		$spec = Manager::it('some spec', array(), $testCallback);
-
+		$spec = Manager::it('foo', array('bar'), $testCallback);
 		$this->assertTrue($spec instanceof SpecContainerArgumentsProvider);
-		$this->assertSame('some spec', $spec->getName());
-		$this->assertSame(array(), $spec->getSpecs());
+		$this->assertEquals(1, count($spec->getSpecs()));
+		$this->assertEquals('foo', $spec->getName());
 	}
 
-	public function testThreeArgument_SecondArgumentIsOneItemArray_ShouldBeReturnArgumentsProviderContainer()
+	public function testParamsVariants_ShouldBeAcceptNameAndArgumentsProviderAndTestCallbackAndSettingsString()
 	{
 		$testCallback = function(){};
-		$spec = Manager::it('some spec', array('foo'), $testCallback);
-
-		$this->assertSpecIsContainerArgumentsProvider('some spec', 1, $spec);
-
-		$children = $spec->getSpecs();
-		$this->assertSpecIsItemIt(null, array('foo'), $testCallback, $children[0]);
+		$spec = Manager::it('foo', array('bar'), $testCallback, 'koi-8');
+		$this->assertTrue($spec instanceof SpecContainerArgumentsProvider);
+		$this->assertEquals(1, count($spec->getSpecs()));
+		$this->assertEquals('foo', $spec->getName());
+		$this->assertEquals('koi-8', $spec->output->getInputEncoding());
 	}
 
-	public function testThreeArgument_SecondArgumentIsManyItemsArray_OneArgumentRows_ShouldBeReturnArgumentsProviderContainer()
+	public function testParamsVariants_ShouldBeAcceptNameAndArgumentsProviderAndTestCallbackAndSettingsInteger()
 	{
 		$testCallback = function(){};
-		$spec = Manager::it('some spec', array(
-			'foo',
-			'bar',
-			'baz',
-		), $testCallback);
-
-		$this->assertSpecIsContainerArgumentsProvider('some spec', 3, $spec);
-
-		$children = $spec->getSpecs();
-		$this->assertSpecIsItemIt(null, array('foo'), $testCallback, $children[0]);
-		$this->assertSpecIsItemIt(null, array('bar'), $testCallback, $children[1]);
-		$this->assertSpecIsItemIt(null, array('baz'), $testCallback, $children[2]);
+		$spec = Manager::it('foo', array('bar'), $testCallback, 2);
+		$this->assertTrue($spec instanceof SpecContainerArgumentsProvider);
+		$this->assertEquals(1, count($spec->getSpecs()));
+		$this->assertEquals('foo', $spec->getName());
+		$this->assertEquals(2, $spec->errorHandling->getCatchPhpErrors());
 	}
 
-	public function testThreeArgument_SecondArgumentIsManyItemsArray_ManyArgumentsRows_ShouldBeReturnArgumentsProviderContainer()
+	public function testParamsVariants_ShouldBeAcceptNameAndArgumentsProviderAndTestCallbackAndSettingsBoolean()
 	{
 		$testCallback = function(){};
-		$spec = Manager::it('some spec', array(
-			array('foo1', 'foo2'),
-			array('bar1', 'bar2'),
-			array('baz1', 'baz2', 'baz3'),
-		), $testCallback);
-
-		$this->assertSpecIsContainerArgumentsProvider('some spec', 3, $spec);
-
-		$children = $spec->getSpecs();
-		$this->assertSpecIsItemIt(null, array('foo1', 'foo2'), $testCallback, $children[0]);
-		$this->assertSpecIsItemIt(null, array('bar1', 'bar2'), $testCallback, $children[1]);
-		$this->assertSpecIsItemIt(null, array('baz1', 'baz2', 'baz3'), $testCallback, $children[2]);
+		$spec = Manager::it('foo', array('bar'), $testCallback, true);
+		$this->assertTrue($spec instanceof SpecContainerArgumentsProvider);
+		$this->assertEquals(1, count($spec->getSpecs()));
+		$this->assertEquals('foo', $spec->getName());
+		$this->assertEquals(-1, $spec->errorHandling->getCatchPhpErrors());
 	}
 
-	public function testThreeArgument_SecondArgumentIsManyItemsArray_MixedArgumentsRows_ShouldBeReturnArgumentsProviderContainer()
+	public function testParamsVariants_ShouldBeAcceptNameAndArgumentsProviderAndTestCallbackAndSettingsArray()
 	{
 		$testCallback = function(){};
-		$spec = Manager::it('some spec', array(
-			array('foo'),
-			'bar',
-			array('baz1', 'baz2'),
-		), $testCallback);
-
-		$this->assertSpecIsContainerArgumentsProvider('some spec', 3, $spec);
-
-		$children = $spec->getSpecs();
-		$this->assertSpecIsItemIt(null, array('foo'), $testCallback, $children[0]);
-		$this->assertSpecIsItemIt(null, array('bar'), $testCallback, $children[1]);
-		$this->assertSpecIsItemIt(null, array('baz1', 'baz2'), $testCallback, $children[2]);
+		$spec = Manager::it('foo', array('bar'), $testCallback, array('inputEncoding' => 'koi-8'));
+		$this->assertTrue($spec instanceof SpecContainerArgumentsProvider);
+		$this->assertEquals(1, count($spec->getSpecs()));
+		$this->assertEquals('foo', $spec->getName());
+		$this->assertEquals('koi-8', $spec->output->getInputEncoding());
 	}
 
 /**/
@@ -179,23 +218,5 @@ class ItTest extends \net\mkharitonov\spectrum\constructionCommands\baseCommands
 		});
 
 		$this->assertSame(array($it), $context->getSpecs());
-	}
-	
-/*** Test ware ***/
-
-
-	protected function assertSpecIsItemIt($name, array $arguments, $testCallback, $spec)
-	{
-		$this->assertTrue($spec instanceof SpecItemIt);
-		$this->assertSame($name, $spec->getName());
-		$this->assertSame($arguments, $spec->getAdditionalArguments());
-		$this->assertSame($testCallback, $spec->getTestCallback());
-	}
-
-	protected function assertSpecIsContainerArgumentsProvider($name, $childrenCount, $spec)
-	{
-		$this->assertTrue($spec instanceof SpecContainerArgumentsProvider);
-		$this->assertSame($name, $spec->getName());
-		$this->assertSame($childrenCount, count($spec->getSpecs()));
 	}
 }

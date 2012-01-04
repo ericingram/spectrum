@@ -26,6 +26,8 @@ require_once dirname(__FILE__) . '/baseCommands/setCurrentContainer.php';
 require_once dirname(__FILE__) . '/baseCommands/getCurrentContainer.php';
 require_once dirname(__FILE__) . '/baseCommands/getCurrentItem.php';
 
+require_once dirname(__FILE__) . '/baseCommands/setSpecSettings.php';
+
 require_once dirname(__FILE__) . '/baseCommands/isDeclaringState.php';
 require_once dirname(__FILE__) . '/baseCommands/isRunningState.php';
 
@@ -46,6 +48,7 @@ require_once dirname(__FILE__) . '/baseCommands/isRunningState.php';
  * @method isRunningState()
  * @method \net\mkharitonov\spectrum\core\SpecItemIt it()
  * @method setCurrentContainer()
+ * @method setSpecSettings()
  */
 class Manager implements ManagerInterface
 {
@@ -64,6 +67,8 @@ class Manager implements ManagerInterface
 		'setCurrentContainer' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\setCurrentContainer',
 		'getCurrentContainer' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\getCurrentContainer',
 		'getCurrentItem' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\getCurrentItem',
+
+		'setSpecSettings' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\setSpecSettings',
 
 		'isDeclaringState' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\isDeclaringState',
 		'isRunningState' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\isRunningState',
