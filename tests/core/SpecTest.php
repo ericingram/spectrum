@@ -24,17 +24,9 @@ abstract class SpecTest extends Test
 		$this->assertNull($spec->getName());
 	}
 
-	public function testConstructor_ShouldBeCanAcceptNameOnly()
-	{
-		$spec = $this->createCurrentSpec('foo name');
-		$this->assertEquals('foo name', $spec->getName());
-	}
-
-
 /**/
 	public function testCallPlugin_WhenConstructOnce_ShouldBeCreatePluginInSpecConstructorAndReturnCreatedInstanceLater()
 	{
-		\net\mkharitonov\spectrum\core\plugins\Manager::unregisterAllPlugins();
 		\net\mkharitonov\spectrum\core\plugins\Manager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\testEnv\PluginStub', 'whenConstructOnce');
 
 		$spec = $this->createCurrentSpec();
@@ -49,7 +41,6 @@ abstract class SpecTest extends Test
 
 	public function testCallPlugin_WhenCallOnce_ShouldBeCreatePluginOnlyWhenFirstCallAndReturnCreatedInstanceLater()
 	{
-		\net\mkharitonov\spectrum\core\plugins\Manager::unregisterAllPlugins();
 		\net\mkharitonov\spectrum\core\plugins\Manager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\testEnv\PluginStub', 'whenCallOnce');
 
 		$spec = $this->createCurrentSpec();
@@ -66,7 +57,6 @@ abstract class SpecTest extends Test
 
 	public function testCallPlugin_WhenCallAlways_ShouldBeCreatePluginWhenCallAlwaysAndReturnNewInstanceLater()
 	{
-		\net\mkharitonov\spectrum\core\plugins\Manager::unregisterAllPlugins();
 		\net\mkharitonov\spectrum\core\plugins\Manager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\testEnv\PluginStub', 'whenCallAlways');
 
 		$spec = $this->createCurrentSpec();
@@ -85,7 +75,6 @@ abstract class SpecTest extends Test
 
 	public function testCallPlugin_ShouldBeSupportAccessThroughMagicGetProperty()
 	{
-		\net\mkharitonov\spectrum\core\plugins\Manager::unregisterAllPlugins();
 		\net\mkharitonov\spectrum\core\plugins\Manager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\testEnv\PluginStub', 'whenCallAlways');
 
 		$spec = $this->createCurrentSpec();
@@ -95,7 +84,6 @@ abstract class SpecTest extends Test
 
 	public function testCallPlugin_ShouldBeThrowExceptionIfPluginWithAccessNameNotExists()
 	{
-		\net\mkharitonov\spectrum\core\plugins\Manager::unregisterAllPlugins();
 		\net\mkharitonov\spectrum\core\plugins\Manager::registerPlugin('foo');
 
 		$spec = $this->createCurrentSpec();

@@ -28,6 +28,7 @@ class SpecItemIt extends SpecItem implements SpecItemItInterface
 
 	public function setTestCallback($callback)
 	{
+		$this->handleSpecModifyDeny();
 		$this->testCallback = $callback;
 	}
 
@@ -40,6 +41,7 @@ class SpecItemIt extends SpecItem implements SpecItemItInterface
 
 	public function setAdditionalArguments(array $args)
 	{
+		$this->handleSpecModifyDeny();
 		$this->additionalArguments = $args;
 	}
 

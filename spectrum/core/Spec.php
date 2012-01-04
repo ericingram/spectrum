@@ -34,10 +34,8 @@ abstract class Spec implements SpecInterface
 	protected $activatedPlugins = array();
 	protected $isRunning = false;
 
-	public function __construct($name = null)
+	public function __construct()
 	{
-		$this->setName($name);
-
 		$class = Config::getPluginsManagerClass();
 		foreach ($class::getRegisteredPlugins() as $pluginAccessName => $plugin)
 		{
@@ -92,6 +90,7 @@ abstract class Spec implements SpecInterface
 
 	public function setName($name)
 	{
+		$this->handleSpecModifyDeny();
 		$this->name = $name;
 	}
 
@@ -137,6 +136,7 @@ abstract class Spec implements SpecInterface
 
 	public function setParent(SpecContainerInterface $spec = null)
 	{
+		$this->handleSpecModifyDeny();
 		$this->parent = $spec;
 	}
 
@@ -150,6 +150,7 @@ abstract class Spec implements SpecInterface
 
 	public function removeFromParent()
 	{
+		$this->handleSpecModifyDeny();
 		if ($this->getParent())
 		{
 			$this->getParent()->removeSpec($this);
@@ -161,12 +162,14 @@ abstract class Spec implements SpecInterface
 
 	public function enable()
 	{
+		$this->handleSpecModifyDeny();
 		$this->isEnabled = true;
 		$this->isEnabledTemporarily = null;
 	}
 
 	public function disable()
 	{
+		$this->handleSpecModifyDeny();
 		$this->isEnabled = false;
 		$this->isEnabledTemporarily = null;
 	}
@@ -265,5 +268,13 @@ abstract class Spec implements SpecInterface
 			return true;
 		else
 			return null;
+	}
+
+/**/
+
+	protected function handleSpecModifyDeny()
+	{
+		if (!Config::getAllowSpecsModifyWhenRunning() && $this->selector->getRoot()->isRunning())
+			throw new Exception('Modify specs when running deny in Config');
 	}
 }

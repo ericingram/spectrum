@@ -35,6 +35,7 @@ class Config
 	private static $allowLiveReportModify = true;
 	private static $allowInputEncodingModify = true;
 	private static $allowOutputEncodingModify = true;
+	private static $allowSpecsModifyWhenRunning = false;
 
 	private static $locked = false;
 
@@ -91,6 +92,12 @@ class Config
 
 	public static function setAllowOutputEncodingModify($isEnable){ return static::setConfigValue(static::$allowOutputEncodingModify, $isEnable); }
 	public static function getAllowOutputEncodingModify(){ return static::$allowOutputEncodingModify; }
+
+	/**
+	 * Use this method for protection against possible tests structure damage from tested code.
+	 */
+	public static function setAllowSpecsModifyWhenRunning($isEnable){ return static::setConfigValue(static::$allowSpecsModifyWhenRunning, $isEnable); }
+	public static function getAllowSpecsModifyWhenRunning(){ return self::$allowSpecsModifyWhenRunning; }
 
 	public static function lock(){ static::$locked = true; }
 	public static function isLocked(){ return static::$locked; }

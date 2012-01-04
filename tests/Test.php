@@ -69,6 +69,7 @@ abstract class Test extends \PHPUnit_Framework_TestCase
 
 	public function testCreateSpecsTree_ShouldBeReturnCreatedSpecsWithNamesOrIndexes()
 	{
+		$this->restoreStaticProperties('\net\mkharitonov\spectrum\core\plugins\Manager');
 		$specs = $this->createSpecsTree('
 			Describe
 			->Context(foo)
@@ -86,6 +87,7 @@ abstract class Test extends \PHPUnit_Framework_TestCase
 
 	final public function testCreateSpecsTree_ShouldBeReturnPreparedInstanceIfExists()
 	{
+		$this->restoreStaticProperties('\net\mkharitonov\spectrum\core\plugins\Manager');
 		$describe = new \net\mkharitonov\spectrum\core\SpecContainerDescribe();
 		$it = new \net\mkharitonov\spectrum\core\SpecItemIt();
 
@@ -169,6 +171,7 @@ abstract class Test extends \PHPUnit_Framework_TestCase
 
 	final public function testCreateSpecsTree_ShouldBeAddChildSpecsToParent()
 	{
+		$this->restoreStaticProperties('\net\mkharitonov\spectrum\core\plugins\Manager');
 		$specs = $this->createSpecsTree('
 			Describe
 			->Context

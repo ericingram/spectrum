@@ -11,6 +11,8 @@
 
 namespace net\mkharitonov\spectrum\core\specItemIt;
 use net\mkharitonov\spectrum\core\SpecItemIt;
+use net\mkharitonov\spectrum\core\Config;
+use \net\mkharitonov\spectrum\core\SpecContainerDescribe;
 
 require_once dirname(__FILE__) . '/../../init.php';
 
@@ -29,34 +31,110 @@ class OtherTest extends Test
 		$this->assertSame(array(), $it->getAdditionalArguments());
 	}
 
-	public function testConstructor_ShouldBeCanAcceptNameOnly()
-	{
-		$it = new SpecItemIt('foo name');
+/**/
 
-		$this->assertEquals('foo name', $it->getName());
-		$this->assertNull($it->getTestCallback());
-		$this->assertSame(array(), $it->getAdditionalArguments());
+	public function testSetName_ShouldBeThrowExceptionIfNotAllowSpecsModifyWhenRunning()
+	{
+		Config::setAllowSpecsModifyWhenRunning(false);
+
+		$spec = $this->createCurrentSpec();
+		$spec->errorHandling->setCatchExceptions(false);
+		$spec->setTestCallback(function() use($spec){
+			$spec->setName('foo');
+		});
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Modify specs when running deny', function() use($spec){
+			$spec->run();
+		});
 	}
 
-//	public function testConstructor_ShouldBeCanAcceptNameAndTestCallback()
-//	{
-//		$callback = function(){};
-//		$it = new SpecItemIt('foo name', $callback);
-//
-//		$this->assertEquals('foo name', $it->getName());
-//		$this->assertSame($callback, $it->getTestCallback());
-//		$this->assertSame(array(), $it->getAdditionalArguments());
-//	}
-//
-//	public function testConstructor_ShouldBeCanAcceptNameAndTestCallbackAndAdditionalArguments()
-//	{
-//		$callback = function(){};
-//		$it = new SpecItemIt('foo name', $callback, array('foo', 'bar'));
-//
-//		$this->assertEquals('foo name', $it->getName());
-//		$this->assertSame($callback, $it->getTestCallback());
-//		$this->assertSame(array('foo', 'bar'), $it->getAdditionalArguments());
-//	}
+	public function testHandleSpecModifyDeny_ShouldBeDetectRunningStateByRootSpec()
+	{
+		Config::setAllowSpecsModifyWhenRunning(false);
+
+		$specs = $this->createSpecsTree('
+			Describe
+			->It
+			->It
+		');
+
+		$specs[0]->errorHandling->setCatchExceptions(false);
+		$specs[1]->setTestCallback(function() use($specs){
+			$specs[2]->setName('foo');
+		});
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Modify specs when running deny', function() use($specs){
+			$specs[0]->run();
+		});
+	}
+
+/**/
+
+	public function testSetParent_ShouldBeThrowExceptionIfNotAllowSpecsModifyWhenRunning()
+	{
+		Config::setAllowSpecsModifyWhenRunning(false);
+
+		$spec = $this->createCurrentSpec();
+		$spec->errorHandling->setCatchExceptions(false);
+		$spec->setTestCallback(function() use($spec){
+			$spec->setParent(new SpecContainerDescribe());
+		});
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Modify specs when running deny', function() use($spec){
+			$spec->run();
+		});
+	}
+
+/**/
+
+	public function testRemoveFromParent_ShouldBeThrowExceptionIfNotAllowSpecsModifyWhenRunning()
+	{
+		Config::setAllowSpecsModifyWhenRunning(false);
+
+		$spec = $this->createCurrentSpec();
+		$spec->errorHandling->setCatchExceptions(false);
+		$spec->setTestCallback(function() use($spec){
+			$spec->removeFromParent();
+		});
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Modify specs when running deny', function() use($spec){
+			$spec->run();
+		});
+	}
+
+/**/
+
+	public function testEnable_ShouldBeThrowExceptionIfNotAllowSpecsModifyWhenRunning()
+	{
+		Config::setAllowSpecsModifyWhenRunning(false);
+
+		$spec = $this->createCurrentSpec();
+		$spec->errorHandling->setCatchExceptions(false);
+		$spec->setTestCallback(function() use($spec){
+			$spec->enable();
+		});
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Modify specs when running deny', function() use($spec){
+			$spec->run();
+		});
+	}
+
+/**/
+
+	public function testDisable_ShouldBeThrowExceptionIfNotAllowSpecsModifyWhenRunning()
+	{
+		Config::setAllowSpecsModifyWhenRunning(false);
+
+		$spec = $this->createCurrentSpec();
+		$spec->errorHandling->setCatchExceptions(false);
+		$spec->setTestCallback(function() use($spec){
+			$spec->disable();
+		});
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Modify specs when running deny', function() use($spec){
+			$spec->run();
+		});
+	}
 
 /**/
 
@@ -99,15 +177,20 @@ class OtherTest extends Test
 		$this->assertTrue($it->run());
 	}
 
-//	public function testSetTestCallback_ShouldBeAcceptCallbackArray()
-//	{
-//		$it = new SpecItemIt();
-//
-//		\net\mkharitonov\spectrum\Test::$tmp['testSpec'] = $it;
-//		$it->setTestCallback(array(__CLASS__, 'myTestCallback'));
-//
-//		$this->assertTrue($it->run());
-//	}
+	public function testSetTestCallback_ShouldBeThrowExceptionIfNotAllowSpecsModifyWhenRunning()
+	{
+		Config::setAllowSpecsModifyWhenRunning(false);
+
+		$spec = $this->createCurrentSpec();
+		$spec->errorHandling->setCatchExceptions(false);
+		$spec->setTestCallback(function() use($spec){
+			$spec->setTestCallback(function(){});
+		});
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Modify specs when running deny', function() use($spec){
+			$spec->run();
+		});
+	}
 
 /**/
 
@@ -134,6 +217,21 @@ class OtherTest extends Test
 		$it = new SpecItemIt();
 		$it->setAdditionalArguments(array('foo', 'bar'));
 		$this->assertSame(array('foo', 'bar'), $it->getAdditionalArguments());
+	}
+
+	public function testSetAdditionalArguments_ShouldBeThrowExceptionIfNotAllowSpecsModifyWhenRunning()
+	{
+		Config::setAllowSpecsModifyWhenRunning(false);
+
+		$spec = $this->createCurrentSpec();
+		$spec->errorHandling->setCatchExceptions(false);
+		$spec->setTestCallback(function() use($spec){
+			$spec->setAdditionalArguments(array());
+		});
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Modify specs when running deny', function() use($spec){
+			$spec->run();
+		});
 	}
 
 /**/

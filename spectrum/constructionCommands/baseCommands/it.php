@@ -59,13 +59,15 @@ function it($name, $argumentsProvider = null, $testCallback = null, $settings = 
 			throw new \net\mkharitonov\spectrum\constructionCommands\Exception('Construction command "it" should be accept array as $argumentsProvider (now passed "' . gettype($argumentsProvider) . '")');
 
 		$argumentsProviderClass = \net\mkharitonov\spectrum\core\Config::getSpecContainerArgumentsProviderClass();
-		$spec = new $argumentsProviderClass($name);
+		$spec = new $argumentsProviderClass();
+		$spec->setName($name);
 		$spec->createSpecItemForEachArgumentsRow($testCallback, $argumentsProvider);
 	}
 	else
 	{
 		$itClass = \net\mkharitonov\spectrum\core\Config::getSpecItemItClass();
-		$spec = new $itClass($name);
+		$spec = new $itClass();
+		$spec->setName($name);
 		$spec->setTestCallback($testCallback);
 	}
 

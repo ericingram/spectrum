@@ -66,6 +66,166 @@ abstract class SpecContainerTest extends SpecTest
 
 /**/
 
+	public function testSetName_ShouldBeThrowExceptionIfNotAllowSpecsModifyWhenRunning()
+	{
+		Config::setAllowSpecsModifyWhenRunning(false);
+		$specs = $this->createSpecsTree('
+			' . $this->currentSpecClass . '
+			->It
+		');
+
+		$specs[0]->errorHandling->setCatchExceptions(false);
+		$specs[1]->setTestCallback(function() use($specs){
+			$specs[0]->setName('foo');
+		});
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Modify specs when running deny', function() use($specs){
+			$specs[0]->run();
+		});
+	}
+
+/**/
+
+	public function testSetParent_ShouldBeThrowExceptionIfNotAllowSpecsModifyWhenRunning()
+	{
+		Config::setAllowSpecsModifyWhenRunning(false);
+		$specs = $this->createSpecsTree('
+			' . $this->currentSpecClass . '
+			->It
+		');
+
+		$specs[0]->errorHandling->setCatchExceptions(false);
+		$specs[1]->setTestCallback(function() use($specs){
+			$specs[0]->setParent(new SpecContainerDescribe());
+		});
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Modify specs when running deny', function() use($specs){
+			$specs[0]->run();
+		});
+	}
+
+/**/
+
+	public function testRemoveFromParent_ShouldBeThrowExceptionIfNotAllowSpecsModifyWhenRunning()
+	{
+		Config::setAllowSpecsModifyWhenRunning(false);
+		$specs = $this->createSpecsTree('
+			' . $this->currentSpecClass . '
+			->It
+		');
+
+		$specs[0]->errorHandling->setCatchExceptions(false);
+		$specs[1]->setTestCallback(function() use($specs){
+			$specs[0]->removeFromParent();
+		});
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Modify specs when running deny', function() use($specs){
+			$specs[0]->run();
+		});
+	}
+
+/**/
+
+	public function testEnable_ShouldBeThrowExceptionIfNotAllowSpecsModifyWhenRunning()
+	{
+		Config::setAllowSpecsModifyWhenRunning(false);
+		$specs = $this->createSpecsTree('
+			' . $this->currentSpecClass . '
+			->It
+		');
+
+		$specs[0]->errorHandling->setCatchExceptions(false);
+		$specs[1]->setTestCallback(function() use($specs){
+			$specs[0]->enable();
+		});
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Modify specs when running deny', function() use($specs){
+			$specs[0]->run();
+		});
+	}
+
+/**/
+
+	public function testDisable_ShouldBeThrowExceptionIfNotAllowSpecsModifyWhenRunning()
+	{
+		Config::setAllowSpecsModifyWhenRunning(false);
+		$specs = $this->createSpecsTree('
+			' . $this->currentSpecClass . '
+			->It
+		');
+
+		$specs[0]->errorHandling->setCatchExceptions(false);
+		$specs[1]->setTestCallback(function() use($specs){
+			$specs[0]->disable();
+		});
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Modify specs when running deny', function() use($specs){
+			$specs[0]->run();
+		});
+	}
+
+/**/
+
+	public function testAddSpec_ShouldBeThrowExceptionIfNotAllowSpecsModifyWhenRunning()
+	{
+		Config::setAllowSpecsModifyWhenRunning(false);
+		$specs = $this->createSpecsTree('
+			' . $this->currentSpecClass . '
+			->It
+		');
+
+		$specs[0]->errorHandling->setCatchExceptions(false);
+		$specs[1]->setTestCallback(function() use($specs){
+			$specs[0]->addSpec(new SpecContainerDescribe());
+		});
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Modify specs when running deny', function() use($specs){
+			$specs[0]->run();
+		});
+	}
+
+/**/
+
+	public function testRemoveSpec_ShouldBeThrowExceptionIfNotAllowSpecsModifyWhenRunning()
+	{
+		Config::setAllowSpecsModifyWhenRunning(false);
+		$specs = $this->createSpecsTree('
+			' . $this->currentSpecClass . '
+			->It
+		');
+
+		$specs[0]->errorHandling->setCatchExceptions(false);
+		$specs[1]->setTestCallback(function() use($specs){
+			$specs[0]->removeSpec(new SpecContainerDescribe());
+		});
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Modify specs when running deny', function() use($specs){
+			$specs[0]->run();
+		});
+	}
+
+/**/
+
+	public function testRemoveAllSpecs_ShouldBeThrowExceptionIfNotAllowSpecsModifyWhenRunning()
+	{
+		Config::setAllowSpecsModifyWhenRunning(false);
+		$specs = $this->createSpecsTree('
+			' . $this->currentSpecClass . '
+			->It
+		');
+
+		$specs[0]->errorHandling->setCatchExceptions(false);
+		$specs[1]->setTestCallback(function() use($specs){
+			$specs[0]->removeAllSpecs();
+		});
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Modify specs when running deny', function() use($specs){
+			$specs[0]->run();
+		});
+	}
+
+/**/
+
 	public function testGetSpecs_ShouldBeReturnEmptyArrayByDefault()
 	{
 		$spec = $this->createCurrentSpec();

@@ -528,7 +528,7 @@ class ConfigTest extends Test
 			Config::setAllowPluginsRegistration(false);
 		});
 
-		$this->assertEquals(true, Config::getAllowPluginsRegistration());
+		$this->assertTrue(Config::getAllowPluginsRegistration());
 	}
 
 /**/
@@ -554,7 +554,7 @@ class ConfigTest extends Test
 			Config::setAllowPluginsOverride(false);
 		});
 
-		$this->assertEquals(true, Config::getAllowPluginsOverride());
+		$this->assertTrue(Config::getAllowPluginsOverride());
 	}
 
 /**/
@@ -580,7 +580,7 @@ class ConfigTest extends Test
 			Config::setAllowMatchersAdd(false);
 		});
 
-		$this->assertEquals(true, Config::getAllowMatchersAdd());
+		$this->assertTrue(Config::getAllowMatchersAdd());
 	}
 
 /**/
@@ -606,7 +606,7 @@ class ConfigTest extends Test
 			Config::setAllowMatchersOverride(false);
 		});
 
-		$this->assertEquals(true, Config::getAllowMatchersOverride());
+		$this->assertTrue(Config::getAllowMatchersOverride());
 	}
 
 /**/
@@ -632,7 +632,7 @@ class ConfigTest extends Test
 			Config::setAllowErrorHandlingModify(false);
 		});
 
-		$this->assertEquals(true, Config::getAllowErrorHandlingModify());
+		$this->assertTrue(Config::getAllowErrorHandlingModify());
 	}
 
 /**/
@@ -658,7 +658,7 @@ class ConfigTest extends Test
 			Config::setAllowLiveReportModify(false);
 		});
 
-		$this->assertEquals(true, Config::getAllowLiveReportModify());
+		$this->assertTrue(Config::getAllowLiveReportModify());
 	}
 
 /**/
@@ -684,7 +684,7 @@ class ConfigTest extends Test
 			Config::setAllowInputEncodingModify(false);
 		});
 
-		$this->assertEquals(true, Config::getAllowInputEncodingModify());
+		$this->assertTrue(Config::getAllowInputEncodingModify());
 	}
 
 /**/
@@ -710,6 +710,33 @@ class ConfigTest extends Test
 			Config::setAllowOutputEncodingModify(false);
 		});
 
-		$this->assertEquals(true, Config::getAllowOutputEncodingModify());
+		$this->assertTrue(Config::getAllowOutputEncodingModify());
+	}
+	
+
+/**/
+
+	public function testGetAllowSpecsModifyWhenRunning_ShouldBeReturnFalseByDefault()
+	{
+		$this->assertFalse(Config::getAllowSpecsModifyWhenRunning());
+	}
+
+/**/
+
+	public function testSetAllowSpecsModifyWhenRunning_ShouldBeSetNewValue()
+	{
+		Config::setAllowSpecsModifyWhenRunning(true);
+		$this->assertTrue(Config::getAllowSpecsModifyWhenRunning());
+	}
+
+	public function testSetAllowSpecsModifyWhenRunning_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
+	{
+		Config::lock();
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'core\Config is locked', function(){
+			Config::setAllowSpecsModifyWhenRunning(true);
+		});
+
+		$this->assertFalse(Config::getAllowSpecsModifyWhenRunning());
 	}
 }

@@ -1,53 +1,24 @@
-report:
+---Плагин report
 	Заменить list-style: outside на inside, что бы цифры комировались в буфер
 	Тире с окружающими пробелами вставить в HTML, что бы копировалось в буфер
+	// debug mode - просмотр порядка применения креаторов - возможно путем проверки идентичности callback
+	Command::addMessageToReport(); - возможность занесения в отчет всех print'ов
+	describe — статус has empty
 
 output:
 	if ($spec->getName() == $name), перекодировать надо, convertToInternalEncoding?
 
-constrctionCommands\IncludeTest — может разместить в тестах соответствующих спеков?
+---asserts
+// Добавить возможность опускать скобки у матчеров или оставить подобное поведение для простанств имен?
+be('actual')->true; вместо be('actual')->true();
 
-Дописать и перезалить документацию по setSpecSettings
-ErrorHandlingTest
-
-describe — статус has empty
-
-Doc
-	Расширение и конфигурация
-
-
-провайдеры аргументов — возможность использования combine?
-
-результат выполнения
-	написать про результат выполнения запуска контекстов и откдюченных спеков
-
-Структура отлова исключения
-после выброса исключения дальнейшее исполбзование объекта не предполагается
-
-SpecItemIt (команда конструирования it()) ловит следующие исключения и php ошибки:
-Execution - отлов исключений, выброшенных в любом из нижеперечисленных мест
-	WorldBuilding
-		onTestCallbackCallBefore
-			TestCallback
-		onTestCallbackCallAfter
-	WorldDestroying
-
-Assert->CallMatcher (в любом из мест Execution)
-Притом, отлов исключений, выброшенных матчерами происходит непосредственно в функции вызова матчера класса Assert (что позволяет продолжатб выполнение теста после исключения матчера)
+---assert, matcher namespaces
+addMatcher('file->exists', function(){});
+be('actual value')->file('new File')->exists();
 
 runResultsBuffer - result vs value vs resultValue
-
-запретить getCurrentContainer/Spec на running state?
-
 runner.php?file=
---- Написать PHPDOC комментарии
 
----Плагин report
-// debug mode - просмотр порядка применения креаторов - возможно путем проверки идентичности callback
-Command::addMessageToReport(); - возможность занесения в отчет всех print'ов
-
----commands
-isRunningState - проверять наличие RunResultsBuffer (может быть вызван откуда то еще?), протестировать возможность вызова из событий
 
 ---examples
 addExample('Автомобиль', $doorsCount);
@@ -74,13 +45,34 @@ SpecContainerDynamic->run()
 
 
 
----asserts
-// Добавить возможность опускать скобки у матчеров или оставить подобное поведение для простанств имен?
-be('actual')->true; вместо be('actual')->true();
 
----assert, matcher namespaces
-addMatcher('file->exists', function(){});
-be('actual value')->file('new File')->exists();
+
+
+
+Doc: Расширение и конфигурация
+Дописать и перезалить документацию по setSpecSettings
+результат выполнения: написать про результат выполнения запуска контекстов и откдюченных спеков
+
+Структура отлова исключения
+после выброса исключения дальнейшее исполбзование объекта не предполагается
+
+SpecItemIt (команда конструирования it()) ловит следующие исключения и php ошибки:
+Execution - отлов исключений, выброшенных в любом из нижеперечисленных мест
+	WorldBuilding
+		onTestCallbackCallBefore
+			TestCallback
+		onTestCallbackCallAfter
+	WorldDestroying
+
+Assert->CallMatcher (в любом из мест Execution)
+Притом, отлов исключений, выброшенных матчерами происходит непосредственно в функции вызова матчера класса Assert (что позволяет продолжатб выполнение теста после исключения матчера)
+
+Переписать примеры в документации на AddressBook
+
+--- Написать PHPDOC комментарии
+--- Доработать тесты
+	constrctionCommands\IncludeTest — может разместить в тестах соответствующих спеков?
+	ErrorHandlingTest
 
 --- assert, счетчик вызовов
 Command::expectCount();
@@ -88,16 +80,8 @@ incrementCount()
 count(getRunningInstance()->getResultStack())
 
 
----errorHandling
-получать текущее значение из контекста каскадом
-Продумать возможность изменения errorHandler изнутри теста
-	добавить доп. параметр в команду конструирования it(), describe(), context()
-	проверять если последний параметр не callback, значит это level
-	либо принимать последним параметром массив опций
-	лучше совместить - можно либо массив опций либо значение level
-
-
-setCatchExceptions - возможность указывать массив отлавливаемых классов исключений
+--- argumentsProviders
+	провайдеры аргументов — возможность использования combine?
 
 ---before
 beforeAll - выполняется перед всеми в nearestDescribe всех его контекстов
@@ -105,10 +89,7 @@ beforeOnce
 ifFirstChild()
 beforeAll() vs beforeGroup()
 
---- Доработать тесты
 
----
-includeSpec('./') - брать путь к текущей папке из backtrace
 
 --- events
 Assert->callMatcher

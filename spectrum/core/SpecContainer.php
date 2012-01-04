@@ -44,6 +44,7 @@ abstract class SpecContainer extends Spec implements SpecContainerInterface
 
 	public function addSpec(SpecInterface $spec)
 	{
+		$this->handleSpecModifyDeny();
 		$this->specs[] = $spec;
 		$spec->setParent($this);
 	}
@@ -55,6 +56,7 @@ abstract class SpecContainer extends Spec implements SpecContainerInterface
 
 	public function removeSpec(SpecInterface $spec)
 	{
+		$this->handleSpecModifyDeny();
 		foreach ($this->specs as $key => $val)
 		{
 			if ($val === $spec)
@@ -64,6 +66,7 @@ abstract class SpecContainer extends Spec implements SpecContainerInterface
 
 	public function removeAllSpecs()
 	{
+		$this->handleSpecModifyDeny();
 		$this->specs = array();
 	}
 

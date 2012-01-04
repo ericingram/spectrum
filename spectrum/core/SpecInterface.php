@@ -17,7 +17,6 @@ namespace net\mkharitonov\spectrum\core;
  */
 interface SpecInterface
 {
-	public function __construct($name = null);
 	public function __get($pluginAccessName);
 
 	public function setName($name);
