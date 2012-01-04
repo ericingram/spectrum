@@ -142,7 +142,7 @@ Result:
 			beforeEach(function($w){ $w->addressBook->setDataStorage('files'); });
 		});
 
-		describe('Search person', function(){
+		describe('findPerson()', function(){
 			it('Should find person by first name', function($w){
 				be($w->addressBook->findPerson('Bob')->firstName)->eq('Bob');
 			});
@@ -160,15 +160,15 @@ Result:
 1. AddressBook — success
 	1. Database storage — success
 		1. MySQL — success
-			1. Search person — success
+			1. findPerson() — success
 				1. Should find person by first name — success
 				2. Should find person by last name — success
 		2. Oracle — success
-			1. Search person — success
+			1. findPerson() — success
 				1. Should find person by first name — success
 				2. Should find person by last name — success
 	2. Data storage "files" — success
-		1. Search person — success
+		1. findPerson() — success
 			1. Should find person by first name — success
 			2. Should find person by last name — success
 
@@ -180,7 +180,7 @@ Result:
 	describe('AddressBook', function(){
 		require(__DIR__ . '/addressBookContexts.php');
 
-		describe('Search person', function(){
+		describe('findPerson()', function(){
 			it('Should find person by first name', function($w){
 				be($w->addressBook->findPerson('Bob')->firstName)->eq('Bob');
 			});
@@ -198,15 +198,15 @@ Result:
 1. AddressBook — success
 	1. Database storage — success
 		1. MySQL — success
-			1. Search person — success
+			1. findPerson() — success
 				1. Should find person by first name — success
 				2. Should find person by last name — success
 		2. Oracle — success
-			1. Search person — success
+			1. findPerson() — success
 				1. Should find person by first name — success
 				2. Should find person by last name — success
 	2. Data storage "files" — success
-		1. Search person — success
+		1. findPerson() — success
 			1. Should find person by first name — success
 			2. Should find person by last name — success
 

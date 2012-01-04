@@ -1,8 +1,5 @@
 Дописать и перезалить документацию по setSpecSettings
 
-readme.md:
-	"describe('Search person'" заменить на "describe('findPerson() method'"
-
 
 ErrorHandlingTest
 
