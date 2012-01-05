@@ -37,27 +37,28 @@ function container($specClass, $name = null, $callback = null, $settings = array
 
 	$arg1 = $name;
 	$arg2 = $callback;
-	$arg3 = $settings;
-	if (!is_callable($arg1) && !is_callable($arg2)) // container($specClass, $name [, $settings])
+
+	$isArg1Closure = (is_object($arg1) && is_callable($arg1));
+	$isArg2Closure = (is_object($arg2) && is_callable($arg2));
+
+	if (!$isArg1Closure && !$isArg2Closure) // container($specClass, $name [, $settings])
 	{
 		$name = $arg1;
 		$callback = null;
 		if ($arg2 !== null)
 			$settings = $arg2;
 	}
-	else if (is_callable($arg1)) // container($specClass, $callback [, $settings])
+	else if ($isArg1Closure) // container($specClass, $callback [, $settings])
 	{
 		$name = null;
 		$callback = $arg1;
 		if ($arg2 !== null)
 			$settings = $arg2;
 	}
-	else if (is_callable($arg2)) // container($specClass, $name, $callback [, $settings])
+	else if ($isArg2Closure) // container($specClass, $name, $callback [, $settings])
 	{
 		$name = $arg1;
 		$callback = $arg2;
-		if ($arg3 !== null)
-			$settings = $arg3;
 	}
 
 	$spec = new $specClass();

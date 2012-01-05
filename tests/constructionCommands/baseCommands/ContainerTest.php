@@ -47,6 +47,14 @@ class ContainerTest extends \net\mkharitonov\spectrum\constructionCommands\baseC
 
 /**/
 
+	public function testParamsVariants_ShouldNotBeAcceptStringFunctions()
+	{
+		$describe = Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', 'trim');
+		$this->assertEquals('trim', $describe->getName());
+	}
+
+/**/
+
 	public function testParamsVariants_ShouldBeAcceptName()
 	{
 		$describe = Manager::container('\net\mkharitonov\spectrum\core\SpecContainerDescribe', 'foo');

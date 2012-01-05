@@ -38,14 +38,20 @@ function it($name, $argumentsProvider = null, $testCallback = null, $settings = 
 	$arg1 = $name;
 	$arg2 = $argumentsProvider;
 	$arg3 = $testCallback;
-	if (!is_callable($arg1) && !is_callable($arg2) && !is_callable($arg3)) // it($name [, $settings])
+
+	$isArg1Closure = (is_object($arg1) && is_callable($arg1));
+	$isArg2Closure = (is_object($arg2) && is_callable($arg2));
+	$isArg3Closure = (is_object($arg3) && is_callable($arg3));
+
+
+	if (!$isArg1Closure && !$isArg2Closure && !$isArg3Closure) // it($name [, $settings])
 	{
 		$argumentsProvider = null;
 		$testCallback = null;
 		if ($arg2 !== null)
 			$settings = $arg2;
 	}
-	else if (!is_callable($arg1) && is_callable($arg2)) // it($name, $testCallback [, $settings])
+	else if (!$isArg1Closure && $isArg2Closure) // it($name, $testCallback [, $settings])
 	{
 		$argumentsProvider = null;
 		$testCallback = $arg2;
