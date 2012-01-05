@@ -22,6 +22,9 @@ require_once dirname(__FILE__) . '/baseCommands/it.php';
 
 require_once dirname(__FILE__) . '/baseCommands/be.php';
 
+require_once dirname(__FILE__) . '/baseCommands/fail.php';
+require_once dirname(__FILE__) . '/baseCommands/message.php';
+
 require_once dirname(__FILE__) . '/baseCommands/setCurrentContainer.php';
 require_once dirname(__FILE__) . '/baseCommands/getCurrentContainer.php';
 require_once dirname(__FILE__) . '/baseCommands/getCurrentItem.php';
@@ -42,6 +45,7 @@ require_once dirname(__FILE__) . '/baseCommands/isRunningState.php';
  * @method \net\mkharitonov\spectrum\core\SpecContainerContext context()
  * @method \net\mkharitonov\spectrum\core\SpecContainerDescribe describe()
  * @method fail()
+ * @method message()
  * @method \net\mkharitonov\spectrum\core\SpecContainerInterface getCurrentContainer()
  * @method \net\mkharitonov\spectrum\core\SpecItemInterface getCurrentItem()
  * @method isDeclaringState()
@@ -63,6 +67,9 @@ class Manager implements ManagerInterface
 		'it' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\it',
 
 		'be' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\be',
+
+		'fail' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\fail',
+		'message' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\message',
 
 		'setCurrentContainer' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\setCurrentContainer',
 		'getCurrentContainer' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\getCurrentContainer',
@@ -95,6 +102,8 @@ class Manager implements ManagerInterface
 		static::createGlobalAliasOnce('beforeEach');
 		static::createGlobalAliasOnce('afterEach');
 		static::createGlobalAliasOnce('be');
+		static::createGlobalAliasOnce('fail');
+		static::createGlobalAliasOnce('message');
 	}
 
 	static public function createGlobalAliasOnce($commandName)

@@ -184,6 +184,11 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 		$output .= '.runResultsBuffer .row.false .details.assert .title { color: #957979; }' . $this->getNewline();
 		$output .= '.runResultsBuffer .row.false:last-child { border-right: 0; }' . $this->getNewline();
 
+		$output .= '.messages:before { content: "Сообщения: "; display: block; position: absolute; top: -1.8em; left: 0; padding: 0.3em 0.5em; background: #f5f1f1; color: #888; font-style: italic; }' . $this->getNewline();
+		$output .= '.messages { position: relative; margin: 2em 0 1em 0; }' . $this->getNewline();
+		$output .= '.messages ul { display: inline-block; list-style: none; }' . $this->getNewline();
+		$output .= '.messages ul li { padding: 5px; margin-bottom: 1px; background: #ccc; }' . $this->getNewline();
+
 		return rtrim($output);
 	}
 
@@ -242,6 +247,8 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 			$this->updateResult($this->getOwner()->getUid(), $this->getSpecResultLabel($finalResult));
 			if ($this->getOutputDebugCascade())
 				$this->printRunResultsBuffer($finalResult);
+
+			$this->printMessages();
 			
 			$this->getOwner()->output->put('</li>');
 
@@ -297,6 +304,26 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 		$this->getOwner()->output->put('<div class="' . htmlspecialchars($name) . '">');
 		$this->getOwner()->output->put('<span class="title">' . htmlspecialchars($name) . '</span>');
 		$this->getOwner()->output->put('<span class="value">' . htmlspecialchars($value) . '</span>');
+		$this->getOwner()->output->put('</div>');
+	}
+
+	protected function printMessages()
+	{
+		$messages = $this->getOwner()->messages->getAll();
+
+		if (!count($messages))
+			return;
+
+		$this->getOwner()->output->put('<div class="messages clearfix">');
+		$this->getOwner()->output->put('<ul>');
+		foreach ($messages as $message)
+		{
+			$this->getOwner()->output->put('<li>');
+			$this->getOwner()->output->put(htmlspecialchars($message));
+			$this->getOwner()->output->put('</li>');
+		}
+
+		$this->getOwner()->output->put('</ul>');
 		$this->getOwner()->output->put('</div>');
 	}
 

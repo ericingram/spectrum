@@ -1,53 +1,53 @@
+---examples
+	addExample('Автомобиль', $doorsCount);
+	itLikeExample('Автомобиль', 4);
+	что бы работало в контекстах надо выполнять itLikeExample во время выполнения
+	SpecContainerDynamic/SpecDynamic
+	ContainerExample
+	ContainerDynamic/LateBind - содержит callback ф-ю, которая возвращает Spec, который запускается
+	addExample('foo', function(){
+		return new SpecItemIt('я пример');
+	});
+	function itLikeExample('foo')
+	{
+		return new SpecContainerDynamic(function(){
+			$exampleCallback = $this->examples->get('foo')
+			return $exampleCallback();
+		})
+	}
+	SpecContainerDynamic->run()
+		вызвать callback ф-ю, которая вернет Spec
+		запустить Spec (внутри run будет вызваны builders для каждого созданного динамически спеки и динамич спеки выполнятся правильно)
+
 ---Плагин report
 	Заменить list-style: outside на inside, что бы цифры комировались в буфер
 	Тире с окружающими пробелами вставить в HTML, что бы копировалось в буфер
-	// debug mode - просмотр порядка применения креаторов - возможно путем проверки идентичности callback
-	Command::addMessageToReport(); - возможность занесения в отчет всех print'ов
+	debug mode - просмотр порядка применения креаторов - возможно путем проверки идентичности callback
+	print rename to output
+	setOutputDebug rename to setOutputRunResultsBuffer
 	describe — статус has empty
+	сделать форматирование (вложенность) HTML ul
+	доработать формат вывода буффера результатов
+	написать тесты
+
+--- events
+Assert->callMatcher
+	$it->triggerEvent('onMatcherCallBefore', $this, $expectedArgs);
+	$it->triggerEvent('onMatcherCallAfter', $this, $expectedArgs, $result);
+
+---context
+	run($contextStackId)
+	контекст стек или снимок уид
+	getContextByStackUid
+	getSpecByUid
+	// selector
+	//todo: select by stack uid
+
 
 output:
 	if ($spec->getName() == $name), перекодировать надо, convertToInternalEncoding?
 
----asserts
-// Добавить возможность опускать скобки у матчеров или оставить подобное поведение для простанств имен?
-be('actual')->true; вместо be('actual')->true();
-
----assert, matcher namespaces
-addMatcher('file->exists', function(){});
-be('actual value')->file('new File')->exists();
-
-runResultsBuffer - result vs value vs resultValue
 runner.php?file=
-
-
----examples
-addExample('Автомобиль', $doorsCount);
-itLikeExample('Автомобиль', 4);
-что бы работало в контекстах надо выполнять itLikeExample во время выполнения
-SpecContainerDynamic/SpecDynamic
-ContainerExample
-ContainerDynamic/LateBind - содержит callback ф-ю, которая возвращает Spec, который запускается
-addExample('foo', function(){
-	return new SpecItemIt('я пример');
-});
-
-function itLikeExample('foo')
-{
-	return new SpecContainerDynamic(function(){
-		$exampleCallback = $this->examples->get('foo')
-		return $exampleCallback();
-	})
-}
-
-SpecContainerDynamic->run()
-	вызвать callback ф-ю, которая вернет Spec
-	запустить Spec (внутри run будет вызваны builders для каждого созданного динамически спеки и динамич спеки выполнятся правильно)
-
-
-
-
-
-
 
 Doc: Расширение и конфигурация
 Дописать и перезалить документацию по setSpecSettings
@@ -89,25 +89,12 @@ beforeOnce
 ifFirstChild()
 beforeAll() vs beforeGroup()
 
-
-
---- events
-Assert->callMatcher
-	$it->triggerEvent('onMatcherCallBefore', $this, $expectedArgs);
-	$it->triggerEvent('onMatcherCallAfter', $this, $expectedArgs, $result);
-
 ---extensions
 Spec->loadExtension()
 LoadExtensionPatterns
 loadExtensionWorld
 spec->addExtensionPath
 spec->addExtensionDir
-
----context
-run($contextStackId)
-контекст стек или снимок уид
-getContextByStackUid
-getSpecByUid
 
 --- mock
 Spy
@@ -119,29 +106,6 @@ FileSystemMockVirtual
 	- обеспечивает защиту мира (ф-я world() может быть вызвана из глубин тестируемого кода)
 	- будет стимулировать не использовать мир в матчерах
 	- в examples мир по любому не может быть вызван
-	
-// selector
-//todo: select by stack uid
-получить спеки из дерева
-результаты
-	добавить из owner spec
-	добавить из результатов spec
-	отфильтровать
-
-операции с текущим результатом
-	просмотреть каждый объект в результате и удалиль лишние filterEnabled
-	выбрать из каждого объекта в результате и добавить в результат findContextsInResult
-	выбрать из owner спеки и добавить в результат findCurrentSpecChildren
-
-addSelf->findDescendants->findAncestors->filterEnabled->filterContexts
-find('descendants', 'ancestors')->filter('enabled')->get('contexts')->getFromResult('context')
-
-
-selector->getSelf()->getDescendants()->filterEnabled()
-selector->getNearestParentDescribe()->filterIts()
-
-be('asdfs')->file->exists();
-be('asdfs')->fileExists();
 
 //spectrum_DefaultMatchers_Base_beInstanceOf
 beTriggerError(level)/bePhpError

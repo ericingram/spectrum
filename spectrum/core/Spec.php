@@ -21,6 +21,7 @@ namespace net\mkharitonov\spectrum\core;
  * @property \net\mkharitonov\spectrum\core\plugins\basePlugins\ErrorHandling errorHandling
  * @property \net\mkharitonov\spectrum\core\plugins\basePlugins\LiveReport liveReport
  * @property \net\mkharitonov\spectrum\core\plugins\basePlugins\Output output
+ * @property \net\mkharitonov\spectrum\core\plugins\basePlugins\Messages messages
  */
 abstract class Spec implements SpecInterface
 {
@@ -208,6 +209,7 @@ abstract class Spec implements SpecInterface
 
 	protected function startRun()
 	{
+		$this->messages->clear();
 		$this->isRunning = true;
 	}
 

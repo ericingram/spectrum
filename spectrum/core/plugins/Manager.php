@@ -26,6 +26,7 @@ class Manager implements ManagerInterface
 		'errorHandling' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\ErrorHandling', 'activateMoment' => 'whenCallOnce'),
 		'liveReport' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\LiveReport', 'activateMoment' => 'whenCallOnce'),
 		'output' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\Output', 'activateMoment' => 'whenCallOnce'),
+		'messages' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\Messages', 'activateMoment' => 'whenCallOnce'),
 	);
 
 	static public function registerPlugin($accessName, $class = '\net\mkharitonov\spectrum\core\plugins\basePlugins\stack\Indexed', $activateMoment = 'whenCallOnce')
