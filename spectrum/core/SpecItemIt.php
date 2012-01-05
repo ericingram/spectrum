@@ -19,7 +19,7 @@ class SpecItemIt extends SpecItem implements SpecItemItInterface
 {
 	protected $runningSpecItemBackup;
 	/**
-	 * @var \RunResultsBuffer\mkharitonov\spectrum\core\RunResultsBuffer|null
+	 * @var \net\mkharitonov\spectrum\core\RunResultsBuffer|null
 	 */
 	protected $runResultsBuffer;
 	protected $testCallback;
@@ -67,8 +67,6 @@ class SpecItemIt extends SpecItem implements SpecItemItInterface
 		if ($this->getParent() && !$this->getParent()->isRunning())
 			return $this->runSelfThroughAncestors();
 
-		$runResultsBufferClass = Config::getRunResultsBufferClass();
-		$this->runResultsBuffer = new $runResultsBufferClass($this);
 		$this->startRun();
 		$this->triggerEvent('onRunBefore');
 		$this->triggerEvent('onRunItemBefore');
@@ -79,7 +77,6 @@ class SpecItemIt extends SpecItem implements SpecItemItInterface
 		$this->triggerEvent('onRunItemAfter', $result);
 		$this->triggerEvent('onRunAfter', $result);
 		$this->stopRun();
-		$this->runResultsBuffer = null;
 
 		return $result;
 	}
@@ -87,6 +84,9 @@ class SpecItemIt extends SpecItem implements SpecItemItInterface
 	protected function startRun()
 	{
 		parent::startRun();
+
+		$runResultsBufferClass = Config::getRunResultsBufferClass();
+		$this->runResultsBuffer = new $runResultsBufferClass($this);
 
 		$registryClass = \net\mkharitonov\spectrum\core\Config::getRegistryClass();
 		$this->runningSpecItemBackup = $registryClass::getRunningSpecItem();
@@ -97,6 +97,9 @@ class SpecItemIt extends SpecItem implements SpecItemItInterface
 	{
 		$registryClass = \net\mkharitonov\spectrum\core\Config::getRegistryClass();
 		$registryClass::setRunningSpecItem($this->runningSpecItemBackup);
+
+		$this->runResultsBuffer = null;
+
 		parent::stopRun();
 	}
 

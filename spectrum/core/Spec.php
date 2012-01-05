@@ -209,8 +209,8 @@ abstract class Spec implements SpecInterface
 
 	protected function startRun()
 	{
-		$this->messages->clear();
 		$this->isRunning = true;
+		$this->messages->clear();
 	}
 
 	protected function stopRun()
