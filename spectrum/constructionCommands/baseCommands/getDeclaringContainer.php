@@ -17,18 +17,9 @@ use net\mkharitonov\spectrum\constructionCommands\Manager;
  * @link   http://www.mkharitonov.net/spectrum/
  * @return \net\mkharitonov\spectrum\core\SpecContainerInterface|null
  */
-function getCurrentContainer()
+function getDeclaringContainer()
 {
-	$declaringContainer = Manager::getDeclaringContainer();
-	$registryClass = \net\mkharitonov\spectrum\core\Config::getRegistryClass();
-	$managerClass = \net\mkharitonov\spectrum\constructionCommands\Config::getManagerClass();
-
-	if ($declaringContainer)
-		return $declaringContainer;
-	else if ($registryClass::getRunningSpecContainer())
-		return $registryClass::getRunningSpecContainer();
-	else if ($managerClass::isDeclaringState())
-		return \net\mkharitonov\spectrum\RootDescribe::getOnceInstance();
-	else
-		return null;
+	$reflection = new \ReflectionFunction('\net\mkharitonov\spectrum\constructionCommands\baseCommands\setDeclaringContainer');
+	$vars = $reflection->getStaticVariables();
+	return $vars['container'];
 }

@@ -27,6 +27,7 @@ abstract class Test extends \net\mkharitonov\spectrum\Test
 		\net\mkharitonov\spectrum\RootDescribe::getOnceInstance()->matchers->removeAll();
 		\net\mkharitonov\spectrum\RootDescribe::getOnceInstance()->builders->removeAll();
 		\net\mkharitonov\spectrum\RootDescribe::getOnceInstance()->destroyers->removeAll();
-		Manager::setCurrentContainer(null);
+		\net\mkharitonov\spectrum\RootDescribe::getOnceInstance()->patterns->removeAll();
+		Manager::setDeclaringContainer(null);
 	}
 }

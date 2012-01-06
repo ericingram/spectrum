@@ -11,6 +11,7 @@
 
 namespace net\mkharitonov\spectrum\constructionCommands;
 
+require_once dirname(__FILE__) . '/baseCommands/addPattern.php';
 require_once dirname(__FILE__) . '/baseCommands/addMatcher.php';
 require_once dirname(__FILE__) . '/baseCommands/beforeEach.php';
 require_once dirname(__FILE__) . '/baseCommands/afterEach.php';
@@ -19,13 +20,15 @@ require_once dirname(__FILE__) . '/baseCommands/container.php';
 require_once dirname(__FILE__) . '/baseCommands/describe.php';
 require_once dirname(__FILE__) . '/baseCommands/context.php';
 require_once dirname(__FILE__) . '/baseCommands/it.php';
+require_once dirname(__FILE__) . '/baseCommands/itLikePattern.php';
 
 require_once dirname(__FILE__) . '/baseCommands/be.php';
 
 require_once dirname(__FILE__) . '/baseCommands/fail.php';
 require_once dirname(__FILE__) . '/baseCommands/message.php';
 
-require_once dirname(__FILE__) . '/baseCommands/setCurrentContainer.php';
+require_once dirname(__FILE__) . '/baseCommands/setDeclaringContainer.php';
+require_once dirname(__FILE__) . '/baseCommands/getDeclaringContainer.php';
 require_once dirname(__FILE__) . '/baseCommands/getCurrentContainer.php';
 require_once dirname(__FILE__) . '/baseCommands/getCurrentItem.php';
 
@@ -51,12 +54,14 @@ require_once dirname(__FILE__) . '/baseCommands/isRunningState.php';
  * @method isDeclaringState()
  * @method isRunningState()
  * @method \net\mkharitonov\spectrum\core\SpecItemIt it()
- * @method setCurrentContainer()
+ * @method setDeclaringContainer()
+ * @method getDeclaringContainer()
  * @method setSpecSettings()
  */
 class Manager implements ManagerInterface
 {
 	static protected $registeredCommands = array(
+		'addPattern' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\addPattern',
 		'addMatcher' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\addMatcher',
 		'beforeEach' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\beforeEach',
 		'afterEach' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\afterEach',
@@ -65,14 +70,16 @@ class Manager implements ManagerInterface
 		'describe' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\describe',
 		'context' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\context',
 		'it' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\it',
+		'itLikePattern' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\itLikePattern',
 
 		'be' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\be',
 
 		'fail' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\fail',
 		'message' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\message',
 
-		'setCurrentContainer' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\setCurrentContainer',
 		'getCurrentContainer' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\getCurrentContainer',
+		'setDeclaringContainer' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\setDeclaringContainer',
+		'getDeclaringContainer' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\getDeclaringContainer',
 		'getCurrentItem' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\getCurrentItem',
 
 		'setSpecSettings' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\setSpecSettings',
@@ -98,6 +105,8 @@ class Manager implements ManagerInterface
 		static::createGlobalAliasOnce('describe');
 		static::createGlobalAliasOnce('context');
 		static::createGlobalAliasOnce('it');
+		static::createGlobalAliasOnce('itLikePattern');
+		static::createGlobalAliasOnce('addPattern');
 		static::createGlobalAliasOnce('addMatcher');
 		static::createGlobalAliasOnce('beforeEach');
 		static::createGlobalAliasOnce('afterEach');

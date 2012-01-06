@@ -65,14 +65,14 @@ function container($specClass, $name = null, $callback = null, $settings = array
 	$spec->setName($name);
 	$managerClass::setSpecSettings($spec, $settings);
 
-	$currentContainer = $managerClass::getCurrentContainer();
-	$currentContainer->addSpec($spec);
+	$managerClass::getCurrentContainer()->addSpec($spec);
 
 	if ($callback)
 	{
-		$managerClass::setCurrentContainer($spec);
+		$declaringSpecContainerBackup = $managerClass::getDeclaringContainer();
+		$managerClass::setDeclaringContainer($spec);
 		call_user_func($callback);
-		$managerClass::setCurrentContainer($currentContainer);
+		$managerClass::setDeclaringContainer($declaringSpecContainerBackup);
 	}
 
 	return $spec;

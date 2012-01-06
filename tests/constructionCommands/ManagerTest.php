@@ -21,6 +21,7 @@ class ManagerTest extends \net\mkharitonov\spectrum\Test
 	public function testShouldBeHaveRegisteredBaseCommandsByDefault()
 	{
 		$this->assertSame(array(
+			'addPattern' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\addPattern',
 			'addMatcher' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\addMatcher',
 			'beforeEach' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\beforeEach',
 			'afterEach' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\afterEach',
@@ -29,14 +30,16 @@ class ManagerTest extends \net\mkharitonov\spectrum\Test
 			'describe' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\describe',
 			'context' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\context',
 			'it' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\it',
-	
+			'itLikePattern' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\itLikePattern',
+
 			'be' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\be',
 
 			'fail' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\fail',
 			'message' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\message',
 
-			'setCurrentContainer' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\setCurrentContainer',
 			'getCurrentContainer' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\getCurrentContainer',
+			'setDeclaringContainer' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\setDeclaringContainer',
+			'getDeclaringContainer' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\getDeclaringContainer',
 			'getCurrentItem' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\getCurrentItem',
 
 			'setSpecSettings' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\setSpecSettings',

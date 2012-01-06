@@ -9,15 +9,14 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\constructionCommands\baseCommands;
+namespace net\mkharitonov\spectrum\core;
 
 /**
- * @see getCurrentContainer()
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-function setCurrentContainer(\net\mkharitonov\spectrum\core\SpecContainerInterface $spec = null)
+interface SpecContainerPatternInterface extends SpecContainerInterface
 {
-	static $currentContainer;
-	$currentContainer = $spec;
+	public function setArguments($arguments);
+	public function getArguments();
 }

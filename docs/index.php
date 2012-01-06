@@ -129,6 +129,7 @@ function generateCacheFilename()
 	<li><a href="#worlds">Миры (фикстуры)</a></li>
 	<li><a href="#contexts">Контексты</a></li>
 	<li><a href="#anonymous-containers">Анонимные контейнеры</a></li>
+	<li><a href="#patterns">Образцы</a></li>
 	<li><a href="#run">Запуск</a></li>
 	<li><a href="#run-result">Результат выполнения</a></li>
 	<li><a href="#disable">Включение/отключение узлов</a></li>
@@ -137,7 +138,6 @@ function generateCacheFilename()
 	<li><a href="#construction-commands">Команды конструирования</a></li>
 	<li><a href="#plugins">Плагины</a></li>
 	<li><a href="#plugin-events">События</a></li>
-	<li><a href="#todo">Планируется</a></li>
 	<li><a href="#contacts">Обратная связь</a></li>
 </ol>
 
@@ -808,6 +808,24 @@ CODE
 , array('height' => 100));
 ?>
 
+<h1 id="patterns">Образцы</h1>
+
+<p>Так же для устранения дублирований можно использовать образцы.</p>
+
+<?php
+printExample('Пример анонимного describe', <<<'CODE'
+	addPattern('Автомобиль', function($doorsCount){
+		it('Кол-во дверей должно быть ' . $doorsCount, function($w) use($doorsCount){
+			be(4)->eq($doorsCount);
+		});
+	});
+
+	itLikePattern('Автомобиль', 4);
+	itLikePattern('Автомобиль', 3);
+CODE
+, array('height' => 100));
+?>
+
 <h1 id="run">Запуск</h1>
 
 <p>Запускать можно не только корневой describe, но и любой другой узел, ссылку на которым можно получить с помощью
@@ -1414,30 +1432,6 @@ CODE
 <span class="tab">	</span>onRunContainerAfter или onRunItemAfter
 onRunAfter
 </code></p>
-
-<h1 id="todo">Планируется</h1>
-
-<p>В ближайшем будущем пранируется реализовать следующие нововведения:</p>
-<ol>
-	<li><p>Добавить образцы. Что-то вроде:</p>
-
-<?php
-printExample('', <<<'CODE'
-	addExample('Автомобиль', function($doorsCount){
-		return it("Должен иметь $doorsCount дверей", function(){});
-	});
-	
-	itLikeExample('Автомобиль', 4);
-
-CODE
-, array('noResult'));
-?>
-	</li>
-
-	<li><p>Добавить дополнительных творцов: beforeAll(), afterAll() и т.п.</p></li>
-
-	<li><p>Доработать отчеты</p></li>
-</ol>
 
 <h1 id="contacts">Обратная связь</h1>
 Связаться с автором можно по <a href="mailto:mvkharitonov@gmail.com">e-mail адресу</a>.

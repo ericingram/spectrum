@@ -22,6 +22,11 @@ class Registry
 	 */
 	static protected $runningSpecItem;
 
+	/**
+	 * @var \net\mkharitonov\spectrum\core\SpecContainerInterface
+	 */
+	static protected $runningSpecContainer;
+
 	static public function getRunningSpecItem()
 	{
 		return static::$runningSpecItem;
@@ -33,5 +38,18 @@ class Registry
 			throw new Exception('Method "' . __METHOD__ . '" should be accept only running specs');
 
 		static::$runningSpecItem = $instance;
+	}
+
+	static public function getRunningSpecContainer()
+	{
+		return static::$runningSpecContainer;
+	}
+
+	static public function setRunningSpecContainer(SpecContainerInterface $instance = null)
+	{
+		if ($instance && !$instance->isRunning())
+			throw new Exception('Method "' . __METHOD__ . '" should be accept only running specs');
+
+		static::$runningSpecContainer = $instance;
 	}
 }

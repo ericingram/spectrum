@@ -406,6 +406,56 @@ class ConfigTest extends Test
 
 		$this->assertEquals($oldClass, Config::getSpecContainerDescribeClass());
 	}
+	
+	
+/**/
+
+	public function testGetSpecContainerPatternClass_ShouldBeReturnSpectrumClassByDefault()
+	{
+		$this->assertEquals('\net\mkharitonov\spectrum\core\SpecContainerPattern', Config::getSpecContainerPatternClass());
+	}
+
+/**/
+
+	public function testSetSpecContainerPatternClass_ShouldBeSetNewClass()
+	{
+		Config::setSpecContainerPatternClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\SpecContainerPattern');
+		$this->assertEquals('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\SpecContainerPattern', Config::getSpecContainerPatternClass());
+	}
+
+	public function testSetSpecContainerPatternClass_ClassNotExists_ShouldBeThrowExceptionAndNotChangeValue()
+	{
+		$oldClass = Config::getSpecContainerPatternClass();
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'not exists', function(){
+			Config::setSpecContainerPatternClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\NotExistsClassFooBarBaz');
+		});
+
+		$this->assertEquals($oldClass, Config::getSpecContainerPatternClass());
+	}
+
+	public function testSetSpecContainerPatternClass_ClassNotImplementSpectrumInterface_ShouldBeThrowExceptionAndNotChangeValue()
+	{
+		$oldClass = Config::getSpecContainerPatternClass();
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'should be implement interface', function(){
+			Config::setSpecContainerPatternClass('\stdClass');
+		});
+
+		$this->assertEquals($oldClass, Config::getSpecContainerPatternClass());
+	}
+
+	public function testSetSpecContainerPatternClass_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
+	{
+		$oldClass = Config::getSpecContainerPatternClass();
+		Config::lock();
+
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Config is locked', function(){
+			Config::setSpecContainerPatternClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\SpecContainerPattern');
+		});
+
+		$this->assertEquals($oldClass, Config::getSpecContainerPatternClass());
+	}
 
 /**/
 

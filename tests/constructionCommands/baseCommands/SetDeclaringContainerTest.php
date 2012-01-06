@@ -18,27 +18,27 @@ require_once dirname(__FILE__) . '/../../init.php';
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class SetCurrentContainerTest extends \net\mkharitonov\spectrum\constructionCommands\baseCommands\Test
+class SetDeclaringContainerTest extends \net\mkharitonov\spectrum\constructionCommands\baseCommands\Test
 {
-	public function testShouldBeSetCurrentContainer()
+	public function testShouldBeSetDeclaringContainer()
 	{
 		$describe = new \net\mkharitonov\spectrum\core\SpecContainerDescribe();
-		Manager::setCurrentContainer($describe);
+		Manager::setDeclaringContainer($describe);
 
 		$this->assertSame($describe, Manager::getCurrentContainer());
 	}
 
 	public function testShouldBeAcceptNull()
 	{
-		Manager::setCurrentContainer(new \net\mkharitonov\spectrum\core\SpecContainerDescribe());
-		Manager::setCurrentContainer(null);
+		Manager::setDeclaringContainer(new \net\mkharitonov\spectrum\core\SpecContainerDescribe());
+		Manager::setDeclaringContainer(null);
 		$this->assertSame(\net\mkharitonov\spectrum\RootDescribe::getOnceInstance(), Manager::getCurrentContainer());
 	}
 
 	public function testShouldBeAcceptOnlySpecContainerInstances()
 	{
 		$this->assertThrowException('\Exception', function(){
-			Manager::setCurrentContainer(new \net\mkharitonov\spectrum\core\SpecItemIt());
+			Manager::setDeclaringContainer(new \net\mkharitonov\spectrum\core\SpecItemIt());
 		});
 	}
 }

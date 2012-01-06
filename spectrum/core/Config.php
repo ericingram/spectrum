@@ -25,6 +25,7 @@ class Config
 	private static $specContainerContextClass = '\net\mkharitonov\spectrum\core\SpecContainerContext';
 	private static $specContainerArgumentsProviderClass = '\net\mkharitonov\spectrum\core\SpecContainerArgumentsProvider';
 	private static $specContainerDescribeClass = '\net\mkharitonov\spectrum\core\SpecContainerDescribe';
+	private static $specContainerPatternClass = '\net\mkharitonov\spectrum\core\SpecContainerPattern';
 	private static $specItemItClass = '\net\mkharitonov\spectrum\core\SpecItemIt';
 	private static $worldClass = '\net\mkharitonov\spectrum\core\World';
 	private static $allowPluginsRegistration = true;
@@ -62,6 +63,9 @@ class Config
 
 	public static function setSpecContainerDescribeClass($className){ return static::setConfigClassValue(static::$specContainerDescribeClass, $className, '\net\mkharitonov\spectrum\core\SpecContainerDescribeInterface'); }
 	public static function getSpecContainerDescribeClass(){ return static::$specContainerDescribeClass; }
+
+	public static function setSpecContainerPatternClass($className){ return static::setConfigClassValue(static::$specContainerPatternClass, $className, '\net\mkharitonov\spectrum\core\SpecContainerPatternInterface'); }
+	public static function getSpecContainerPatternClass(){ return static::$specContainerPatternClass; }
 
 	public static function setSpecItemItClass($className){ return static::setConfigClassValue(static::$specItemItClass, $className, '\net\mkharitonov\spectrum\core\SpecItemItInterface'); }
 	public static function getSpecItemItClass(){ return static::$specItemItClass; }

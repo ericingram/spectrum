@@ -17,14 +17,10 @@ namespace net\mkharitonov\spectrum\core;
  */
 abstract class SpecContainer extends Spec implements SpecContainerInterface
 {
+	protected $runningSpecContainerBackup;
+
 	/** @var Spec[] */
 	protected $specs = array();
-
-	/** @var SpecContainerContext|null */
-	protected $runningContext;
-
-	/** @var SpecContainerContext|null */
-	protected $parentOldRunningContext;
 
 	public function __clone()
 	{
@@ -93,5 +89,32 @@ abstract class SpecContainer extends Spec implements SpecContainerInterface
 		$this->stopRun();
 
 		return $result;
+	}
+
+	public function getSpecsToRun()
+	{
+		$childContexts = $this->selector->getChildContexts();
+
+		if (count($childContexts))
+			return $childContexts;
+		else
+			return $this->getSpecs();
+	}
+
+	protected function startRun()
+	{
+		parent::startRun();
+
+		$registryClass = \net\mkharitonov\spectrum\core\Config::getRegistryClass();
+		$this->runningSpecContainerBackup = $registryClass::getRunningSpecContainer();
+		$registryClass::setRunningSpecContainer($this);
+	}
+
+	protected function stopRun()
+	{
+		$registryClass = \net\mkharitonov\spectrum\core\Config::getRegistryClass();
+		$registryClass::setRunningSpecContainer($this->runningSpecContainerBackup);
+
+		parent::stopRun();
 	}
 }

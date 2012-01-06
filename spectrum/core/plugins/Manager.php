@@ -27,6 +27,7 @@ class Manager implements ManagerInterface
 		'liveReport' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\LiveReport', 'activateMoment' => 'whenCallOnce'),
 		'output' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\Output', 'activateMoment' => 'whenCallOnce'),
 		'messages' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\Messages', 'activateMoment' => 'whenCallOnce'),
+		'patterns' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\Patterns', 'activateMoment' => 'whenCallOnce'),
 	);
 
 	static public function registerPlugin($accessName, $class = '\net\mkharitonov\spectrum\core\plugins\basePlugins\stack\Indexed', $activateMoment = 'whenCallOnce')

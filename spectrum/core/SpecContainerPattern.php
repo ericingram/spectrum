@@ -15,7 +15,18 @@ namespace net\mkharitonov\spectrum\core;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class SpecContainerDescribe extends SpecContainer implements SpecContainerDescribeInterface
+class SpecContainerPattern extends SpecContainer implements SpecContainerPatternInterface
 {
+	protected $arguments = array();
 
+	public function setArguments($arguments)
+	{
+		$this->handleSpecModifyDeny();
+		$this->arguments = $arguments;
+	}
+
+	public function getArguments()
+	{
+		return $this->arguments;
+	}
 }

@@ -1,23 +1,6 @@
----examples
-	addExample('Автомобиль', $doorsCount);
-	itLikeExample('Автомобиль', 4);
-	что бы работало в контекстах надо выполнять itLikeExample во время выполнения
-	SpecContainerDynamic/SpecDynamic
-	ContainerExample
-	ContainerDynamic/LateBind - содержит callback ф-ю, которая возвращает Spec, который запускается
-	addExample('foo', function(){
-		return new SpecItemIt('я пример');
-	});
-	function itLikeExample('foo')
-	{
-		return new SpecContainerDynamic(function(){
-			$exampleCallback = $this->examples->get('foo')
-			return $exampleCallback();
-		})
-	}
-	SpecContainerDynamic->run()
-		вызвать callback ф-ю, которая вернет Spec
-		запустить Spec (внутри run будет вызваны builders для каждого созданного динамически спеки и динамич спеки выполнятся правильно)
+setSpecSettings -> setSettings
+
+it() - если не задан currentContainer, то выбрасывать исключение
 
 ---Плагин report
 	Заменить list-style: outside на inside, что бы цифры комировались в буфер
@@ -31,7 +14,7 @@
 	написать тесты
 
 --- events
-Assert->callMatcher
+	Assert->callMatcher
 	$it->triggerEvent('onMatcherCallBefore', $this, $expectedArgs);
 	$it->triggerEvent('onMatcherCallAfter', $this, $expectedArgs, $result);
 
@@ -50,7 +33,7 @@ output:
 runner.php?file=
 
 Doc: Расширение и конфигурация
-Дописать и перезалить документацию по setSpecSettings
+Дописать и перезалить документацию по setSettings
 результат выполнения: написать про результат выполнения запуска контекстов и откдюченных спеков
 
 Структура отлова исключения
@@ -83,7 +66,8 @@ count(getRunningInstance()->getResultStack())
 --- argumentsProviders
 	провайдеры аргументов — возможность использования combine?
 
----before
+---worldCreators
+Добавить дополнительных творцов: beforeAll(), afterAll() и т.п.
 beforeAll - выполняется перед всеми в nearestDescribe всех его контекстов
 beforeOnce
 ifFirstChild()

@@ -23,7 +23,7 @@ class GetCurrentContainerTest extends \net\mkharitonov\spectrum\constructionComm
 	public function testDeclaringState_ShouldBeReturnCurrentContainerIfItSet()
 	{
 		$container = new \net\mkharitonov\spectrum\core\SpecContainerDescribe();
-		Manager::setCurrentContainer($container);
+		Manager::setDeclaringContainer($container);
 
 		$this->assertSame($container, Manager::getCurrentContainer());
 	}

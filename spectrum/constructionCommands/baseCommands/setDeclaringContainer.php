@@ -9,13 +9,15 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core;
+namespace net\mkharitonov\spectrum\constructionCommands\baseCommands;
 
 /**
+ * @see getCurrentContainer()
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class SpecContainerDescribe extends SpecContainer implements SpecContainerDescribeInterface
+function setDeclaringContainer(\net\mkharitonov\spectrum\core\SpecContainerInterface $spec = null)
 {
-
+	static $container;
+	$container = $spec;
 }

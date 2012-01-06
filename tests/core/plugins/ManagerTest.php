@@ -40,6 +40,7 @@ class ManagerTest extends \net\mkharitonov\spectrum\core\Test
 			'liveReport' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\LiveReport', 'activateMoment' => 'whenCallOnce'),
 			'output' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\Output', 'activateMoment' => 'whenCallOnce'),
 			'messages' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\Messages', 'activateMoment' => 'whenCallOnce'),
+			'patterns' => array('class' => '\net\mkharitonov\spectrum\core\plugins\basePlugins\Patterns', 'activateMoment' => 'whenCallOnce'),
 		), Manager::getRegisteredPlugins());
 	}
 
