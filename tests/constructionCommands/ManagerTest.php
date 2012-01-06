@@ -42,7 +42,7 @@ class ManagerTest extends \net\mkharitonov\spectrum\Test
 			'getDeclaringContainer' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\getDeclaringContainer',
 			'getCurrentItem' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\getCurrentItem',
 
-			'setSpecSettings' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\setSpecSettings',
+			'setSettings' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\setSettings',
 
 			'isDeclaringState' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\isDeclaringState',
 			'isRunningState' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\isRunningState',

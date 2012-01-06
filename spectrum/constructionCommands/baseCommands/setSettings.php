@@ -15,7 +15,7 @@ namespace net\mkharitonov\spectrum\constructionCommands\baseCommands;
  * Function with base functional for construction commands describe() and context().
  *
  * @example
- * Manager::setSpecSettings($spec, array(
+ * Manager::setSettings($spec, array(
  *     'catchExceptions' => true,         // see core\plugins\basePlugins\ErrorHandling::setCatchExceptions()
  *     'catchPhpErrors' => -1,            // see core\plugins\basePlugins\ErrorHandling::setCatchPhpErrors()
  *     'breakOnFirstPhpError' => true,    // see core\plugins\basePlugins\ErrorHandling::setBreakOnFirstPhpError()
@@ -24,18 +24,18 @@ namespace net\mkharitonov\spectrum\constructionCommands\baseCommands;
  * ));
  *
  * @example
- * Manager::setSpecSettings($spec, 'windows-1251'); // see core\plugins\basePlugins\Output::setInputEncoding()
+ * Manager::setSettings($spec, 'windows-1251'); // see core\plugins\basePlugins\Output::setInputEncoding()
  *
  * @example
- * Manager::setSpecSettings($spec, E_ALL); // see core\plugins\basePlugins\ErrorHandling::setCatchPhpErrors()
- * Manager::setSpecSettings($spec, true);  // see core\plugins\basePlugins\ErrorHandling::setCatchPhpErrors()
+ * Manager::setSettings($spec, E_ALL); // see core\plugins\basePlugins\ErrorHandling::setCatchPhpErrors()
+ * Manager::setSettings($spec, true);  // see core\plugins\basePlugins\ErrorHandling::setCatchPhpErrors()
  *
  * @param mixed $settings
  *
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-function setSpecSettings(\net\mkharitonov\spectrum\core\SpecInterface $spec, $settings)
+function setSettings(\net\mkharitonov\spectrum\core\SpecInterface $spec, $settings)
 {
 	if (is_string($settings)) // it('foo', function(){}, 'windows-1251')
 		$spec->output->setInputEncoding($settings);

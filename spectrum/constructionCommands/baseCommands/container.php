@@ -63,7 +63,7 @@ function container($specClass, $name = null, $callback = null, $settings = array
 
 	$spec = new $specClass();
 	$spec->setName($name);
-	$managerClass::setSpecSettings($spec, $settings);
+	$managerClass::setSettings($spec, $settings);
 
 	$managerClass::getCurrentContainer()->addSpec($spec);
 

@@ -32,7 +32,7 @@ require_once dirname(__FILE__) . '/baseCommands/getDeclaringContainer.php';
 require_once dirname(__FILE__) . '/baseCommands/getCurrentContainer.php';
 require_once dirname(__FILE__) . '/baseCommands/getCurrentItem.php';
 
-require_once dirname(__FILE__) . '/baseCommands/setSpecSettings.php';
+require_once dirname(__FILE__) . '/baseCommands/setSettings.php';
 
 require_once dirname(__FILE__) . '/baseCommands/isDeclaringState.php';
 require_once dirname(__FILE__) . '/baseCommands/isRunningState.php';
@@ -56,7 +56,7 @@ require_once dirname(__FILE__) . '/baseCommands/isRunningState.php';
  * @method \net\mkharitonov\spectrum\core\SpecItemIt it()
  * @method setDeclaringContainer()
  * @method getDeclaringContainer()
- * @method setSpecSettings()
+ * @method setSettings()
  */
 class Manager implements ManagerInterface
 {
@@ -82,7 +82,7 @@ class Manager implements ManagerInterface
 		'getDeclaringContainer' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\getDeclaringContainer',
 		'getCurrentItem' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\getCurrentItem',
 
-		'setSpecSettings' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\setSpecSettings',
+		'setSettings' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\setSettings',
 
 		'isDeclaringState' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\isDeclaringState',
 		'isRunningState' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\isRunningState',

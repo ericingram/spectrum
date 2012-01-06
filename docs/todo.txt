@@ -1,5 +1,3 @@
-setSpecSettings -> setSettings
-
 it() - если не задан currentContainer, то выбрасывать исключение
 
 ---Плагин report

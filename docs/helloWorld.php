@@ -34,17 +34,16 @@ class AddressBook
 
 
 describe('AddressBook', function(){
-	require(__DIR__ . '/addressBookContexts.php');
-
-	describe('Search person', function(){
-		it('Should find person by first name', function($w){
-			be($w->addressBook->findPerson('Bob')->firstName)->eq('Bob');
-		});
-
-		it('Should find person by last name', function($w){
-			be($w->addressBook->findPerson('Smith')->lastName)->eq('Smith');
+	addPattern('Автомобить', function($doorsCount){
+		describe('sadf', function() use($doorsCount){
+			it('Кол-во дверей должно быть ' . $doorsCount, function($w) use($doorsCount){
+				be(4)->eq($doorsCount);
+			});
 		});
 	});
+
+	itLikePattern('Автомобить', 3);
+	itLikePattern('Автомобить', 4);
 });
 
 \net\mkharitonov\spectrum\RootDescribe::run();

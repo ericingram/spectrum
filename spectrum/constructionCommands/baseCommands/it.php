@@ -77,7 +77,7 @@ function it($name, $argumentsProvider = null, $testCallback = null, $settings = 
 		$spec->setTestCallback($testCallback);
 	}
 
-	$managerClass::setSpecSettings($spec, $settings);
+	$managerClass::setSettings($spec, $settings);
 	$managerClass::getCurrentContainer()->addSpec($spec);
 	return $spec;
 }
