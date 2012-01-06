@@ -22,7 +22,7 @@ class MatchersTest extends Test
 {
 	public function testAdd_ShouldBeThrowExceptionIfNameIsReservedNameNot()
 	{
-		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', '"not"', function(){
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', '"not" was reserved', function(){
 			$spec = new \net\mkharitonov\spectrum\core\SpecContainerDescribe();
 			$spec->matchers->add('not', function(){});
 		});
@@ -30,7 +30,7 @@ class MatchersTest extends Test
 
 	public function testAdd_ShouldBeThrowExceptionIfNameIsReservedNameIsNot()
 	{
-		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', '"isNot"', function(){
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', '"isNot" was reserved', function(){
 			$spec = new \net\mkharitonov\spectrum\core\SpecContainerDescribe();
 			$spec->matchers->add('isNot', function(){});
 		});
@@ -38,7 +38,7 @@ class MatchersTest extends Test
 
 	public function testAdd_ShouldBeThrowExceptionIfNameIsReservedNameGetActualValue()
 	{
-		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', '"getActualValue"', function(){
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', '"getActualValue" was reserved', function(){
 			$spec = new \net\mkharitonov\spectrum\core\SpecContainerDescribe();
 			$spec->matchers->add('getActualValue', function(){});
 		});
@@ -46,7 +46,7 @@ class MatchersTest extends Test
 
 	public function testAdd_ShouldBeThrowExceptionIfNameIsReservedNameBe()
 	{
-		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', '"be"', function(){
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', '"be" was reserved', function(){
 			$spec = new \net\mkharitonov\spectrum\core\SpecContainerDescribe();
 			$spec->matchers->add('be', function(){});
 		});

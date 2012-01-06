@@ -10,6 +10,7 @@
  */
 
 namespace net\mkharitonov\spectrum\core\plugins\basePlugins\stack;
+use net\mkharitonov\spectrum\core\plugins\Exception;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
@@ -68,7 +69,7 @@ abstract class Stack extends \net\mkharitonov\spectrum\core\plugins\Plugin
 		if ($this->isExists($key))
 			return $this->items[$key];
 		else
-			throw new \net\mkharitonov\spectrum\core\Exception('Item "' . $key . '" not exists in plugin with access name "' . $this->accessName . '"');
+			throw new Exception('Item "' . $key . '" not exists in plugin with access name "' . $this->accessName . '"');
 	}
 
 	public function getCascadeThroughRunningContexts($key)
@@ -84,7 +85,7 @@ abstract class Stack extends \net\mkharitonov\spectrum\core\plugins\Plugin
 				return $spec->$accessName->get($key);
 		}
 
-		throw new \net\mkharitonov\spectrum\core\Exception('Item "' . $key . '" not exists in plugin with access name "' . $this->accessName . '"');
+		throw new Exception('Item "' . $key . '" not exists in plugin with access name "' . $this->accessName . '"');
 	}
 
 	public function getAll()

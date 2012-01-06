@@ -28,7 +28,7 @@ class Matchers extends Stack\Named
 			throw new Exception('Matchers override deny in Config');
 
 		if (in_array($name, array('not', 'isNot', 'getActualValue', 'be')))
-			throw new \net\mkharitonov\spectrum\core\Exception('Name "' . $name . '" was reserved, you can\'t add matcher with same name');
+			throw new Exception('Name "' . $name . '" was reserved, you can\'t add matcher with same name');
 
 		return parent::add($name, $callback);
 	}
@@ -54,7 +54,7 @@ class Matchers extends Stack\Named
 		$callback = $this->getCascadeThroughRunningContexts($name);
 
 		if (!is_callable($callback))
-			throw new \net\mkharitonov\spectrum\core\Exception('Callback for matcher "' . $name . '" is not callable');
+			throw new Exception('Callback for matcher "' . $name . '" is not callable');
 
 		return call_user_func_array($callback, $args);
 	}

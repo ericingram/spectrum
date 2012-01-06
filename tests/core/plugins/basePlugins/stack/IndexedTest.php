@@ -114,7 +114,7 @@ class IndexedTest extends Test
 
 		$specs[0]->testPlugin->add('foo');
 
-		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', function() use($specs) {
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', 'not exists', function() use($specs) {
 			$specs[1]->testPlugin->get(0);
 		});
 	}
@@ -123,7 +123,7 @@ class IndexedTest extends Test
 	{
 		$plugin = new Indexed(new \net\mkharitonov\spectrum\core\SpecContainerDescribe(), 'testPlugin');
 		$plugin->add('foo');
-		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', function() use($plugin) {
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', 'not exists', function() use($plugin) {
 			$plugin->get(99);
 		});
 	}
@@ -283,7 +283,7 @@ class IndexedTest extends Test
 		$specs[1]->testPlugin->add('bar0');
 		$specs[2]->testPlugin->add('baz0');
 
-		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', function() use($specs) {
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', 'not exists', function() use($specs) {
 			$specs[2]->testPlugin->get(1);
 		});
 	}

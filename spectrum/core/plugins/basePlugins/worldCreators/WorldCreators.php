@@ -10,6 +10,7 @@
  */
 
 namespace net\mkharitonov\spectrum\core\plugins\basePlugins\worldCreators;
+use net\mkharitonov\spectrum\core\plugins\Exception;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
@@ -20,7 +21,7 @@ abstract class WorldCreators extends \net\mkharitonov\spectrum\core\plugins\base
 	public function add($callback, $type = 'each')
 	{
 		if (!in_array($type, array('each')))
-			throw new \net\mkharitonov\spectrum\core\Exception('Wrong world creator type (allowed "each", but "' . $type . '" given)');
+			throw new Exception('Wrong world creator type (allowed "each", but "' . $type . '" given)');
 
 		parent::add(array(
 			'callback' => $callback,

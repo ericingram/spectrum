@@ -347,7 +347,7 @@ abstract class Test extends \net\mkharitonov\spectrum\core\plugins\basePlugins\s
 		$self = $this;
 		$this->executeContext(function() use($spec, $itemKey, $self)
 		{
-			$self->assertThrowException('\net\mkharitonov\spectrum\core\Exception', '"' . $itemKey . '" not exists', function() use($spec, $itemKey){
+			$self->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', '"' . $itemKey . '" not exists', function() use($spec, $itemKey){
 				$spec->testPlugin->getCascadeThroughRunningContexts($itemKey);
 			});
 		}, $spec);
