@@ -116,30 +116,4 @@ class ConfigTest extends \net\mkharitonov\spectrum\Test
 
 		$this->assertEquals(true, Config::getAllowConstructionCommandsOverride());
 	}
-	
-/**/
-
-	public function testGetAllowCreateGlobalAlias_ShouldBeReturnTrueByDefault()
-	{
-		$this->assertTrue(Config::getAllowCreateGlobalAlias());
-	}
-
-/**/
-
-	public function testSetAllowCreateGlobalAlias_ShouldBeSetNewValue()
-	{
-		Config::setAllowCreateGlobalAlias(false);
-		$this->assertFalse(Config::getAllowCreateGlobalAlias());
-	}
-
-	public function testSetAllowCreateGlobalAlias_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
-	{
-		Config::lock();
-
-		$this->assertThrowException('\net\mkharitonov\spectrum\constructionCommands\Exception', 'constructionCommands\Config is locked', function(){
-			Config::setAllowCreateGlobalAlias(false);
-		});
-
-		$this->assertEquals(true, Config::getAllowCreateGlobalAlias());
-	}
 }

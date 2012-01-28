@@ -20,7 +20,6 @@ class Config
 	private static $managerClass = '\net\mkharitonov\spectrum\constructionCommands\Manager';
 	private static $allowConstructionCommandsRegistration = true;
 	private static $allowConstructionCommandsOverride = true;
-	private static $allowCreateGlobalAlias = true;
 
 	private static $locked = false;
 
@@ -32,9 +31,6 @@ class Config
 
 	public static function setAllowConstructionCommandsOverride($isEnable){ return static::setConfigValue(static::$allowConstructionCommandsOverride, $isEnable); }
 	public static function getAllowConstructionCommandsOverride(){ return static::$allowConstructionCommandsOverride; }
-
-	public static function setAllowCreateGlobalAlias($isEnable){ return static::setConfigValue(static::$allowCreateGlobalAlias, $isEnable); }
-	public static function getAllowCreateGlobalAlias(){ return static::$allowCreateGlobalAlias; }
 
 	public static function lock(){ static::$locked = true; }
 	public static function isLocked(){ return static::$locked; }

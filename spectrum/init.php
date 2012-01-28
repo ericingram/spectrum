@@ -14,4 +14,4 @@
  * @link   http://www.mkharitonov.net/spectrum/
  */
 require_once dirname(__FILE__) . '/autoload.php';
-\net\mkharitonov\spectrum\constructionCommands\Manager::createGeneralGlobalAliasesOnce();
+require_once dirname(__FILE__) . '/constructionCommands/globalAliases.php';

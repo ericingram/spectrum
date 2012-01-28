@@ -1,6 +1,4 @@
-createGlobalAliasOnce($commandName) — добавить и проверить параметр $namespace
-
-Assert доработать
+Assert доработать, добавить сообщение об ошибке отсутствующих скобок у маткера (be()->true вместо be()->true())
 
 ---Плагин report
 	Заменить list-style: outside на inside, что бы цифры комировались в буфер
@@ -17,36 +15,7 @@ Assert доработать
 	run($spedUid)
 	selector->getSpecByUid
 
-
-output:
-	if ($spec->getName() == $name), перекодировать надо, convertToInternalEncoding?
-	или лучше хранить спеки внутри в UTF-8?
-
-
 runner.php?file=
-
-
---- events
-	Добавить события onMatcherCall в callMatcher()
-		$it->dispatchEvent('onMatcherCallBefore', $onMatcherCallEvent);
-		$it->dispatchEvent('onMatcherCallAfter', $onMatcherCallEvent); — вызывать в конце и в случае выброса исключения
-		сделать метод Spec->dispatchEvent() публичным
-		добавить проверку на Config::allowAlienEventDispatching() в Spec->dispatchEvent()
-		OnMatcherCallEvent
-			Assert $owner
-			$matcherName
-			$expectedArgs
-			RunResultDetails $runResultDetails
-			Spec $specItem
-			$matcherReturnValue
-			$result
-			$exception
-			$isBreak
-
-
-
-
-
 
 Doc: Расширение и конфигурация
 Дописать и перезалить документацию по setSettings
@@ -101,11 +70,50 @@ Spy
 FileSystemMockReal
 FileSystemMockVirtual
 
---- world()
-Лучше $world, т.к.:
-	- обеспечивает защиту мира (ф-я world() может быть вызвана из глубин тестируемого кода)
-	- будет стимулировать не использовать мир в матчерах
-	- в examples мир по любому не может быть вызван
+--- events
+	Добавить события onMatcherCall в callMatcher()
+		$it->dispatchEvent('onMatcherCallBefore', $onMatcherCallEvent);
+		$it->dispatchEvent('onMatcherCallAfter', $onMatcherCallEvent); — вызывать в конце и в случае выброса исключения
+		сделать метод Spec->dispatchEvent() публичным
+		добавить проверку на Config::allowAlienEventDispatching() в Spec->dispatchEvent()
+		OnMatcherCallEvent
+			Assert $owner
+			$matcherName
+			$expectedArgs
+			RunResultDetails $runResultDetails
+			Spec $specItem
+			$matcherReturnValue
+			$result
+			$exception
+			$isBreak
+
+--- world
+	Вопрос: Что лучше: constructionCommands\Manager::world() или параметр $world в тестовой функции
+	Ответ:
+		Лучше $world, т.к.:
+		- обеспечивает защиту мира (ф-я world() может быть вызвана из глубин тестируемого кода)
+		- будет стимулировать не использовать мир в матчерах
+		- в examples мир по любому не может быть вызван
+
+
+--- output:
+	Вопрос: if ($spec->getName() == $name) — перекодировать надо или лучше хранить данные внутри обьектов в UTF-8?
+	Ответ:
+		Нет, т.к. тогда надо будет перекодировать данные в:
+			Spec->setName(),
+			SpecContainerPattern->setArguments(),
+			SpecContainerPattern->getArguments() — при передаче callback функции в itLikePattern()
+			SpecItemIt->setAdditionalArguments(),
+			SpecItemIt->getAdditionalArguments() — при передаче testCallback функции
+		Плюс плагины будут видеть данные world в исходной кодировке, т.к. полностью (включая данные их возможных в нем
+		методов) перекодировать его будет проблематично.
+
+		И если внутри кода тестов, написанного в одной кодировке будет вызван один из этих методов, то ему придется
+		знать о том, что созданные им данные хранятся в обьектной структуре в другой кодировке и перекодировать.
+
+		Вывод: оставляем хранение данных в обьектной структуре в исходной кодировке, отдавая таким образом предпочтение
+		более прозрачной работе с кодировками из тестов, нежели из дополнительных обработчиков вне кода тестов (плагинов,
+		кода обработки в runner'е и т.п.)
 
 //spectrum_DefaultMatchers_Base_beInstanceOf
 beTriggerError(level)/bePhpError

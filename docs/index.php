@@ -1233,12 +1233,6 @@ printExample('', <<<'CODE'
 	it('Полет космического корабля', function(){
 		Manager::crash();
 	});
-
-	// А можно создать глобальный алиас
-	Manager::createGlobalAliasOnce('crash');
-	it('Полет космического корабля', function(){
-		crash();
-	});
 CODE
 , array('enableDebug', 'height' => 250));
 ?>

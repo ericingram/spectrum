@@ -20,8 +20,6 @@ interface ManagerInterface
 	static public function __callStatic($name, $args = array());
 	static public function callCommand($name, $args = array());
 
-	static public function createGeneralGlobalAliasesOnce();
-	static public function createGlobalAliasOnce($commandName);
 	static public function registerCommand($name, $callback);
 	static public function registerCommands($commands);
 	static public function unregisterCommand($name);

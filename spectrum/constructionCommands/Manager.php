@@ -88,8 +88,6 @@ class Manager implements ManagerInterface
 		'isRunningState' => '\net\mkharitonov\spectrum\constructionCommands\baseCommands\isRunningState',
 	);
 	
-	static protected $createdAliases = array();
-
 	static public function __callStatic($name, $args = array())
 	{
 		return static::callCommand($name, $args);
@@ -98,50 +96,6 @@ class Manager implements ManagerInterface
 	static public function callCommand($name, $args = array())
 	{
 		return call_user_func_array(static::getRegisteredCommandCallback($name), $args);
-	}
-	
-	static public function createGeneralGlobalAliasesOnce()
-	{
-		static::createGlobalAliasOnce('describe');
-		static::createGlobalAliasOnce('context');
-		static::createGlobalAliasOnce('it');
-		static::createGlobalAliasOnce('itLikePattern');
-		static::createGlobalAliasOnce('addPattern');
-		static::createGlobalAliasOnce('addMatcher');
-		static::createGlobalAliasOnce('beforeEach');
-		static::createGlobalAliasOnce('afterEach');
-		static::createGlobalAliasOnce('be');
-		static::createGlobalAliasOnce('fail');
-		static::createGlobalAliasOnce('message');
-	}
-
-	static public function createGlobalAliasOnce($commandName)
-	{
-		if (!Config::getAllowCreateGlobalAlias())
-			throw new Exception('Create global alias for construction commands deny in Config');
-
-		if (!static::hasRegisteredCommand($commandName))
-			throw new Exception('Command "' . $commandName . '" not exists');
-
-		if (in_array($commandName, static::$createdAliases))
-			return false;
-
-		if (function_exists($commandName))
-			throw new Exception('Function "' . $commandName . '" already exists');
-		
-		$result = eval("namespace {
-			function $commandName ()
-			{
-				\$args = func_get_args();
-				return call_user_func_array('\\net\\mkharitonov\\spectrum\\constructionCommands\\Manager::$commandName', \$args);
-			}
-		}");
-
-		if ($result === false)
-			throw new Exception('Error while creating global alias for "' . $commandName . '"');
-
-		static::$createdAliases[] = $commandName;
-		return true;
 	}
 
 	static public function registerCommand($name, $callback)
