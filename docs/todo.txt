@@ -13,11 +13,6 @@ Assert доработать
 	доработать формат вывода буффера результатов
 	написать тесты
 
---- events
-	Assert->callMatcher
-	$it->dispatchEvent('onMatcherCallBefore', $this, $expectedArgs);
-	$it->dispatchEvent('onMatcherCallAfter', $this, $expectedArgs, $result);
-
 ---context
 	run($spedUid)
 	selector->getSpecByUid
@@ -30,6 +25,23 @@ output:
 
 runner.php?file=
 
+
+--- events
+	Добавить события onMatcherCall в callMatcher()
+		$it->dispatchEvent('onMatcherCallBefore', $onMatcherCallEvent);
+		$it->dispatchEvent('onMatcherCallAfter', $onMatcherCallEvent); — вызывать в конце и в случае выброса исключения
+		сделать метод Spec->dispatchEvent() публичным
+		добавить проверку на Config::allowAlienEventDispatching() в Spec->dispatchEvent()
+		OnMatcherCallEvent
+			Assert $owner
+			$matcherName
+			$expectedArgs
+			RunResultDetails $runResultDetails
+			Spec $specItem
+			$matcherReturnValue
+			$result
+			$exception
+			$isBreak
 
 
 
