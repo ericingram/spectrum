@@ -72,8 +72,8 @@ abstract class SpecContainer extends Spec implements SpecContainerInterface
 			return $this->runSelfThroughAncestors();
 
 		$this->startRun();
-		$this->triggerEvent('onRunBefore');
-		$this->triggerEvent('onRunContainerBefore');
+		$this->dispatchEvent('onRunBefore');
+		$this->dispatchEvent('onRunContainerBefore');
 
 		$results = array();
 		foreach ($this->getSpecsToRun() as $spec)
@@ -84,8 +84,8 @@ abstract class SpecContainer extends Spec implements SpecContainerInterface
 
 		$result = $this->calculateFinalResult($results);
 
-		$this->triggerEvent('onRunContainerAfter', $result);
-		$this->triggerEvent('onRunAfter', $result);
+		$this->dispatchEvent('onRunContainerAfter', $result);
+		$this->dispatchEvent('onRunAfter', $result);
 		$this->stopRun();
 
 		return $result;

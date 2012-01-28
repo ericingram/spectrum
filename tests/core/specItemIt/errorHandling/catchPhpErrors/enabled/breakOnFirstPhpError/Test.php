@@ -150,7 +150,7 @@ abstract class Test extends \net\mkharitonov\spectrum\core\specItemIt\errorHandl
 		$this->assertFalse($it->isRunning());
 	}
 
-	public function testShouldBeTriggerEventOnRunAfter()
+	public function testShouldBeDispatchEventOnRunAfter()
 	{
 		Manager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\testEnv\PluginEventOnRunStub');
 

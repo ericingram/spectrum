@@ -74,7 +74,7 @@ abstract class Spec implements SpecInterface
 		return $this->activatedPlugins[$pluginAccessName];
 	}
 
-	protected function triggerEvent($eventName)
+	protected function dispatchEvent($eventName)
 	{
 		$args = func_get_args();
 		unset($args[0]);

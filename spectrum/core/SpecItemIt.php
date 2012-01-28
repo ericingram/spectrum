@@ -68,14 +68,14 @@ class SpecItemIt extends SpecItem implements SpecItemItInterface
 			return $this->runSelfThroughAncestors();
 
 		$this->startRun();
-		$this->triggerEvent('onRunBefore');
-		$this->triggerEvent('onRunItemBefore');
+		$this->dispatchEvent('onRunBefore');
+		$this->dispatchEvent('onRunItemBefore');
 
 		$this->execute();
 		$result = $this->getRunResultsBuffer()->calculateFinalResult();
 
-		$this->triggerEvent('onRunItemAfter', $result);
-		$this->triggerEvent('onRunAfter', $result);
+		$this->dispatchEvent('onRunItemAfter', $result);
+		$this->dispatchEvent('onRunAfter', $result);
 		$this->stopRun();
 
 		return $result;
@@ -169,13 +169,13 @@ class SpecItemIt extends SpecItem implements SpecItemItInterface
 
 	protected function callTestCallback($world)
 	{
-		$this->triggerEvent('onTestCallbackCallBefore', $world);
+		$this->dispatchEvent('onTestCallbackCallBefore', $world);
 
 		if (!is_callable($this->testCallback))
 			throw new Exception('Test callback is not callable');
 
 		call_user_func_array($this->testCallback, array_merge(array($world), $this->getAdditionalArguments()));
 
-		$this->triggerEvent('onTestCallbackCallAfter', $world);
+		$this->dispatchEvent('onTestCallbackCallAfter', $world);
 	}
 }

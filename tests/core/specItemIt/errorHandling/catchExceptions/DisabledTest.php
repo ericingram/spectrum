@@ -100,7 +100,7 @@ class DisabledTest extends Test
 		$this->assertFalse($it->isRunning());
 	}
 
-	public function testShouldBeTriggerEventOnRunAfter()
+	public function testShouldBeDispatchEventOnRunAfter()
 	{
 		Manager::registerPlugin('foo', '\net\mkharitonov\spectrum\core\testEnv\PluginEventOnRunStub');
 

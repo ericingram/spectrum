@@ -1,4 +1,6 @@
-it() - если не задан currentContainer, то выбрасывать исключение
+createGlobalAliasOnce($commandName) — добавить и проверить параметр $namespace
+
+Assert доработать
 
 ---Плагин report
 	Заменить list-style: outside на inside, что бы цифры комировались в буфер
@@ -13,22 +15,26 @@ it() - если не задан currentContainer, то выбрасывать и
 
 --- events
 	Assert->callMatcher
-	$it->triggerEvent('onMatcherCallBefore', $this, $expectedArgs);
-	$it->triggerEvent('onMatcherCallAfter', $this, $expectedArgs, $result);
+	$it->dispatchEvent('onMatcherCallBefore', $this, $expectedArgs);
+	$it->dispatchEvent('onMatcherCallAfter', $this, $expectedArgs, $result);
 
 ---context
-	run($contextStackId)
-	контекст стек или снимок уид
-	getContextByStackUid
-	getSpecByUid
-	// selector
-	//todo: select by stack uid
+	run($spedUid)
+	selector->getSpecByUid
 
 
 output:
 	if ($spec->getName() == $name), перекодировать надо, convertToInternalEncoding?
+	или лучше хранить спеки внутри в UTF-8?
+
 
 runner.php?file=
+
+
+
+
+
+
 
 Doc: Расширение и конфигурация
 Дописать и перезалить документацию по setSettings
