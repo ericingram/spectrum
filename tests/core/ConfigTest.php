@@ -67,51 +67,51 @@ class ConfigTest extends Test
 
 /**/
 
-	public function testGetAssertRunResultDetailsClass_ShouldBeReturnSpectrumClassByDefault()
+	public function testGetMatcherCallDetailsClass_ShouldBeReturnSpectrumClassByDefault()
 	{
-		$this->assertEquals('\net\mkharitonov\spectrum\core\asserts\RunResultDetails', Config::getAssertRunResultDetailsClass());
+		$this->assertEquals('\net\mkharitonov\spectrum\core\asserts\MatcherCallDetails', Config::getMatcherCallDetailsClass());
 	}
 
 /**/
 
-	public function testSetAssertRunResultDetailsClass_ShouldBeSetNewClass()
+	public function testSetMatcherCallDetailsClass_ShouldBeSetNewClass()
 	{
-		Config::setAssertRunResultDetailsClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\asserts\RunResultDetails');
-		$this->assertEquals('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\asserts\RunResultDetails', Config::getAssertRunResultDetailsClass());
+		Config::setMatcherCallDetailsClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\asserts\MatcherCallDetails');
+		$this->assertEquals('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\asserts\MatcherCallDetails', Config::getMatcherCallDetailsClass());
 	}
 
-	public function testSetAssertRunResultDetailsClass_ClassNotExists_ShouldBeThrowExceptionAndNotChangeValue()
+	public function testSetMatcherCallDetailsClass_ClassNotExists_ShouldBeThrowExceptionAndNotChangeValue()
 	{
-		$oldClass = Config::getAssertRunResultDetailsClass();
+		$oldClass = Config::getMatcherCallDetailsClass();
 
 		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'not exists', function(){
-			Config::setAssertRunResultDetailsClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\NotExistsClassFooBarBaz');
+			Config::setMatcherCallDetailsClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\NotExistsClassFooBarBaz');
 		});
 
-		$this->assertEquals($oldClass, Config::getAssertRunResultDetailsClass());
+		$this->assertEquals($oldClass, Config::getMatcherCallDetailsClass());
 	}
 
-	public function testSetAssertRunResultDetailsClass_ClassNotImplementSpectrumInterface_ShouldBeThrowExceptionAndNotChangeValue()
+	public function testSetMatcherCallDetailsClass_ClassNotImplementSpectrumInterface_ShouldBeThrowExceptionAndNotChangeValue()
 	{
-		$oldClass = Config::getAssertRunResultDetailsClass();
+		$oldClass = Config::getMatcherCallDetailsClass();
 
 		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'should be implement interface', function(){
-			Config::setAssertRunResultDetailsClass('\stdClass');
+			Config::setMatcherCallDetailsClass('\stdClass');
 		});
 
-		$this->assertEquals($oldClass, Config::getAssertRunResultDetailsClass());
+		$this->assertEquals($oldClass, Config::getMatcherCallDetailsClass());
 	}
 
-	public function testSetAssertRunResultDetailsClass_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
+	public function testSetMatcherCallDetailsClass_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
 	{
-		$oldClass = Config::getAssertRunResultDetailsClass();
+		$oldClass = Config::getMatcherCallDetailsClass();
 		Config::lock();
 
 		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'Config is locked', function(){
-			Config::setAssertRunResultDetailsClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\asserts\RunResultDetails');
+			Config::setMatcherCallDetailsClass('\net\mkharitonov\spectrum\core\testEnv\emptyStubs\asserts\MatcherCallDetails');
 		});
 
-		$this->assertEquals($oldClass, Config::getAssertRunResultDetailsClass());
+		$this->assertEquals($oldClass, Config::getMatcherCallDetailsClass());
 	}
 
 /**/

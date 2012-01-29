@@ -1,5 +1,3 @@
-Assert доработать, добавить сообщение об ошибке отсутствующих скобок у маткера (be()->true вместо be()->true())
-
 ---Плагин report
 	Заменить list-style: outside на inside, что бы цифры комировались в буфер
 	Тире с окружающими пробелами вставить в HTML, что бы копировалось в буфер
@@ -15,7 +13,7 @@ Assert доработать, добавить сообщение об ошибк
 	run($spedUid)
 	selector->getSpecByUid
 
-runner.php?file=
+runner.php?file=qwe.php&uid=1_1_1
 
 Doc: Расширение и конфигурация
 Дописать и перезалить документацию по setSettings
@@ -80,7 +78,7 @@ FileSystemMockVirtual
 			Assert $owner
 			$matcherName
 			$expectedArgs
-			RunResultDetails $runResultDetails
+			MatcherCallDetails $matcherCallDetails
 			Spec $specItem
 			$matcherReturnValue
 			$result

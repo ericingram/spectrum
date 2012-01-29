@@ -10,13 +10,12 @@
  */
 
 namespace net\mkharitonov\spectrum\core\asserts;
-require_once dirname(__FILE__) . '/../../init.php';
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class RunResultDetailsTest extends \net\mkharitonov\spectrum\core\Test
+class Exception extends \net\mkharitonov\spectrum\core\Exception
 {
 	
 }

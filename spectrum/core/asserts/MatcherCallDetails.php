@@ -15,14 +15,14 @@ namespace net\mkharitonov\spectrum\core\asserts;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class RunResultDetails implements RunResultDetailsInterface
+class MatcherCallDetails implements MatcherCallDetailsInterface
 {
 	protected $actualValue;
 	protected $isNot;
 	protected $matcherName;
 	protected $matcherArgs = array();
 	protected $matcherReturnValue;
-	protected $matcherException;
+	protected $exception;
 
 	public function __construct()
 	{
@@ -88,13 +88,13 @@ class RunResultDetails implements RunResultDetailsInterface
 	
 /**/
 
-	public function setMatcherException(\Exception $matcherException = null)
+	public function setException(\Exception $matcherException = null)
 	{
-		$this->matcherException = $matcherException;
+		$this->exception = $matcherException;
 	}
 
-	public function getMatcherException()
+	public function getException()
 	{
-		return $this->matcherException;
+		return $this->exception;
 	}
 }

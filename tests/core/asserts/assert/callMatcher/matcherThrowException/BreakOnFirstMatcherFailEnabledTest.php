@@ -69,7 +69,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 
 		$this->assertEquals(1, count($results));
 		$this->assertFalse($results[0]['result']);
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\MatcherCallDetails);
 	}
 
 	public function testShouldBeProvidePropertiesToDetailsOnce()
@@ -87,14 +87,14 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 		$results = $runResultsBuffer->getResults();
 
 		$details = $results[0]['details'];
-		$this->assertTrue($details instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
+		$this->assertTrue($details instanceof \net\mkharitonov\spectrum\core\asserts\MatcherCallDetails);
 		$this->assertSame('foo', $details->getActualValue());
 		$this->assertSame(false, $details->getIsNot());
 		$this->assertSame('bad', $details->getMatcherName());
 		$this->assertSame(array(0, 'bar'), $details->getMatcherArgs());
 		$this->assertSame(null, $details->getMatcherReturnValue());
-		$this->assertTrue($details->getMatcherException() instanceof \Exception);
-		$this->assertSame('I am bad matcher', $details->getMatcherException()->getMessage());
+		$this->assertTrue($details->getException() instanceof \Exception);
+		$this->assertSame('I am bad matcher', $details->getException()->getMessage());
 	}
 
 /**/
@@ -148,7 +148,7 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 
 		$this->assertEquals(1, count($results));
 		$this->assertFalse($results[0]['result']);
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\MatcherCallDetails);
 	}
 
 	public function testWithNot_ShouldBeProvidePropertiesToDetailsOnce()
@@ -166,14 +166,14 @@ class BreakOnFirstMatcherFailEnabledTest extends \net\mkharitonov\spectrum\core\
 		$results = $runResultsBuffer->getResults();
 
 		$details = $results[0]['details'];
-		$this->assertTrue($details instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
+		$this->assertTrue($details instanceof \net\mkharitonov\spectrum\core\asserts\MatcherCallDetails);
 		$this->assertSame('foo', $details->getActualValue());
 		$this->assertSame(true, $details->getIsNot());
 		$this->assertSame('bad', $details->getMatcherName());
 		$this->assertSame(array(0, 'bar'), $details->getMatcherArgs());
 		$this->assertSame(null, $details->getMatcherReturnValue());
-		$this->assertTrue($details->getMatcherException() instanceof \Exception);
-		$this->assertSame('I am bad matcher', $details->getMatcherException()->getMessage());
+		$this->assertTrue($details->getException() instanceof \Exception);
+		$this->assertSame('I am bad matcher', $details->getException()->getMessage());
 	}
 
 /*** Test ware ***/

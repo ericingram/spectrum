@@ -71,9 +71,9 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 		$this->assertFalse($results[1]['result']);
 		$this->assertFalse($results[2]['result']);
 
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
-		$this->assertTrue($results[1]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
-		$this->assertTrue($results[2]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\MatcherCallDetails);
+		$this->assertTrue($results[1]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\MatcherCallDetails);
+		$this->assertTrue($results[2]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\MatcherCallDetails);
 
 		$this->assertAllResultsDetailsDifferent($results);
 	}
@@ -100,8 +100,8 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 		$this->assertSame('bad', $details->getMatcherName());
 		$this->assertSame(array(), $details->getMatcherArgs());
 		$this->assertSame(null, $details->getMatcherReturnValue());
-		$this->assertTrue($details->getMatcherException() instanceof \Exception);
-		$this->assertSame('I am bad matcher', $details->getMatcherException()->getMessage());
+		$this->assertTrue($details->getException() instanceof \Exception);
+		$this->assertSame('I am bad matcher', $details->getException()->getMessage());
 
 		$details = $results[1]['details'];
 		$this->assertSame(true, $details->getActualValue());
@@ -109,8 +109,8 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 		$this->assertSame('badToo', $details->getMatcherName());
 		$this->assertSame(array(0, 'bar'), $details->getMatcherArgs());
 		$this->assertSame(null, $details->getMatcherReturnValue());
-		$this->assertTrue($details->getMatcherException() instanceof \Exception);
-		$this->assertSame('I am bad matcher too', $details->getMatcherException()->getMessage());
+		$this->assertTrue($details->getException() instanceof \Exception);
+		$this->assertSame('I am bad matcher too', $details->getException()->getMessage());
 
 		$details = $results[2]['details'];
 		$this->assertSame('foo', $details->getActualValue());
@@ -118,8 +118,8 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 		$this->assertSame('badToo', $details->getMatcherName());
 		$this->assertSame(array('bar'), $details->getMatcherArgs());
 		$this->assertSame(null, $details->getMatcherReturnValue());
-		$this->assertTrue($details->getMatcherException() instanceof \Exception);
-		$this->assertSame('I am bad matcher too', $details->getMatcherException()->getMessage());
+		$this->assertTrue($details->getException() instanceof \Exception);
+		$this->assertSame('I am bad matcher too', $details->getException()->getMessage());
 	}
 
 	public function testShouldBeReturnCurrentAssertObject()
@@ -180,7 +180,7 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 		$results = $runResultsBuffer->getResults();
 		$this->assertEquals(1, count($results));
 		$this->assertSame(false, $results[0]['result']);
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\MatcherCallDetails);
 	}
 
 	public function testWithNot_ShouldBeAddFalseWithDetailsToRunResultsBufferForEachMatcher()
@@ -205,9 +205,9 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 		$this->assertFalse($results[1]['result']);
 		$this->assertFalse($results[2]['result']);
 
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
-		$this->assertTrue($results[1]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
-		$this->assertTrue($results[2]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\MatcherCallDetails);
+		$this->assertTrue($results[1]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\MatcherCallDetails);
+		$this->assertTrue($results[2]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\MatcherCallDetails);
 
 		$this->assertAllResultsDetailsDifferent($results);
 	}
@@ -234,8 +234,8 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 		$this->assertSame('bad', $details->getMatcherName());
 		$this->assertSame(array(), $details->getMatcherArgs());
 		$this->assertSame(null, $details->getMatcherReturnValue());
-		$this->assertTrue($details->getMatcherException() instanceof \Exception);
-		$this->assertSame('I am bad matcher', $details->getMatcherException()->getMessage());
+		$this->assertTrue($details->getException() instanceof \Exception);
+		$this->assertSame('I am bad matcher', $details->getException()->getMessage());
 
 		$details = $results[1]['details'];
 		$this->assertSame(true, $details->getActualValue());
@@ -243,8 +243,8 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 		$this->assertSame('badToo', $details->getMatcherName());
 		$this->assertSame(array(0, 'bar'), $details->getMatcherArgs());
 		$this->assertSame(null, $details->getMatcherReturnValue());
-		$this->assertTrue($details->getMatcherException() instanceof \Exception);
-		$this->assertSame('I am bad matcher too', $details->getMatcherException()->getMessage());
+		$this->assertTrue($details->getException() instanceof \Exception);
+		$this->assertSame('I am bad matcher too', $details->getException()->getMessage());
 
 		$details = $results[2]['details'];
 		$this->assertSame('foo', $details->getActualValue());
@@ -252,8 +252,8 @@ class BreakOnFirstMatcherFailDisabledTest extends \net\mkharitonov\spectrum\core
 		$this->assertSame('badToo', $details->getMatcherName());
 		$this->assertSame(array('bar'), $details->getMatcherArgs());
 		$this->assertSame(null, $details->getMatcherReturnValue());
-		$this->assertTrue($details->getMatcherException() instanceof \Exception);
-		$this->assertSame('I am bad matcher too', $details->getMatcherException()->getMessage());
+		$this->assertTrue($details->getException() instanceof \Exception);
+		$this->assertSame('I am bad matcher too', $details->getException()->getMessage());
 	}
 
 	public function testWithNot_ShouldBeResetNotAfterCall()

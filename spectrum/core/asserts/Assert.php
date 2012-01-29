@@ -36,12 +36,14 @@ class Assert implements AssertInterface
 	protected function callMatcher($matcherName, array $expectedArgs)
 	{
 		$specItem = $this->getRunningSpecItem();
-		$runResultDetails = $this->createRunResultDetails($matcherName, $expectedArgs);
+		$matcherCallDetails = $this->createMatcherCallDetails();
+		$matcherCallDetails->setMatcherName($matcherName);
+		$matcherCallDetails->setMatcherArgs($expectedArgs);
 
 		try
 		{
 			$result = $specItem->matchers->callMatcher($matcherName, array_merge(array($this->getActualValue()), $expectedArgs));
-			$runResultDetails->setMatcherReturnValue($result);
+			$matcherCallDetails->setMatcherReturnValue($result);
 
 			if ($this->isNot())
 				$result = !$result;
@@ -51,13 +53,13 @@ class Assert implements AssertInterface
 			if ($specItem->errorHandling->getCatchExceptionsCascade())
 			{
 				$result = false;
-				$runResultDetails->setMatcherException($e);
+				$matcherCallDetails->setException($e);
 			}
 			else
 				throw $e;
 		}
 
-		$specItem->getRunResultsBuffer()->addResult($result, $runResultDetails);
+		$specItem->getRunResultsBuffer()->addResult($result, $matcherCallDetails);
 		$this->resetNot();
 
 		if (!$result && $specItem->errorHandling->getBreakOnFirstMatcherFailCascade())
@@ -73,15 +75,16 @@ class Assert implements AssertInterface
 		return $registryClass::getRunningSpecItem();
 	}
 
-	protected function createRunResultDetails($matcherName, array $expectedArgs)
+	/**
+	 * @return \MatcherCallDetails\mkharitonov\spectrum\core\asserts\MatcherCallDetails
+	 */
+	protected function createMatcherCallDetails()
 	{
-		$class = \net\mkharitonov\spectrum\core\Config::getAssertRunResultDetailsClass();
-		$runResultDetails = new $class();
-		$runResultDetails->setActualValue($this->getActualValue());
-		$runResultDetails->setIsNot($this->isNot());
-		$runResultDetails->setMatcherName($matcherName);
-		$runResultDetails->setMatcherArgs($expectedArgs);
-		return $runResultDetails;
+		$class = \net\mkharitonov\spectrum\core\Config::getMatcherCallDetailsClass();
+		$matcherCallDetails = new $class();
+		$matcherCallDetails->setActualValue($this->getActualValue());
+		$matcherCallDetails->setIsNot($this->isNot());
+		return $matcherCallDetails;
 	}
 
 	public function __get($name)
@@ -90,9 +93,17 @@ class Assert implements AssertInterface
 			$this->invertNot();
 		else
 		{
-			// TODO write tests
-			// TODO подумать как реализовать обработку подобных ошибок: учитывать ли BreakOnFirstMatcherFail или нет
-			$this->getRunningSpecItem()->getRunResultsBuffer()->addResult(false, 'Undefined property "' . $name . '", only "not" property available in assert');
+			$specItem = $this->getRunningSpecItem();
+
+			$e = new \net\mkharitonov\spectrum\core\asserts\Exception('Undefined property "Assert->' . $name . '"');
+
+			if ($specItem->errorHandling->getCatchExceptionsCascade())
+				$specItem->getRunResultsBuffer()->addResult(false, $e);
+			else
+				throw $e;
+
+			if ($specItem->errorHandling->getBreakOnFirstMatcherFailCascade())
+				throw new \net\mkharitonov\spectrum\core\ExceptionBreak();
 		}
 
 		return $this;

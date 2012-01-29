@@ -15,7 +15,7 @@ namespace net\mkharitonov\spectrum\core\asserts;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-interface RunResultDetailsInterface
+interface MatcherCallDetailsInterface
 {
 	public function setActualValue($actualValue);
 	public function getActualValue();
@@ -27,6 +27,6 @@ interface RunResultDetailsInterface
 	public function getMatcherArgs();
 	public function setMatcherReturnValue($matcherReturnValue);
 	public function getMatcherReturnValue();
-	public function setMatcherException(\Exception $matcherException = null);
-	public function getMatcherException();
+	public function setException(\Exception $matcherException = null);
+	public function getException();
 }

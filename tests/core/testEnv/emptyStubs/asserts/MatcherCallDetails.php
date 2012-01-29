@@ -16,7 +16,7 @@ namespace net\mkharitonov\spectrum\core\testEnv\emptyStubs\asserts;
  * @link   http://www.mkharitonov.net/spectrum/
  * @property not
  */
-class RunResultDetails implements \net\mkharitonov\spectrum\core\asserts\RunResultDetailsInterface
+class MatcherCallDetails implements \net\mkharitonov\spectrum\core\asserts\MatcherCallDetailsInterface
 {
 	public function setActualValue($actualValue){}
 	public function getActualValue(){}
@@ -28,6 +28,6 @@ class RunResultDetails implements \net\mkharitonov\spectrum\core\asserts\RunResu
 	public function getMatcherArgs(){}
 	public function setMatcherReturnValue($matcherReturnValue){}
 	public function getMatcherReturnValue(){}
-	public function setMatcherException(\Exception $matcherException = null){}
-	public function getMatcherException(){}
+	public function setException(\Exception $matcherException = null){}
+	public function getException(){}
 }

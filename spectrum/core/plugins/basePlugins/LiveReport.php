@@ -273,7 +273,7 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 				$this->getOwner()->output->put('</div>');
 
 				$details = $result['details'];
-				if (is_object($details) && $details instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetailsInterface)
+				if (is_object($details) && $details instanceof \net\mkharitonov\spectrum\core\asserts\MatcherCallDetailsInterface)
 				{
 					$this->getOwner()->output->put('<div class="details assert">');
 					// TODO print matcher view, like Details: bool false be(string "foo")->not->eq(string "bar", int 1)
@@ -282,7 +282,7 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 					$this->printDetailsAssert('matcherName', $details->getMatcherName());
 					$this->printDetailsAssert('matcherArgs', $this->getVarDump($details->getMatcherArgs()));
 					$this->printDetailsAssert('matcherReturnValue', $this->getVarDump($details->getMatcherReturnValue()));
-					$this->printDetailsAssert('matcherException', $this->getVarDump($details->getMatcherException()));
+					$this->printDetailsAssert('matcherException', $this->getVarDump($details->getException()));
 					$this->getOwner()->output->put('</div>');
 				}
 				else

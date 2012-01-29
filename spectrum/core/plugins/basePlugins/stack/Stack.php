@@ -64,6 +64,22 @@ abstract class Stack extends \net\mkharitonov\spectrum\core\plugins\Plugin
 		return array_key_exists($key, $this->items);
 	}
 
+	public function isExistsCascade($key)
+	{
+		$stack = $this->getOwner()->selector->getAncestorsWithRunningContextsStack();
+		$stack[] = $this->getOwner();
+		$stack = array_reverse($stack);
+
+		$accessName = $this->accessName;
+		foreach ($stack as $spec)
+		{
+			if ($spec->$accessName->isExists($key))
+				return true;
+		}
+
+		return false;
+	}
+
 	public function get($key)
 	{
 		if ($this->isExists($key))
@@ -85,6 +101,11 @@ abstract class Stack extends \net\mkharitonov\spectrum\core\plugins\Plugin
 				return $spec->$accessName->get($key);
 		}
 
+		return $this->doNotExistsInCascade($key);
+	}
+
+	protected function doNotExistsInCascade($key)
+	{
 		throw new Exception('Item "' . $key . '" not exists in plugin with access name "' . $this->accessName . '"');
 	}
 

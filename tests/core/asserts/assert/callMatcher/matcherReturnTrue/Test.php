@@ -54,9 +54,9 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$this->assertTrue($results[1]['result']);
 		$this->assertTrue($results[2]['result']);
 
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
-		$this->assertTrue($results[1]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
-		$this->assertTrue($results[2]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\MatcherCallDetails);
+		$this->assertTrue($results[1]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\MatcherCallDetails);
+		$this->assertTrue($results[2]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\MatcherCallDetails);
 
 		$this->assertAllResultsDetailsDifferent($results);
 	}
@@ -83,7 +83,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$this->assertSame('true', $details->getMatcherName());
 		$this->assertSame(array(), $details->getMatcherArgs());
 		$this->assertSame(true, $details->getMatcherReturnValue());
-		$this->assertSame(null, $details->getMatcherException());
+		$this->assertSame(null, $details->getException());
 
 		$details = $results[1]['details'];
 		$this->assertSame(true, $details->getActualValue());
@@ -91,7 +91,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$this->assertSame('returnSecondArg', $details->getMatcherName());
 		$this->assertSame(array(1, 'bar'), $details->getMatcherArgs());
 		$this->assertSame('bar', $details->getMatcherReturnValue());
-		$this->assertSame(null, $details->getMatcherException());
+		$this->assertSame(null, $details->getException());
 
 		$details = $results[2]['details'];
 		$this->assertSame('foo', $details->getActualValue());
@@ -99,7 +99,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$this->assertSame('eq', $details->getMatcherName());
 		$this->assertSame(array('foo'), $details->getMatcherArgs());
 		$this->assertSame(true, $details->getMatcherReturnValue());
-		$this->assertSame(null, $details->getMatcherException());
+		$this->assertSame(null, $details->getException());
 	}
 
 	public function testShouldBeReturnCurrentAssertObject()
@@ -168,7 +168,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$results = $runResultsBuffer->getResults();
 		$this->assertEquals(1, count($results));
 		$this->assertSame(true, $results[0]['result']);
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\MatcherCallDetails);
 	}
 
 	public function testWithNot_ShouldBeAddTrueWithDetailsToRunResultsBufferForEachMatcher()
@@ -193,9 +193,9 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$this->assertTrue($results[1]['result']);
 		$this->assertTrue($results[2]['result']);
 
-		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
-		$this->assertTrue($results[1]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
-		$this->assertTrue($results[2]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\RunResultDetails);
+		$this->assertTrue($results[0]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\MatcherCallDetails);
+		$this->assertTrue($results[1]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\MatcherCallDetails);
+		$this->assertTrue($results[2]['details'] instanceof \net\mkharitonov\spectrum\core\asserts\MatcherCallDetails);
 
 		$this->assertAllResultsDetailsDifferent($results);
 	}
@@ -222,7 +222,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$this->assertSame('false', $details->getMatcherName());
 		$this->assertSame(array(), $details->getMatcherArgs());
 		$this->assertSame(false, $details->getMatcherReturnValue());
-		$this->assertSame(null, $details->getMatcherException());
+		$this->assertSame(null, $details->getException());
 
 		$details = $results[1]['details'];
 		$this->assertSame(true, $details->getActualValue());
@@ -230,7 +230,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$this->assertSame('returnSecondArg', $details->getMatcherName());
 		$this->assertSame(array('bar', 0), $details->getMatcherArgs());
 		$this->assertSame(0, $details->getMatcherReturnValue());
-		$this->assertSame(null, $details->getMatcherException());
+		$this->assertSame(null, $details->getException());
 
 		$details = $results[2]['details'];
 		$this->assertSame('foo', $details->getActualValue());
@@ -238,7 +238,7 @@ class Test extends \net\mkharitonov\spectrum\core\asserts\assert\callMatcher\Tes
 		$this->assertSame('eq', $details->getMatcherName());
 		$this->assertSame(array('bar'), $details->getMatcherArgs());
 		$this->assertSame(false, $details->getMatcherReturnValue());
-		$this->assertSame(null, $details->getMatcherException());
+		$this->assertSame(null, $details->getException());
 	}
 
 	public function testWithNot_ShouldBeProvideNotInvertedMatcherReturnValue()

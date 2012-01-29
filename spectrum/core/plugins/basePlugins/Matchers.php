@@ -58,4 +58,9 @@ class Matchers extends Stack\Named
 
 		return call_user_func_array($callback, $args);
 	}
+
+	protected function doNotExistsInCascade($key)
+	{
+		throw new Exception('Matcher "' . $key . '" not exists');
+	}
 }
