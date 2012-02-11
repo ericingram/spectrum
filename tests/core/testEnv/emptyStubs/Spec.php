@@ -23,6 +23,7 @@ class Spec implements \net\mkharitonov\spectrum\core\SpecInterface
 	public function getName(){}
 	public function isAnonymous(){}
 	public function getUid(){}
+	public function getUidInContext(){}
 	public function setParent(\net\mkharitonov\spectrum\core\SpecContainerInterface $spec = null){}
 	public function getParent(){}
 	public function callPlugin($pluginAccessName){}

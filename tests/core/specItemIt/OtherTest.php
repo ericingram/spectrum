@@ -252,25 +252,52 @@ class OtherTest extends Test
 
 /**/
 
-	public function testGetUid_ShouldBeReturnUidInRunningContext()
+	public function testGetUid_RunningState_SecondLevel_ShouldBeReturnSpecUidComprisedOfAncestorIndexes()
 	{
 		$specs = $this->createSpecsTree('
 			Describe
 			->Describe
-			->->Context
-			->->Context
-			->->It(it)
+			->Describe
+			->->' . $this->currentSpecClass . '(spec)
 		');
 
-		$specs['it']->setTestCallback(function() use(&$uids, $specs){
-			$uids[] = $specs['it']->getUid();
+		$specs['spec']->setTestCallback(function() use(&$uids, $specs){
+			$uids[] = $specs['spec']->getUid();
 		});
 
-		$specs['it']->run();
+		$specs['spec']->run();
 
 		$this->assertSame(array(
-			'spec_0_0_2_context_0',
-			'spec_0_0_2_context_1',
+			'spec_0_1_0',
+		), $uids);
+	}
+
+/**/
+
+	public function testGetUidInContext_RunningState_ShouldBeReturnUidWithRunningContextId()
+	{
+		$specs = $this->createSpecsTree('
+			Describe
+			->Context
+			->Context
+			->Describe
+			->Describe
+			->->Context
+			->->Context
+			->->' . $this->currentSpecClass . '(spec)
+		');
+
+		$specs['spec']->setTestCallback(function() use(&$uids, $specs){
+			$uids[] = $specs['spec']->getUidInContext();
+		});
+
+		$specs['spec']->run();
+
+		$this->assertSame(array(
+			'spec_0_3_2_context_0_0',
+			'spec_0_3_2_context_0_1',
+			'spec_0_3_2_context_1_0',
+			'spec_0_3_2_context_1_1',
 		), $uids);
 	}
 

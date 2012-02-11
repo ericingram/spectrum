@@ -296,11 +296,13 @@ abstract class Test extends \PHPUnit_Framework_TestCase
 		$shortClassName = preg_replace('/^SpecItem/s', '', $shortClassName);
 		
 		$shortToFull = array(
+			'ArgumentsProvider' => '\net\mkharitonov\spectrum\core\SpecContainerArgumentsProvider',
 			'Pattern' => '\net\mkharitonov\spectrum\core\SpecContainerPattern',
 			'Describe' => '\net\mkharitonov\spectrum\core\SpecContainerDescribe',
 			'Context' => '\net\mkharitonov\spectrum\core\SpecContainerContext',
 			'It' => '\net\mkharitonov\spectrum\core\SpecItemIt',
 
+			'ArgumentsProviderMock' => '\net\mkharitonov\spectrum\core\testEnv\SpecContainerArgumentsProviderMock',
 			'PatternMock' => '\net\mkharitonov\spectrum\core\testEnv\SpecContainerPatternMock',
 			'DescribeMock' => '\net\mkharitonov\spectrum\core\testEnv\SpecContainerDescribeMock',
 			'ContextMock' => '\net\mkharitonov\spectrum\core\testEnv\SpecContainerContextMock',
