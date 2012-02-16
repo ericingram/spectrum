@@ -1,3 +1,8 @@
+RunResultsBuffer -> RunResultBuffer?
+throwException -> thrownException?
+
+$spec->selector->disableContextsExceptUid('spec');
+
 ---Плагин report
 	Заменить list-style: outside на inside, что бы цифры комировались в буфер
 	Тире с окружающими пробелами вставить в HTML, что бы копировалось в буфер
@@ -7,11 +12,9 @@
 	describe — статус has empty
 	сделать форматирование (вложенность) HTML ul
 	доработать формат вывода буффера результатов
+	добавить ссылку "выполнить только этот тест" — в текущем контексте, во всех контекстах
 	написать тесты
 
----context
-	run($spedUid)
-	selector->getSpecByUid
 
 runner.php?file=qwe.php&uid=1_1_1
 

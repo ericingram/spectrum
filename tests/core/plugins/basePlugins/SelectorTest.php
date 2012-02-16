@@ -579,7 +579,7 @@ class SelectorTest extends Test
 		$this->assertSame($specs['spec'], $specs[0]->selector->getSpecByUid("\r\n\t   " . 'spec_0_0' . "\r\n\t   "));
 	}
 
-	public function testGetSpecByUid_ShouldBeAcceptUidInContext()
+/*	public function testGetSpecByUid_ShouldBeAcceptUidInContext()
 	{
 		$specs = $this->createSpecsTree('
 			Describe
@@ -587,7 +587,7 @@ class SelectorTest extends Test
 		');
 
 		$this->assertSame($specs['spec'], $specs[0]->selector->getSpecByUid('spec_0_0_context_0_1'));
-	}
+	}*/
 
 	public function testGetSpecByUid_ShouldBeThrowExceptionIfUidIsIncorrect()
 	{

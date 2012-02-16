@@ -237,14 +237,14 @@ abstract class SpecTest extends Test
 
 /**/
 
-	public function testGetUidInContext_DeclaringState_ShouldBeThrowException()
+/*	public function testGetUidInContext_DeclaringState_ShouldBeThrowException()
 	{
 		$spec = $this->createCurrentSpec();
 
 		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'getUidInContext() method works only for running specs', function() use($spec){
 			$spec->getUidInContext();
 		});
-	}
+	}*/
 
 /*
 

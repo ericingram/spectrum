@@ -23,7 +23,7 @@ class SpecContainerContextTest extends SpecContainerTest
 
 /**/
 
-	public function testGetUidInContext_RunningState_ShouldBeReturnUidWithRunningContextId()
+/*	public function testGetUidInContext_RunningState_ShouldBeReturnUidWithRunningContextId()
 	{
 		$specs = $this->createSpecsTree('
 			Describe
@@ -73,7 +73,7 @@ class SpecContainerContextTest extends SpecContainerTest
 		$this->assertSame(array(
 			'spec_0_1_1_0_context_0_0',
 		), $uids);
-	}
+	}*/
 
 /**/
 

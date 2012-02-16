@@ -180,7 +180,7 @@ class Selector extends \net\mkharitonov\spectrum\core\plugins\Plugin
 		return $stack;
 	}
 
-	public function getAncestorRunningContextsStack()
+/*	public function getAncestorRunningContextsStack()
 	{
 		$stack = array();
 		foreach ($this->getAncestorsStack() as $spec)
@@ -189,7 +189,7 @@ class Selector extends \net\mkharitonov\spectrum\core\plugins\Plugin
 		}
 
 		return $stack;
-	}
+	}*/
 
 	/**
 	 * Return all find specs with same name.
@@ -234,7 +234,7 @@ class Selector extends \net\mkharitonov\spectrum\core\plugins\Plugin
 	}
 
 	/**
-	 * @param string $uid Any spec uid or uid in context
+	 * @param string $uid Any spec uid
 	 */
 	public function getSpecByUid($uid)
 	{
@@ -253,7 +253,7 @@ class Selector extends \net\mkharitonov\spectrum\core\plugins\Plugin
 	{
 		$uid = trim($uid);
 
-		if (!preg_match('/^spec((_[\d]+)+)($|_context)/is', $uid, $matches))
+		if (!preg_match('/^spec((_[\d]+)+)$/is', $uid, $matches))
 			throw new Exception('Incorrect spec uid "' . $uid . '"');
 
 		$ancestorSpecIndexes = mb_substr($matches[1], 1);

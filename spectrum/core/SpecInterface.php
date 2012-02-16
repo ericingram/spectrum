@@ -23,7 +23,7 @@ interface SpecInterface
 	public function getName();
 	public function isAnonymous();
 	public function getUid();
-	public function getUidInContext();
+//	public function getUidInContext();
 
 	public function setParent(SpecContainerInterface $spec = null);
 	public function getParent();
