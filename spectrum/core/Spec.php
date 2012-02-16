@@ -101,39 +101,6 @@ abstract class Spec implements SpecInterface
 		return $this->name;
 	}
 
-	public function getUid()
-	{
-		$stack = $this->selector->getAncestorsStack();
-		$stack[] = $this;
-		return 'spec' . $this->getUidIndexes($stack);
-	}
-
-	// TODO rename to "getUidForRunningContextStack"
-/*	public function getUidInContext()
-	{
-		if (!$this->isRunning())
-			throw new Exception('getUidInContext() method works only for running specs');
-
-		// TODO use getAncestorsWithRunningContextsStack() to identify context
-		// TODO context uid - context_0_0_0_context_1_2_0 (context_ancestorIndex_contextIndex_contextIndex) - append "context_*" for each ancestor
-		$contextsStack = $this->selector->getAncestorRunningContextsStack();
-		return $this->getUid() . '_context' . $this->getUidIndexes($contextsStack, true);
-	}*/
-
-	private function getUidIndexes(array $stack, $omitSelf = false)
-	{
-		$uid = '';
-		foreach ($stack as $spec)
-		{
-			if ($omitSelf && $spec === $this)
-				continue;
-
-			$uid .= '_' . (int) $spec->selector->getIndexInParent();
-		}
-
-		return $uid;
-	}
-
 /**/
 
 	public function setParent(SpecContainerInterface $spec = null)

@@ -204,39 +204,6 @@ abstract class SpecTest extends Test
 
 /**/
 
-	public function testGetUid_DeclaringState_ZeroLevel_ShouldBeReturnSpecUidComprisedOfAncestorIndexes()
-	{
-		$specs = $this->createSpecsTree('
-			' . $this->currentSpecClass . '(spec)
-		');
-
-		$this->assertSame('spec_0', $specs['spec']->getUid());
-	}
-
-	public function testGetUid_DeclaringState_FirstLevel_ShouldBeReturnSpecUidComprisedOfAncestorIndexes()
-	{
-		$specs = $this->createSpecsTree('
-			Describe
-			->' . $this->currentSpecClass . '(spec)
-		');
-
-		$this->assertSame('spec_0_0', $specs['spec']->getUid());
-	}
-
-	public function testGetUid_DeclaringState_SecondLevel_ShouldBeReturnSpecUidComprisedOfAncestorIndexes()
-	{
-		$specs = $this->createSpecsTree('
-			Describe
-			->Describe
-			->Describe
-			->->' . $this->currentSpecClass . '(spec)
-		');
-
-		$this->assertSame('spec_0_1_0', $specs['spec']->getUid());
-	}
-
-/**/
-
 /*	public function testGetUidInContext_DeclaringState_ShouldBeThrowException()
 	{
 		$spec = $this->createCurrentSpec();

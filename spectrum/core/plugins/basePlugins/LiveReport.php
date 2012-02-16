@@ -225,7 +225,7 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 
 		if (!$this->getOwner()->isAnonymous())
 		{
-			$this->getOwner()->output->put('<li class="' . $this->getSpecLabel() . '" id="' . $this->getOwner()->getUid() . '">');
+			$this->getOwner()->output->put('<li class="' . $this->getSpecLabel() . '" id="' . $this->getOwner()->selector->getUidForSpec() . '">');
 
 			$this->getOwner()->output->put('<span class="name">' . htmlspecialchars($this->getSpecName()) . '</span>');
 			$this->getOwner()->output->put('<span class="finalResult">wait...</span>');
@@ -244,7 +244,7 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 			if ($this->getOwner() instanceof SpecContainerInterface)
 				$this->getOwner()->output->put('</ol>');
 
-			$this->updateResult($this->getOwner()->getUid(), $this->getSpecResultLabel($finalResult));
+			$this->updateResult($this->getOwner()->selector->getUidForSpec(), $this->getSpecResultLabel($finalResult));
 			if ($this->getOutputDebugCascade())
 				$this->printRunResultsBuffer($finalResult);
 

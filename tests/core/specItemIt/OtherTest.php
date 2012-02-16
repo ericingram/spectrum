@@ -249,29 +249,6 @@ class OtherTest extends Test
 		$this->assertSame(array('foo'), $it->getAdditionalArguments());
 	}
 
-
-/**/
-
-	public function testGetUid_RunningState_SecondLevel_ShouldBeReturnSpecUidComprisedOfAncestorIndexes()
-	{
-		$specs = $this->createSpecsTree('
-			Describe
-			->Describe
-			->Describe
-			->->' . $this->currentSpecClass . '(spec)
-		');
-
-		$specs['spec']->setTestCallback(function() use(&$uids, $specs){
-			$uids[] = $specs['spec']->getUid();
-		});
-
-		$specs['spec']->run();
-
-		$this->assertSame(array(
-			'spec_0_1_0',
-		), $uids);
-	}
-
 /**/
 
 /*	public function testGetUidInContext_RunningState_ShouldBeReturnUidWithRunningContextId()

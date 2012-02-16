@@ -66,29 +66,6 @@ abstract class SpecContainerTest extends SpecTest
 
 /**/
 
-	public function testGetUid_RunningState_SecondLevel_ShouldBeReturnSpecUidComprisedOfAncestorIndexes()
-	{
-		$specs = $this->createSpecsTree('
-			Describe
-			->Describe
-			->Describe
-			->->' . $this->currentSpecClass . '(spec)
-			->->->It(it)
-		');
-
-		$specs['it']->setTestCallback(function() use(&$uids, $specs){
-			$uids[] = $specs['spec']->getUid();
-		});
-
-		$specs['spec']->run();
-
-		$this->assertSame(array(
-			'spec_0_1_0',
-		), $uids);
-	}
-
-/**/
-
 	public function testSetName_ShouldBeThrowExceptionIfNotAllowSpecsModifyWhenRunning()
 	{
 		Config::setAllowSpecsModifyWhenRunning(false);

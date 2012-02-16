@@ -569,6 +569,87 @@ class SelectorTest extends Test
 
 /**/
 
+	// TODO write tests for all specs
+	public function testGetUidForSpec_DeclaringState_ZeroLevel_ShouldBeReturnSpecUidComprisedOfAncestorIndexes()
+	{
+		$specs = $this->createSpecsTree('
+			It(spec)
+		');
+
+		$this->assertSame('spec_0', $specs['spec']->selector->getUidForSpec());
+	}
+
+	// TODO write tests for all specs
+	public function testGetUidForSpec_DeclaringState_FirstLevel_ShouldBeReturnSpecUidComprisedOfAncestorIndexes()
+	{
+		$specs = $this->createSpecsTree('
+			Describe
+			->It(spec)
+		');
+
+		$this->assertSame('spec_0_0', $specs['spec']->selector->getUidForSpec());
+	}
+
+	// TODO write tests for all specs
+	public function testGetUidForSpec_DeclaringState_SecondLevel_ShouldBeReturnSpecUidComprisedOfAncestorIndexes()
+	{
+		$specs = $this->createSpecsTree('
+			Describe
+			->Describe
+			->Describe
+			->->It(spec)
+		');
+
+		$this->assertSame('spec_0_1_0', $specs['spec']->selector->getUidForSpec());
+	}
+
+/**/
+
+	public function testGetUidForSpec_SpecContainerDescribe_RunningState_SecondLevel_ShouldBeReturnSpecUidComprisedOfAncestorIndexes()
+	{
+		$specs = $this->createSpecsTree('
+			Describe
+			->Describe
+			->Describe
+			->->Describe(spec)
+			->->->It(it)
+		');
+
+		$specs['it']->setTestCallback(function() use(&$uids, $specs){
+			$uids[] = $specs['spec']->selector->getUidForSpec();
+		});
+
+		$specs['spec']->run();
+
+		$this->assertSame(array(
+			'spec_0_1_0',
+		), $uids);
+	}
+	
+/**/
+
+	public function testGetUidForSpec_SpecItemIt_RunningState_SecondLevel_ShouldBeReturnSpecUidComprisedOfAncestorIndexes()
+	{
+		$specs = $this->createSpecsTree('
+			Describe
+			->Describe
+			->Describe
+			->->It(spec)
+		');
+
+		$specs['spec']->setTestCallback(function() use(&$uids, $specs){
+			$uids[] = $specs['spec']->selector->getUidForSpec();
+		});
+
+		$specs['spec']->run();
+
+		$this->assertSame(array(
+			'spec_0_1_0',
+		), $uids);
+	}
+
+/**/
+
 	public function testGetSpecByUid_ShouldBeTrimSpaces()
 	{
 		$specs = $this->createSpecsTree('
