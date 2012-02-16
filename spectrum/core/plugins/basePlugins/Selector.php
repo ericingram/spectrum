@@ -10,6 +10,7 @@
  */
 
 namespace net\mkharitonov\spectrum\core\plugins\basePlugins;
+use \net\mkharitonov\spectrum\core\plugins\Exception;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
@@ -230,6 +231,40 @@ class Selector extends \net\mkharitonov\spectrum\core\plugins\Plugin
 			return $specs[$index];
 		else
 			return null;
+	}
+
+	/**
+	 * @param string $uid Any spec uid or uid in context
+	 */
+	public function getSpecByUid($uid)
+	{
+		$spec = $this->getRoot();
+		foreach ($this->parseUidSpecIndexes($uid) as $num => $specIndex)
+		{
+			$spec = $spec->selector->getChildByIndex($specIndex);
+			if (!$spec)
+				throw new Exception('Can\'t find spec with index "' . $specIndex . '" on "' . ($num + 1) . '" position in uid "' . $uid . '"');
+		}
+
+		return $spec;
+	}
+
+	protected function parseUidSpecIndexes($uid)
+	{
+		$uid = trim($uid);
+
+		if (!preg_match('/^spec((_[\d]+)+)($|_context)/is', $uid, $matches))
+			throw new Exception('Incorrect spec uid "' . $uid . '"');
+
+		$ancestorSpecIndexes = mb_substr($matches[1], 1);
+		$ancestorSpecIndexes = explode('_', $ancestorSpecIndexes);
+
+		if ($ancestorSpecIndexes[0] != '0')
+			throw new Exception('First spec index in uid should be "0" always');
+		else
+			unset($ancestorSpecIndexes[0]);
+
+		return $ancestorSpecIndexes;
 	}
 
 	public function getIndexInParent()
