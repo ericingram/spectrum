@@ -27,29 +27,8 @@ use \net\mkharitonov\spectrum\core\plugins\events;
  */
 class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implements events\OnRunInterface
 {
-	protected $outputDebug;
 	protected $indention = '    ';
 	protected $newline = "\r\n";
-
-/**/
-
-	public function setOutputDebug($isEnable)
-	{
-		if (!Config::getAllowLiveReportModify())
-			throw new Exception('Live report modify deny in Config');
-
-		$this->outputDebug = $isEnable;
-	}
-
-	public function getOutputDebug()
-	{
-		return $this->outputDebug;
-	}
-
-	public function getOutputDebugCascade()
-	{
-		return $this->callCascadeThroughRunningContexts('getOutputDebug', array(), true);
-	}
 
 /**/
 
@@ -245,8 +224,7 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 				$this->getOwner()->output->put('</ol>');
 
 			$this->updateResult($this->getOwner()->selector->getUidForSpec(), $this->getSpecResultLabel($finalResult));
-			if ($this->getOutputDebugCascade())
-				$this->printRunResultsBuffer($finalResult);
+			$this->printRunResultsBuffer($finalResult);
 
 			$this->printMessages();
 			

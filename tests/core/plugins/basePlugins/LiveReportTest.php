@@ -26,15 +26,6 @@ class LiveReportTest extends Test
 		$this->restoreStaticProperties('\net\mkharitonov\spectrum\core\plugins\Manager');
 	}
 
-	public function testSetOutputDebug_ShouldBeThrowExceptionIfNotAllowLiveReportModify()
-	{
-		Config::setAllowLiveReportModify(false);
-		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', 'Live report modify deny', function(){
-			$spec = new \net\mkharitonov\spectrum\core\SpecContainerDescribe();
-			$spec->liveReport->setOutputDebug(false);
-		});
-	}
-
 	public function testSetIndention_ShouldBeThrowExceptionIfNotAllowLiveReportModify()
 	{
 		Config::setAllowLiveReportModify(false);
