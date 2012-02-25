@@ -224,9 +224,9 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 				$this->getOwner()->output->put('</ol>');
 
 			$this->updateResult($this->getOwner()->selector->getUidForSpec(), $this->getSpecResultLabel($finalResult));
-			$this->printRunResultsBuffer($finalResult);
+			$this->outputRunResultsBuffer($finalResult);
 
-			$this->printMessages();
+			$this->outputMessages();
 			
 			$this->getOwner()->output->put('</li>');
 
@@ -237,7 +237,7 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 			$this->getOwner()->output->put($this->getFooter());
 	}
 
-	protected function printRunResultsBuffer($finalResult)
+	protected function outputRunResultsBuffer($finalResult)
 	{
 		if ($finalResult === false && $this->getOwner() instanceof SpecItemInterface)
 		{
@@ -255,12 +255,12 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 				{
 					$this->getOwner()->output->put('<div class="details assert">');
 					// TODO print matcher view, like Details: bool false be(string "foo")->not->eq(string "bar", int 1)
-					$this->printDetailsAssert('actualValue', $this->getVarDump($details->getActualValue()));
-					$this->printDetailsAssert('isNot', $this->getVarDump($details->getIsNot()));
-					$this->printDetailsAssert('matcherName', $details->getMatcherName());
-					$this->printDetailsAssert('matcherArgs', $this->getVarDump($details->getMatcherArgs()));
-					$this->printDetailsAssert('matcherReturnValue', $this->getVarDump($details->getMatcherReturnValue()));
-					$this->printDetailsAssert('matcherException', $this->getVarDump($details->getException()));
+					$this->outputDetailsAssert('actualValue', $this->getVarDump($details->getActualValue()));
+					$this->outputDetailsAssert('isNot', $this->getVarDump($details->getIsNot()));
+					$this->outputDetailsAssert('matcherName', $details->getMatcherName());
+					$this->outputDetailsAssert('matcherArgs', $this->getVarDump($details->getMatcherArgs()));
+					$this->outputDetailsAssert('matcherReturnValue', $this->getVarDump($details->getMatcherReturnValue()));
+					$this->outputDetailsAssert('matcherException', $this->getVarDump($details->getException()));
 					$this->getOwner()->output->put('</div>');
 				}
 				else
@@ -277,7 +277,7 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 		}
 	}
 
-	protected function printDetailsAssert($name, $value)
+	protected function outputDetailsAssert($name, $value)
 	{
 		$this->getOwner()->output->put('<div class="' . htmlspecialchars($name) . '">');
 		$this->getOwner()->output->put('<span class="title">' . htmlspecialchars($name) . '</span>');
@@ -285,7 +285,7 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 		$this->getOwner()->output->put('</div>');
 	}
 
-	protected function printMessages()
+	protected function outputMessages()
 	{
 		$messages = $this->getOwner()->messages->getAll();
 
