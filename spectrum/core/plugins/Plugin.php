@@ -17,7 +17,7 @@ namespace net\mkharitonov\spectrum\core\plugins;
  */
 class Plugin implements PluginInterface
 {
-	/** @var \net\mkharitonov\spectrum\core\SpecInterface */
+	/** @var \net\mkharitonov\spectrum\core\Spec */
 	protected $owner;
 	protected $accessName;
 

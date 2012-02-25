@@ -9,8 +9,8 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\plugins\basePlugins;
-require_once dirname(__FILE__) . '/../../../init.php';
+namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report;
+require_once dirname(__FILE__) . '/../../../../init.php';
 
 use net\mkharitonov\spectrum\core\Config;
 
@@ -18,7 +18,7 @@ use net\mkharitonov\spectrum\core\Config;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class ReportTest extends Test
+class ReportTest extends \net\mkharitonov\spectrum\core\plugins\basePlugins\Test
 {
 	protected function setUp()
 	{
