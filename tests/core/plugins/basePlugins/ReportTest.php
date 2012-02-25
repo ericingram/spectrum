@@ -18,7 +18,7 @@ use net\mkharitonov\spectrum\core\Config;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class LiveReportTest extends Test
+class ReportTest extends Test
 {
 	protected function setUp()
 	{
@@ -26,21 +26,21 @@ class LiveReportTest extends Test
 		$this->restoreStaticProperties('\net\mkharitonov\spectrum\core\plugins\Manager');
 	}
 
-	public function testSetIndention_ShouldBeThrowExceptionIfNotAllowLiveReportModify()
+	public function testSetIndention_ShouldBeThrowExceptionIfNotAllowReportSettingsModify()
 	{
-		Config::setAllowLiveReportModify(false);
-		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', 'Live report modify deny', function(){
+		Config::setAllowReportSettingsModify(false);
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', 'Report settings modify deny', function(){
 			$spec = new \net\mkharitonov\spectrum\core\SpecContainerDescribe();
-			$spec->liveReport->setIndention(false);
+			$spec->report->setIndention(false);
 		});
 	}
 
-	public function testSetNewline_ShouldBeThrowExceptionIfNotAllowLiveReportModify()
+	public function testSetNewline_ShouldBeThrowExceptionIfNotAllowReportSettingsModify()
 	{
-		Config::setAllowLiveReportModify(false);
-		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', 'Live report modify deny', function(){
+		Config::setAllowReportSettingsModify(false);
+		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', 'Report settings modify deny', function(){
 			$spec = new \net\mkharitonov\spectrum\core\SpecContainerDescribe();
-			$spec->liveReport->setNewline(false);
+			$spec->report->setNewline(false);
 		});
 	}
 }

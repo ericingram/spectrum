@@ -687,28 +687,28 @@ class ConfigTest extends Test
 
 /**/
 
-	public function testGetAllowLiveReportModify_ShouldBeReturnTrueByDefault()
+	public function testGetAllowReportSettingsModify_ShouldBeReturnTrueByDefault()
 	{
-		$this->assertTrue(Config::getAllowLiveReportModify());
+		$this->assertTrue(Config::getAllowReportSettingsModify());
 	}
 
 /**/
 
-	public function testSetAllowLiveReportModify_ShouldBeSetNewValue()
+	public function testSetAllowReportSettingsModify_ShouldBeSetNewValue()
 	{
-		Config::setAllowLiveReportModify(false);
-		$this->assertFalse(Config::getAllowLiveReportModify());
+		Config::setAllowReportSettingsModify(false);
+		$this->assertFalse(Config::getAllowReportSettingsModify());
 	}
 
-	public function testSetAllowLiveReportModify_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
+	public function testSetAllowReportSettingsModify_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
 	{
 		Config::lock();
 
 		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'core\Config is locked', function(){
-			Config::setAllowLiveReportModify(false);
+			Config::setAllowReportSettingsModify(false);
 		});
 
-		$this->assertTrue(Config::getAllowLiveReportModify());
+		$this->assertTrue(Config::getAllowReportSettingsModify());
 	}
 
 /**/

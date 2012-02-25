@@ -25,7 +25,7 @@ use \net\mkharitonov\spectrum\core\SpecItemItInterface;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implements events\OnRunInterface
+class Report extends \net\mkharitonov\spectrum\core\plugins\Plugin implements events\OnRunInterface
 {
 	protected $indention = "\t";
 	protected $newline = "\r\n";
@@ -39,8 +39,8 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 
 	public function setIndention($string)
 	{
-		if (!Config::getAllowLiveReportModify())
-			throw new Exception('Live report modify deny in Config');
+		if (!Config::getAllowReportSettingsModify())
+			throw new Exception('Report settings modify deny in Config');
 
 		$this->indention = $string;
 	}
@@ -65,8 +65,8 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 
 	public function setNewline($newline)
 	{
-		if (!Config::getAllowLiveReportModify())
-			throw new Exception('Live report modify deny in Config');
+		if (!Config::getAllowReportSettingsModify())
+			throw new Exception('Report settings modify deny in Config');
 
 		$this->newline = $newline;
 	}
