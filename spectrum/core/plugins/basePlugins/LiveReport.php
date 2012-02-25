@@ -11,7 +11,9 @@
 
 namespace net\mkharitonov\spectrum\core\plugins\basePlugins;
 use net\mkharitonov\spectrum\core\Config;
+use \net\mkharitonov\spectrum\core\asserts\MatcherCallDetailsInterface;
 use \net\mkharitonov\spectrum\core\plugins\Exception;
+use \net\mkharitonov\spectrum\core\plugins\events;
 use \net\mkharitonov\spectrum\core\SpecInterface;
 use \net\mkharitonov\spectrum\core\SpecContainerInterface;
 use \net\mkharitonov\spectrum\core\SpecContainerContextInterface;
@@ -19,15 +21,13 @@ use \net\mkharitonov\spectrum\core\SpecContainerDescribeInterface;
 use \net\mkharitonov\spectrum\core\SpecItemInterface;
 use \net\mkharitonov\spectrum\core\SpecItemItInterface;
 
-use \net\mkharitonov\spectrum\core\plugins\events;
-
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
 class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implements events\OnRunInterface
 {
-	protected $indention = '    ';
+	protected $indention = "\t";
 	protected $newline = "\r\n";
 
 /**/
@@ -53,22 +53,12 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 			return $text;
 	}
 
-	protected function putIndentionAndNewline($text)
-	{
-		return $this->putNewline($this->putIndention($text));
-	}
-
-	protected function putIndentionToEachLine($text, $repeat = 1)
+	protected function prependIndentionToEachLine($text, $repeat = 1)
 	{
 		if ($text != '')
-			return $this->getIndention($repeat) . str_replace("\r\n", "\r\n" . $this->getIndention($repeat), $text);
+			return $this->getIndention($repeat) . str_replace("\n", "\n" . $this->getIndention($repeat), $text);
 		else
 			return $text;
-	}
-
-	protected function putIndentionToEachLineAndNewline($text, $repeat = 1)
-	{
-		return $this->putNewline($this->putIndentionToEachLine($text, $repeat));
 	}
 
 /**/
@@ -81,9 +71,9 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 		$this->newline = $newline;
 	}
 
-	public function getNewline()
+	public function getNewline($repeat = 1)
 	{
-		return $this->newline;
+		return str_repeat($this->newline, $repeat);
 	}
 
 	protected function putNewline($text)
@@ -96,107 +86,6 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 
 /**/
 
-	public function getHeader()
-	{
-		$output = '';
-		$output .= $this->putNewline('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">');
-		$output .= $this->putNewline('<html xmlns="http://www.w3.org/1999/xhtml">');
-		$output .= $this->putNewline('<head>');
-		$output .= $this->putIndentionAndNewline('<meta http-equiv="content-type" content="text/html; charset=utf-8" />');
-		$output .= $this->putIndentionAndNewline('<title></title>');
-		$output .= $this->putIndentionToEachLineAndNewline($this->getStyles()) . $this->getNewline();
-		$output .= $this->putIndentionToEachLineAndNewline($this->getScripts()) . $this->getNewline();
-		$output .= $this->putNewline('</head>');
-		$output .= $this->putNewline('<body>');
-		$output .= $this->putNewline('<ol>');
-
-		return rtrim($output);
-	}
-
-	protected function getStyles()
-	{
-		$output = '';
-		$output .= $this->putNewline('<style type="text/css">');
-		$output .= $this->putIndentionToEachLine($this->getCssRules()) . $this->getNewline();
-		$output .= $this->putNewline('</style>');
-
-		return rtrim($output);
-	}
-
-	protected function getCssRules()
-	{
-		$output = '';
-		$output .= 'body { font-family: Verdana, sans-serif; font-size: 0.75em; }' . $this->getNewline();
-
-		$output .= '.clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }' . $this->getNewline();
-		$output .= '.clearfix { *zoom: 1; }' . $this->getNewline();
-
-		$output .= 'ol { padding-left: 1.8em; }' . $this->getNewline();
-		$output .= '.name { }' . $this->getNewline();
-		$output .= '.it { font-weight: normal; }' . $this->getNewline();
-		$output .= '.describe { }' . $this->getNewline();
-		$output .= '.context { }' . $this->getNewline();
-		$output .= '.context>.name:after { content: " (context)"; }' . $this->getNewline();
-
-		$output .= '.finalResult:before { content: " — "; }' . $this->getNewline();
-		$output .= '.finalResult { color: #ccc; font-weight: bold; }' . $this->getNewline();
-		$output .= '.finalResult.fail { color: #a31010; }' . $this->getNewline();
-		$output .= '.finalResult.success { color: #009900; }' . $this->getNewline();
-		$output .= '.finalResult.empty { color: #cc9900; }' . $this->getNewline();
-
-		$output .= '.runResultsBuffer:before { content: "Содержимое результирующего буфера: "; display: block; position: absolute; top: -1.8em; left: 0; padding: 0.3em 0.5em; background: #f5f1f1; color: #888; font-style: italic; }' . $this->getNewline();
-		$output .= '.runResultsBuffer { position: relative; margin: 2em 0 1em 0; }' . $this->getNewline();
-
-		$output .= '.runResultsBuffer .row .result:before { content: "Result: "; font-weight: bold; }' . $this->getNewline();
-		$output .= '.runResultsBuffer .row { float: left; padding: 0.5em; }' . $this->getNewline();
-
-		$output .= '.runResultsBuffer .row .details:before { display: block; content: "Details: "; font-weight: bold; }' . $this->getNewline();
-		$output .= '.runResultsBuffer .row .details { white-space: pre; }' . $this->getNewline();
-		$output .= '.runResultsBuffer .row .details.assert .title { font-size: 0.9em; }' . $this->getNewline();
-		$output .= '.runResultsBuffer .row .details.assert .title:after { content: ": ";}' . $this->getNewline();
-
-		$output .= '.runResultsBuffer .row.true { border-right: 1px solid #b5dfb5; background: #ccffcc; }' . $this->getNewline();
-		$output .= '.runResultsBuffer .row.true .details.assert .title { color: #789578; }' . $this->getNewline();
-		$output .= '.runResultsBuffer .row.true:last-child { border-right: 0; }' . $this->getNewline();
-
-		$output .= '.runResultsBuffer .row.false { border-right: 1px solid #e2b5b5; background: #ffcccc; }' . $this->getNewline();
-		$output .= '.runResultsBuffer .row.false .details.assert .title { color: #957979; }' . $this->getNewline();
-		$output .= '.runResultsBuffer .row.false:last-child { border-right: 0; }' . $this->getNewline();
-
-		$output .= '.messages:before { content: "Сообщения: "; display: block; position: absolute; top: -1.8em; left: 0; padding: 0.3em 0.5em; background: #f5f1f1; color: #888; font-style: italic; }' . $this->getNewline();
-		$output .= '.messages { position: relative; margin: 2em 0 1em 0; }' . $this->getNewline();
-		$output .= '.messages ul { display: inline-block; list-style: none; }' . $this->getNewline();
-		$output .= '.messages ul li { padding: 5px; margin-bottom: 1px; background: #ccc; }' . $this->getNewline();
-
-		return rtrim($output);
-	}
-
-	protected function getScripts()
-	{
-		$output = '
-<script type="text/javascript">
-	function updateResult(uid, resultLabel, resultName){
-		var spec = document.getElementById(uid);
-		var result = spec.childNodes[1];
-		result.className += " " + resultLabel;
-		result.innerHTML = resultName;
-	}
-</script>
-		';
-
-		return rtrim($output);
-	}
-
-	public function getFooter()
-	{
-		$output = '';
-		$output .= '</ol>' . $this->getNewline();
-		$output .= '</body>' . $this->getNewline();
-		$output .= '</html>' . $this->getNewline();
-
-		return rtrim($output);
-	}
-
 	public function onRunBefore()
 	{
 		if (!$this->getOwner()->getParent()) // Root describe
@@ -207,7 +96,7 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 			$this->getOwner()->output->put('<li class="' . $this->getSpecLabel() . '" id="' . $this->getOwner()->selector->getUidForSpec() . '">');
 
 			$this->getOwner()->output->put('<span class="name">' . htmlspecialchars($this->getSpecName()) . '</span>');
-			$this->getOwner()->output->put('<span class="finalResult">wait...</span>');
+			$this->getOwner()->output->put('<span class="g-finalResult">wait...</span>');
 
 			if ($this->getOwner() instanceof SpecContainerInterface)
 				$this->getOwner()->output->put('<ol>');
@@ -223,11 +112,12 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 			if ($this->getOwner() instanceof SpecContainerInterface)
 				$this->getOwner()->output->put('</ol>');
 
-			$this->updateResult($this->getOwner()->selector->getUidForSpec(), $this->getSpecResultLabel($finalResult));
-			$this->outputRunResultsBuffer($finalResult);
+			$this->getOwner()->output->put($this->getScriptForResultUpdate($this->getOwner()->selector->getUidForSpec(), $this->getSpecResultLabel($finalResult)));
+			if ($finalResult === false)
+				$this->getOwner()->output->put($this->getHtmlForRunResultsBuffer($finalResult));
 
-			$this->outputMessages();
-			
+			$this->getOwner()->output->put($this->getHtmlForMessages());
+
 			$this->getOwner()->output->put('</li>');
 
 			$this->flush();
@@ -237,73 +127,319 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 			$this->getOwner()->output->put($this->getFooter());
 	}
 
-	protected function outputRunResultsBuffer($finalResult)
+/**/
+
+	protected function getHeader()
 	{
-		if ($finalResult === false && $this->getOwner() instanceof SpecItemInterface)
+		return
+			'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' . $this->getNewline() .
+			'<html xmlns="http://www.w3.org/1999/xhtml">' . $this->getNewline() .
+			'<head>' . $this->getNewline() .
+				$this->getIndention() . '<meta http-equiv="content-type" content="text/html; charset=utf-8" />' . $this->getNewline() .
+				$this->getIndention() . '<title></title>' . $this->getNewline() .
+				$this->prependIndentionToEachLine($this->getStyles()) .
+				$this->prependIndentionToEachLine($this->getScripts()) . $this->getNewline() .
+			'</head>' . $this->getNewline() .
+			$this->getBodyTag() .
+				$this->getIndention() . '<ol>' . $this->getNewline();
+	}
+
+	protected function getBodyTag()
+	{
+		return
+			'<!--[if IE 6]><body class="g-browser-ie g-browser-ie6"><![endif]-->' . $this->getNewline() .
+			'<!--[if IE 7]><body class="g-browser-ie g-browser-ie7"><![endif]-->' . $this->getNewline() .
+			'<!--[if IE 8]><body class="g-browser-ie g-browser-ie8"><![endif]-->' . $this->getNewline() .
+			'<!--[if IE 9]><body class="g-browser-ie g-browser-ie9"><![endif]-->' . $this->getNewline() .
+			'<!--[if !IE]>--><body><!--<![endif]-->' . $this->getNewline();
+	}
+
+	protected function getFooter()
+	{
+		return
+				$this->getIndention() . '</ol>' . $this->getNewline() .
+			'</body>' . $this->getNewline() .
+			'</html>';
+	}
+
+/**/
+
+	protected function getStyles()
+	{
+		return
+			'<style type="text/css">' . $this->getNewline() .
+				$this->prependIndentionToEachLine($this->getCssRulesForDocument()) . $this->getNewline() .
+				$this->prependIndentionToEachLine($this->getCssRulesForClearfix()) . $this->getNewline() .
+				$this->prependIndentionToEachLine($this->getCssRulesForFinalResult()) . $this->getNewline() .
+				$this->prependIndentionToEachLine($this->getCssRulesForRunResultsBuffer()) . $this->getNewline() .
+				$this->prependIndentionToEachLine($this->getCssRulesForMessages()) . $this->getNewline() .
+			'</style>' . $this->getNewline();
+	}
+
+	protected function getScripts()
+	{
+		return
+			'<script type="text/javascript">' . $this->getNewline() .
+				'function updateResult(uid, resultLabel, resultName){' . $this->getNewline() .
+					'var spec = document.getElementById(uid);' . $this->getNewline() .
+					'var result = spec.childNodes[1];' . $this->getNewline() .
+					'result.className += " " + resultLabel;' . $this->getNewline() .
+					'result.innerHTML = resultName;' . $this->getNewline() .
+				'}' . $this->getNewline() .
+			'</script>' . $this->getNewline();
+	}
+
+/**/
+
+	protected function getCssRulesForDocument()
+	{
+		return
+			'body { font-family: Verdana, sans-serif; font-size: 0.75em; }' . $this->getNewline() .
+	
+			'ol { padding-left: 1.8em; }' . $this->getNewline() .
+			'.name { }' . $this->getNewline() .
+			'.it { font-weight: normal; }' . $this->getNewline() .
+			'.describe { }' . $this->getNewline() .
+			'.context { }' . $this->getNewline() .
+			'.context>.name:after { content: " (context)"; }' . $this->getNewline();
+	}
+
+	protected function getCssRulesForClearfix()
+	{
+		return
+			'.g-clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }' . $this->getNewline() .
+			'.g-clearfix { *zoom: 1; }' . $this->getNewline();
+	}
+
+	protected function getCssRulesForRunResultsBuffer()
+	{
+		return
+			'.g-runResultsBuffer:before { content: "Содержимое результирующего буфера: "; display: block; position: absolute; top: -1.8em; left: 0; padding: 0.3em 0.5em; background: #f5f1f1; color: #888; font-style: italic; }' . $this->getNewline() .
+			'.g-runResultsBuffer { position: relative; margin: 2em 0 1em 0; }' . $this->getNewline() .
+
+			'.g-runResultsBuffer .row .result:before { content: "Result: "; font-weight: bold; }' . $this->getNewline() .
+			'.g-runResultsBuffer .row { float: left; padding: 0.5em; }' . $this->getNewline() .
+
+			'.g-runResultsBuffer .row .details:before { display: block; content: "Details: "; font-weight: bold; }' . $this->getNewline() .
+			'.g-runResultsBuffer .row .details { white-space: pre; }' . $this->getNewline() .
+			'.g-runResultsBuffer .row .details.assert .title { font-size: 0.9em; }' . $this->getNewline() .
+			'.g-runResultsBuffer .row .details.assert .title:after { content: ": ";}' . $this->getNewline() .
+
+			'.g-runResultsBuffer .row.true { border-right: 1px solid #b5dfb5; background: #ccffcc; }' . $this->getNewline() .
+			'.g-runResultsBuffer .row.true .details.assert .title { color: #789578; }' . $this->getNewline() .
+			'.g-runResultsBuffer .row.true:last-child { border-right: 0; }' . $this->getNewline() .
+
+			'.g-runResultsBuffer .row.false { border-right: 1px solid #e2b5b5; background: #ffcccc; }' . $this->getNewline() .
+			'.g-runResultsBuffer .row.false .details.assert .title { color: #957979; }' . $this->getNewline() .
+			'.g-runResultsBuffer .row.false:last-child { border-right: 0; }' . $this->getNewline();
+	}
+
+	protected function getCssRulesForFinalResult()
+	{
+		return
+			'.g-finalResult:before { content: " — "; }' . $this->getNewline() .
+			'.g-finalResult { color: #ccc; font-weight: bold; }' . $this->getNewline() .
+			'.g-finalResult.fail { color: #a31010; }' . $this->getNewline() .
+			'.g-finalResult.success { color: #009900; }' . $this->getNewline() .
+			'.g-finalResult.empty { color: #cc9900; }' . $this->getNewline();
+	}
+
+	protected function getCssRulesForMessages()
+	{
+		return
+			'.g-messages:before { content: "Сообщения: "; display: block; position: absolute; top: -1.8em; left: 0; padding: 0.3em 0.5em; background: #f5f1f1; color: #888; font-style: italic; }' . $this->getNewline() .
+			'.g-messages { position: relative; margin: 2em 0 1em 0; }' . $this->getNewline() .
+			'.g-messages ul { display: inline-block; list-style: none; }' . $this->getNewline() .
+			'.g-messages ul li { padding: 5px; margin-bottom: 1px; background: #ccc; }' . $this->getNewline();
+	}
+
+/**/
+
+	protected function getHtmlForRunResultsBuffer()
+	{
+		if (!($this->getOwner() instanceof SpecItemInterface))
+			return null;
+
+		$output = '';
+
+		$output .= '<div class="g-runResultsBuffer g-clearfix">' . $this->getNewline();
+		foreach ($this->getOwner()->getRunResultsBuffer()->getResults() as $result)
 		{
-			$this->getOwner()->output->put('<div class="runResultsBuffer clearfix">');
-			foreach ($this->getOwner()->getRunResultsBuffer()->getResults() as $result)
-			{
-				$this->getOwner()->output->put('<div class="row ' . ($result['result'] === true ? 'true' : 'false') . '">');
+			$output .= $this->getIndention() . '<div class="result ' . ($result['result'] ? 'true' : 'false') . '">' . $this->getNewline();
+			$output .= $this->prependIndentionToEachLine($this->getHtmlForResultValue($result['result']), 2);
+			$output .= $this->prependIndentionToEachLine($this->getHtmlForResultDetails($result['details']), 2);
+			$output .= $this->getIndention() . '</div>' . $this->getNewline();
+		}
 
-				$this->getOwner()->output->put('<div class="result">');
-				$this->getOwner()->output->put(htmlspecialchars($this->getVarDump($result['result'])));
-				$this->getOwner()->output->put('</div>');
+		$output .= '</div>' . $this->getNewline();
 
-				$details = $result['details'];
-				if (is_object($details) && $details instanceof \net\mkharitonov\spectrum\core\asserts\MatcherCallDetailsInterface)
-				{
-					$this->getOwner()->output->put('<div class="details assert">');
-					// TODO print matcher view, like Details: bool false be(string "foo")->not->eq(string "bar", int 1)
-					$this->outputDetailsAssert('actualValue', $this->getVarDump($details->getActualValue()));
-					$this->outputDetailsAssert('isNot', $this->getVarDump($details->getIsNot()));
-					$this->outputDetailsAssert('matcherName', $details->getMatcherName());
-					$this->outputDetailsAssert('matcherArgs', $this->getVarDump($details->getMatcherArgs()));
-					$this->outputDetailsAssert('matcherReturnValue', $this->getVarDump($details->getMatcherReturnValue()));
-					$this->outputDetailsAssert('matcherException', $this->getVarDump($details->getException()));
-					$this->getOwner()->output->put('</div>');
-				}
-				else
-				{
-					$this->getOwner()->output->put('<div class="details">');
-					$this->getOwner()->output->put(var_dump($details));
-					$this->getOwner()->output->put('</div>');
-				}
+		return $output;
+	}
 
-				$this->getOwner()->output->put('</div>');
-			}
+	protected function getHtmlForResultValue($result)
+	{
+		return '<div class="value">' . $this->getHtmlForVariable($result) . '</div>' . $this->getNewline();
+	}
 
-			$this->getOwner()->output->put('</div>');
+	protected function getHtmlForResultDetails($details)
+	{
+		if (is_object($details) && $details instanceof MatcherCallDetailsInterface)
+			return $this->getHtmlForResultDetailsForMatcherCall($details);
+		else
+			return $this->getHtmlForResultDetailsForOther($details);
+	}
+
+	protected function getHtmlForResultDetailsForMatcherCall(MatcherCallDetailsInterface $details)
+	{
+		$output = '';
+		$output .= '<div class="details matcherCall">' . $this->getNewline();
+
+		$output .= $this->getHtmlForMethod('be', array($details->getActualValue()));
+
+		if ($details->getIsNot())
+		{
+			$output .= '<span class="operator objectAccess">-&gt;</span>';
+			$output .= '<span class="property not">not</span>';
+		}
+
+		$output .= '<span class="opeator objectAccess">-&gt;</span>';
+		$output .= $this->getHtmlForMethod(
+			$details->getMatcherName(),
+			$details->getMatcherArgs(),
+			$details->getMatcherReturnValue(),
+			$details->getException()
+		);
+
+		$output .= $this->getNewline();
+		$output .= '</div>' . $this->getNewline();
+
+		return $output;
+	}
+
+	protected function getHtmlForMethod($methodName, array $arguments, $returnValue = null, $exception = null)
+	{
+		return
+			'<span class="method ' . htmlspecialchars($methodName) . '">' .
+				(func_num_args() >= 3 ? '<span class="returnValue">' . $this->getHtmlForVariable($returnValue) . ' </span>' : '') .
+				($exception ? '<span class="exception">' . $this->getHtmlForVariable($exception) . ' </span>' : '') .
+				'<span class="methodName">' . htmlspecialchars($methodName) . '</span>' .
+				'<span class="arguments">(' . $this->getHtmlForArguments($arguments) . ')</span>' .
+			'</span>';
+	}
+
+	protected function getHtmlForArguments(array $arguments)
+	{
+		$output = '';
+		foreach ($arguments as $argument)
+			$output .= $this->getHtmlForVariable($argument) . ', ';
+
+		return mb_substr($output, 0, -2);
+	}
+
+	protected function getHtmlForVariable($variable)
+	{
+		$type = $this->getVariableType($variable);
+		$value = $this->getVariableValueDump($variable);
+
+		return
+			'<span class="variable">' .
+				($type != '' ? '<span class="type">' . htmlspecialchars($type) . '</span>' : '') .
+				($type != '' && $value != '' ? ' ' : '') .
+				($value != '' ? '<span class="value">' . htmlspecialchars($value) . '</span>' : '') .
+			'</span>';
+	}
+
+	protected function getVariableType($variable)
+	{
+		$type = mb_strtolower(gettype($variable));
+
+		if ($type == 'boolean')
+			$type = 'bool';
+		else if ($type == 'integer')
+			$type = 'int';
+		else if ($type == 'double')
+			$type = 'float';
+		else if ($type == 'string')
+			$type = 'string(' . mb_strlen($variable) . ')';
+		else if ($type == 'array')
+			$type = 'array(' . count($variable) . ')';
+
+		return $type;
+	}
+
+	protected function getVariableValueDump($variable)
+	{
+		$type = mb_strtolower(gettype($variable));
+
+		if ($type == 'null')
+			return '';
+		else if ($type == 'boolean')
+			return ($variable ? 'true' : 'false');
+		else if ($type == 'integer')
+			return $variable;
+		else if ($type == 'double')
+			return $variable;
+		else if ($type == 'string')
+			return '"' . $variable . '"';
+		else if ($type == 'array')
+			return $this->getArrayDump($variable);
+		else //if ($type == 'object' || $type == 'resource')
+		{
+			ob_start();
+			var_dump($variable);
+			return ob_get_clean();
 		}
 	}
 
-	protected function outputDetailsAssert($name, $value)
+	protected function getArrayDump(array $var)
 	{
-		$this->getOwner()->output->put('<div class="' . htmlspecialchars($name) . '">');
-		$this->getOwner()->output->put('<span class="title">' . htmlspecialchars($name) . '</span>');
-		$this->getOwner()->output->put('<span class="value">' . htmlspecialchars($value) . '</span>');
-		$this->getOwner()->output->put('</div>');
+		$output = '';
+		$output .= '{';
+
+		if (count($var))
+		{
+			$output .= $this->getNewline();
+
+			foreach ($var as $key => $val)
+			{
+				// TODO nested array print
+				$output .= $this->getIndention() . "[" . htmlspecialchars($key) . "] => " . $this->getVariableValueDump($val) . $this->getNewline();
+			}
+		}
+
+		$output .= '}';
+		return $output;
 	}
 
-	protected function outputMessages()
+	protected function getHtmlForResultDetailsForOther($details)
+	{
+		return
+			'<div class="details other">' . $this->getNewline() .
+				$this->getIndention() . var_dump($details) . $this->getNewline() .
+			'</div>' . $this->getNewline();
+	}
+
+	protected function getHtmlForMessages()
 	{
 		$messages = $this->getOwner()->messages->getAll();
 
 		if (!count($messages))
-			return;
+			return null;
 
-		$this->getOwner()->output->put('<div class="messages clearfix">');
-		$this->getOwner()->output->put('<ul>');
+		$output = '';
+
+		$output .= '<div class="g-messages g-clearfix">' . $this->getNewline();
+		$output .= $this->getIndention() . '<ul>' . $this->getNewline();
 		foreach ($messages as $message)
-		{
-			$this->getOwner()->output->put('<li>');
-			$this->getOwner()->output->put(htmlspecialchars($message));
-			$this->getOwner()->output->put('</li>');
-		}
+			$output .= $this->getIndention(2) . '<li>' . htmlspecialchars($message) . '</li>' . $this->getNewline();
 
-		$this->getOwner()->output->put('</ul>');
-		$this->getOwner()->output->put('</div>');
+		$output .= $this->getIndention() . '</ul>' . $this->getNewline();
+		$output .= '</div>' . $this->getNewline();
+
+		return $output;
 	}
+
+/**/
 
 	protected function getSpecName()
 	{
@@ -318,13 +454,11 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 
 	protected function getAdditionalArgumentsDumpOut()
 	{
-		$out = '';
+		$output = '';
 		foreach ($this->getOwner()->getAdditionalArguments() as $arg)
-		{
-			$out .= $arg . ', ';
-		}
+			$output .= $arg . ', ';
 
-		return mb_substr($out, 0, -2);
+		return mb_substr($output, 0, -2);
 	}
 
 	protected function getSpecLabel()
@@ -355,69 +489,18 @@ class LiveReport extends \net\mkharitonov\spectrum\core\plugins\Plugin implement
 		return $name;
 	}
 
-/**/
-
-	protected function updateResult($specUid, $resultLabel)
+	protected function getScriptForResultUpdate($specUid, $resultLabel)
 	{
-		$this->getOwner()->output->put('
-			<script type="text/javascript">
-				updateResult("' . $specUid . '", "' . $resultLabel . '", "' . $resultLabel . '");
-			</script>
-		');
+		// TODO заменить на периодическую проверку по коду в <head>
+		return
+			'<script type="text/javascript">' .
+				'updateResult("' . $specUid . '", "' . $resultLabel . '", "' . $resultLabel . '");' .
+			'</script>';
 	}
 
 	protected function flush()
 	{
 		$this->getOwner()->output->put('<span style="display: none;">' . str_repeat(' ', 256) . '</span>' . $this->getNewline());
 		flush();
-	}
-
-/**/
-
-	protected function getVarDump($var)
-	{
-		switch (gettype($var))
-		{
-			case 'NULL':
-				return 'null';
-			case 'boolean':
-				return 'bool(' . ($var ? 'true' : 'false') . ')';
-			case 'integer':
-				return "int($var)";
-			case 'double':
-				return "float($var)";
-			case 'string':
-				return 'string(' . mb_strlen($var) . ')' . ' "' . $var . '"';
-			case 'array':
-				return $this->getArrayDump($var);
-			case 'object':
-			case 'resource':
-				ob_start();
-				var_dump($var);
-				return ob_get_clean();
-		}
-
-		return null;
-	}
-
-	protected function getArrayDump(array $var)
-	{
-		$out = '';
-		$out .= 'array(' . count($var) . ')' . ' {';
-
-		if (count($var))
-		{
-			$out .= $this->getNewline();
-
-			foreach ($var as $key => $val)
-			{
-				// TODO nested array print
-				// TODO get indention from Formatter
-				$out .= "    [$key] => " . $this->getVarDump($val) . $this->getNewline();
-			}
-		}
-
-		$out .= '}';
-		return $out;
 	}
 }
