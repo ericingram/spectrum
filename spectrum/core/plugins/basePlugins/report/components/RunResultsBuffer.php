@@ -23,24 +23,24 @@ class RunResultsBuffer extends \net\mkharitonov\spectrum\core\plugins\basePlugin
 	{
 		return
 			'<style type="text/css">' . $this->getNewline() .
-				'.g-runResultsBuffer:before { content: "Содержимое результирующего буфера: "; display: block; position: absolute; top: -1.8em; left: 0; padding: 0.3em 0.5em; background: #f5f1f1; color: #888; font-style: italic; }' . $this->getNewline() .
-				'.g-runResultsBuffer { position: relative; margin: 2em 0 1em 0; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer:before { content: "Содержимое результирующего буфера: "; display: block; position: absolute; top: -1.8em; left: 0; padding: 0.3em 0.5em; background: #f5f1f1; color: #888; font-style: italic; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer { position: relative; margin: 2em 0 1em 0; }' . $this->getNewline() .
 
-				'.g-runResultsBuffer .row .result:before { content: "Result: "; font-weight: bold; }' . $this->getNewline() .
-				'.g-runResultsBuffer .row { float: left; padding: 0.5em; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer .row .result:before { content: "Result: "; font-weight: bold; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer .row { float: left; padding: 0.5em; }' . $this->getNewline() .
 
-				'.g-runResultsBuffer .row .details:before { display: block; content: "Details: "; font-weight: bold; }' . $this->getNewline() .
-				'.g-runResultsBuffer .row .details { white-space: pre; }' . $this->getNewline() .
-				'.g-runResultsBuffer .row .details.assert .title { font-size: 0.9em; }' . $this->getNewline() .
-				'.g-runResultsBuffer .row .details.assert .title:after { content: ": ";}' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer .row .details:before { display: block; content: "Details: "; font-weight: bold; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer .row .details { white-space: pre; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer .row .details.assert .title { font-size: 0.9em; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer .row .details.assert .title:after { content: ": ";}' . $this->getNewline() .
 
-				'.g-runResultsBuffer .row.true { border-right: 1px solid #b5dfb5; background: #ccffcc; }' . $this->getNewline() .
-				'.g-runResultsBuffer .row.true .details.assert .title { color: #789578; }' . $this->getNewline() .
-				'.g-runResultsBuffer .row.true:last-child { border-right: 0; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer .row.true { border-right: 1px solid #b5dfb5; background: #ccffcc; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer .row.true .details.assert .title { color: #789578; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer .row.true:last-child { border-right: 0; }' . $this->getNewline() .
 
-				'.g-runResultsBuffer .row.false { border-right: 1px solid #e2b5b5; background: #ffcccc; }' . $this->getNewline() .
-				'.g-runResultsBuffer .row.false .details.assert .title { color: #957979; }' . $this->getNewline() .
-				'.g-runResultsBuffer .row.false:last-child { border-right: 0; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer .row.false { border-right: 1px solid #e2b5b5; background: #ffcccc; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer .row.false .details.assert .title { color: #957979; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer .row.false:last-child { border-right: 0; }' . $this->getNewline() .
 			'</style>' . $this->getNewline();
 	}
 
@@ -55,8 +55,8 @@ class RunResultsBuffer extends \net\mkharitonov\spectrum\core\plugins\basePlugin
 		foreach ($this->getReport()->getOwner()->getRunResultsBuffer()->getResults() as $result)
 		{
 			$output .= $this->getIndention() . '<div class="result ' . ($result['result'] ? 'true' : 'false') . '">' . $this->getNewline();
-			$output .= $this->prependIndentionToEachLine($this->getHtmlForResultValue($result['result']), 2);
-			$output .= $this->prependIndentionToEachLine($this->getHtmlForResultDetails($result['details']), 2);
+			$output .= $this->prependIndentionToEachLine($this->trimNewline($this->getHtmlForResultValue($result['result'])), 2) . $this->getNewline();
+			$output .= $this->prependIndentionToEachLine($this->trimNewline($this->getHtmlForResultDetails($result['details'])), 2) . $this->getNewline();
 			$output .= $this->getIndention() . '</div>' . $this->getNewline();
 		}
 
@@ -83,7 +83,7 @@ class RunResultsBuffer extends \net\mkharitonov\spectrum\core\plugins\basePlugin
 		$output = '';
 		$output .= '<div class="details matcherCall">' . $this->getNewline();
 
-		$output .= $this->getHtmlForMethod('be', array($details->getActualValue()));
+		$output .= $this->getIndention() . $this->getHtmlForMethod('be', array($details->getActualValue()));
 
 		if ($details->getIsNot())
 		{

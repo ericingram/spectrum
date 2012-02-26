@@ -83,6 +83,12 @@ class Report extends \net\mkharitonov\spectrum\core\plugins\Plugin implements ev
 		return str_repeat($this->newline, $repeat);
 	}
 
+	public function trimNewline($text)
+	{
+		$escapedNewline = preg_quote($this->newline, '/');
+		return preg_replace('/^(' . $escapedNewline . ')+|(' . $escapedNewline . ')+$/s', '', $text);
+	}
+
 /**/
 
 	public function onRunBefore()
@@ -113,8 +119,8 @@ class Report extends \net\mkharitonov\spectrum\core\plugins\Plugin implements ev
 			'<head>' . $this->getNewline() .
 				$this->getIndention() . '<meta http-equiv="content-type" content="text/html; charset=utf-8" />' . $this->getNewline() .
 				$this->getIndention() . '<title></title>' . $this->getNewline() .
-				$this->prependIndentionToEachLine($this->getStyles()) .
-				$this->prependIndentionToEachLine($this->getScripts()) . $this->getNewline() .
+				$this->prependIndentionToEachLine($this->trimNewline($this->getStyles())) . $this->getNewline(2) .
+				$this->prependIndentionToEachLine($this->trimNewline($this->getScripts())) . $this->getNewline() .
 			'</head>' . $this->getNewline() .
 			$this->getBodyTag();
 	}
@@ -139,10 +145,10 @@ class Report extends \net\mkharitonov\spectrum\core\plugins\Plugin implements ev
 	protected function getStyles()
 	{
 		$output = '';
-		$output .= $this->getCommonStyles();
+		$output .= $this->trimNewline($this->getCommonStyles()) . $this->getNewline(2);
 
 		foreach ($this->components as $component)
-			$output .= $component->getStyles();
+			$output .= $this->trimNewline($component->getStyles()) . $this->getNewline(2);
 
 		return $output;
 	}
@@ -151,7 +157,7 @@ class Report extends \net\mkharitonov\spectrum\core\plugins\Plugin implements ev
 	{
 		return
 			'<style type="text/css">' . $this->getNewline() .
-				'body { font-family: Verdana, sans-serif; font-size: 0.75em; }' . $this->getNewline() .
+				$this->getIndention() . 'body { font-family: Verdana, sans-serif; font-size: 0.75em; }' . $this->getNewline() .
 			'</style>' . $this->getNewline();
 	}
 
@@ -159,10 +165,10 @@ class Report extends \net\mkharitonov\spectrum\core\plugins\Plugin implements ev
 	protected function getScripts()
 	{
 		$output = '';
-		$output .= $this->getCommonScripts();
+		$output .= $this->trimNewline($this->getCommonScripts()) . $this->getNewline(2);
 
 		foreach ($this->components as $component)
-			$output .= $component->getScripts();
+			$output .= $this->trimNewline($component->getScripts()) . $this->getNewline(2);
 
 		return $output;
 	}
@@ -176,6 +182,7 @@ class Report extends \net\mkharitonov\spectrum\core\plugins\Plugin implements ev
 
 	protected function flush()
 	{
+		// TODO убрать span
 		$this->getOwner()->output->put('<span style="display: none;">' . str_repeat(' ', 256) . '</span>' . $this->getNewline());
 		flush();
 	}

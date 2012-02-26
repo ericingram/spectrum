@@ -58,4 +58,9 @@ class Component implements ComponentInterface
 	{
 		return $this->getReport()->getNewline($repeat);
 	}
+
+	protected function trimNewline($text)
+	{
+		return $this->getReport()->trimNewline($text);
+	}
 }

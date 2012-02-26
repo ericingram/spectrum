@@ -22,22 +22,26 @@ use \net\mkharitonov\spectrum\core\SpecItemInterface;
  */
 class SpecList extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report\Component
 {
+	static protected $depth;
+
 	public function getStyles()
 	{
+		// TODO переписать селекторы с использованием дочернего селектора
+		// TODO переименовать g-finalResult
 		return
 			'<style type="text/css">' . $this->getNewline() .
-				'ol.g-specList { padding-left: 1.8em; }' . $this->getNewline() .
-				'.name { }' . $this->getNewline() .
-				'.it { font-weight: normal; }' . $this->getNewline() .
-				'.describe { }' . $this->getNewline() .
-				'.context { }' . $this->getNewline() .
-				'.context>.name:after { content: " (context)"; }' . $this->getNewline() .
+				$this->getIndention() . 'ol.g-specList { padding-left: 1.8em; }' . $this->getNewline() .
+				$this->getIndention() . '.name { }' . $this->getNewline() .
+				$this->getIndention() . '.it { font-weight: normal; }' . $this->getNewline() .
+				$this->getIndention() . '.describe { }' . $this->getNewline() .
+				$this->getIndention() . '.context { }' . $this->getNewline() .
+				$this->getIndention() . '.context>.name:after { content: " (context)"; }' . $this->getNewline() .
 
-				'.g-finalResult:before { content: " — "; }' . $this->getNewline() .
-				'.g-finalResult { color: #ccc; font-weight: bold; }' . $this->getNewline() .
-				'.g-finalResult.fail { color: #a31010; }' . $this->getNewline() .
-				'.g-finalResult.success { color: #009900; }' . $this->getNewline() .
-				'.g-finalResult.empty { color: #cc9900; }' . $this->getNewline() .
+				$this->getIndention() . '.g-finalResult:before { content: " — "; }' . $this->getNewline() .
+				$this->getIndention() . '.g-finalResult { color: #ccc; font-weight: bold; }' . $this->getNewline() .
+				$this->getIndention() . '.g-finalResult.fail { color: #a31010; }' . $this->getNewline() .
+				$this->getIndention() . '.g-finalResult.success { color: #009900; }' . $this->getNewline() .
+				$this->getIndention() . '.g-finalResult.empty { color: #cc9900; }' . $this->getNewline() .
 			'</style>' . $this->getNewline();
 	}
 
@@ -45,12 +49,12 @@ class SpecList extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report
 	{
 		return
 			'<script type="text/javascript">' . $this->getNewline() .
-				'function updateResult(uid, resultLabel, resultName){' . $this->getNewline() .
-					'var spec = document.getElementById(uid);' . $this->getNewline() .
-					'var result = spec.childNodes[3];' . $this->getNewline() .
-					'result.className += " " + resultLabel;' . $this->getNewline() .
-					'result.innerHTML = resultName;' . $this->getNewline() .
-				'}' . $this->getNewline() .
+				$this->getIndention() . 'function updateResult(uid, resultLabel, resultName){' . $this->getNewline() .
+					$this->getIndention(2) . 'var spec = document.getElementById(uid);' . $this->getNewline() .
+					$this->getIndention(2) . 'var result = spec.childNodes[3];' . $this->getNewline() .
+					$this->getIndention(2) . 'result.className += " " + resultLabel;' . $this->getNewline() .
+					$this->getIndention(2) . 'result.innerHTML = resultName;' . $this->getNewline() .
+				$this->getIndention() . '}' . $this->getNewline() .
 			'</script>' . $this->getNewline();
 	}
 
@@ -64,17 +68,22 @@ class SpecList extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report
 		$output = '';
 
 		if (!$this->getReport()->getOwner()->getParent())
-			$output .= '<ol class="g-specList">' . $this->getNewline();
+		{
+			static::$depth = 0;
+			$output .= $this->getIndention(static::$depth + 1) . '<ol class="g-specList">' . $this->getNewline();
+		}
 
 		if (!$this->getReport()->getOwner()->isAnonymous())
 		{
-			$output .= '<li class="' . $this->getSpecLabel() . '" id="' . $this->getReport()->getOwner()->selector->getUidForSpec() . '">' . $this->getNewline();
-
-			$output .= '<span class="name">' . htmlspecialchars($this->getSpecName()) . '</span>' . $this->getNewline();
-			$output .= '<span class="g-finalResult">wait...</span>' . $this->getNewline();
+			$output .= $this->getIndention(static::$depth * 2 + 2) . '<li class="' . $this->getSpecLabel() . '" id="' . $this->getReport()->getOwner()->selector->getUidForSpec() . '">' . $this->getNewline();
+			$output .= $this->getIndention(static::$depth * 2 + 3) . '<span class="name">' . htmlspecialchars($this->getSpecName()) . '</span>' . $this->getNewline();
+			$output .= $this->getIndention(static::$depth * 2 + 3) . '<span class="g-finalResult">wait...</span>' . $this->getNewline();
 
 			if ($this->getReport()->getOwner() instanceof SpecContainerInterface || !$this->getReport()->getOwner()->getParent())
-				$output .= '<ol class="g-specList">' . $this->getNewline();
+			{
+				$output .= $this->getIndention(static::$depth * 2 + 3) . '<ol class="g-specList">' . $this->getNewline();
+				static::$depth++;
+			}
 		}
 
 		return $output;
@@ -87,23 +96,26 @@ class SpecList extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report
 		if (!$this->getReport()->getOwner()->isAnonymous())
 		{
 			if ($this->getReport()->getOwner() instanceof SpecContainerInterface)
-				$output .= '</ol>' . $this->getNewline();
+			{
+				static::$depth--;
+				$output .= $this->getIndention(static::$depth * 2 + 3) . '</ol>' . $this->getNewline();
+			}
 
-			$output .= $this->getScriptForResultUpdate($this->getReport()->getOwner()->selector->getUidForSpec(), $this->getSpecResultLabel($finalResult));
+			$output .= $this->getScriptForResultUpdate($this->getReport()->getOwner()->selector->getUidForSpec(), $this->getSpecResultLabel($finalResult)) . $this->getNewline();
 			if ($finalResult === false)
 			{
 				$runResultsBufferComponent = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\RunResultsBuffer($this->getReport());
-				$output .= $runResultsBufferComponent->getHtml();
+				$output .= $this->prependIndentionToEachLine($this->trimNewline($runResultsBufferComponent->getHtml()), static::$depth * 2 + 3) . $this->getNewline();
 			}
 
 			$messagesComponent = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\Messages($this->getReport());
-			$output .= $messagesComponent->getHtml();
+			$output .= $this->prependIndentionToEachLine($this->trimNewline($messagesComponent->getHtml()), static::$depth * 2 + 3) . $this->getNewline();
 
-			$output .= '</li>' . $this->getNewline();
+			$output .= $this->getIndention(static::$depth * 2 + 2) . '</li>' . $this->getNewline();
 		}
 
 		if (!$this->getReport()->getOwner()->getParent())
-			$output .= '</ol>' . $this->getNewline();
+			$output .= $this->getIndention(static::$depth + 1) . '</ol>' . $this->getNewline();
 
 		return $output;
 	}

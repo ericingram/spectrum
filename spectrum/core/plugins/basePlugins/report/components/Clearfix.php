@@ -10,6 +10,7 @@
  */
 
 namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report\components;
+
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
@@ -20,8 +21,8 @@ class Clearfix extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report
 	{
 		return
 			'<style type="text/css">' . $this->getNewline() .
-				'.g-clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }' . $this->getNewline() .
-				'.g-clearfix { *zoom: 1; }' . $this->getNewline() .
+				$this->getIndention() . '.g-clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }' . $this->getNewline() .
+				$this->getIndention() . 'body.g-browser-ie7 .g-clearfix { zoom: 1; }' . $this->getNewline() .
 			'</style>' . $this->getNewline();
 	}
 }
