@@ -26,22 +26,19 @@ class SpecList extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report
 
 	public function getStyles()
 	{
-		// TODO переписать селекторы с использованием дочернего селектора
-		// TODO переименовать g-finalResult
 		return
 			'<style type="text/css">' . $this->getNewline() .
-				$this->getIndention() . 'ol.g-specList { padding-left: 1.8em; }' . $this->getNewline() .
-				$this->getIndention() . '.name { }' . $this->getNewline() .
-				$this->getIndention() . '.it { font-weight: normal; }' . $this->getNewline() .
-				$this->getIndention() . '.describe { }' . $this->getNewline() .
-				$this->getIndention() . '.context { }' . $this->getNewline() .
-				$this->getIndention() . '.context>.name:after { content: " (context)"; }' . $this->getNewline() .
+				$this->getIndention() . '.g-specList { padding-left: 1.8em; }' . $this->getNewline() .
+				$this->getIndention() . '.g-specList>li>.name { }' . $this->getNewline() .
 
-				$this->getIndention() . '.g-finalResult:before { content: " — "; }' . $this->getNewline() .
-				$this->getIndention() . '.g-finalResult { color: #ccc; font-weight: bold; }' . $this->getNewline() .
-				$this->getIndention() . '.g-finalResult.fail { color: #a31010; }' . $this->getNewline() .
-				$this->getIndention() . '.g-finalResult.success { color: #009900; }' . $this->getNewline() .
-				$this->getIndention() . '.g-finalResult.empty { color: #cc9900; }' . $this->getNewline() .
+				$this->getIndention() . '.g-specList>li>.finalResult { color: #ccc; font-weight: bold; }' . $this->getNewline() .
+				$this->getIndention() . '.g-specList>li>.finalResult.fail { color: #a31010; }' . $this->getNewline() .
+				$this->getIndention() . '.g-specList>li>.finalResult.success { color: #009900; }' . $this->getNewline() .
+				$this->getIndention() . '.g-specList>li>.finalResult.empty { color: #cc9900; }' . $this->getNewline() .
+
+				$this->getIndention() . '.g-specList>li.it { }' . $this->getNewline() .
+				$this->getIndention() . '.g-specList>li.describe { }' . $this->getNewline() .
+				$this->getIndention() . '.g-specList>li.context { }' . $this->getNewline() .
 			'</style>' . $this->getNewline();
 	}
 
@@ -51,7 +48,7 @@ class SpecList extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report
 			'<script type="text/javascript">' . $this->getNewline() .
 				$this->getIndention() . 'function updateResult(uid, resultLabel, resultName){' . $this->getNewline() .
 					$this->getIndention(2) . 'var spec = document.getElementById(uid);' . $this->getNewline() .
-					$this->getIndention(2) . 'var result = spec.childNodes[3];' . $this->getNewline() .
+					$this->getIndention(2) . 'var result = spec.childNodes[5];' . $this->getNewline() .
 					$this->getIndention(2) . 'result.className += " " + resultLabel;' . $this->getNewline() .
 					$this->getIndention(2) . 'result.innerHTML = resultName;' . $this->getNewline() .
 				$this->getIndention() . '}' . $this->getNewline() .
@@ -72,7 +69,8 @@ class SpecList extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report
 		{
 			$output .= $this->getIndention(static::$depth * 2 + 2) . '<li class="' . $this->getSpecLabel() . '" id="' . $this->getReport()->getOwner()->selector->getUidForSpec() . '">' . $this->getNewline();
 			$output .= $this->getIndention(static::$depth * 2 + 3) . '<span class="name">' . htmlspecialchars($this->getSpecName()) . '</span>' . $this->getNewline();
-			$output .= $this->getIndention(static::$depth * 2 + 3) . '<span class="g-finalResult">wait...</span>' . $this->getNewline();
+			$output .= $this->getIndention(static::$depth * 2 + 3) . '<span class="separator"> — </span>' . $this->getNewline();
+			$output .= $this->getIndention(static::$depth * 2 + 3) . '<span class="finalResult">wait...</span>' . $this->getNewline();
 
 			if ($this->getReport()->getOwner() instanceof SpecContainerInterface || !$this->getReport()->getOwner()->getParent())
 			{
@@ -142,7 +140,7 @@ class SpecList extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report
 			$output .= $arg . ', ';
 
 		return mb_substr($output, 0, -2);
-	}
+}
 
 	protected function getSpecLabel()
 	{
