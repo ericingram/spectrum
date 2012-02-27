@@ -67,7 +67,7 @@ class SpecList extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report
 
 		if (!$this->getReport()->getOwner()->isAnonymous())
 		{
-			$output .= $this->getIndention(static::$depth * 2 + 2) . '<li class="' . $this->getSpecLabel() . '" id="' . $this->getReport()->getOwner()->selector->getUidForSpec() . '">' . $this->getNewline();
+			$output .= $this->getIndention(static::$depth * 2 + 2) . '<li class="' . $this->getSpecCssClass() . '" id="' . $this->getReport()->getOwner()->selector->getUidForSpec() . '">' . $this->getNewline();
 			$output .= $this->getIndention(static::$depth * 2 + 3) . '<span class="name">' . htmlspecialchars($this->getSpecName()) . '</span>' . $this->getNewline();
 			$output .= $this->getIndention(static::$depth * 2 + 3) . '<span class="separator"> — </span>' . $this->getNewline();
 			$output .= $this->getIndention(static::$depth * 2 + 3) . '<span class="finalResult">wait...</span>' . $this->getNewline();
@@ -94,7 +94,7 @@ class SpecList extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report
 				$output .= $this->getIndention(static::$depth * 2 + 3) . '</ol>' . $this->getNewline();
 			}
 
-			$output .= $this->getScriptForResultUpdate($this->getReport()->getOwner()->selector->getUidForSpec(), $this->getSpecResultLabel($finalResult)) . $this->getNewline();
+			$output .= $this->getScriptForResultUpdate($this->getReport()->getOwner()->selector->getUidForSpec(), $this->getSpecResultCssClass($finalResult)) . $this->getNewline();
 			if ($finalResult === false)
 			{
 				$runResultsBufferComponent = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\RunResultsBuffer($this->getReport());
@@ -142,7 +142,7 @@ class SpecList extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report
 		return mb_substr($output, 0, -2);
 }
 
-	protected function getSpecLabel()
+	protected function getSpecCssClass()
 	{
 		if ($this->getReport()->getOwner() instanceof SpecContainerDescribeInterface)
 			return 'describe';
@@ -158,7 +158,7 @@ class SpecList extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report
 			return 'spec';
 	}
 
-	protected function getSpecResultLabel($result)
+	protected function getSpecResultCssClass($result)
 	{
 		if ($result === false)
 			$name = 'fail';
