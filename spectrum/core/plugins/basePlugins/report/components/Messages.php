@@ -21,10 +21,10 @@ class Messages extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report
 	{
 		return
 			'<style type="text/css">' . $this->getNewline() .
-				$this->getIndention() . '.g-messages:before { content: "Сообщения: "; display: block; position: absolute; top: -1.8em; left: 0; padding: 0.3em 0.5em; background: #f5f1f1; color: #888; font-style: italic; }' . $this->getNewline() .
-				$this->getIndention() . '.g-messages { position: relative; margin: 2em 0 1em 0; }' . $this->getNewline() .
-				$this->getIndention() . '.g-messages ul { display: inline-block; list-style: none; }' . $this->getNewline() .
-				$this->getIndention() . '.g-messages ul li { padding: 5px; margin-bottom: 1px; background: #ccc; }' . $this->getNewline() .
+				$this->getIndention() . '.g-messages { position: relative; margin: 0.5em 0 1em 0; }' . $this->getNewline() .
+				$this->getIndention() . '.g-messages>h1 { float: left; margin-bottom: 2px; padding: 0.3em 0.5em 0 0.5em; color: #888; font-size: 0.9em; font-weight: normal; }' . $this->getNewline() .
+				$this->getIndention() . '.g-messages>ul { clear: both; float: left; list-style: none; }' . $this->getNewline() .
+				$this->getIndention() . '.g-messages>ul>li { margin-bottom: 2px; padding: 0.4em 0.5em; border-radius: 5px; background: #ddd; }' . $this->getNewline() .
 			'</style>' . $this->getNewline();
 	}
 
@@ -38,6 +38,7 @@ class Messages extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report
 		$output = '';
 
 		$output .= '<div class="g-messages g-clearfix">' . $this->getNewline();
+		$output .= $this->getIndention() . '<h1>Messages:</h1>' . $this->getNewline();
 		$output .= $this->getIndention() . '<ul>' . $this->getNewline();
 		foreach ($messages as $message)
 			$output .= $this->getIndention(2) . '<li>' . htmlspecialchars($message) . '</li>' . $this->getNewline();

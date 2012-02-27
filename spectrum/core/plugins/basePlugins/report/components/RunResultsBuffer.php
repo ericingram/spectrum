@@ -23,24 +23,23 @@ class RunResultsBuffer extends \net\mkharitonov\spectrum\core\plugins\basePlugin
 	{
 		return
 			'<style type="text/css">' . $this->getNewline() .
-				$this->getIndention() . '.g-runResultsBuffer:before { content: "Содержимое результирующего буфера: "; display: block; position: absolute; top: -1.8em; left: 0; padding: 0.3em 0.5em; background: #f5f1f1; color: #888; font-style: italic; }' . $this->getNewline() .
-				$this->getIndention() . '.g-runResultsBuffer { position: relative; margin: 2em 0 1em 0; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer { position: relative; margin: 0.5em 0 1em 0; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer>h1 { float: left; margin-bottom: 2px; padding: 0.3em 0.5em 0 0.5em; color: #888; font-size: 0.9em; font-weight: normal; }' . $this->getNewline() .
 
-				$this->getIndention() . '.g-runResultsBuffer .row .result:before { content: "Result: "; font-weight: bold; }' . $this->getNewline() .
-				$this->getIndention() . '.g-runResultsBuffer .row { float: left; padding: 0.5em; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer>.results { clear: both; font-size: 0.9em; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer>.results *[title] { cursor: help; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer>.results>.result { float: left; position: relative; margin: 1.4em 2px 2px 0; padding: 0.5em; border: 1px solid; border-left: 0; border-top: 0; border-radius: 0 0 5px 5px; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer>.results>.result>.num { position: absolute; top: -1.4em; left: 0; padding: 3px 5px 0.1em 5px; border-radius: 10px 10px 0 0; background: #ccc; color: #555; font-size: 0.9em; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer>.results>.result>.value { position: absolute; top: -1.4em; right: -1px; padding: 3px 5px 0.1em 5px; border-right: 1px solid; border-radius: 10px 10px 0 0; background: #ccc; color: #555; font-size: 0.9em; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer>.results>.result .title { font-weight: bold; }' . $this->getNewline() .
 
-				$this->getIndention() . '.g-runResultsBuffer .row .details:before { display: block; content: "Details: "; font-weight: bold; }' . $this->getNewline() .
-				$this->getIndention() . '.g-runResultsBuffer .row .details { white-space: pre; }' . $this->getNewline() .
-				$this->getIndention() . '.g-runResultsBuffer .row .details.assert .title { font-size: 0.9em; }' . $this->getNewline() .
-				$this->getIndention() . '.g-runResultsBuffer .row .details.assert .title:after { content: ": ";}' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer>.results>.result.true { border-color: #b5dfb5; background: #ccffcc; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer>.results>.result.true>.num { background: #ccffcc; color: #3a473a; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer>.results>.result.true>.value { border-color: #b5dfb5; background: #ccffcc; color: #3a473a; }' . $this->getNewline() .
 
-				$this->getIndention() . '.g-runResultsBuffer .row.true { border-right: 1px solid #b5dfb5; background: #ccffcc; }' . $this->getNewline() .
-				$this->getIndention() . '.g-runResultsBuffer .row.true .details.assert .title { color: #789578; }' . $this->getNewline() .
-				$this->getIndention() . '.g-runResultsBuffer .row.true:last-child { border-right: 0; }' . $this->getNewline() .
-
-				$this->getIndention() . '.g-runResultsBuffer .row.false { border-right: 1px solid #e2b5b5; background: #ffcccc; }' . $this->getNewline() .
-				$this->getIndention() . '.g-runResultsBuffer .row.false .details.assert .title { color: #957979; }' . $this->getNewline() .
-				$this->getIndention() . '.g-runResultsBuffer .row.false:last-child { border-right: 0; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer>.results>.result.false { border-color: #e2b5b5; background: #ffcccc; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer>.results>.result.false>.num { background: #ffcccc; color: #3d3232; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer>.results>.result.false>.value { border-color: #e2b5b5; background: #ffcccc; color: #3d3232; }' . $this->getNewline() .
 			'</style>' . $this->getNewline();
 	}
 
@@ -52,22 +51,23 @@ class RunResultsBuffer extends \net\mkharitonov\spectrum\core\plugins\basePlugin
 		$output = '';
 
 		$output .= '<div class="g-runResultsBuffer g-clearfix">' . $this->getNewline();
+		$output .= $this->getIndention() . '<div class="results">' . $this->getNewline();
+		$num = 0;
 		foreach ($this->getReport()->getOwner()->getRunResultsBuffer()->getResults() as $result)
 		{
-			$output .= $this->getIndention() . '<div class="result ' . ($result['result'] ? 'true' : 'false') . '">' . $this->getNewline();
-			$output .= $this->prependIndentionToEachLine($this->trimNewline($this->getHtmlForResultValue($result['result'])), 2) . $this->getNewline();
-			$output .= $this->prependIndentionToEachLine($this->trimNewline($this->getHtmlForResultDetails($result['details'])), 2) . $this->getNewline();
-			$output .= $this->getIndention() . '</div>' . $this->getNewline();
+			$num++;
+			$output .= $this->getIndention(2) . '<div class="result ' . ($result['result'] ? 'true' : 'false') . '">' . $this->getNewline();
+			$output .= $this->getIndention(3) . '<div class="num" title="Order in run results buffer">' . $num . '</div>' . $this->getNewline();
+			$output .= $this->getIndention(3) . '<div class="value" title="Value, contains in run results buffer">' . $this->getVariableValueDump($result['result']) . '</div>' . $this->getNewline();
+			$output .= $this->prependIndentionToEachLine($this->trimNewline($this->getHtmlForResultDetails($result['details'])), 3) . $this->getNewline();
+			$output .= $this->getIndention(2) . '</div>' . $this->getNewline();
 		}
+
+		$output .= $this->getIndention() . '</div>' . $this->getNewline();
 
 		$output .= '</div>' . $this->getNewline();
 
 		return $output;
-	}
-
-	protected function getHtmlForResultValue($result)
-	{
-		return '<div class="value">' . $this->getHtmlForVariable($result) . '</div>' . $this->getNewline();
 	}
 
 	protected function getHtmlForResultDetails($details)
@@ -81,6 +81,7 @@ class RunResultsBuffer extends \net\mkharitonov\spectrum\core\plugins\basePlugin
 	protected function getHtmlForResultDetailsForMatcherCall(MatcherCallDetailsInterface $details)
 	{
 		$output = '';
+
 		$output .= '<div class="details matcherCall">' . $this->getNewline();
 
 		$output .= $this->getIndention() . $this->getHtmlForMethod('be', array($details->getActualValue()));
@@ -92,25 +93,20 @@ class RunResultsBuffer extends \net\mkharitonov\spectrum\core\plugins\basePlugin
 		}
 
 		$output .= '<span class="opeator objectAccess">-&gt;</span>';
-		$output .= $this->getHtmlForMethod(
-			$details->getMatcherName(),
-			$details->getMatcherArgs(),
-			$details->getMatcherReturnValue(),
-			$details->getException()
-		);
+		$output .= $this->getHtmlForMethod($details->getMatcherName(), $details->getMatcherArgs());
 
 		$output .= $this->getNewline();
+		$output .= $this->getIndention() . '<div class="returnValue"><span class="title" title="Matcher return value">Return:</span> ' . $this->getHtmlForVariable($details->getMatcherReturnValue()) . '</div>' . $this->getNewline();
+		$output .= $this->getIndention() . '<div class="returnValue"><span class="title" title="Matcher thrown exception">Thrown:</span> ' . $this->getHtmlForVariable($details->getException()) . '</div>' . $this->getNewline();
 		$output .= '</div>' . $this->getNewline();
 
 		return $output;
 	}
 
-	protected function getHtmlForMethod($methodName, array $arguments, $returnValue = null, $exception = null)
+	protected function getHtmlForMethod($methodName, array $arguments)
 	{
 		return
 			'<span class="method ' . htmlspecialchars($methodName) . '">' .
-				(func_num_args() >= 3 ? '<span class="returnValue">' . $this->getHtmlForVariable($returnValue) . ' </span>' : '') .
-				($exception ? '<span class="exception">' . $this->getHtmlForVariable($exception) . ' </span>' : '') .
 				'<span class="methodName">' . htmlspecialchars($methodName) . '</span>' .
 				'<span class="arguments">(' . $this->getHtmlForArguments($arguments) . ')</span>' .
 			'</span>';
