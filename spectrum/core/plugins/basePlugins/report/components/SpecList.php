@@ -58,11 +58,6 @@ class SpecList extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report
 			'</script>' . $this->getNewline();
 	}
 
-	public function getHtml()
-	{
-		throw new \net\mkharitonov\spectrum\core\plugins\Exception('Method "getHtml()" of component "SpecList" forbidden, use "getHtmlBegin()" and "getHtmlEnd()" methods');
-	}
-
 	public function getHtmlBegin()
 	{
 		$output = '';

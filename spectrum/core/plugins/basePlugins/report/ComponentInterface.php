@@ -21,5 +21,4 @@ interface ComponentInterface
 	public function getReport();
 	public function getStyles();
 	public function getScripts();
-	public function getHtml();
 }

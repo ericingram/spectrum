@@ -38,12 +38,6 @@ class Component implements ComponentInterface
 		return null;
 	}
 
-	public function getHtml()
-	{
-		return null;
-	}
-
-
 	protected function getIndention($repeat = 1)
 	{
 		return $this->getReport()->getIndention($repeat);
