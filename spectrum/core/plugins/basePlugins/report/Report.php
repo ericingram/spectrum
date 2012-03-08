@@ -29,21 +29,6 @@ class Report extends \net\mkharitonov\spectrum\core\plugins\Plugin implements ev
 {
 	protected $indention = "\t";
 	protected $newline = "\r\n";
-	protected $components = array();
-
-	public function __construct(\net\mkharitonov\spectrum\core\SpecInterface $owner, $accessName)
-	{
-		parent::__construct($owner, $accessName);
-		$this->activateComponents();
-	}
-
-	protected function activateComponents()
-	{
-		$this->components['clearfix'] = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\Clearfix($this);
-		$this->components['messages'] = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\Messages($this);
-		$this->components['runResultsBuffer'] = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\RunResultsBuffer($this);
-		$this->components['specList'] = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\SpecList($this);
-	}
 
 /**/
 
@@ -96,13 +81,15 @@ class Report extends \net\mkharitonov\spectrum\core\plugins\Plugin implements ev
 		if (!$this->getOwner()->getParent())
 			$this->getOwner()->output->put($this->getHeader());
 
-		$this->getOwner()->output->put($this->components['specList']->getHtmlBegin());
+		$specListComponent = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\SpecList($this);
+		$this->getOwner()->output->put($specListComponent->getHtmlBegin());
 		$this->flush();
 	}
 
 	public function onRunAfter($finalResult)
 	{
-		$this->getOwner()->output->put($this->components['specList']->getHtmlEnd($finalResult));
+		$specListComponent = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\SpecList($this);
+		$this->getOwner()->output->put($specListComponent->getHtmlEnd($finalResult));
 		$this->flush();
 
 		if (!$this->getOwner()->getParent())
@@ -147,7 +134,7 @@ class Report extends \net\mkharitonov\spectrum\core\plugins\Plugin implements ev
 		$output = '';
 		$output .= $this->trimNewline($this->getCommonStyles()) . $this->getNewline(2);
 
-		foreach ($this->components as $component)
+		foreach ($this->getAllComponents() as $component)
 			$output .= $this->trimNewline($component->getStyles()) . $this->getNewline(2);
 
 		return $output;
@@ -170,10 +157,31 @@ class Report extends \net\mkharitonov\spectrum\core\plugins\Plugin implements ev
 		$output = '';
 		$output .= $this->trimNewline($this->getCommonScripts()) . $this->getNewline(2);
 
-		foreach ($this->components as $component)
+		foreach ($this->getAllComponents() as $component)
 			$output .= $this->trimNewline($component->getScripts()) . $this->getNewline(2);
 
 		return $output;
+	}
+
+	protected function getAllComponents()
+	{
+		return array(
+			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\Clearfix($this),
+			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\Messages($this),
+			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\RunResultsBuffer($this),
+			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\SpecList($this),
+			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\Code($this),
+			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\ArrayVar($this),
+			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\BoolVar($this),
+			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\FloatVar($this),
+			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\ClosureVar($this),
+			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\IntVar($this),
+			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\NullVar($this),
+			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\ObjectVar($this),
+			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\ResourceVar($this),
+			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\StringVar($this),
+			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\UnknownVar($this),
+		);
 	}
 
 	protected function getCommonScripts()

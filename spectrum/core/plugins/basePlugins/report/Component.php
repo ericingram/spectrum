@@ -23,6 +23,7 @@ class Component implements ComponentInterface
 	{
 		$this->report = $report;
 	}
+
 	public function getReport()
 	{
 		return $this->report;

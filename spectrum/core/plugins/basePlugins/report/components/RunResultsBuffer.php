@@ -19,6 +19,14 @@ use \net\mkharitonov\spectrum\core\SpecItemInterface;
  */
 class RunResultsBuffer extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report\Component
 {
+	protected $codeComponent;
+
+	public function __construct(\net\mkharitonov\spectrum\core\plugins\basePlugins\report\Report $report)
+	{
+		parent::__construct($report);
+		$this->codeComponent = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\Code($this->getReport());
+	}
+
 	public function getStyles()
 	{
 		return
@@ -62,7 +70,7 @@ class RunResultsBuffer extends \net\mkharitonov\spectrum\core\plugins\basePlugin
 			$num++;
 			$output .= $this->getIndention(2) . '<div class="result ' . ($result['result'] ? 'true' : 'false') . '">' . $this->getNewline();
 			$output .= $this->getIndention(3) . '<div class="num" title="Order in run results buffer">No. ' . $num . '</div>' . $this->getNewline();
-			$output .= $this->getIndention(3) . '<div class="value" title="Value, contains in run results buffer">' . $this->getVariableValueDump($result['result']) . '</div>' . $this->getNewline();
+			$output .= $this->getIndention(3) . '<div class="value" title="Result">' . ($result['result'] ? 'true' : 'false') . '</div>' . $this->getNewline();
 			$output .= $this->getIndention(3) . '<a href="#" class="expand" title="Show full details">+</a>' . $this->getNewline();
 			$output .= $this->prependIndentionToEachLine($this->trimNewline($this->getHtmlForResultDetails($result['details'])), 3) . $this->getNewline();
 			$output .= $this->getIndention(2) . '</div>' . $this->getNewline();
@@ -90,115 +98,22 @@ class RunResultsBuffer extends \net\mkharitonov\spectrum\core\plugins\basePlugin
 		// TODO добавить больше свободного пространства вокруг вызова матчера
 		$output .= '<div class="details matcherCall">' . $this->getNewline();
 
-		$output .= $this->getIndention() . $this->getHtmlForMethod('be', array($details->getActualValue()));
+		$output .= $this->getIndention() . $this->codeComponent->getHtmlForMethod('be', array($details->getActualValue()));
 
 		if ($details->getIsNot())
 		{
-			$output .= '<span class="operator objectAccess">-&gt;</span>';
-			$output .= '<span class="property not">not</span>';
+			$output .= $this->codeComponent->getHtmlForOperator('->');
+			$output .= $this->codeComponent->getHtmlForPropertyAccess('not');
 		}
 
-		$output .= '<span class="opeator objectAccess">-&gt;</span>';
-		$output .= $this->getHtmlForMethod($details->getMatcherName(), $details->getMatcherArgs());
+		$output .= $this->codeComponent->getHtmlForOperator('->');
+		$output .= $this->codeComponent->getHtmlForMethod($details->getMatcherName(), $details->getMatcherArgs());
 
 		$output .= $this->getNewline();
-		$output .= $this->getIndention() . '<div class="returnValue"><span class="title" title="Matcher return value">Return:</span> ' . $this->getHtmlForVariable($details->getMatcherReturnValue()) . '</div>' . $this->getNewline();
-		$output .= $this->getIndention() . '<div class="returnValue"><span class="title" title="Matcher thrown exception">Thrown:</span> ' . $this->getHtmlForVariable($details->getException()) . '</div>' . $this->getNewline();
+		$output .= $this->getIndention() . '<div class="returnValue"><span class="title" title="Matcher return value">Return:</span> ' . $this->codeComponent->getHtmlForVariable($details->getMatcherReturnValue()) . '</div>' . $this->getNewline();
+		$output .= $this->getIndention() . '<div class="returnValue"><span class="title" title="Matcher thrown exception">Thrown:</span> ' . $this->codeComponent->getHtmlForVariable($details->getException()) . '</div>' . $this->getNewline();
 		$output .= '</div>' . $this->getNewline();
 
-		return $output;
-	}
-
-	protected function getHtmlForMethod($methodName, array $arguments)
-	{
-		return
-			'<span class="method ' . htmlspecialchars($methodName) . '">' .
-				'<span class="methodName">' . htmlspecialchars($methodName) . '</span>' .
-				'<span class="arguments">(' . $this->getHtmlForArguments($arguments) . ')</span>' .
-			'</span>';
-	}
-
-	protected function getHtmlForArguments(array $arguments)
-	{
-		$output = '';
-		foreach ($arguments as $argument)
-			$output .= $this->getHtmlForVariable($argument) . ', ';
-
-		return mb_substr($output, 0, -2);
-	}
-
-	protected function getHtmlForVariable($variable)
-	{
-		$type = $this->getVariableType($variable);
-		$value = $this->getVariableValueDump($variable);
-
-		return
-			'<span class="variable">' .
-				($type != '' ? '<span class="type">' . htmlspecialchars($type) . '</span>' : '') .
-				($type != '' && $value != '' ? ' ' : '') .
-				($value != '' ? '<span class="value">' . htmlspecialchars($value) . '</span>' : '') .
-			'</span>';
-	}
-
-	protected function getVariableType($variable)
-	{
-		$type = mb_strtolower(gettype($variable));
-
-		if ($type == 'boolean')
-			$type = 'bool';
-		else if ($type == 'integer')
-			$type = 'int';
-		else if ($type == 'double')
-			$type = 'float';
-		else if ($type == 'string')
-			$type = 'string(' . mb_strlen($variable) . ')';
-		else if ($type == 'array')
-			$type = 'array(' . count($variable) . ')';
-
-		return $type;
-	}
-
-	protected function getVariableValueDump($variable)
-	{
-		$type = mb_strtolower(gettype($variable));
-
-		if ($type == 'null')
-			return '';
-		else if ($type == 'boolean')
-			return ($variable ? 'true' : 'false');
-		else if ($type == 'integer')
-			return $variable;
-		else if ($type == 'double')
-			return $variable;
-		else if ($type == 'string')
-			return '"' . $variable . '"';
-		else if ($type == 'array')
-			return $this->getArrayDump($variable);
-		else //if ($type == 'object' || $type == 'resource')
-		{
-			ob_start();
-			var_dump($variable);
-			return ob_get_clean();
-		}
-	}
-
-	protected function getArrayDump(array $var)
-	{
-		$output = '';
-		$output .= '{';
-
-		if (count($var))
-		{
-			$output .= $this->getNewline();
-
-			foreach ($var as $key => $val)
-			{
-				// TODO nested array print
-				$output .= $this->getIndention() . "[" . htmlspecialchars($key) . "] => " . $this->getVariableValueDump($val) . $this->getNewline();
-			}
-		}
-
-		$output .= '}';
 		return $output;
 	}
 
@@ -206,7 +121,7 @@ class RunResultsBuffer extends \net\mkharitonov\spectrum\core\plugins\basePlugin
 	{
 		return
 			'<div class="details other">' . $this->getNewline() .
-				$this->getIndention() . var_dump($details) . $this->getNewline() .
+				$this->getIndention() . $this->codeComponent->getHtmlForVariable($details) . $this->getNewline() .
 			'</div>' . $this->getNewline();
 	}
 }
