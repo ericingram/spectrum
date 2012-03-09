@@ -98,11 +98,11 @@ class SpecList extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report
 			if ($finalResult === false)
 			{
 				$runResultsBufferComponent = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\RunResultsBuffer($this->getReport());
-				$output .= $this->prependIndentionToEachLine($this->trimNewline($runResultsBufferComponent->getHtml()), static::$depth * 2 + 3) . $this->getNewline();
+				$output .= $this->prependIndentionToEachTagOnNewline($this->trimNewline($runResultsBufferComponent->getHtml()), static::$depth * 2 + 3) . $this->getNewline();
 			}
 
 			$messagesComponent = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\Messages($this->getReport());
-			$output .= $this->prependIndentionToEachLine($this->trimNewline($messagesComponent->getHtml()), static::$depth * 2 + 3) . $this->getNewline();
+			$output .= $this->prependIndentionToEachTagOnNewline($this->trimNewline($messagesComponent->getHtml()), static::$depth * 2 + 3) . $this->getNewline();
 
 			$output .= $this->getIndention(static::$depth * 2 + 2) . '</li>' . $this->getNewline();
 		}

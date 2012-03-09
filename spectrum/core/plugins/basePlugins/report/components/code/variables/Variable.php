@@ -18,12 +18,16 @@ namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\co
 abstract class Variable extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report\Component
 {
 	protected $type;
+	protected $expandedParentSelector = '.g-runResultsBuffer>.results>.result.expand';
 
 	public function getStyles()
 	{
+		$componentSelector = '.g-code-variables-' . htmlspecialchars($this->type);
+
 		return
 			'<style type="text/css">' . $this->getNewline() .
-				$this->getIndention() . '.g-code-variables-' . htmlspecialchars($this->type) . ' {}' . $this->getNewline() .
+				$this->getIndention() . "$componentSelector .value { display: inline-block; overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; max-width: 5em; white-space: nowrap; vertical-align: top; }" . $this->getNewline() .
+				$this->getIndention() . "$this->expandedParentSelector $componentSelector .value { display: inline; overflow: visible; max-width: auto; white-space: normal; }" . $this->getNewline() .
 			'</style>' . $this->getNewline();
 	}
 

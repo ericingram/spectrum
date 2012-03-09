@@ -39,25 +39,25 @@ class Code extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report\Com
 		return '<span class="g-code-property">' . htmlspecialchars($propertyName) . '</span>';
 	}
 
-	public function getHtmlForMethod($methodName, array $arguments, $valueMaxLength = null)
+	public function getHtmlForMethod($methodName, array $arguments)
 	{
 		return
 			'<span class="g-code-method">' .
 				'<span class="methodName">' . htmlspecialchars($methodName) . '</span>' .
-				'<span class="arguments">(' . $this->getHtmlForArguments($arguments, $valueMaxLength) . ')</span>' .
+				'<span class="arguments">(' . $this->getHtmlForArguments($arguments) . ')</span>' .
 			'</span>';
 	}
 
-	public function getHtmlForArguments(array $arguments, $valueMaxLength = null)
+	public function getHtmlForArguments(array $arguments)
 	{
 		$output = '';
 		foreach ($arguments as $argument)
-			$output .= $this->getHtmlForVariable($argument, $valueMaxLength) . ', ';
+			$output .= $this->getHtmlForVariable($argument) . ', ';
 
 		return mb_substr($output, 0, -2);
 	}
 
-	public function getHtmlForVariable($variable, $valueMaxLength = null)
+	public function getHtmlForVariable($variable)
 	{
 		$type = $this->getVariableType($variable);
 		$variableComponentClassName = mb_strtoupper(mb_substr($type, 0, 1)) . mb_substr($type, 1) . 'Var';

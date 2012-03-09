@@ -44,9 +44,9 @@ class Component implements ComponentInterface
 		return $this->getReport()->getIndention($repeat);
 	}
 
-	protected function prependIndentionToEachLine($text, $repeat = 1)
+	protected function prependIndentionToEachTagOnNewline($text, $repeat = 1)
 	{
-		return $this->getReport()->prependIndentionToEachLine($text, $repeat);
+		return $this->getReport()->prependIndentionToEachTagOnNewline($text, $repeat);
 	}
 
 	protected function getNewline($repeat = 1)

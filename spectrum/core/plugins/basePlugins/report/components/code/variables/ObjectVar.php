@@ -15,7 +15,7 @@ namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\co
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class ObjectVar extends Variable
+class ObjectVar extends VariableHierarchical
 {
 	protected $type = 'object';
 
@@ -24,11 +24,10 @@ class ObjectVar extends Variable
 		$componentSelector = '.g-code-variables-' . htmlspecialchars($this->type);
 
 		return
+			parent::getStyles() . $this->getNewline() .
 			'<style type="text/css">' . $this->getNewline() .
-				$this->getIndention() . "$componentSelector { display: inline-block; vertical-align: top; }" . $this->getNewline() .
-				$this->getIndention() . "$componentSelector $componentSelector { display: inline;  }" . $this->getNewline() .
-				$this->getIndention() . "$componentSelector>.elements { display: block; margin-left: 1px; padding-left: 20px; border-left: 1px solid #ccc; }" . $this->getNewline() .
-				$this->getIndention() . "$componentSelector>.elements>.element { display: block; }" . $this->getNewline() .
+				$this->getIndention() . "$componentSelector>.type>.class { display: inline-block; overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; max-width: 5em; white-space: nowrap; vertical-align: top; }" . $this->getNewline() .
+				$this->getIndention() . "$this->expandedParentSelector $componentSelector>.type>.class { display: inline; overflow: visible; max-width: auto; white-space: normal; vertical-align: baseline; }" . $this->getNewline() .
 			'</style>' . $this->getNewline();
 	}
 
@@ -39,35 +38,21 @@ class ObjectVar extends Variable
 		$output = '';
 		$output .= '<span class="g-code-variables g-code-variables-' . htmlspecialchars($this->type) . '">';
 		$output .= $this->getIndention() . $this->getHtmlForType($variable, $properties) . $this->getNewline();
-		$output .= $this->getIndention() . '<span class="bracket open">{</span>' . $this->getNewline();
+		$output .= $this->getIndention() . '<span class="bracket open">{</span>';
 
 		if (count($properties))
 		{
-			$output .= $this->getIndention() . '<span class="elements">' . $this->getNewline();
+			$output .= '<span class="elements">';
 			foreach ($properties as $key => $val)
-				$output .= $this->prependIndentionToEachLine($this->trimNewline($this->getHtmlForElement($key, $val)), 2) . $this->getNewline();
+				$output .= $this->getHtmlForElement($key, $val);
 
-			$output .= $this->getIndention() . '</span>' . $this->getNewline();
+			$output .= '</span>';
 		}
 
-		$output .= $this->getIndention() . '<span class="bracket close">}</span>' . $this->getNewline();
-		$output .= '</span>' . $this->getNewline();
+		$output .= '<span class="bracket close">}</span>';
+		$output .= '</span>';
 
 		return $output;
-	}
-
-	protected function getHtmlForElement($key, $val)
-	{
-		$codeComponent = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\Code($this->getReport());
-
-		$keyHtml = '<span class="key">' . htmlspecialchars("[$key]") . '</span>';
-		$operatorHtml = ' ' . $codeComponent->getHtmlForOperator('=>') . ' ';
-		$valHtml = $this->trimNewline($codeComponent->getHtmlForVariable($val));
-
-		return
-			$this->getIndention() . '<span class="element">' . $this->getNewline() .
-			$this->prependIndentionToEachLine($keyHtml . $operatorHtml . $valHtml, 2) . $this->getNewline() .
-			$this->getIndention() . '</span>' . $this->getNewline();
 	}
 
 	protected function getHtmlForType($variable, $properties = array())
@@ -76,7 +61,7 @@ class ObjectVar extends Variable
 			'<span class="type">' .
 				htmlspecialchars($this->type) .
 				'<span title="Properties count">(' . count($properties) . ')</span> ' .
-				htmlspecialchars(get_class($variable)) .
+				'<span class="class">' . htmlspecialchars(get_class($variable)) . '</span> ' .
 			'</span>';
 	}
 

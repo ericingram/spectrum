@@ -45,10 +45,10 @@ class Report extends \net\mkharitonov\spectrum\core\plugins\Plugin implements ev
 		return str_repeat($this->indention, $repeat);
 	}
 
-	public function prependIndentionToEachLine($text, $repeat = 1)
+	public function prependIndentionToEachTagOnNewline($text, $repeat = 1)
 	{
 		if ($text != '')
-			return $this->getIndention($repeat) . str_replace($this->getNewline(), $this->getNewline() . $this->getIndention($repeat), $text);
+			return $this->getIndention($repeat) . str_replace($this->getNewline() . '<', $this->getNewline() . $this->getIndention($repeat) . '<', $text);
 		else
 			return $text;
 	}
@@ -106,8 +106,8 @@ class Report extends \net\mkharitonov\spectrum\core\plugins\Plugin implements ev
 			'<head>' . $this->getNewline() .
 				$this->getIndention() . '<meta http-equiv="content-type" content="text/html; charset=utf-8" />' . $this->getNewline() .
 				$this->getIndention() . '<title></title>' . $this->getNewline() .
-				$this->prependIndentionToEachLine($this->trimNewline($this->getStyles())) . $this->getNewline(2) .
-				$this->prependIndentionToEachLine($this->trimNewline($this->getScripts())) . $this->getNewline() .
+				$this->prependIndentionToEachTagOnNewline($this->trimNewline($this->getStyles())) . $this->getNewline(2) .
+				$this->prependIndentionToEachTagOnNewline($this->trimNewline($this->getScripts())) . $this->getNewline() .
 			'</head>' . $this->getNewline() .
 			$this->getBodyTag();
 	}

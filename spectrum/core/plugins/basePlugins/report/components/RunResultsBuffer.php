@@ -72,7 +72,7 @@ class RunResultsBuffer extends \net\mkharitonov\spectrum\core\plugins\basePlugin
 			$output .= $this->getIndention(3) . '<div class="num" title="Order in run results buffer">No. ' . $num . '</div>' . $this->getNewline();
 			$output .= $this->getIndention(3) . '<div class="value" title="Result">' . ($result['result'] ? 'true' : 'false') . '</div>' . $this->getNewline();
 			$output .= $this->getIndention(3) . '<a href="#" class="expand" title="Show full details">+</a>' . $this->getNewline();
-			$output .= $this->prependIndentionToEachLine($this->trimNewline($this->getHtmlForResultDetails($result['details'])), 3) . $this->getNewline();
+			$output .= $this->prependIndentionToEachTagOnNewline($this->trimNewline($this->getHtmlForResultDetails($result['details'])), 3) . $this->getNewline();
 			$output .= $this->getIndention(2) . '</div>' . $this->getNewline();
 		}
 
@@ -94,11 +94,20 @@ class RunResultsBuffer extends \net\mkharitonov\spectrum\core\plugins\basePlugin
 	protected function getHtmlForResultDetailsForMatcherCall(MatcherCallDetailsInterface $details)
 	{
 		$output = '';
-
-		// TODO добавить больше свободного пространства вокруг вызова матчера
 		$output .= '<div class="details matcherCall">' . $this->getNewline();
+		$output .= $this->prependIndentionToEachTagOnNewline($this->trimNewline($this->getHtmlForMatcherCall($details))) . $this->getNewline();
+		$output .= $this->getIndention() . '<div class="returnValue"><span class="title" title="Matcher return value">Return:</span> ' . $this->codeComponent->getHtmlForVariable($details->getMatcherReturnValue()) . '</div>' . $this->getNewline();
+		$output .= $this->getIndention() . '<div class="thrownException"><span class="title" title="Matcher thrown exception">Thrown:</span> ' . $this->codeComponent->getHtmlForVariable($details->getException()) . '</div>' . $this->getNewline();
+		$output .= '</div>' . $this->getNewline();
+		return $output;
+	}
 
-		$output .= $this->getIndention() . $this->codeComponent->getHtmlForMethod('be', array($details->getActualValue()));
+	protected function getHtmlForMatcherCall(MatcherCallDetailsInterface $details)
+	{
+		$output = '';
+
+		$output .= '<div class="matcher">';
+		$output .= $this->codeComponent->getHtmlForMethod('be', array($details->getActualValue()));
 
 		if ($details->getIsNot())
 		{
@@ -108,10 +117,6 @@ class RunResultsBuffer extends \net\mkharitonov\spectrum\core\plugins\basePlugin
 
 		$output .= $this->codeComponent->getHtmlForOperator('->');
 		$output .= $this->codeComponent->getHtmlForMethod($details->getMatcherName(), $details->getMatcherArgs());
-
-		$output .= $this->getNewline();
-		$output .= $this->getIndention() . '<div class="returnValue"><span class="title" title="Matcher return value">Return:</span> ' . $this->codeComponent->getHtmlForVariable($details->getMatcherReturnValue()) . '</div>' . $this->getNewline();
-		$output .= $this->getIndention() . '<div class="returnValue"><span class="title" title="Matcher thrown exception">Thrown:</span> ' . $this->codeComponent->getHtmlForVariable($details->getException()) . '</div>' . $this->getNewline();
 		$output .= '</div>' . $this->getNewline();
 
 		return $output;
