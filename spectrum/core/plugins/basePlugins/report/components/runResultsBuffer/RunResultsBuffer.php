@@ -9,7 +9,7 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report\components;
+namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\runResultsBuffer;
 use \net\mkharitonov\spectrum\core\asserts\MatcherCallDetailsInterface;
 use \net\mkharitonov\spectrum\core\SpecItemInterface;
 
@@ -38,19 +38,18 @@ class RunResultsBuffer extends \net\mkharitonov\spectrum\core\plugins\basePlugin
 				$this->getIndention() . '.g-runResultsBuffer>.results>.result { float: left; position: relative; margin: 0 2px 2px 0; border: 1px solid; border-left: 0; border-top: 0; border-radius: 5px; }' . $this->getNewline() .
 				$this->getIndention() . '.g-runResultsBuffer>.results>.result>.num { float: left; margin-right: 2px; padding: 2px 5px; border-radius: 4px 0 4px 0; font-size: 0.9em; }' . $this->getNewline() .
 				$this->getIndention() . '.g-runResultsBuffer>.results>.result>.value { float: left; padding: 2px 5px; border-radius: 0 0 4px 4px; font-size: 0.9em; }' . $this->getNewline() .
-				$this->getIndention() . '.g-runResultsBuffer>.results>.result>.expand { display: block; position: absolute; right: 0; bottom: 0; padding: 2px 5px; border-radius: 4px 0 4px 0; font-size: 0.9em; font-weight: bold; text-decoration: none; }' . $this->getNewline() .
-				$this->getIndention() . '.g-runResultsBuffer>.results>.result>.details { clear: both; padding: 7px; }' . $this->getNewline() .
-				$this->getIndention() . '.g-runResultsBuffer>.results>.result>.details .title { font-weight: bold; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer>.results>.result>a.expand { display: block; position: absolute; right: 0; bottom: 0; padding: 2px 5px; border-radius: 4px 0 4px 0; font-size: 0.9em; font-weight: bold; text-decoration: none; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer>.results>.result>.g-runResultsBuffer-details { clear: both; }' . $this->getNewline() .
 
 				$this->getIndention() . '.g-runResultsBuffer>.results>.result.true { border-color: #b5dfb5; background: #ccffcc; }' . $this->getNewline() .
 				$this->getIndention() . '.g-runResultsBuffer>.results>.result.true>.num { background: #b5dfb5; color: #3a473a; }' . $this->getNewline() .
 				$this->getIndention() . '.g-runResultsBuffer>.results>.result.true>.value { background: #b5dfb5; color: #3a473a; }' . $this->getNewline() .
-				$this->getIndention() . '.g-runResultsBuffer>.results>.result.true>.expand { background: #85cc8c; color: #e4ffe0; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer>.results>.result.true>a.expand { background: #85cc8c; color: #e4ffe0; }' . $this->getNewline() .
 
 				$this->getIndention() . '.g-runResultsBuffer>.results>.result.false { border-color: #e2b5b5; background: #ffcccc; }' . $this->getNewline() .
 				$this->getIndention() . '.g-runResultsBuffer>.results>.result.false>.num { background: #e2b5b5; color: #3d3232; }' . $this->getNewline() .
 				$this->getIndention() . '.g-runResultsBuffer>.results>.result.false>.value { background: #e2b5b5; color: #3d3232; }' . $this->getNewline() .
-				$this->getIndention() . '.g-runResultsBuffer>.results>.result.false>.expand { background: #db9a9a; color: #ffe3db; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer>.results>.result.false>a.expand { background: #db9a9a; color: #ffe3db; }' . $this->getNewline() .
 			'</style>' . $this->getNewline();
 	}
 
@@ -86,47 +85,10 @@ class RunResultsBuffer extends \net\mkharitonov\spectrum\core\plugins\basePlugin
 	protected function getHtmlForResultDetails($details)
 	{
 		if (is_object($details) && $details instanceof MatcherCallDetailsInterface)
-			return $this->getHtmlForResultDetailsForMatcherCall($details);
+			$component = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\runResultsBuffer\details\MatcherCall($this->getReport());
 		else
-			return $this->getHtmlForResultDetailsForOther($details);
-	}
+			$component = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\runResultsBuffer\details\Unknown($this->getReport());
 
-	protected function getHtmlForResultDetailsForMatcherCall(MatcherCallDetailsInterface $details)
-	{
-		$output = '';
-		$output .= '<div class="details matcherCall">' . $this->getNewline();
-		$output .= $this->prependIndentionToEachTagOnNewline($this->trimNewline($this->getHtmlForMatcherCall($details))) . $this->getNewline();
-		$output .= $this->getIndention() . '<div class="returnValue"><span class="title" title="Matcher return value">Return:</span> ' . $this->codeComponent->getHtmlForVariable($details->getMatcherReturnValue()) . '</div>' . $this->getNewline();
-		$output .= $this->getIndention() . '<div class="thrownException"><span class="title" title="Matcher thrown exception">Thrown:</span> ' . $this->codeComponent->getHtmlForVariable($details->getException()) . '</div>' . $this->getNewline();
-		$output .= '</div>' . $this->getNewline();
-		return $output;
-	}
-
-	protected function getHtmlForMatcherCall(MatcherCallDetailsInterface $details)
-	{
-		$output = '';
-
-		$output .= '<div class="matcher">';
-		$output .= $this->codeComponent->getHtmlForMethod('be', array($details->getActualValue()));
-
-		if ($details->getIsNot())
-		{
-			$output .= $this->codeComponent->getHtmlForOperator('->');
-			$output .= $this->codeComponent->getHtmlForPropertyAccess('not');
-		}
-
-		$output .= $this->codeComponent->getHtmlForOperator('->');
-		$output .= $this->codeComponent->getHtmlForMethod($details->getMatcherName(), $details->getMatcherArgs());
-		$output .= '</div>' . $this->getNewline();
-
-		return $output;
-	}
-
-	protected function getHtmlForResultDetailsForOther($details)
-	{
-		return
-			'<div class="details other">' . $this->getNewline() .
-				$this->getIndention() . $this->codeComponent->getHtmlForVariable($details) . $this->getNewline() .
-			'</div>' . $this->getNewline();
+		return $component->getHtml($details);
 	}
 }

@@ -97,7 +97,7 @@ class SpecList extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report
 			$output .= $this->getScriptForResultUpdate($this->getReport()->getOwner()->selector->getUidForSpec(), $this->getSpecResultCssClass($finalResult)) . $this->getNewline();
 			if ($finalResult === false)
 			{
-				$runResultsBufferComponent = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\RunResultsBuffer($this->getReport());
+				$runResultsBufferComponent = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\runResultsBuffer\RunResultsBuffer($this->getReport());
 				$output .= $this->prependIndentionToEachTagOnNewline($this->trimNewline($runResultsBufferComponent->getHtml()), static::$depth * 2 + 3) . $this->getNewline();
 			}
 

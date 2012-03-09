@@ -168,7 +168,9 @@ class Report extends \net\mkharitonov\spectrum\core\plugins\Plugin implements ev
 		return array(
 			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\Clearfix($this),
 			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\Messages($this),
-			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\RunResultsBuffer($this),
+			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\runResultsBuffer\RunResultsBuffer($this),
+			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\runResultsBuffer\details\MatcherCall($this),
+			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\runResultsBuffer\details\Unknown($this),
 			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\SpecList($this),
 			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\Code($this),
 			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\ArrayVar($this),
