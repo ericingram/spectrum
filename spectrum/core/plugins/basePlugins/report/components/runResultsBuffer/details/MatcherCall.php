@@ -25,7 +25,6 @@ class MatcherCall extends Details
 			'<style type="text/css">' . $this->getNewline() .
 				$this->getIndention() . '.g-runResultsBuffer-details-matcherCall>.matcherCall { margin-bottom: 4px; }' . $this->getNewline() .
 				$this->getIndention() . '.g-runResultsBuffer-details-matcherCall>div>.title { font-weight: bold; }' . $this->getNewline() .
-				$this->getIndention() . '.g-runResultsBuffer-details-matcherCall>.thrownException { margin-right: 19px; }' . $this->getNewline() .
 			'</style>' . $this->getNewline();
 	}
 

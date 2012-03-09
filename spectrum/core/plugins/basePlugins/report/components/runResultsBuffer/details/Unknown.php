@@ -22,7 +22,7 @@ class Unknown extends Details
 		return
 			parent::getStyles() . $this->getNewline() .
 			'<style type="text/css">' . $this->getNewline() .
-				$this->getIndention() . '.g-runResultsBuffer-details-unknown { margin-right: 19px; }' . $this->getNewline() .
+				$this->getIndention() . '.g-runResultsBuffer-details-unknown {  }' . $this->getNewline() .
 			'</style>' . $this->getNewline();
 	}
 
