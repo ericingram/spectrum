@@ -22,23 +22,24 @@ abstract class VariableHierarchical extends Variable
 		$componentSelector = '.g-code-variables-' . htmlspecialchars($this->type);
 
 		return
+			parent::getStyles() . $this->getNewline() .
 			'<style type="text/css">' . $this->getNewline() .
 				$this->getIndention() . "$componentSelector { display: inline-block; vertical-align: top; }" . $this->getNewline() .
-				$this->getIndention() . "$componentSelector $componentSelector { display: inline;  }" . $this->getNewline() .
+				$this->getIndention() . "$componentSelector $componentSelector { display: inline; vertical-align: baseline; }" . $this->getNewline() .
 				$this->getIndention() . "$componentSelector>.elements:before { content: '\\2026'; }" . $this->getNewline() .
-				$this->getIndention() . "$componentSelector>.elements>.element { display: none; }" . $this->getNewline() .
+				$this->getIndention() . "$componentSelector>.elements>.element { display: none; margin-left: 1px; padding-left: 20px; border-left: 1px solid rgba(150, 150, 150, 0.5); }" . $this->getNewline() .
+				$this->getIndention() . "$this->expandedParentSelector $componentSelector { border-radius: 4px; background: rgba(200, 200, 200, 0.5); }" . $this->getNewline() .
+				$this->getIndention() . "$this->expandedParentSelector $componentSelector $componentSelector { padding: 0; border: 0; background: transparent; }" . $this->getNewline() .
 				$this->getIndention() . "$this->expandedParentSelector $componentSelector>.elements:before { display: none; }" . $this->getNewline() .
-				$this->getIndention() . "$this->expandedParentSelector $componentSelector>.elements>.element { display: block; margin-left: 1px; padding-left: 20px; border-left: 1px solid rgba(150, 150, 150, 0.5); }" . $this->getNewline() .
+				$this->getIndention() . "$this->expandedParentSelector $componentSelector>.elements>.element { display: block; }" . $this->getNewline() .
 			'</style>' . $this->getNewline();
 	}
 
 	protected function getHtmlForElement($key, $val)
 	{
-		$codeComponent = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\Code($this->getReport());
-
-		$keyHtml = '<span class="key">' . htmlspecialchars("[$key]") . '</span>';
-		$operatorHtml = ' ' . $codeComponent->getHtmlForOperator('=>') . ' ';
-		$valHtml = $this->trimNewline($codeComponent->getHtmlForVariable($val));
+		$keyHtml = '<span class="key">' . $this->codeComponent->getHtmlForOperator('[') . htmlspecialchars("$key") . $this->codeComponent->getHtmlForOperator(']') . '</span>';
+		$operatorHtml = ' ' . $this->codeComponent->getHtmlForOperator('=>') . ' ';
+		$valHtml = $this->trimNewline($this->codeComponent->getHtmlForVariable($val));
 
 		return '<span class="element">' . $keyHtml . $operatorHtml . $valHtml . '</span>';
 	}

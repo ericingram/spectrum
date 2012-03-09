@@ -21,11 +21,8 @@ class Code extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report\Com
 	{
 		return
 			'<style type="text/css">' . $this->getNewline() .
-				$this->getIndention() . '.g-code-variable { display: inline-block; }' . $this->getNewline() .
-				$this->getIndention() . '.g-code-value { display: inline-block; }' . $this->getNewline() .
-				$this->getIndention() . '.g-code-value.array { vertical-align: top; }' . $this->getNewline() .
-				$this->getIndention() . '.g-code-value.array .elements { display: block; }' . $this->getNewline() .
-				$this->getIndention() . '.g-code-value.array .elements .element { display: block; }' . $this->getNewline() .
+				$this->getIndention() . '.g-code-operator { color: rgba(0, 0, 0, 0.6); }' . $this->getNewline() .
+				$this->getIndention() . '.g-code-method>.methodName {  }' . $this->getNewline() .
 			'</style>' . $this->getNewline();
 	}
 
@@ -44,7 +41,9 @@ class Code extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report\Com
 		return
 			'<span class="g-code-method">' .
 				'<span class="methodName">' . htmlspecialchars($methodName) . '</span>' .
-				'<span class="arguments">(' . $this->getHtmlForArguments($arguments) . ')</span>' .
+				$this->getHtmlForOperator('(') .
+				'<span class="arguments">' . $this->getHtmlForArguments($arguments) . '</span>' .
+				$this->getHtmlForOperator(')') .
 			'</span>';
 	}
 

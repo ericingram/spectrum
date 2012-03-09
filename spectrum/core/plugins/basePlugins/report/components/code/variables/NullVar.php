@@ -19,8 +19,13 @@ class NullVar extends Variable
 {
 	protected $type = 'null';
 
+	protected function getHtmlForType($variable)
+	{
+		return null;
+	}
+
 	protected function getHtmlForValue($variable)
 	{
-		return '';
+		return '<span class="value">null</span>';
 	}
 }

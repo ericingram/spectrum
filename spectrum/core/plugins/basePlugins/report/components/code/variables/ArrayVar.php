@@ -24,7 +24,7 @@ class ArrayVar extends VariableHierarchical
 		$output = '';
 		$output .= '<span class="g-code-variables g-code-variables-' . htmlspecialchars($this->type) . '">';
 		$output .= $this->getIndention() . $this->getHtmlForType($variable) . $this->getNewline();
-		$output .= $this->getIndention() . '<span class="bracket open">{</span>';
+		$output .= $this->getIndention() . $this->codeComponent->getHtmlForOperator('{');
 
 		if (count($variable))
 		{
@@ -35,7 +35,7 @@ class ArrayVar extends VariableHierarchical
 			$output .= '</span>';
 		}
 
-		$output .= '<span class="bracket close">}</span>';
+		$output .= $this->codeComponent->getHtmlForOperator('}');
 		$output .= '</span>';
 
 		return $output;

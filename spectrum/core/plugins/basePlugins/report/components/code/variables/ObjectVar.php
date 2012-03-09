@@ -26,7 +26,7 @@ class ObjectVar extends VariableHierarchical
 		return
 			parent::getStyles() . $this->getNewline() .
 			'<style type="text/css">' . $this->getNewline() .
-				$this->getIndention() . "$componentSelector>.type>.class { display: inline-block; overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; max-width: 5em; white-space: nowrap; vertical-align: top; }" . $this->getNewline() .
+				$this->getIndention() . "$componentSelector>.type>.class { display: inline-block; overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; max-width: 5em; color: #000; white-space: nowrap; vertical-align: top; }" . $this->getNewline() .
 				$this->getIndention() . "$this->expandedParentSelector $componentSelector>.type>.class { display: inline; overflow: visible; max-width: auto; white-space: normal; vertical-align: baseline; }" . $this->getNewline() .
 			'</style>' . $this->getNewline();
 	}
@@ -38,7 +38,7 @@ class ObjectVar extends VariableHierarchical
 		$output = '';
 		$output .= '<span class="g-code-variables g-code-variables-' . htmlspecialchars($this->type) . '">';
 		$output .= $this->getIndention() . $this->getHtmlForType($variable, $properties) . $this->getNewline();
-		$output .= $this->getIndention() . '<span class="bracket open">{</span>';
+		$output .= $this->getIndention() . $this->codeComponent->getHtmlForOperator('{');
 
 		if (count($properties))
 		{
@@ -49,7 +49,7 @@ class ObjectVar extends VariableHierarchical
 			$output .= '</span>';
 		}
 
-		$output .= '<span class="bracket close">}</span>';
+		$output .= $this->codeComponent->getHtmlForOperator('}');
 		$output .= '</span>';
 
 		return $output;
