@@ -33,7 +33,6 @@ class Config
 	private static $allowMatchersAdd = true;
 	private static $allowMatchersOverride = true;
 	private static $allowErrorHandlingModify = true;
-	private static $allowReportSettingsModify = true;
 	private static $allowInputEncodingModify = true;
 	private static $allowOutputEncodingModify = true;
 	private static $allowSpecsModifyWhenRunning = false;
@@ -87,9 +86,6 @@ class Config
 
 	public static function setAllowErrorHandlingModify($isEnable){ return static::setConfigValue(static::$allowErrorHandlingModify, $isEnable); }
 	public static function getAllowErrorHandlingModify(){ return static::$allowErrorHandlingModify; }
-
-	public static function setAllowReportSettingsModify($isEnable){ return static::setConfigValue(static::$allowReportSettingsModify, $isEnable); }
-	public static function getAllowReportSettingsModify(){ return static::$allowReportSettingsModify; }
 
 	public static function setAllowInputEncodingModify($isEnable){ return static::setConfigValue(static::$allowInputEncodingModify, $isEnable); }
 	public static function getAllowInputEncodingModify(){ return static::$allowInputEncodingModify; }

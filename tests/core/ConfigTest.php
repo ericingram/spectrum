@@ -687,32 +687,6 @@ class ConfigTest extends Test
 
 /**/
 
-	public function testGetAllowReportSettingsModify_ShouldBeReturnTrueByDefault()
-	{
-		$this->assertTrue(Config::getAllowReportSettingsModify());
-	}
-
-/**/
-
-	public function testSetAllowReportSettingsModify_ShouldBeSetNewValue()
-	{
-		Config::setAllowReportSettingsModify(false);
-		$this->assertFalse(Config::getAllowReportSettingsModify());
-	}
-
-	public function testSetAllowReportSettingsModify_ConfigLocked_ShouldBeThrowExceptionAndNotChangeValue()
-	{
-		Config::lock();
-
-		$this->assertThrowException('\net\mkharitonov\spectrum\core\Exception', 'core\Config is locked', function(){
-			Config::setAllowReportSettingsModify(false);
-		});
-
-		$this->assertTrue(Config::getAllowReportSettingsModify());
-	}
-
-/**/
-
 	public function testGetAllowInputEncodingModify_ShouldBeReturnTrueByDefault()
 	{
 		$this->assertTrue(Config::getAllowInputEncodingModify());

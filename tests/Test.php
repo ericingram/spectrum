@@ -31,6 +31,7 @@ abstract class Test extends \PHPUnit_Framework_TestCase
 		$this->backupStaticProperties('\net\mkharitonov\spectrum\core\plugins\Manager');
 		$this->backupStaticProperties('\net\mkharitonov\spectrum\constructionCommands\Config');
 		$this->backupStaticProperties('\net\mkharitonov\spectrum\constructionCommands\Manager');
+		$this->backupStaticProperties('\net\mkharitonov\spectrum\reports\Config');
 
 		\net\mkharitonov\spectrum\Test::$tmp = null;
 		\net\mkharitonov\spectrum\core\testEnv\PluginStub::reset();
@@ -38,6 +39,7 @@ abstract class Test extends \PHPUnit_Framework_TestCase
 
 	protected function tearDown()
 	{
+		$this->restoreStaticProperties('\net\mkharitonov\spectrum\reports\Config');
 		$this->restoreStaticProperties('\net\mkharitonov\spectrum\constructionCommands\Manager');
 		$this->restoreStaticProperties('\net\mkharitonov\spectrum\constructionCommands\Config');
 		$this->restoreStaticProperties('\net\mkharitonov\spectrum\core\plugins\Manager');

@@ -10,22 +10,12 @@
  */
 
 namespace net\mkharitonov\spectrum\reports;
-use net\mkharitonov\spectrum\core\Config;
-use \net\mkharitonov\spectrum\core\asserts\MatcherCallDetailsInterface;
-use \net\mkharitonov\spectrum\core\plugins\Exception;
-use \net\mkharitonov\spectrum\core\plugins\events;
-use \net\mkharitonov\spectrum\core\SpecInterface;
-use \net\mkharitonov\spectrum\core\SpecContainerInterface;
-use \net\mkharitonov\spectrum\core\SpecContainerContextInterface;
-use \net\mkharitonov\spectrum\core\SpecContainerDescribeInterface;
-use \net\mkharitonov\spectrum\core\SpecItemInterface;
-use \net\mkharitonov\spectrum\core\SpecItemItInterface;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class ReportsPlugin extends \net\mkharitonov\spectrum\core\plugins\Plugin implements events\OnRunInterface
+class ReportsPlugin extends \net\mkharitonov\spectrum\core\plugins\Plugin implements \net\mkharitonov\spectrum\core\plugins\events\OnRunInterface
 {
 	protected $indention = "\t";
 	protected $newline = "\r\n";
@@ -34,8 +24,8 @@ class ReportsPlugin extends \net\mkharitonov\spectrum\core\plugins\Plugin implem
 
 	public function setIndention($string)
 	{
-		if (!Config::getAllowReportSettingsModify())
-			throw new Exception('Report settings modify deny in Config');
+		if (!Config::getAllowPluginSettingsModify())
+			throw new Exception('Reports settings modify deny in Config');
 
 		$this->indention = $string;
 	}
@@ -57,8 +47,8 @@ class ReportsPlugin extends \net\mkharitonov\spectrum\core\plugins\Plugin implem
 
 	public function setNewline($newline)
 	{
-		if (!Config::getAllowReportSettingsModify())
-			throw new Exception('Report settings modify deny in Config');
+		if (!Config::getAllowPluginSettingsModify())
+			throw new Exception('Reports settings modify deny in Config');
 
 		$this->newline = $newline;
 	}
