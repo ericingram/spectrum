@@ -9,7 +9,7 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report;
+namespace net\mkharitonov\spectrum\reports;
 use net\mkharitonov\spectrum\core\Config;
 use \net\mkharitonov\spectrum\core\asserts\MatcherCallDetailsInterface;
 use \net\mkharitonov\spectrum\core\plugins\Exception;
@@ -25,7 +25,7 @@ use \net\mkharitonov\spectrum\core\SpecItemItInterface;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class Report extends \net\mkharitonov\spectrum\core\plugins\Plugin implements events\OnRunInterface
+class ReportsPlugin extends \net\mkharitonov\spectrum\core\plugins\Plugin implements events\OnRunInterface
 {
 	protected $indention = "\t";
 	protected $newline = "\r\n";
@@ -81,14 +81,14 @@ class Report extends \net\mkharitonov\spectrum\core\plugins\Plugin implements ev
 		if (!$this->getOwner()->getParent())
 			$this->getOwner()->output->put($this->getHeader());
 
-		$specListComponent = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\SpecList($this);
+		$specListComponent = new \net\mkharitonov\spectrum\reports\components\SpecList($this);
 		$this->getOwner()->output->put($specListComponent->getHtmlBegin());
 		$this->flush();
 	}
 
 	public function onRunAfter($finalResult)
 	{
-		$specListComponent = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\SpecList($this);
+		$specListComponent = new \net\mkharitonov\spectrum\reports\components\SpecList($this);
 		$this->getOwner()->output->put($specListComponent->getHtmlEnd($finalResult));
 		$this->flush();
 
@@ -166,23 +166,23 @@ class Report extends \net\mkharitonov\spectrum\core\plugins\Plugin implements ev
 	protected function getAllComponents()
 	{
 		return array(
-			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\Clearfix($this),
-			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\Messages($this),
-			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\runResultsBuffer\RunResultsBuffer($this),
-			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\runResultsBuffer\details\MatcherCall($this),
-			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\runResultsBuffer\details\Unknown($this),
-			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\SpecList($this),
-			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\Code($this),
-			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\ArrayVar($this),
-			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\BoolVar($this),
-			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\FloatVar($this),
-			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\ClosureVar($this),
-			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\IntVar($this),
-			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\NullVar($this),
-			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\ObjectVar($this),
-			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\ResourceVar($this),
-			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\StringVar($this),
-			new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\UnknownVar($this),
+			new \net\mkharitonov\spectrum\reports\components\Clearfix($this),
+			new \net\mkharitonov\spectrum\reports\components\Messages($this),
+			new \net\mkharitonov\spectrum\reports\components\runResultsBuffer\RunResultsBuffer($this),
+			new \net\mkharitonov\spectrum\reports\components\runResultsBuffer\details\MatcherCall($this),
+			new \net\mkharitonov\spectrum\reports\components\runResultsBuffer\details\Unknown($this),
+			new \net\mkharitonov\spectrum\reports\components\SpecList($this),
+			new \net\mkharitonov\spectrum\reports\components\code\Code($this),
+			new \net\mkharitonov\spectrum\reports\components\code\variables\ArrayVar($this),
+			new \net\mkharitonov\spectrum\reports\components\code\variables\BoolVar($this),
+			new \net\mkharitonov\spectrum\reports\components\code\variables\FloatVar($this),
+			new \net\mkharitonov\spectrum\reports\components\code\variables\ClosureVar($this),
+			new \net\mkharitonov\spectrum\reports\components\code\variables\IntVar($this),
+			new \net\mkharitonov\spectrum\reports\components\code\variables\NullVar($this),
+			new \net\mkharitonov\spectrum\reports\components\code\variables\ObjectVar($this),
+			new \net\mkharitonov\spectrum\reports\components\code\variables\ResourceVar($this),
+			new \net\mkharitonov\spectrum\reports\components\code\variables\StringVar($this),
+			new \net\mkharitonov\spectrum\reports\components\code\variables\UnknownVar($this),
 		);
 	}
 

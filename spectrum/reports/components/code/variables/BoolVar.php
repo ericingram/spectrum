@@ -9,18 +9,18 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables;
+namespace net\mkharitonov\spectrum\reports\components\code\variables;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class UnknownVar extends Variable
+class BoolVar extends Variable
 {
-	protected $type = 'unknown';
+	protected $type = 'bool';
 
 	protected function getHtmlForValue($variable)
 	{
-		return ' <span class="value">' . htmlspecialchars(print_r($variable, true)) . '</span>';
+		return ' <span class="value">' . ($variable ? 'true' : 'false') . '</span>';
 	}
 }

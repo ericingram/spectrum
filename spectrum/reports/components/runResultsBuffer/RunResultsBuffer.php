@@ -9,7 +9,7 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\runResultsBuffer;
+namespace net\mkharitonov\spectrum\reports\components\runResultsBuffer;
 use \net\mkharitonov\spectrum\core\asserts\MatcherCallDetailsInterface;
 use \net\mkharitonov\spectrum\core\SpecItemInterface;
 
@@ -17,14 +17,14 @@ use \net\mkharitonov\spectrum\core\SpecItemInterface;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class RunResultsBuffer extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report\Component
+class RunResultsBuffer extends \net\mkharitonov\spectrum\reports\Component
 {
 	protected $codeComponent;
 
-	public function __construct(\net\mkharitonov\spectrum\core\plugins\basePlugins\report\Report $report)
+	public function __construct(\net\mkharitonov\spectrum\reports\ReportsPlugin $report)
 	{
 		parent::__construct($report);
-		$this->codeComponent = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\Code($this->getReport());
+		$this->codeComponent = new \net\mkharitonov\spectrum\reports\components\code\Code($this->getReport());
 	}
 
 	public function getStyles()
@@ -149,9 +149,9 @@ class RunResultsBuffer extends \net\mkharitonov\spectrum\core\plugins\basePlugin
 	protected function getHtmlForResultDetails($details)
 	{
 		if (is_object($details) && $details instanceof MatcherCallDetailsInterface)
-			$component = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\runResultsBuffer\details\MatcherCall($this->getReport());
+			$component = new \net\mkharitonov\spectrum\reports\components\runResultsBuffer\details\MatcherCall($this->getReport());
 		else
-			$component = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\runResultsBuffer\details\Unknown($this->getReport());
+			$component = new \net\mkharitonov\spectrum\reports\components\runResultsBuffer\details\Unknown($this->getReport());
 
 		return $component->getHtml($details);
 	}

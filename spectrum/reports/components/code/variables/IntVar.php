@@ -9,10 +9,13 @@
  * with this package in the file LICENSE.txt.
  */
 
+namespace net\mkharitonov\spectrum\reports\components\code\variables;
+
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-require_once dirname(__FILE__) . '/autoload.php';
-\net\mkharitonov\spectrum\core\plugins\Manager::registerPlugin('report', '\net\mkharitonov\spectrum\reports\ReportsPlugin', 'whenCallOnce');
-require_once dirname(__FILE__) . '/constructionCommands/globalAliases.php';
+class IntVar extends Variable
+{
+	protected $type = 'int';
+}

@@ -9,13 +9,13 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code;
+namespace net\mkharitonov\spectrum\reports\components\code;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class Code extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report\Component
+class Code extends \net\mkharitonov\spectrum\reports\Component
 {
 	public function getStyles()
 	{
@@ -60,7 +60,7 @@ class Code extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report\Com
 	{
 		$type = $this->getVariableType($variable);
 		$variableComponentClassName = mb_strtoupper(mb_substr($type, 0, 1)) . mb_substr($type, 1) . 'Var';
-		$variableComponentClass = '\net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables\\' . $variableComponentClassName;
+		$variableComponentClass = '\net\mkharitonov\spectrum\reports\components\code\variables\\' . $variableComponentClassName;
 		$variableComponent = new $variableComponentClass($this->getReport());
 		return $variableComponent->getHtml($variable);
 	}

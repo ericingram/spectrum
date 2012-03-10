@@ -9,23 +9,13 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables;
+namespace net\mkharitonov\spectrum\reports;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class NullVar extends Variable
+class Exception extends \net\mkharitonov\spectrum\Exception
 {
-	protected $type = 'null';
-
-	protected function getHtmlForType($variable)
-	{
-		return null;
-	}
-
-	protected function getHtmlForValue($variable)
-	{
-		return '<span class="value">null</span>';
-	}
+	
 }

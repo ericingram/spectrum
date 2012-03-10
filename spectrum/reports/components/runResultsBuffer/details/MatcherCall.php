@@ -9,7 +9,7 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\runResultsBuffer\details;
+namespace net\mkharitonov\spectrum\reports\components\runResultsBuffer\details;
 use \net\mkharitonov\spectrum\core\asserts\MatcherCallDetailsInterface;
 
 /**

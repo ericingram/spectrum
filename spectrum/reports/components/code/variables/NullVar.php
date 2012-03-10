@@ -9,16 +9,23 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report;
+namespace net\mkharitonov\spectrum\reports\components\code\variables;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-interface ComponentInterface
+class NullVar extends Variable
 {
-	public function __construct(\net\mkharitonov\spectrum\core\plugins\basePlugins\report\Report $report);
-	public function getReport();
-	public function getStyles();
-	public function getScripts();
+	protected $type = 'null';
+
+	protected function getHtmlForType($variable)
+	{
+		return null;
+	}
+
+	protected function getHtmlForValue($variable)
+	{
+		return '<span class="value">null</span>';
+	}
 }

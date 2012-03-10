@@ -9,7 +9,7 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report;
+namespace net\mkharitonov\spectrum\reports;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
@@ -19,7 +19,7 @@ class Component implements ComponentInterface
 {
 	protected $report;
 
-	public function __construct(\net\mkharitonov\spectrum\core\plugins\basePlugins\report\Report $report)
+	public function __construct(\net\mkharitonov\spectrum\reports\ReportsPlugin $report)
 	{
 		$this->report = $report;
 	}

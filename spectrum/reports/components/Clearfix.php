@@ -9,13 +9,13 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report\components;
+namespace net\mkharitonov\spectrum\reports\components;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class Clearfix extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report\Component
+class Clearfix extends \net\mkharitonov\spectrum\reports\Component
 {
 	public function getStyles()
 	{

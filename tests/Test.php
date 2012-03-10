@@ -34,8 +34,6 @@ abstract class Test extends \PHPUnit_Framework_TestCase
 
 		\net\mkharitonov\spectrum\Test::$tmp = null;
 		\net\mkharitonov\spectrum\core\testEnv\PluginStub::reset();
-
-		\net\mkharitonov\spectrum\core\plugins\Manager::unregisterPlugin('report');
 	}
 
 	protected function tearDown()

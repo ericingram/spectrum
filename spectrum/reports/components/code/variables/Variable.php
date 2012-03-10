@@ -9,13 +9,13 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables;
+namespace net\mkharitonov\spectrum\reports\components\code\variables;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-abstract class Variable extends \net\mkharitonov\spectrum\core\plugins\basePlugins\report\Component
+abstract class Variable extends \net\mkharitonov\spectrum\reports\Component
 {
 	protected $type;
 	protected $expandedParentSelector = '.g-runResultsBuffer>.results>.result.expand';
@@ -24,10 +24,10 @@ abstract class Variable extends \net\mkharitonov\spectrum\core\plugins\basePlugi
 
 	protected $codeComponent;
 
-	public function __construct(\net\mkharitonov\spectrum\core\plugins\basePlugins\report\Report $report)
+	public function __construct(\net\mkharitonov\spectrum\reports\ReportsPlugin $report)
 	{
 		parent::__construct($report);
-		$this->codeComponent = new \net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\Code($this->getReport());
+		$this->codeComponent = new \net\mkharitonov\spectrum\reports\components\code\Code($this->getReport());
 	}
 
 	public function getStyles()

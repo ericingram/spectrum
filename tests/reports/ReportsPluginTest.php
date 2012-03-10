@@ -9,8 +9,8 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report;
-require_once dirname(__FILE__) . '/../../../../init.php';
+namespace net\mkharitonov\spectrum\reports;
+require_once dirname(__FILE__) . '/../init.php';
 
 use net\mkharitonov\spectrum\core\Config;
 
@@ -18,7 +18,7 @@ use net\mkharitonov\spectrum\core\Config;
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class ReportTest extends \net\mkharitonov\spectrum\core\plugins\basePlugins\Test
+class ReportsPluginTest extends \net\mkharitonov\spectrum\Test
 {
 	protected function setUp()
 	{
@@ -31,7 +31,7 @@ class ReportTest extends \net\mkharitonov\spectrum\core\plugins\basePlugins\Test
 		Config::setAllowReportSettingsModify(false);
 		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', 'Report settings modify deny', function(){
 			$spec = new \net\mkharitonov\spectrum\core\SpecContainerDescribe();
-			$spec->report->setIndention(false);
+			$spec->reports->setIndention(false);
 		});
 	}
 
@@ -40,7 +40,7 @@ class ReportTest extends \net\mkharitonov\spectrum\core\plugins\basePlugins\Test
 		Config::setAllowReportSettingsModify(false);
 		$this->assertThrowException('\net\mkharitonov\spectrum\core\plugins\Exception', 'Report settings modify deny', function(){
 			$spec = new \net\mkharitonov\spectrum\core\SpecContainerDescribe();
-			$spec->report->setNewline(false);
+			$spec->reports->setNewline(false);
 		});
 	}
 }

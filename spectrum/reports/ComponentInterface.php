@@ -9,13 +9,16 @@
  * with this package in the file LICENSE.txt.
  */
 
-namespace net\mkharitonov\spectrum\core\plugins\basePlugins\report\components\code\variables;
+namespace net\mkharitonov\spectrum\reports;
 
 /**
  * @author Mikhail Kharitonov <mvkharitonov@gmail.com>
  * @link   http://www.mkharitonov.net/spectrum/
  */
-class IntVar extends Variable
+interface ComponentInterface
 {
-	protected $type = 'int';
+	public function __construct(\net\mkharitonov\spectrum\reports\ReportsPlugin $report);
+	public function getReport();
+	public function getStyles();
+	public function getScripts();
 }
